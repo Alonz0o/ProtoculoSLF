@@ -33,6 +33,7 @@
             this.scPrincipal = new System.Windows.Forms.SplitContainer();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tlpContornoAPP.SuspendLayout();
             this.pnlContenedorTodo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scPrincipal)).BeginInit();
@@ -40,22 +41,24 @@
             this.scPrincipal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tlpContornoAPP
             // 
             this.tlpContornoAPP.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
             this.tlpContornoAPP.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.Single;
-            this.tlpContornoAPP.ColumnCount = 1;
-            this.tlpContornoAPP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpContornoAPP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tlpContornoAPP.ColumnCount = 2;
+            this.tlpContornoAPP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 79.96661F));
+            this.tlpContornoAPP.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20.03339F));
+            this.tlpContornoAPP.Controls.Add(this.splitContainer1, 1, 0);
             this.tlpContornoAPP.Controls.Add(this.pnlContenedorTodo, 0, 0);
             this.tlpContornoAPP.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpContornoAPP.Location = new System.Drawing.Point(0, 0);
             this.tlpContornoAPP.Name = "tlpContornoAPP";
             this.tlpContornoAPP.RowCount = 1;
             this.tlpContornoAPP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpContornoAPP.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 531F));
             this.tlpContornoAPP.Size = new System.Drawing.Size(1199, 601);
             this.tlpContornoAPP.TabIndex = 44;
             // 
@@ -65,7 +68,7 @@
             this.pnlContenedorTodo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlContenedorTodo.Location = new System.Drawing.Point(4, 4);
             this.pnlContenedorTodo.Name = "pnlContenedorTodo";
-            this.pnlContenedorTodo.Size = new System.Drawing.Size(1191, 593);
+            this.pnlContenedorTodo.Size = new System.Drawing.Size(950, 593);
             this.pnlContenedorTodo.TabIndex = 0;
             // 
             // scPrincipal
@@ -78,8 +81,8 @@
             // 
             this.scPrincipal.Panel1.Controls.Add(this.gridControl1);
             this.scPrincipal.Panel1MinSize = 50;
-            this.scPrincipal.Size = new System.Drawing.Size(1191, 593);
-            this.scPrincipal.SplitterDistance = 361;
+            this.scPrincipal.Size = new System.Drawing.Size(950, 593);
+            this.scPrincipal.SplitterDistance = 224;
             this.scPrincipal.SplitterIncrement = 20;
             this.scPrincipal.SplitterWidth = 1;
             this.scPrincipal.TabIndex = 5;
@@ -90,7 +93,7 @@
             this.gridControl1.Location = new System.Drawing.Point(0, 0);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(361, 593);
+            this.gridControl1.Size = new System.Drawing.Size(224, 593);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -99,6 +102,18 @@
             // 
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.splitContainer1.Location = new System.Drawing.Point(961, 4);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            this.splitContainer1.Panel1MinSize = 50;
+            this.splitContainer1.Size = new System.Drawing.Size(234, 593);
+            this.splitContainer1.SplitterDistance = 295;
+            this.splitContainer1.SplitterIncrement = 20;
+            this.splitContainer1.TabIndex = 6;
             // 
             // Form1
             // 
@@ -115,6 +130,8 @@
             this.scPrincipal.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -126,6 +143,7 @@
         private System.Windows.Forms.SplitContainer scPrincipal;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
+        private System.Windows.Forms.SplitContainer splitContainer1;
     }
 }
 

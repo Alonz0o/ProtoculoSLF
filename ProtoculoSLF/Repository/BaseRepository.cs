@@ -23,9 +23,11 @@ namespace ProtoculoSLF.Repository
             connectionString = ConfigurationManager.ConnectionStrings["conexionAriel"].ToString();
         }
 
-        internal List<Protocolo> GetPalletsPorIdNT()
+        internal List<Protocolo> GetProtocolos()
         {
-            List<Protocolo> tss = new List<Protocolo>();
+            List<Protocolo> ps = new List<Protocolo>();
+            List<ProtocoloItem> pis = new List<ProtocoloItem>();
+
             using (var conexion = new MySqlConnection(connectionString))
             using (var command = new MySqlCommand())
             {
@@ -38,19 +40,36 @@ namespace ProtoculoSLF.Repository
                 {
                     while (reader.Read())
                     {
-                        Protocolo s = new Protocolo
+                        Protocolo p = new Protocolo
                         {
                             Id = reader[0] != DBNull.Value ? Convert.ToInt32(reader.GetDouble(0)) : 0,
                             FormatoProtocolo = reader[1] != DBNull.Value ? reader.GetInt32(1) : 0,
                             Fecha = reader[2] != DBNull.Value ? reader.GetDateTime(2) : new DateTime(1993, 1, 20),
                             Descripcion = reader[3] != DBNull.Value ? reader.GetString(3) : "",
                         };
-                        tss.Add(s);
+                        ps.Add(p);
                     }
                 }
 
+                command.CommandText = @"SELECT pi.iditem,pi.controles,pi.unidad,pi.orden,pi.certificado,pi.idformatoprotocoloa
+                                        FROM formatoprotocoloa_item pi;";
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ProtocoloItem pi = new ProtocoloItem
+                        {
+                            Id = reader[0] != DBNull.Value ? Convert.ToInt32(reader.GetDouble(0)) : 0,
+                            Nombre = reader[1] != DBNull.Value ? reader.GetString(1) : "",
+                            Medida = reader[2] != DBNull.Value ? reader.GetString(2) : "",
+                            EsCertificado = reader[3] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(3)) : false,
+                            IdProtocolo = reader[0] != DBNull.Value ? Convert.ToInt32(reader.GetDouble(0)) : 0,
+                        };
+                        pis.Add(pi);
+                    }
+                }
             }
-            return tss;
+            return ps;
         }
     }
 }
