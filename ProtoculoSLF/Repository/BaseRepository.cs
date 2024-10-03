@@ -59,11 +59,12 @@ namespace ProtoculoSLF.Repository
                     {
                         ProtocoloItem pi = new ProtocoloItem
                         {
-                            Id = reader[0] != DBNull.Value ? Convert.ToInt32(reader.GetDouble(0)) : 0,
+                            Id = reader[0] != DBNull.Value ? reader.GetInt32(0) : 0,
                             Nombre = reader[1] != DBNull.Value ? reader.GetString(1) : "",
                             Medida = reader[2] != DBNull.Value ? reader.GetString(2) : "",
-                            EsCertificado = reader[3] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(3)) : false,
-                            IdProtocolo = reader[0] != DBNull.Value ? Convert.ToInt32(reader.GetDouble(0)) : 0,
+                            Orden = reader[3] != DBNull.Value ? reader.GetInt32(3) : 0,
+                            EsCertificado = reader[4] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(4)) : false,
+                            IdProtocolo = reader[5] != DBNull.Value ? reader.GetInt32(5) : 0,
                         };
                         pis.Add(pi);
                     }
