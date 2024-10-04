@@ -11,6 +11,7 @@ using System.Security.Cryptography;
 using static System.Windows.Forms.MonthCalendar;
 using System.Windows.Forms;
 using ProtoculoSLF.Model;
+using DevExpress.DataProcessing.InMemoryDataProcessor;
 
 namespace ProtoculoSLF.Repository
 {
@@ -23,7 +24,7 @@ namespace ProtoculoSLF.Repository
             connectionString = ConfigurationManager.ConnectionStrings["conexionAriel"].ToString();
         }
 
-        internal List<Protocolo> GetProtocolos()
+        internal void GetProtocolos()
         {
             List<Protocolo> ps = new List<Protocolo>();
             List<ProtocoloItem> pis = new List<ProtocoloItem>();
@@ -51,8 +52,22 @@ namespace ProtoculoSLF.Repository
                     }
                 }
 
+                Form1.instancia.protocolos = ps;
+            }
+        }
+
+        internal List<ProtocoloItem> GetProtocolosItems(object idProtocolo)
+        {
+            List<ProtocoloItem> pis = new List<ProtocoloItem>();
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
                 command.CommandText = @"SELECT pi.iditem,pi.controles,pi.unidad,pi.orden,pi.certificado,pi.idformatoprotocoloa
-                                        FROM formatoprotocoloa_item pi;";
+                                        FROM formatoprotocoloa_item pi
+                                        WHERE pi.idformatoprotocoloa = @pIdProtocolo;";
+                command.Parameters.Add("@pIdProtocolo", MySqlDbType.Int32).Value = idProtocolo;
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -70,7 +85,39 @@ namespace ProtoculoSLF.Repository
                     }
                 }
             }
-            return ps;
+            return pis;
         }
+
+        internal List<NT> GetNTs(object idCodigo)
+        {
+            List<NT> nts = new List<NT>();
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT id,nt,o_p,cliente,pallets,creado,cant_bobinas FROM nt WHERE codigo=@pIdCodigo;";
+                command.Parameters.Add("@pIdCodigo", MySqlDbType.Int32).Value = idCodigo;
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        NT n = new NT
+                        {
+                            Id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+                            NumNT = reader.IsDBNull(1) ? 0 : reader.GetInt32(1),
+                            OP = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                            Cliente = reader.IsDBNull(3) ? "" : reader.GetString(3),
+                            NumPallet = reader.IsDBNull(4) ? 0 : reader.GetInt32(4),
+                            Creado = reader.IsDBNull(5) ? new DateTime(1993,01,20) : reader.GetDateTime(5),
+                            CantidadBobinas = reader.IsDBNull(6) ? 0 : reader.GetInt32(6),
+                        };
+                        nts.Add(n);
+                    }
+                }
+            }
+            return nts;
+        }
+
     }
 }
