@@ -8,5 +8,9 @@
         public int Orden { get; set; }
         public bool EsCertificado { get; set; }
         public int IdProtocolo { get; set; }
+        public override string ToString()
+        {
+            return Nombre;
+        }
     }
 }

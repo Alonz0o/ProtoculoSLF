@@ -15,5 +15,7 @@ namespace ProtoculoSLF.Model
         public int NumPallet { get; set; }
         public int CantidadBobinas { get; set; }
         public DateTime Creado { get; set; }
+        public int IdProtocolo { get; set; }
+
     }
 }
