@@ -236,7 +236,16 @@ namespace ProtoculoSLF.Repository
                     }
                 }
             }
-            return pis;
+
+            return pis.GroupBy(obj => obj.Nombre)
+                .Select(grupo => new ProtocoloItem
+                {
+                    Id = grupo.FirstOrDefault().Id,
+                    Nombre = grupo.Key,
+                    Orden = grupo.FirstOrDefault().Orden,
+                    EsCertificado = grupo.FirstOrDefault().EsCertificado,
+                    IdProtocolo = grupo.FirstOrDefault().IdProtocolo,
+                }).ToList(); ;
         }
 
         internal List<NT> GetNTs(object idCodigo)

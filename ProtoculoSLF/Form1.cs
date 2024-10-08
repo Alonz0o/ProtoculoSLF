@@ -18,6 +18,8 @@ using ProtoculoSLF.Model;
 using DevExpress.Utils;
 using DevExpress.ClipboardSource.SpreadsheetML;
 using DevExpress.Utils.Extensions;
+using DevExpress.XtraPrinting.Preview;
+using ProtoculoSLF.Report;
 
 namespace ProtoculoSLF
 {
@@ -279,6 +281,11 @@ namespace ProtoculoSLF
             protocoItems = br.GetProtocolosItems(idProtocoloSeleccionado);
             gcItemsProtocolo.DataSource = protocoItems;
             protocoloEnsayos = br.GetEnsayosItems(idProtocoloSeleccionado);
+            if (protocoloEnsayos.Count != 0) {
+                xrProtocoloCertificado protocolo = new xrProtocoloCertificado();
+                dvProtocolos.DocumentSource = protocolo;
+                dvProtocolos.InitiateDocumentCreation();
+            }
             gcFormatoValores.DataSource = protocoloEnsayos;
 
         }

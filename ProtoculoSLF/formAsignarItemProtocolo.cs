@@ -30,6 +30,17 @@ namespace ProtoculoSLF
         {
             GenerarTablaItems();
             GetItems();
+            List<Simbolo> simbolos = new List<Simbolo> { 
+                new Simbolo{ Caracter ="=",Significado="Igual a" },
+                new Simbolo{ Caracter ="≠",Significado="Diferente de" },
+                new Simbolo{ Caracter ="<",Significado="Menor que" },
+                new Simbolo{ Caracter =">",Significado="Mayor que" },
+                new Simbolo{ Caracter ="≤",Significado="Menor o igual a" },
+                new Simbolo{ Caracter ="≥",Significado="Mayor o igual a" },
+                new Simbolo{ Caracter ="±",Significado="Más o menos" },
+                new Simbolo{ Caracter ="∓",Significado="Menos o más" },
+            };
+            lueItemSimbolos.Properties.DataSource = simbolos;
         }
 
         private void GenerarTablaItems()
