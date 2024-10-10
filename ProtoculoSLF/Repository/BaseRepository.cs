@@ -14,6 +14,7 @@ using ProtoculoSLF.Model;
 using DevExpress.DataProcessing.InMemoryDataProcessor;
 using DevExpress.Pdf.Native.BouncyCastle.Utilities.Collections;
 using DevExpress.XtraBars.Customization;
+using DevExpress.XtraRichEdit.Import.Html;
 
 namespace ProtoculoSLF.Repository
 {
@@ -117,13 +118,17 @@ namespace ProtoculoSLF.Repository
                         command.Transaction = transaction;
                         try
                         {
-                            command.CommandText = @"INSERT INTO formatoprotocoloa_item (controles,unidad,orden,usuario,certificado) 
-                                                                                VALUES (@pNombre,@pMedida,@pOrden,@pUsuario,@pEsCertificado)";
+                            command.CommandText = @"INSERT INTO formatoprotocoloa_item (controles,unidad,orden,usuario,certificado,excedente_min,excedente_max,especificacion,caracter) 
+                                                                                VALUES (@pNombre,@pMedida,@pOrden,@pUsuario,@pEsCertificado,@pExcedente_min,@pEspecificacion,@pExcedente_max,@pCaracter)";
                             command.Parameters.Add("@pNombre", MySqlDbType.String).Value = pi.Nombre;
                             command.Parameters.Add("@pMedida", MySqlDbType.String).Value = pi.Medida;
                             command.Parameters.Add("@pOrden", MySqlDbType.Int32).Value = pi.Orden;
                             command.Parameters.Add("@pUsuario", MySqlDbType.String).Value = "ARIEL ALON";
                             command.Parameters.Add("@pEsCertificado", MySqlDbType.Int32).Value = pi.EsCertificado;
+                            command.Parameters.Add("@pExcedente_min", MySqlDbType.Int32).Value = pi.Minimo;
+                            command.Parameters.Add("@pEspecificacion", MySqlDbType.Int32).Value = pi.Medio;
+                            command.Parameters.Add("@pExcedente_max", MySqlDbType.Int32).Value = pi.Maximo;
+                            command.Parameters.Add("@pCaracter", MySqlDbType.String).Value = pi.Simbolo;
                             if (command.ExecuteNonQuery() != 1)
                             {
                                 throw new Exception("Error al insertar itemProtocolo");
@@ -185,7 +190,7 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fi.iditem,fi.controles,fi.unidad,fi.orden,fi.certificado
+                command.CommandText = @"SELECT fi.iditem,fi.controles,fi.unidad,fi.orden,fi.certificado,fi.especificacion
                                         FROM formatoprotocoloa_item fi;";
                 using (var reader = command.ExecuteReader())
                 {
@@ -198,6 +203,7 @@ namespace ProtoculoSLF.Repository
                             Medida = reader[2] != DBNull.Value ? reader.GetString(2) : "",
                             Orden = reader[3] != DBNull.Value ? reader.GetInt32(3) : 0,
                             EsCertificado = reader[4] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(4)) : false,
+                            Medio = reader[5] != DBNull.Value ? reader.GetInt32(5) : 0,
                         };
                         pis.Add(pi);
                     }
@@ -214,7 +220,7 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fi.iditem,fi.controles,fi.unidad,fi.orden,fi.certificado,fpi.id_protocolo
+                command.CommandText = @"SELECT fi.iditem,fi.controles,fi.unidad,fi.orden,fi.certificado,fi.excedente_min,fi.especificacion,fi.excedente_max,fi.caracter,fpi.id_protocolo
                                         FROM formatoprotocoloa_protocolo_item fpi
                                         JOIN formatoprotocoloa_item fi on fpi.id_item = fi.iditem
                                         WHERE fpi.id_protocolo = @pIdProtocolo;";
@@ -230,7 +236,11 @@ namespace ProtoculoSLF.Repository
                             Medida = reader[2] != DBNull.Value ? reader.GetString(2) : "",
                             Orden = reader[3] != DBNull.Value ? reader.GetInt32(3) : 0,
                             EsCertificado = reader[4] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(4)) : false,
-                            IdProtocolo = reader[5] != DBNull.Value ? reader.GetInt32(5) : 0,
+                            Minimo = reader[5] != DBNull.Value ? reader.GetInt32(5) : 0,
+                            Medio = reader[6] != DBNull.Value ? reader.GetInt32(6) : 0,
+                            Maximo = reader[7] != DBNull.Value ? reader.GetInt32(7) : 0,
+                            Simbolo = reader[8] != DBNull.Value ? reader.GetString(8) : "",
+                            IdProtocolo = reader[9] != DBNull.Value ? reader.GetInt32(9) : 0,
                         };
                         pis.Add(pi);
                     }
@@ -242,7 +252,12 @@ namespace ProtoculoSLF.Repository
                 {
                     Id = grupo.FirstOrDefault().Id,
                     Nombre = grupo.Key,
+                    Medida = grupo.FirstOrDefault().Medida,
+                    Minimo = grupo.FirstOrDefault().Minimo,
+                    Medio = grupo.FirstOrDefault().Medio,
+                    Maximo = grupo.FirstOrDefault().Maximo,
                     Orden = grupo.FirstOrDefault().Orden,
+                    Simbolo = grupo.FirstOrDefault().Simbolo,
                     EsCertificado = grupo.FirstOrDefault().EsCertificado,
                     IdProtocolo = grupo.FirstOrDefault().IdProtocolo,
                 }).ToList(); ;
@@ -288,7 +303,7 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fe.id,fi.controles,fe.valor_ensayo,fe.correcto
+                command.CommandText = @"SELECT fe.id,fi.controles,fe.valor_ensayo,fe.correcto,fi.especificacion,fi.unidad,fi.caracter
                                         FROM formatoprotocoloa_ensayo fe
                                         JOIN formatoprotocoloa_protocolo_item fpi on fe.id_protocolo_item = fpi.id
                                         JOIN formatoprotocoloa_item fi on fpi.id_item = fi.iditem
@@ -304,6 +319,9 @@ namespace ProtoculoSLF.Repository
                             Nombre = reader[1] != DBNull.Value ? reader.GetString(1) : "",
                             ValorEnsayo = reader[2] != DBNull.Value ? reader.GetDouble(2) : 0.0,
                             Correcto = reader[3] != DBNull.Value ? reader.GetInt32(3) : 0,
+                            Especificacion = reader[4] != DBNull.Value ? reader.GetInt32(4) : 0,
+                            Unidad = reader[5] != DBNull.Value ? reader.GetString(5) : "",
+                            Caracter = reader[6] != DBNull.Value ? reader.GetString(6) : "",
                         };
                         pes.Add(pe);
                     }
@@ -316,7 +334,10 @@ namespace ProtoculoSLF.Repository
                     Id = grupo.FirstOrDefault().Id,
                     Nombre = grupo.Key,
                     ValorEnsayo = Math.Round(grupo.Average(obj => obj.ValorEnsayo), 2),
-                    Correcto = grupo.FirstOrDefault().Correcto
+                    Correcto = grupo.FirstOrDefault().Correcto,
+                    Especificacion = grupo.FirstOrDefault().Especificacion,
+                    Unidad = grupo.FirstOrDefault().Unidad,
+                    Caracter = grupo.FirstOrDefault().Caracter
                 }).ToList(); ;
         }
         internal List<Protocolo> GetFormatosProtocolos()
@@ -380,6 +401,21 @@ namespace ProtoculoSLF.Repository
                 }
             }
             return res;
+        }
+
+        internal bool GetNombreItemDuplicado(string nombre)
+        {
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT iditem FROM formatoprotocoloa_item where controles = @pNombre;";
+                command.Parameters.Add("@pNombre", MySqlDbType.String).Value = nombre;
+                var pp = command.ExecuteScalar();
+                if (pp == null) return true;
+                else return false;
+            }
         }
     }
 }

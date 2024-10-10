@@ -7,9 +7,9 @@ using System.Drawing;
 
 namespace ProtoculoSLF.Report
 {
-    public partial class xrProtocoloCertificado : XtraReport
+    public partial class xrCertificadoReal : DevExpress.XtraReports.UI.XtraReport
     {
-        public xrProtocoloCertificado()
+        public xrCertificadoReal()
         {
             InitializeComponent();
             if (Form1.instancia.protocoloEnsayos.Count != 0)
@@ -20,7 +20,6 @@ namespace ProtoculoSLF.Report
                 }
             }
         }
-
         private void AgregarFilaProceso(ProtocoloEnsayo datosCodigoExt)
         {
             XRTableRow row = new XRTableRow
@@ -33,34 +32,33 @@ namespace ProtoculoSLF.Report
             {
                 Text = datosCodigoExt.Nombre,
                 Dpi = 100F,
-                Weight = 1.457650306576588D
+                Weight = 1.3333331665706281D
             };
             row.Cells.Add(cell1);
 
             XRTableCell cell2 = new XRTableCell
             {
-                Text = "datosCodigoExt.",
+                Text = datosCodigoExt.Especificacion + datosCodigoExt.Caracter,
                 Dpi = 100F,
-                Weight = 0.80191260165855527D
+                Weight = 0.93989048292911881D
             };
             row.Cells.Add(cell2);
 
             XRTableCell cell3 = new XRTableCell
             {
-                Text = "datosCodigoEx()",
-                Dpi = 100F,            
-                Weight = 1.0478141409451847D
+                Text = datosCodigoExt.ValorEnsayo + "",
+                Dpi = 100F,
+                Weight = 0.843531203308789D
             };
             row.Cells.Add(cell3);
 
             XRTableCell cell4 = new XRTableCell
             {
-                Text = datosCodigoExt.ValorEnsayo+"",
+                Text = datosCodigoExt.Unidad,
                 Dpi = 100F,
-                Weight = 0.69262295081967218D
+                Weight = 0.44608638746173584D
             };
             row.Cells.Add(cell4);
-
             xrTablaEnsayos.Rows.Add(row);
         }
     }

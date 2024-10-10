@@ -40,7 +40,14 @@ namespace ProtoculoSLF
                 new Simbolo{ Caracter ="±",Significado="Más o menos" },
                 new Simbolo{ Caracter ="∓",Significado="Menos o más" },
             };
+            List<Unidad> unidades = new List<Unidad> {
+                new Unidad{ Nombre="Milimetro", Descripcion="Milimetro" },
+                new Unidad{ Nombre="Kg/pulgada", Descripcion="Diferente de" },
+                new Unidad{ Nombre="Micron", Descripcion="Micron" },
+            };
             lueItemSimbolos.Properties.DataSource = simbolos;
+            lueItemUnidad.Properties.DataSource = unidades;
+
         }
 
         private void GenerarTablaItems()
@@ -100,15 +107,26 @@ namespace ProtoculoSLF
         public void RefrescarDatos()
         {
             gvItems.RefreshData();
-            groupControl1.Visible = true;
+            groupControl2.Visible = true;
         }
 
         private void btnAgregarItem_Click(object sender, EventArgs e)
         {
             ProtocoloItem pi = new ProtocoloItem();
-            pi.Nombre = tbNombre.Text;
-            pi.Medida = tbMedida.Text;
-            pi.Orden = Convert.ToInt32(tbOrden.Text);
+            pi.Nombre = tbNombre.Texts;
+
+            if (!Form1.instancia.br.GetNombreItemDuplicado(pi.Nombre.Trim().ToLower())) return;
+            if (!cbCaracter.Checked)
+            {
+                var lueCaracterA = lueItemSimbolos.GetSelectedDataRow() as Simbolo;
+                var lueUnidadA = lueItemUnidad.GetSelectedDataRow() as Unidad;
+                pi.Simbolo = lueCaracterA.Caracter;
+                pi.Medida = lueUnidadA.Nombre;
+                pi.Minimo = Convert.ToInt32(nudMinimo.Value);
+                pi.Medio = Convert.ToInt32(nudMedio.Value);
+                pi.Maximo = Convert.ToInt32(nudMaximo.Value);
+            }
+            pi.Orden = Convert.ToInt32(nudOrden.Value);
             pi.EsCertificado = cbCertificado.Checked;
             if (Form1.instancia.br.AgregarItemProtocolo(pi)) {
                 GetItems();
@@ -132,7 +150,7 @@ namespace ProtoculoSLF
 
         private void btnCancelarCambios_Click(object sender, EventArgs e)
         {
-            groupControl1.Visible = false;
+            groupControl2.Visible = false;
             Form1.instancia.protocoItems.RemoveAll(objB => itemsAConfirmar.Any(objA => objA.Id == objB.Id));
             Form1.instancia.RefrescarDatosGvItemsProtocolo();
             GetItems();
@@ -151,6 +169,30 @@ namespace ProtoculoSLF
             sqlInsertarProtocoloItem = sqlInsertarProtocoloItem + sqlInsertarProtocoloItem2;
             if (Form1.instancia.br.InsertAProtocoloItem(sqlInsertarProtocoloItem)) { 
             
+            }
+        }
+
+        private void btnCerrarMin_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void cbCaracter_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbCaracter.Checked)
+            {
+                lueItemSimbolos.Enabled = false;
+                lueItemUnidad.Enabled = false;
+                nudMinimo.Enabled = false;
+                nudMedio.Enabled = false;
+                nudMaximo.Enabled = false;
+            }
+            else {
+                lueItemSimbolos.Enabled = true;
+                lueItemUnidad.Enabled = true;
+                nudMinimo.Enabled = true;
+                nudMedio.Enabled = true;
+                nudMaximo.Enabled = true;
             }
         }
     }

@@ -20,6 +20,9 @@ using DevExpress.ClipboardSource.SpreadsheetML;
 using DevExpress.Utils.Extensions;
 using DevExpress.XtraPrinting.Preview;
 using ProtoculoSLF.Report;
+using System.IO;
+using IniParser.Model;
+using IniParser;
 
 namespace ProtoculoSLF
 {
@@ -40,12 +43,14 @@ namespace ProtoculoSLF
             gvProtocolos.BestFitColumns();
             gvItemsProtocolo.BestFitColumns();
             gvNts.BestFitColumns();
-         
+
         }
 
         public Form1()
         {
             InitializeComponent();
+            if (!File.Exists(archivoINI)) File.Create(archivoINI).Close();
+            LeerConfigEtiquetadora();
             instancia = this;
             br.GetProtocolos();
         }
@@ -135,7 +140,7 @@ namespace ProtoculoSLF
             lblNtNum.Text = string.Empty;
             lblProtocoloId.Text = string.Empty;
             lblPalletNum.Text = string.Empty;
-            groupControl3.Text = "Protocolo ITEMS";
+            //groupControl3.Text = "Protocolo ITEMS";
         }
         private void GenerarTablaProtocolosItem()
         {
@@ -159,13 +164,34 @@ namespace ProtoculoSLF
             cMedida.Visible = true;
             cMedida.OptionsColumn.AllowEdit = false;
 
+            GridColumn cMinimo = new GridColumn();
+            cMinimo.FieldName = "Minimo";
+            cMinimo.Caption = "Min";
+            cMinimo.UnboundDataType = typeof(int);
+            cMinimo.Visible = true;
+            cMinimo.OptionsColumn.AllowEdit = false;
+
+            GridColumn cMedio = new GridColumn();
+            cMedio.FieldName = "Medio";
+            cMedio.Caption = "Med";
+            cMedio.UnboundDataType = typeof(int);
+            cMedio.Visible = true;
+            cMedio.OptionsColumn.AllowEdit = false;
+
+            GridColumn cMaximo = new GridColumn();
+            cMaximo.FieldName = "Maximo";
+            cMaximo.Caption = "Max";
+            cMaximo.UnboundDataType = typeof(int);
+            cMaximo.Visible = true;
+            cMaximo.OptionsColumn.AllowEdit = false;
+
             GridColumn cCheck = new GridColumn();
             cCheck.FieldName = "EsCertificado";
             cCheck.Caption = " ";
             cCheck.Visible = true;
             cCheck.UnboundType = UnboundColumnType.Boolean;
 
-            gvItemsProtocolo.Columns.AddRange(new GridColumn[] { cId, cNombre, cMedida, cCheck });
+            gvItemsProtocolo.Columns.AddRange(new GridColumn[] { cId, cNombre, cMedida,cMinimo,cMedio,cMaximo, cCheck });
             gcItemsProtocolo.DataSource = protocoItems;
         }
         private void GenerarTablaNts()
@@ -219,7 +245,7 @@ namespace ProtoculoSLF
             cFecha.OptionsColumn.AllowEdit = false;
 
             gvNts.Columns.AddRange(new GridColumn[] { cId, cNT, cOP, cPallet, cIdProtocolo, cCantBobina, cFecha });
-            gcNts.DataSource = protocoItems;
+            gcNts.DataSource = nts;
 
             GridColumnSortInfo[] sortInfo = {
                 new GridColumnSortInfo(gvNts.Columns["OP"], ColumnSortOrder.Ascending),
@@ -250,13 +276,20 @@ namespace ProtoculoSLF
             cValor.OptionsColumn.AllowEdit = false;
 
             GridColumn cCorrecto = new GridColumn();
-            cCorrecto.FieldName = "NumPallet";
-            cCorrecto.Caption = "Pallet N°";
+            cCorrecto.FieldName = "Correcto";
+            cCorrecto.Caption = "Val";
             cCorrecto.UnboundDataType = typeof(string);
             cCorrecto.Visible = true;
             cCorrecto.OptionsColumn.AllowEdit = false;
 
-            gvFormatoValores.Columns.AddRange(new GridColumn[] { cId, cNombre, cValor, cCorrecto });
+            GridColumn cEspecificacion = new GridColumn();
+            cEspecificacion.FieldName = "Especificacion";
+            cEspecificacion.Caption = "Esp";
+            cEspecificacion.UnboundDataType = typeof(int);
+            cEspecificacion.Visible = true;
+            cEspecificacion.OptionsColumn.AllowEdit = false;
+
+            gvFormatoValores.Columns.AddRange(new GridColumn[] { cId, cNombre, cValor, cCorrecto, cEspecificacion });
             gcFormatoValores.DataSource = protocoloEnsayos;
 
             //GridColumnSortInfo[] sortInfo = {
@@ -274,19 +307,14 @@ namespace ProtoculoSLF
             var data = (NT)e.Data.GetData(typeof(NT));
             idProtocoloSeleccionado = data.IdProtocolo;
             idNtSeleccionado = data.NumNT;
-            groupControl3.Text = "Protocolo N° " + idProtocoloSeleccionado + " | ITEMS";
+            //groupControl3.Text = "Protocolo N° " + idProtocoloSeleccionado + " | ITEMS";
             lblNtNum.Text = "NT N° " + data.NumNT;
             lblProtocoloId.Text = "Protocolo N° " + data.IdProtocolo;
             lblPalletNum.Text = "Pallet N° " + data.NumPallet;
             protocoItems = br.GetProtocolosItems(idProtocoloSeleccionado);
             gcItemsProtocolo.DataSource = protocoItems;
-            protocoloEnsayos = br.GetEnsayosItems(idProtocoloSeleccionado);
-            if (protocoloEnsayos.Count != 0) {
-                xrProtocoloCertificado protocolo = new xrProtocoloCertificado();
-                dvProtocolos.DocumentSource = protocolo;
-                dvProtocolos.InitiateDocumentCreation();
-            }
-            gcFormatoValores.DataSource = protocoloEnsayos;
+            GetEnsayosRealizados();
+
 
         }
 
@@ -335,9 +363,9 @@ namespace ProtoculoSLF
         private void btnAsignarItem_Click(object sender, EventArgs e)
         {
             formAsignarItemProtocolo form = new formAsignarItemProtocolo();
-            form.Size = groupControl3.Size;
-            Point locationOnScreen = groupControl3.PointToScreen(Point.Empty);
-            form.Location = new Point(locationOnScreen.X - groupControl3.Size.Width - 8, locationOnScreen.Y);
+            form.Size = gcFormatoItems.Size;
+            Point locationOnScreen = gcFormatoItems.PointToScreen(Point.Empty);
+            form.Location = new Point(locationOnScreen.X - gcFormatoItems.Size.Width - 8, locationOnScreen.Y);
             form.Show();
         }
 
@@ -398,11 +426,95 @@ namespace ProtoculoSLF
 
         private void btnAgregarEnsayoValor_Click(object sender, EventArgs e)
         {
-            var valorEnsayo = Convert.ToDouble(tbValorEnsayo.Text);
+            var valorEnsayo = Convert.ToDouble(tbValorEnsayo.Texts);
             var lueItemA = lueItemEnsayos.GetSelectedDataRow() as ProtocoloItem;
 
-            br.InsertEnsayo(idNtSeleccionado, idProtocoloSeleccionado, lueItemA.Id, valorEnsayo);
+            if(br.InsertEnsayo(idNtSeleccionado, idProtocoloSeleccionado, lueItemA.Id, valorEnsayo)){
+                LimpiarFormularioEnsayo();
+                gcAgregarEnsayo.Visible=false;              
+                GetEnsayosRealizados();
+            }
             var pp = "";
+        }
+
+        private void GetEnsayosRealizados()
+        {
+            protocoloEnsayos = br.GetEnsayosItems(idProtocoloSeleccionado);
+            if (protocoloEnsayos.Count != 0)
+            {
+                xrCertificadoReal protocolo = new xrCertificadoReal();
+                dvProtocolos.DocumentSource = protocolo;
+                dvProtocolos.InitiateDocumentCreation();
+            }
+            gcFormatoValores.DataSource = protocoloEnsayos;
+        }
+
+        private void LimpiarFormularioEnsayo()
+        {
+            tbValorEnsayo.Texts = string.Empty;
+            cbCorrecto.Checked = false;
+        }
+
+        string archivoINI = Directory.GetCurrentDirectory() + @"\config.ini";
+        private void LeerConfigEtiquetadora()
+        {
+            var splitter01 = "";
+            var splitter02 = "";
+
+            var parser = new FileIniDataParser();
+            IniData data = parser.ReadFile(archivoINI);
+            splitter01 = data["splitter01"]["FinRecorrido"];
+            splitter02 = data["splitter02"]["FinRecorrido"];
+            if (splitter01 != null) splitter1.SplitPosition = Convert.ToInt32(splitter02);
+            if (splitter02 != null) splitter2.SplitPosition = Convert.ToInt32(splitter02);
+        }
+
+        private void GuardarPosicionSplitter(Splitter splitter, string seccion)
+        {
+            var parser = new FileIniDataParser();
+            IniData data = parser.ReadFile(archivoINI);
+            data[seccion]["FinRecorrido"] = splitter.SplitPosition.ToString();
+            parser.WriteFile(archivoINI, data);
+        }
+
+        private void splitter1_MouseUp(object sender, MouseEventArgs e)
+        {
+            GuardarPosicionSplitter(splitter1, "splitter01");
+        }
+
+        private void splitter2_MouseUp(object sender, MouseEventArgs e)
+        {
+            GuardarPosicionSplitter(splitter2, "splitter02");
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnGenerarCertificado_Click(object sender, EventArgs e)
+        {
+            dvProtocolos.DocumentSource = null;
+            xrCertificadoReal certificado = new xrCertificadoReal();
+            dvProtocolos.DocumentSource = certificado;
+            dvProtocolos.InitiateDocumentCreation();
+        }
+
+        private void lueItemEnsayos_EditValueChanged(object sender, EventArgs e)
+        {
+            var lueNombreA = lueItemEnsayos.GetSelectedDataRow() as ProtocoloItem;
+
+            if (lueNombreA!=null) {
+                if (lueNombreA.Simbolo == "")
+                {
+                    gcValorItem.Visible = false;
+                    gcValidarValor.Visible = true;
+                }
+                else { 
+                    gcValorItem.Visible = true;
+                    gcValidarValor.Visible = false;
+                }
+            }
         }
     }
 }

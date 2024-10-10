@@ -12,6 +12,10 @@ namespace ProtoculoSLF.Model
         public double ValorEnsayo { get; set; }
         public string Nombre { get; set; }
         public int Correcto { get; set; }
+        public int Especificacion { get; set; }
+        public string Unidad { get; set; }
+        public string Caracter { get; set; }
+
 
     }
 }
