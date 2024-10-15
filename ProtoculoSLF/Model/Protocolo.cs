@@ -8,6 +8,7 @@ namespace ProtoculoSLF.Model
         public int FormatoProtocolo { get; set; }
         public DateTime Fecha { get; set; }
         public string Descripcion { get; set; }
+        public string CodigoCliente { get; set; }
         public override string ToString()
         {
             return FormatoProtocolo.ToString();

@@ -1,4 +1,5 @@
 ﻿using DevExpress.Data;
+using DevExpress.XtraGauges.Core.Customization;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using ProtoculoSLF.Model;
@@ -39,11 +40,14 @@ namespace ProtoculoSLF
                 new Simbolo{ Caracter ="≥",Significado="Mayor o igual a" },
                 new Simbolo{ Caracter ="±",Significado="Más o menos" },
                 new Simbolo{ Caracter ="∓",Significado="Menos o más" },
+                new Simbolo{ Caracter ="-",Significado="Entre A y B" },
+
             };
             List<Unidad> unidades = new List<Unidad> {
                 new Unidad{ Nombre="Milimetro", Descripcion="Milimetro" },
                 new Unidad{ Nombre="Kg/pulgada", Descripcion="Diferente de" },
                 new Unidad{ Nombre="Micron", Descripcion="Micron" },
+                new Unidad{ Nombre="NA", Descripcion="No asigar" },
             };
             lueItemSimbolos.Properties.DataSource = simbolos;
             lueItemUnidad.Properties.DataSource = unidades;
@@ -72,13 +76,21 @@ namespace ProtoculoSLF
             cMedida.Visible = true;
             cMedida.OptionsColumn.AllowEdit = false;
 
-            GridColumn cCheck = new GridColumn();
-            cCheck.FieldName = "EsCertificado";
-            cCheck.Caption = " ";
-            cCheck.Visible = true;
-            cCheck.UnboundType = UnboundColumnType.Boolean;
+            GridColumn cCertifica = new GridColumn();
+            cCertifica.FieldName = "EsCertificadoSiNo";
+            cCertifica.Caption = "Certifica";
+            cCertifica.Visible = true;
+            cCertifica.UnboundDataType = typeof(string);
+            cCertifica.OptionsColumn.AllowEdit = false;
 
-            gvItems.Columns.AddRange(new GridColumn[] { cId, cNombre, cMedida, cCheck });
+            GridColumn cEspecificacion = new GridColumn();
+            cEspecificacion.FieldName = "EspecificacionDato";
+            cEspecificacion.Caption = "Especificación";
+            cEspecificacion.Visible = true;
+            cEspecificacion.UnboundDataType = typeof(string);
+            cEspecificacion.OptionsColumn.AllowEdit = false;
+
+            gvItems.Columns.AddRange(new GridColumn[] { cId, cNombre, cMedida, cCertifica, cEspecificacion });
             gcItems.DataSource = items;
         }
 
@@ -122,11 +134,18 @@ namespace ProtoculoSLF
                 var lueUnidadA = lueItemUnidad.GetSelectedDataRow() as Unidad;
                 pi.Simbolo = lueCaracterA.Caracter;
                 pi.Medida = lueUnidadA.Nombre;
-                pi.Minimo = Convert.ToInt32(nudMinimo.Value);
-                pi.Medio = Convert.ToInt32(nudMedio.Value);
-                pi.Maximo = Convert.ToInt32(nudMaximo.Value);
+                if (!string.IsNullOrEmpty(tbEsp02.Texts)) {
+                    pi.EspecificacionMin = Convert.ToDouble(tbEsp01.Texts);
+                    pi.EspecificacionMax = Convert.ToDouble(tbEsp02.Texts);
+                }
+                else pi.EspecificacionMax = Convert.ToDouble(tbEsp01.Texts);
+
+                if (!string.IsNullOrEmpty(tbEspecificacion.Texts)) {
+                    pi.Especificacion = Convert.ToDouble(tbEspecificacion.Texts);
+                }
             }
-            pi.Orden = Convert.ToInt32(nudOrden.Value);
+            else pi.Simbolo = "N";
+            //pi.Orden = Convert.ToInt32(tbOrden.Texts);
             pi.EsCertificado = cbCertificado.Checked;
             if (Form1.instancia.br.AgregarItemProtocolo(pi)) {
                 GetItems();
@@ -145,6 +164,7 @@ namespace ProtoculoSLF
 
             items = itemsDiferentes;
             gcItems.DataSource = items;
+            gvItems.BestFitColumns();
 
         }
 
@@ -158,17 +178,20 @@ namespace ProtoculoSLF
 
         private void btnConfirmarCambios_Click(object sender, EventArgs e)
         {
-            string sqlInsertarProtocoloItem = "INSERT INTO formatoprotocoloa_protocolo_item(id_protocolo,id_item) VALUES ";
+            int ultimaPosicion = Form1.instancia.br.GetUltimaPosicionProtocoloItem(Form1.instancia.idProtocoloSeleccionado)+1;
+            string sqlInsertarProtocoloItem = "INSERT INTO formatoprotocoloa_protocolo_item(id_protocolo,id_item,orden) VALUES ";
             string sqlInsertarProtocoloItem2 = "";
 
             foreach (var item in itemsAConfirmar) {
-                sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"( '{Form1.instancia.idProtocoloSeleccionado}','{item.Id}'),";
+                sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{Form1.instancia.idProtocoloSeleccionado}','{item.Id}','{ultimaPosicion}'),";
+                ultimaPosicion++;
             }
 
             sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2.TrimEnd(',') + ";";
             sqlInsertarProtocoloItem = sqlInsertarProtocoloItem + sqlInsertarProtocoloItem2;
-            if (Form1.instancia.br.InsertAProtocoloItem(sqlInsertarProtocoloItem)) { 
-            
+            if (Form1.instancia.br.InsertAProtocoloItem(sqlInsertarProtocoloItem)) {
+                Form1.instancia.GetProtocoloItems();
+                groupControl2.Visible=false;
             }
         }
 
@@ -181,18 +204,43 @@ namespace ProtoculoSLF
         {
             if (cbCaracter.Checked)
             {
-                lueItemSimbolos.Enabled = false;
-                lueItemUnidad.Enabled = false;
-                nudMinimo.Enabled = false;
-                nudMedio.Enabled = false;
-                nudMaximo.Enabled = false;
+                tableLayoutPanel7.Visible = false;
+                tableLayoutPanel8.Visible = false;
+                gcAgregarItem.Height = gcAgregarItem.Height - tableLayoutPanel7.Height;
+                gcAgregarItem.Height = gcAgregarItem.Height - tableLayoutPanel8.Height;
+
             }
             else {
-                lueItemSimbolos.Enabled = true;
-                lueItemUnidad.Enabled = true;
-                nudMinimo.Enabled = true;
-                nudMedio.Enabled = true;
-                nudMaximo.Enabled = true;
+                tableLayoutPanel7.Visible = true;
+                tableLayoutPanel8.Visible = true;
+                gcAgregarItem.Height = gcAgregarItem.Height + tableLayoutPanel7.Height;
+                gcAgregarItem.Height = gcAgregarItem.Height + tableLayoutPanel8.Height;
+
+            }
+        }
+
+        private void lueItemSimbolos_EditValueChanged(object sender, EventArgs e)
+        {
+            var lueSimbolosA = lueItemSimbolos.GetSelectedDataRow() as Simbolo;
+            gcSimboloSignificado.Text = lueSimbolosA.Significado;
+            if (lueSimbolosA.Caracter == "-")
+            {
+                gcSimboloSignificado.Text = "Entre (A)";
+                tableLayoutPanel7.ColumnStyles[0].Width = 0F;
+                tableLayoutPanel7.ColumnStyles[1].Width = 100F;
+
+                tableLayoutPanel8.ColumnStyles[0].Width = 50F;
+                tableLayoutPanel8.ColumnStyles[1].Width = 50F;
+                tableLayoutPanel8.ColumnStyles[2].Width = 50F;
+            }
+            else {
+                tableLayoutPanel7.ColumnStyles[0].Width = 50F;
+                tableLayoutPanel7.ColumnStyles[1].Width = 50F;
+
+                tableLayoutPanel8.ColumnStyles[0].Width = 50F;
+                tableLayoutPanel8.ColumnStyles[1].Width = 0F;
+                tableLayoutPanel8.ColumnStyles[2].Width = 50F;
+
             }
         }
     }
