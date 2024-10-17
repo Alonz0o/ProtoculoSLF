@@ -65,7 +65,7 @@
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.gcFormatoItems = new DevExpress.XtraEditors.GroupControl();
-            this.groupControl10 = new DevExpress.XtraEditors.GroupControl();
+            this.gcEnsayos = new DevExpress.XtraEditors.GroupControl();
             this.gcAgregarEnsayo = new DevExpress.XtraEditors.GroupControl();
             this.btnCerrarMin = new FontAwesome.Sharp.IconButton();
             this.tlpRealizados = new System.Windows.Forms.TableLayoutPanel();
@@ -132,8 +132,8 @@
             this.splitContainer1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcFormatoItems)).BeginInit();
             this.gcFormatoItems.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl10)).BeginInit();
-            this.groupControl10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcEnsayos)).BeginInit();
+            this.gcEnsayos.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcAgregarEnsayo)).BeginInit();
             this.gcAgregarEnsayo.SuspendLayout();
             this.tlpRealizados.SuspendLayout();
@@ -240,8 +240,8 @@
             this.lueItemEnsayos.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.lueItemEnsayos.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Id", "ID"),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Nombre", "Nombre")});
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Nombre", "Nombre"),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Especificación", "EspecificacionDato")});
             this.lueItemEnsayos.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
             this.lueItemEnsayos.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
             this.lueItemEnsayos.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
@@ -579,7 +579,7 @@
             // 
             // splitContainer1.Panel2
             // 
-            this.splitContainer1.Panel2.Controls.Add(this.groupControl10);
+            this.splitContainer1.Panel2.Controls.Add(this.gcEnsayos);
             this.splitContainer1.Size = new System.Drawing.Size(269, 792);
             this.splitContainer1.SplitterDistance = 379;
             this.splitContainer1.TabIndex = 50;
@@ -600,22 +600,22 @@
             this.gcFormatoItems.TabIndex = 63;
             this.gcFormatoItems.Text = "  Formato ítems";
             // 
-            // groupControl10
+            // gcEnsayos
             // 
-            this.groupControl10.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.groupControl10.Appearance.Options.UseBorderColor = true;
-            this.groupControl10.AppearanceCaption.Font = new System.Drawing.Font("Roboto Medium", 10F, System.Drawing.FontStyle.Bold);
-            this.groupControl10.AppearanceCaption.Options.UseFont = true;
-            this.groupControl10.Controls.Add(this.gcFormatoValores);
-            this.groupControl10.Controls.Add(this.gcAgregarEnsayo);
-            this.groupControl10.Controls.Add(this.btnAgregarEnsayo);
-            this.groupControl10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl10.Location = new System.Drawing.Point(0, 0);
-            this.groupControl10.Margin = new System.Windows.Forms.Padding(0);
-            this.groupControl10.Name = "groupControl10";
-            this.groupControl10.Size = new System.Drawing.Size(269, 409);
-            this.groupControl10.TabIndex = 63;
-            this.groupControl10.Text = "  Protocolos ensayos";
+            this.gcEnsayos.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.gcEnsayos.Appearance.Options.UseBorderColor = true;
+            this.gcEnsayos.AppearanceCaption.Font = new System.Drawing.Font("Roboto Medium", 10F, System.Drawing.FontStyle.Bold);
+            this.gcEnsayos.AppearanceCaption.Options.UseFont = true;
+            this.gcEnsayos.Controls.Add(this.gcFormatoValores);
+            this.gcEnsayos.Controls.Add(this.gcAgregarEnsayo);
+            this.gcEnsayos.Controls.Add(this.btnAgregarEnsayo);
+            this.gcEnsayos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gcEnsayos.Location = new System.Drawing.Point(0, 0);
+            this.gcEnsayos.Margin = new System.Windows.Forms.Padding(0);
+            this.gcEnsayos.Name = "gcEnsayos";
+            this.gcEnsayos.Size = new System.Drawing.Size(269, 409);
+            this.gcEnsayos.TabIndex = 63;
+            this.gcEnsayos.Text = "  Protocolos ensayos";
             // 
             // gcAgregarEnsayo
             // 
@@ -1131,8 +1131,8 @@
             this.splitContainer1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcFormatoItems)).EndInit();
             this.gcFormatoItems.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl10)).EndInit();
-            this.groupControl10.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gcEnsayos)).EndInit();
+            this.gcEnsayos.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcAgregarEnsayo)).EndInit();
             this.gcAgregarEnsayo.ResumeLayout(false);
             this.tlpRealizados.ResumeLayout(false);
@@ -1216,7 +1216,7 @@
         private DevExpress.XtraEditors.GroupControl groupControl8;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private DevExpress.XtraEditors.GroupControl gcFormatoItems;
-        private DevExpress.XtraEditors.GroupControl groupControl10;
+        private DevExpress.XtraEditors.GroupControl gcEnsayos;
         private DevExpress.XtraEditors.GroupControl gcAgregarEnsayo;
         private FontAwesome.Sharp.IconButton btnCerrarMin;
         private System.Windows.Forms.TableLayoutPanel tlpRealizados;

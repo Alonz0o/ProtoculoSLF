@@ -63,7 +63,7 @@ namespace ProtoculoSLF
         {
             InitializeComponent();
             if (!File.Exists(archivoINI)) File.Create(archivoINI).Close();
-            LeerConfigEtiquetadora();
+            LeerConfigSplitter();
             instancia = this;
             br.GetProtocolos();
         }
@@ -296,10 +296,46 @@ namespace ProtoculoSLF
             cVerGrafico.Width = 16;
             cVerGrafico.Visible = true;
 
-            gvFormatoValores.Columns.AddRange(new GridColumn[] { cId, cNombre, cValor, cVerGrafico });
+            GridColumn cAcciones = new GridColumn();
+            cAcciones.FieldName = "FNAcciones";
+            cAcciones.Caption = " ";
+            cAcciones.Width = 16;
+            cAcciones.Visible = true;
+
+
+            gvFormatoValores.Columns.AddRange(new GridColumn[] { cId, cNombre, cValor, cAcciones,cVerGrafico });
             gcFormatoValores.DataSource = protocoloEnsayos;
 
-            RepositoryItemButtonEdit botonVer = new RepositoryItemButtonEdit();
+            RepositoryItemButtonEdit botonAccion = new RepositoryItemButtonEdit();
+            botonAccion.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
+            botonAccion.Buttons[0].Kind = DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph;
+            botonAccion.Buttons[0].Image = Properties.Resources.properties_16x16;
+            gcFormatoValores.RepositoryItems.Add(botonAccion);
+            gvFormatoValores.Columns["FNAcciones"].ColumnEdit = botonAccion;
+            botonAccion.ButtonClick += (sender, e) =>
+            {
+                ButtonEdit buttonEdit = sender as ButtonEdit;
+                if (buttonEdit != null && e.Button.Index == 0)
+                {
+                    GridView gridView = gvFormatoValores;
+                    if (gridView != null)
+                    {
+                        int rowIndex = gridView.FocusedRowHandle;
+                        var pi = gridView.GetRow(rowIndex) as ProtocoloEnsayo;
+                        if (pi != null)
+                        {
+                            formDeleteUpdateItem form = new formDeleteUpdateItem(br.GetEnsayosPorIdProtocoloItem(pi.IdProtocoloItem));
+                            form.Size = gcEnsayos.Size;
+                            Point locationOnScreen = gcEnsayos.PointToScreen(Point.Empty);
+                            form.Location = new Point(locationOnScreen.X - gcEnsayos.Size.Width - 4, locationOnScreen.Y);
+                            form.Show();
+                        }
+                    }
+                }
+            };
+        
+
+        RepositoryItemButtonEdit botonVer = new RepositoryItemButtonEdit();
             botonVer.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             botonVer.Buttons[0].Kind = DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph;
             botonVer.Buttons[0].Image = Properties.Resources.pie_16x16;
@@ -321,8 +357,8 @@ namespace ProtoculoSLF
                         if (peSeleccionado != null)
                         {
                             formGraficoEstadistico form = new formGraficoEstadistico(br.GetEnsayosPorIdProtocoloItem(peSeleccionado));
-                            form.Size = new Size(panel7.Width, groupControl10.Height);
-                            Point locationOnScreen = groupControl10.PointToScreen(Point.Empty);
+                            form.Size = new Size(panel7.Width, gcEnsayos.Height);
+                            Point locationOnScreen = gcEnsayos.PointToScreen(Point.Empty);
                             form.Location = new Point(locationOnScreen.X - panel7.Size.Width + 2, locationOnScreen.Y);
                             form.Show();
                         }
@@ -331,7 +367,7 @@ namespace ProtoculoSLF
             };
 
         }
-
+        
         public int idCodigoSeleccionado = 0;
         public int idProtocoloSeleccionado = 0;
 
@@ -467,6 +503,7 @@ namespace ProtoculoSLF
 
         private void btnAgregarEnsayoValor_Click(object sender, EventArgs e)
         {
+            if(!ValidarFormularioEnsayo())return;
             var esCorrecto = cbCorrecto.Checked;
             double valorEnsayo = 0;
             if (!string.IsNullOrEmpty(tbValorEnsayo.Texts)) valorEnsayo = Convert.ToDouble(tbValorEnsayo.Texts);
@@ -480,8 +517,37 @@ namespace ProtoculoSLF
                 GetEnsayosRealizados();
             }
         }
+        private bool ValidarFormularioEnsayo()
+        {
+            //VERIFICAR SIMBOLO
+            var lueNombreA = lueItemEnsayos.GetSelectedDataRow() as ProtocoloItem;
+            if (lueNombreA == null)
+            {
+                formNotificacion noti = new formNotificacion("warning", "Recomendación", "Modificar ensayo", "Debe seleccionar control.");
+                noti.Show();
+                lueItemEnsayos.Focus();
+                return false;
+            }
+            //VERIFICAR NUMERO MIN
+            if (tbValorEnsayo.Texts == string.Empty)
+            {
+                formNotificacion noti = new formNotificacion("warning", "Recomendación", "Asignar Ítem", "Debe ingresar numero.");
+                noti.Show();
+                tbValorEnsayo.Focus();
+                return false;
+            }
 
-        private void GetEnsayosRealizados()
+            if (tbValorEnsayo.Texts.Contains(".")) tbValorEnsayo.Texts = tbValorEnsayo.Texts.Replace('.', ','); ;
+            if (!Utils.IsSoloNumODecimal(tbValorEnsayo.Texts))
+            {
+                formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Deben ser numeros enteros o decimales separados por coma (,).");
+                noti.Show();
+                tbValorEnsayo.Focus();
+                return false;
+            }
+            return true;
+        }
+        public void GetEnsayosRealizados()
         {
             dvProtocolos.DocumentSource = null;
 
@@ -506,7 +572,7 @@ namespace ProtoculoSLF
         }
 
         string archivoINI = Directory.GetCurrentDirectory() + @"\config.ini";
-        private void LeerConfigEtiquetadora()
+        private void LeerConfigSplitter()
         {
             var splitter01 = "";
             var splitter02 = "";
@@ -515,7 +581,7 @@ namespace ProtoculoSLF
             IniData data = parser.ReadFile(archivoINI);
             splitter01 = data["splitter01"]["FinRecorrido"];
             splitter02 = data["splitter02"]["FinRecorrido"];
-            if (splitter01 != null) splitter1.SplitPosition = Convert.ToInt32(splitter02);
+            if (splitter01 != null) splitter1.SplitPosition = Convert.ToInt32(splitter01);
             if (splitter02 != null) splitter2.SplitPosition = Convert.ToInt32(splitter02);
         }
 

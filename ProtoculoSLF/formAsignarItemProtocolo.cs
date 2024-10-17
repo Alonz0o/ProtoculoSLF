@@ -171,6 +171,7 @@ namespace ProtoculoSLF
                             confirmar = "UPDATEITEM";
                             //MODIFICAR ITEM FORM
                             //VER SACAR SI ES POSIBLE
+                            cbMantener.Visible = true;
                             protocoloItemSeleccionado = pi;
                             gcAgregarItem.Visible = true;
                             tbNombre.Texts = protocoloItemSeleccionado.Nombre;
@@ -184,6 +185,7 @@ namespace ProtoculoSLF
                 }
             };
         }
+
         ProtocoloItem protocoloItemSeleccionado = new ProtocoloItem();
         private int BuscarUnidadIndex(string simbolo)
         {
@@ -221,6 +223,8 @@ namespace ProtoculoSLF
 
         private void btnMostrarAgregarItem_Click(object sender, EventArgs e)
         {
+            cbMantener.Visible = false;
+            cbMantener.Checked = false;
             gcAgregarItem.Visible = true;
 
         }
@@ -250,6 +254,7 @@ namespace ProtoculoSLF
                 lblTitulo.Text = "Esta a punto de modificar un ítem";
                 lblMensaje.Text = "Esto afectara a todos los protocolos relacionados con dicho ítem";
                 gcConfirmar.Visible = true;
+                
             }
             else {
 
@@ -436,7 +441,11 @@ namespace ProtoculoSLF
                 pi.Id = protocoloItemSeleccionado.Id;
                 pi.Nombre = tbNombre.Texts;
 
-                if (!Form1.instancia.br.GetNombreItemDuplicado(pi.Nombre.Trim().ToLower())) return;
+                if (!Form1.instancia.br.GetNombreItemDuplicado(pi.Nombre.Trim().ToLower()) && !cbMantener.Checked) {
+                    formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Ese nombre de control esta en uso.");
+                    noti.Show();
+                    return;
+                }
                 if (!cbCaracter.Checked)
                 {
                     var lueCaracterA = lueItemSimbolos.GetSelectedDataRow() as Simbolo;
@@ -528,11 +537,6 @@ namespace ProtoculoSLF
                 tableLayoutPanel8.ColumnStyles[2].Width = 50F;
 
             }
-        }
-
-        private void tableLayoutPanel4_Paint(object sender, PaintEventArgs e)
-        {
-
         }
     }
 }

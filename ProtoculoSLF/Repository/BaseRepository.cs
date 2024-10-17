@@ -112,8 +112,6 @@ namespace ProtoculoSLF.Repository
 
             return res;
         }
-        
-
 
         internal void GetProtocolos()
         {
@@ -319,6 +317,50 @@ namespace ProtoculoSLF.Repository
                     Unidad = grupo.FirstOrDefault().Unidad,
                 }).ToList();
         }
+
+        internal List<ProtocoloEnsayo> GetEnsayosPorIdProtocoloItem(int idProtocoloItem)
+        {
+            List<ProtocoloEnsayo> pes = new List<ProtocoloEnsayo>();
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT fe.id,fi.controles,fe.valor_ensayo,fe.correcto,fi.simbolo,fpi.orden,fi.especificacion_min,fi.especificacion,fi.especificacion_max,fe.id_protocolo_item,fi.unidad
+                                        FROM formatoprotocoloa_ensayo fe
+                                        JOIN formatoprotocoloa_protocolo_item fpi on fe.id_protocolo_item = fpi.id
+                                        JOIN formatoprotocoloa_item fi on fpi.id_item = fi.iditem
+                                        WHERE fe.id_protocolo_item=@pIdProtocoloItem;";
+                command.Parameters.Add("@pIdProtocoloItem", MySqlDbType.Int32).Value = idProtocoloItem;
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var valorEnsayo = reader[2] != DBNull.Value ? reader.GetDouble(2) : 0.0;
+                        var simbolo = reader[4] != DBNull.Value ? reader.GetString(4) : "";
+                        var esCorrecto = reader[3] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(3)) : false;
+                        ProtocoloEnsayo pe = new ProtocoloEnsayo
+                        {
+                            Id = reader[0] != DBNull.Value ? reader.GetInt32(0) : 0,
+                            Nombre = reader[1] != DBNull.Value ? reader.GetString(1) : "",
+                            Simbolo = simbolo,
+                            ValorEnsayo = simbolo == "N" ? (esCorrecto ? "OK" : "NO") : valorEnsayo.ToString(),
+                            EsCorrectoSiNo = esCorrecto ? "SI" : "NO",
+                            Orden = reader[5] != DBNull.Value ? reader.GetInt32(5) : 0,
+                            EspecificacionMin = reader[6] != DBNull.Value ? reader.GetDouble(6) : 0.0,
+                            Especificacion = reader[7] != DBNull.Value ? reader.GetDouble(7) : 0.0,
+                            EspecificacionMax = reader[8] != DBNull.Value ? reader.GetDouble(8) : 0.0,
+                            IdProtocoloItem = reader[9] != DBNull.Value ? reader.GetInt32(9) : 0,
+                            Unidad = reader[10] != DBNull.Value ? reader.GetString(10) : "",
+                        };
+                        pes.Add(pe);
+                    }
+                }
+            }
+
+            return pes;
+        }
+
         internal List<Protocolo> GetFormatosProtocolos()
         {
             List<Protocolo> ps = new List<Protocolo>();
@@ -572,6 +614,78 @@ namespace ProtoculoSLF.Repository
                                 }
                             }
 
+                            transaction.Commit();
+                            res = true;
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            res = false;
+                        }
+                    }
+                }
+            }
+
+            return res;
+        }
+        internal bool DeleteEnsayo(int idEnsayo)
+        {
+            bool res = false;
+            using (var conexion = new MySqlConnection(connectionString))
+            {
+                conexion.Open();
+                using (var transaction = conexion.BeginTransaction())
+                {
+                    using (var command = conexion.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        try
+                        {
+                            command.CommandText = @"DELETE FROM formatoprotocoloa_ensayo WHERE (id = @pIdEnsayo);";
+                            command.Parameters.Add("@pIdEnsayo", MySqlDbType.Int32).Value = idEnsayo;
+                            if (command.ExecuteNonQuery() != 1)
+                            {
+                                throw new Exception("Error al modificar TX");
+                            }
+
+                            transaction.Commit();
+                            res = true;
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            res = false;
+                        }
+                    }
+                }
+            }
+
+            return res;
+        }
+        internal bool UpdateEnsayo(ProtocoloEnsayo pi)
+        {
+            bool res = false;
+            using (var conexion = new MySqlConnection(connectionString))
+            {
+                conexion.Open();
+                using (var transaction = conexion.BeginTransaction())
+                {
+                    using (var command = conexion.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        try
+                        {
+                            command.CommandText = @"UPDATE formatoprotocoloa_ensayo SET valor_ensayo = @pValor,
+                                                                                        correcto = @pCorrecto                                                                                      
+                                                                                        WHERE id = (@pIdEnsayo);";
+                            command.Parameters.Add("@pValor", MySqlDbType.Double).Value = pi.ValorEnsayo;
+                            command.Parameters.Add("@pCorrecto", MySqlDbType.Int32).Value = pi.Correcto;
+                            command.Parameters.Add("@pIdEnsayo", MySqlDbType.Int32).Value = pi.Id;
+
+                            if (command.ExecuteNonQuery() != 1)
+                            {
+                                throw new Exception("Error al modificar TX");
+                            }
                             transaction.Commit();
                             res = true;
                         }
