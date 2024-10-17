@@ -30,13 +30,14 @@
         {
             this.gcNotificacion = new DevExpress.XtraEditors.GroupControl();
             this.btnCerrarMin = new FontAwesome.Sharp.IconButton();
-            this.pnlLineaVertical = new System.Windows.Forms.Panel();
             this.tlpNoti = new System.Windows.Forms.TableLayoutPanel();
             this.tlpCuerpo = new System.Windows.Forms.TableLayoutPanel();
             this.iconoNotificacion = new FontAwesome.Sharp.IconButton();
-            this.lblTitulo = new System.Windows.Forms.Label();
-            this.lblMensaje = new System.Windows.Forms.Label();
             this.pnlCuerpo = new System.Windows.Forms.Panel();
+            this.lblMensaje = new System.Windows.Forms.Label();
+            this.lblTitulo = new System.Windows.Forms.Label();
+            this.pnlLineaVertical = new System.Windows.Forms.Panel();
+            this.lblNombreVentana = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.gcNotificacion)).BeginInit();
             this.gcNotificacion.SuspendLayout();
             this.tlpNoti.SuspendLayout();
@@ -46,10 +47,14 @@
             // 
             // gcNotificacion
             // 
-            this.gcNotificacion.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.gcNotificacion.Appearance.BackColor = System.Drawing.Color.Transparent;
+            this.gcNotificacion.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
+            this.gcNotificacion.Appearance.Options.UseBackColor = true;
             this.gcNotificacion.Appearance.Options.UseBorderColor = true;
-            this.gcNotificacion.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold);
+            this.gcNotificacion.Appearance.Options.UseForeColor = true;
+            this.gcNotificacion.AppearanceCaption.Font = new System.Drawing.Font("Roboto Medium", 10F, System.Drawing.FontStyle.Bold);
             this.gcNotificacion.AppearanceCaption.Options.UseFont = true;
+            this.gcNotificacion.Controls.Add(this.lblNombreVentana);
             this.gcNotificacion.Controls.Add(this.btnCerrarMin);
             this.gcNotificacion.Controls.Add(this.tlpNoti);
             this.gcNotificacion.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -57,7 +62,6 @@
             this.gcNotificacion.Name = "gcNotificacion";
             this.gcNotificacion.Size = new System.Drawing.Size(450, 100);
             this.gcNotificacion.TabIndex = 4;
-            this.gcNotificacion.Text = "  Notificacion ";
             // 
             // btnCerrarMin
             // 
@@ -78,15 +82,6 @@
             this.btnCerrarMin.UseVisualStyleBackColor = false;
             this.btnCerrarMin.Click += new System.EventHandler(this.btnCerrarMin_Click);
             // 
-            // pnlLineaVertical
-            // 
-            this.pnlLineaVertical.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.pnlLineaVertical.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pnlLineaVertical.Location = new System.Drawing.Point(3, 3);
-            this.pnlLineaVertical.Name = "pnlLineaVertical";
-            this.pnlLineaVertical.Size = new System.Drawing.Size(7, 69);
-            this.pnlLineaVertical.TabIndex = 1;
-            // 
             // tlpNoti
             // 
             this.tlpNoti.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
@@ -97,6 +92,7 @@
             this.tlpNoti.Controls.Add(this.tlpCuerpo, 1, 0);
             this.tlpNoti.Controls.Add(this.pnlLineaVertical, 0, 0);
             this.tlpNoti.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpNoti.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.tlpNoti.Location = new System.Drawing.Point(2, 23);
             this.tlpNoti.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tlpNoti.Name = "tlpNoti";
@@ -114,6 +110,7 @@
             this.tlpCuerpo.Controls.Add(this.iconoNotificacion, 0, 0);
             this.tlpCuerpo.Controls.Add(this.pnlCuerpo, 1, 0);
             this.tlpCuerpo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpCuerpo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
             this.tlpCuerpo.Location = new System.Drawing.Point(15, 3);
             this.tlpCuerpo.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tlpCuerpo.Name = "tlpCuerpo";
@@ -130,37 +127,14 @@
             this.iconoNotificacion.FlatAppearance.BorderSize = 0;
             this.iconoNotificacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.iconoNotificacion.IconChar = FontAwesome.Sharp.IconChar.Stethoscope;
-            this.iconoNotificacion.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.iconoNotificacion.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
             this.iconoNotificacion.IconFont = FontAwesome.Sharp.IconFont.Solid;
             this.iconoNotificacion.Location = new System.Drawing.Point(0, 0);
             this.iconoNotificacion.Margin = new System.Windows.Forms.Padding(0);
             this.iconoNotificacion.Name = "iconoNotificacion";
             this.iconoNotificacion.Size = new System.Drawing.Size(53, 69);
             this.iconoNotificacion.TabIndex = 30;
-            // 
-            // lblTitulo
-            // 
-            this.lblTitulo.BackColor = System.Drawing.Color.Transparent;
-            this.lblTitulo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
-            this.lblTitulo.ForeColor = System.Drawing.Color.Black;
-            this.lblTitulo.Location = new System.Drawing.Point(0, 0);
-            this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(370, 22);
-            this.lblTitulo.TabIndex = 39;
-            this.lblTitulo.Text = "Ensayo agregado recientemente";
-            this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // lblMensaje
-            // 
-            this.lblMensaje.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lblMensaje.Location = new System.Drawing.Point(0, 22);
-            this.lblMensaje.Name = "lblMensaje";
-            this.lblMensaje.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.lblMensaje.Size = new System.Drawing.Size(370, 41);
-            this.lblMensaje.TabIndex = 40;
-            this.lblMensaje.Text = "NOTIFICACION TEXT";
+            this.iconoNotificacion.UseVisualStyleBackColor = false;
             // 
             // pnlCuerpo
             // 
@@ -172,6 +146,51 @@
             this.pnlCuerpo.Name = "pnlCuerpo";
             this.pnlCuerpo.Size = new System.Drawing.Size(370, 63);
             this.pnlCuerpo.TabIndex = 31;
+            // 
+            // lblMensaje
+            // 
+            this.lblMensaje.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.lblMensaje.Location = new System.Drawing.Point(0, 22);
+            this.lblMensaje.Name = "lblMensaje";
+            this.lblMensaje.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.lblMensaje.Size = new System.Drawing.Size(370, 41);
+            this.lblMensaje.TabIndex = 40;
+            this.lblMensaje.Text = "NOTIFICACION TEXT";
+            this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblTitulo
+            // 
+            this.lblTitulo.BackColor = System.Drawing.Color.Transparent;
+            this.lblTitulo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
+            this.lblTitulo.ForeColor = System.Drawing.Color.Black;
+            this.lblTitulo.Location = new System.Drawing.Point(0, 0);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(370, 22);
+            this.lblTitulo.TabIndex = 39;
+            this.lblTitulo.Text = "Titulo";
+            this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // pnlLineaVertical
+            // 
+            this.pnlLineaVertical.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
+            this.pnlLineaVertical.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlLineaVertical.Location = new System.Drawing.Point(3, 3);
+            this.pnlLineaVertical.Name = "pnlLineaVertical";
+            this.pnlLineaVertical.Size = new System.Drawing.Size(7, 69);
+            this.pnlLineaVertical.TabIndex = 1;
+            // 
+            // lblNombreVentana
+            // 
+            this.lblNombreVentana.AutoSize = true;
+            this.lblNombreVentana.Font = new System.Drawing.Font("Roboto Medium", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreVentana.ForeColor = System.Drawing.Color.Black;
+            this.lblNombreVentana.Location = new System.Drawing.Point(17, 3);
+            this.lblNombreVentana.Name = "lblNombreVentana";
+            this.lblNombreVentana.Size = new System.Drawing.Size(91, 15);
+            this.lblNombreVentana.TabIndex = 37;
+            this.lblNombreVentana.Text = "Notificacion ";
             // 
             // formNotificacion
             // 
@@ -186,6 +205,7 @@
             this.Load += new System.EventHandler(this.formNotificacion_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gcNotificacion)).EndInit();
             this.gcNotificacion.ResumeLayout(false);
+            this.gcNotificacion.PerformLayout();
             this.tlpNoti.ResumeLayout(false);
             this.tlpCuerpo.ResumeLayout(false);
             this.pnlCuerpo.ResumeLayout(false);
@@ -204,5 +224,6 @@
         private System.Windows.Forms.Panel pnlCuerpo;
         private System.Windows.Forms.Label lblMensaje;
         private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.Label lblNombreVentana;
     }
 }

@@ -24,10 +24,11 @@ namespace ProtoculoSLF
         Color warning = Color.FromArgb(255, 193, 7);
         Color info = Color.FromArgb(13, 110, 253);
 
-        string tipo, titulo, mensaje;
-        public formNotificacion(string tipo, string titulo, string mensaje)
+        string tipo, tituloVentana, titulo, mensaje;
+        public formNotificacion(string tipo, string tituloVentana, string titulo, string mensaje)
         {
             this.tipo = tipo;
+            this.tituloVentana = tituloVentana;
             this.titulo = titulo;
             this.mensaje = mensaje;
             InitializeComponent();
@@ -41,39 +42,43 @@ namespace ProtoculoSLF
             switch (tipo)
             {
                 case "success":
-                    tlpNoti.BackColor = success;
                     gcNotificacion.Appearance.BorderColor = success;
                     pnlLineaVertical.BackColor = success;
                     iconoNotificacion.IconColor = succesIcon;
                     iconoNotificacion.IconChar = FontAwesome.Sharp.IconChar.Check;
+                    //lblNombreVentana.ForeColor = succesIcon;
+                    //lblTitulo.ForeColor = succesIcon;
+                    //lblMensaje.ForeColor = succesIcon;
                     break;
                 case "danger":
-                    tlpNoti.BackColor = danger;
-                    gcNotificacion.Appearance.BorderColor = danger;
-                    pnlLineaVertical.BackColor = danger;
-                    iconoNotificacion.IconColor = danger;
-                    iconoNotificacion.IconChar = FontAwesome.Sharp.IconChar.ExclamationTriangle;
+                    //tlpNoti.BackColor = danger;
+                    //gcNotificacion.Appearance.BorderColor = danger;
+                    //pnlLineaVertical.BackColor = danger;
+                    //iconoNotificacion.IconColor = danger;
+                    //iconoNotificacion.IconChar = FontAwesome.Sharp.IconChar.ExclamationTriangle;
                     break;
                 case "warning":
-                    tlpNoti.BackColor = warning;
                     gcNotificacion.Appearance.BorderColor = warning;
                     pnlLineaVertical.BackColor = warning;
                     iconoNotificacion.IconColor = warning;
                     iconoNotificacion.IconChar = FontAwesome.Sharp.IconChar.ExclamationTriangle;
+                    lblNombreVentana.ForeColor = Color.Black;
+
                     break;
                 case "info":
-                    tlpNoti.BackColor = info;
-                    gcNotificacion.Appearance.BorderColor = info;
-                    pnlLineaVertical.BackColor = info;
-                    iconoNotificacion.IconColor = info;
-                    iconoNotificacion.IconChar = FontAwesome.Sharp.IconChar.ExclamationCircle;
+                    //tlpNoti.BackColor = info;
+                    //gcNotificacion.Appearance.BorderColor = info;
+                    //pnlLineaVertical.BackColor = info;
+                    //iconoNotificacion.IconColor = info;
+                    //iconoNotificacion.IconChar = FontAwesome.Sharp.IconChar.ExclamationCircle;
                     break;
 
                 default:
                     break;
             }
 
-            gcNotificacion.Text = titulo;
+            lblNombreVentana.Text = tituloVentana;
+            lblTitulo.Text = titulo;
             lblMensaje.Text = mensaje;
 
             Rectangle pantalla = Screen.PrimaryScreen.WorkingArea;

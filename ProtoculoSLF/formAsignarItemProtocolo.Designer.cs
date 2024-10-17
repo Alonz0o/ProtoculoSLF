@@ -33,16 +33,22 @@
             this.gvItems = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.lueItemSimbolos = new DevExpress.XtraEditors.LookUpEdit();
             this.cbCertificado = new System.Windows.Forms.CheckBox();
-            this.gcAgregarEnsayo = new DevExpress.XtraEditors.GroupControl();
+            this.gcAgregar = new DevExpress.XtraEditors.GroupControl();
             this.btnCerrarMin = new FontAwesome.Sharp.IconButton();
             this.tlpRealizados = new System.Windows.Forms.TableLayoutPanel();
             this.pnlPendientes = new System.Windows.Forms.Panel();
-            this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
-            this.iconButton1 = new FontAwesome.Sharp.IconButton();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.gcConfirmar = new DevExpress.XtraEditors.GroupControl();
+            this.tlpNoti = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpCuerpo = new System.Windows.Forms.TableLayoutPanel();
+            this.iconoNotificacion = new FontAwesome.Sharp.IconButton();
+            this.pnlCuerpo = new System.Windows.Forms.Panel();
+            this.lblMensaje = new System.Windows.Forms.Label();
+            this.lblTitulo = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.btnConfirmarCambios = new ProtoculoSLF.AAFControles.AAFBoton();
             this.btnCancelarCambios = new ProtoculoSLF.AAFControles.AAFBoton();
+            this.lblNombreVentana = new System.Windows.Forms.Label();
+            this.iconButton1 = new FontAwesome.Sharp.IconButton();
             this.gcAgregarItem = new DevExpress.XtraEditors.GroupControl();
             this.iconButton2 = new FontAwesome.Sharp.IconButton();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -70,13 +76,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.gcItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvItems)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.lueItemSimbolos.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gcAgregarEnsayo)).BeginInit();
-            this.gcAgregarEnsayo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcAgregar)).BeginInit();
+            this.gcAgregar.SuspendLayout();
             this.tlpRealizados.SuspendLayout();
             this.pnlPendientes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).BeginInit();
-            this.groupControl2.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcConfirmar)).BeginInit();
+            this.gcConfirmar.SuspendLayout();
+            this.tlpNoti.SuspendLayout();
+            this.tlpCuerpo.SuspendLayout();
+            this.pnlCuerpo.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcAgregarItem)).BeginInit();
             this.gcAgregarItem.SuspendLayout();
@@ -129,7 +137,7 @@
             this.gcItems.Location = new System.Drawing.Point(0, 0);
             this.gcItems.MainView = this.gvItems;
             this.gcItems.Name = "gcItems";
-            this.gcItems.Size = new System.Drawing.Size(388, 73);
+            this.gcItems.Size = new System.Drawing.Size(388, 229);
             this.gcItems.TabIndex = 1;
             this.gcItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvItems});
@@ -173,21 +181,21 @@
             this.cbCertificado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cbCertificado.UseVisualStyleBackColor = true;
             // 
-            // gcAgregarEnsayo
+            // gcAgregar
             // 
-            this.gcAgregarEnsayo.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.gcAgregarEnsayo.Appearance.Options.UseBorderColor = true;
-            this.gcAgregarEnsayo.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold);
-            this.gcAgregarEnsayo.AppearanceCaption.Options.UseFont = true;
-            this.gcAgregarEnsayo.Controls.Add(this.btnMostrarAgregarItem);
-            this.gcAgregarEnsayo.Controls.Add(this.btnCerrarMin);
-            this.gcAgregarEnsayo.Controls.Add(this.tlpRealizados);
-            this.gcAgregarEnsayo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gcAgregarEnsayo.Location = new System.Drawing.Point(0, 0);
-            this.gcAgregarEnsayo.Name = "gcAgregarEnsayo";
-            this.gcAgregarEnsayo.Size = new System.Drawing.Size(411, 476);
-            this.gcAgregarEnsayo.TabIndex = 3;
-            this.gcAgregarEnsayo.Text = "  Protocolos Ítem";
+            this.gcAgregar.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.gcAgregar.Appearance.Options.UseBorderColor = true;
+            this.gcAgregar.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold);
+            this.gcAgregar.AppearanceCaption.Options.UseFont = true;
+            this.gcAgregar.Controls.Add(this.btnMostrarAgregarItem);
+            this.gcAgregar.Controls.Add(this.btnCerrarMin);
+            this.gcAgregar.Controls.Add(this.tlpRealizados);
+            this.gcAgregar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gcAgregar.Location = new System.Drawing.Point(0, 0);
+            this.gcAgregar.Name = "gcAgregar";
+            this.gcAgregar.Size = new System.Drawing.Size(411, 631);
+            this.gcAgregar.TabIndex = 3;
+            this.gcAgregar.Text = "  Protocolos Ítem";
             // 
             // btnCerrarMin
             // 
@@ -223,7 +231,7 @@
             this.tlpRealizados.Name = "tlpRealizados";
             this.tlpRealizados.RowCount = 1;
             this.tlpRealizados.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpRealizados.Size = new System.Drawing.Size(407, 451);
+            this.tlpRealizados.Size = new System.Drawing.Size(407, 606);
             this.tlpRealizados.TabIndex = 3;
             // 
             // pnlPendientes
@@ -231,64 +239,119 @@
             this.pnlPendientes.AutoScroll = true;
             this.pnlPendientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
             this.pnlPendientes.Controls.Add(this.gcItems);
-            this.pnlPendientes.Controls.Add(this.groupControl2);
+            this.pnlPendientes.Controls.Add(this.gcConfirmar);
             this.pnlPendientes.Controls.Add(this.gcAgregarItem);
             this.pnlPendientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPendientes.Location = new System.Drawing.Point(16, 3);
             this.pnlPendientes.Name = "pnlPendientes";
-            this.pnlPendientes.Size = new System.Drawing.Size(388, 445);
+            this.pnlPendientes.Size = new System.Drawing.Size(388, 600);
             this.pnlPendientes.TabIndex = 0;
             // 
-            // groupControl2
+            // gcConfirmar
             // 
-            this.groupControl2.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.groupControl2.Appearance.Options.UseBorderColor = true;
-            this.groupControl2.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold);
-            this.groupControl2.AppearanceCaption.Options.UseFont = true;
-            this.groupControl2.Controls.Add(this.iconButton1);
-            this.groupControl2.Controls.Add(this.tableLayoutPanel3);
-            this.groupControl2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.groupControl2.Location = new System.Drawing.Point(0, 73);
-            this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(388, 74);
-            this.groupControl2.TabIndex = 67;
-            this.groupControl2.Text = "  Confirmar cambios";
-            this.groupControl2.Visible = false;
+            this.gcConfirmar.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
+            this.gcConfirmar.Appearance.Options.UseBorderColor = true;
+            this.gcConfirmar.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold);
+            this.gcConfirmar.AppearanceCaption.Options.UseFont = true;
+            this.gcConfirmar.Controls.Add(this.tlpNoti);
+            this.gcConfirmar.Controls.Add(this.tableLayoutPanel4);
+            this.gcConfirmar.Controls.Add(this.lblNombreVentana);
+            this.gcConfirmar.Controls.Add(this.iconButton1);
+            this.gcConfirmar.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.gcConfirmar.Location = new System.Drawing.Point(0, 229);
+            this.gcConfirmar.Name = "gcConfirmar";
+            this.gcConfirmar.Size = new System.Drawing.Size(388, 73);
+            this.gcConfirmar.TabIndex = 67;
+            this.gcConfirmar.Visible = false;
             // 
-            // iconButton1
+            // tlpNoti
             // 
-            this.iconButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.iconButton1.BackColor = System.Drawing.Color.Transparent;
-            this.iconButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.iconButton1.FlatAppearance.BorderSize = 0;
-            this.iconButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.Times;
-            this.iconButton1.IconColor = System.Drawing.Color.Azure;
-            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Solid;
-            this.iconButton1.IconSize = 15;
-            this.iconButton1.Location = new System.Drawing.Point(365, 1);
-            this.iconButton1.Margin = new System.Windows.Forms.Padding(0);
-            this.iconButton1.Name = "iconButton1";
-            this.iconButton1.Size = new System.Drawing.Size(20, 20);
-            this.iconButton1.TabIndex = 36;
-            this.iconButton1.UseVisualStyleBackColor = false;
-            this.iconButton1.Click += new System.EventHandler(this.btnCancelarCambios_Click);
+            this.tlpNoti.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.tlpNoti.ColumnCount = 1;
+            this.tlpNoti.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpNoti.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tlpNoti.Controls.Add(this.tlpCuerpo, 0, 0);
+            this.tlpNoti.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpNoti.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.tlpNoti.Location = new System.Drawing.Point(2, 23);
+            this.tlpNoti.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.tlpNoti.Name = "tlpNoti";
+            this.tlpNoti.RowCount = 1;
+            this.tlpNoti.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpNoti.Size = new System.Drawing.Size(384, 5);
+            this.tlpNoti.TabIndex = 68;
+            this.tlpNoti.Visible = false;
             // 
-            // tableLayoutPanel3
+            // tlpCuerpo
             // 
-            this.tableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 23);
-            this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(384, 49);
-            this.tableLayoutPanel3.TabIndex = 3;
+            this.tlpCuerpo.BackColor = System.Drawing.Color.Transparent;
+            this.tlpCuerpo.ColumnCount = 2;
+            this.tlpCuerpo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 43F));
+            this.tlpCuerpo.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpCuerpo.Controls.Add(this.iconoNotificacion, 0, 0);
+            this.tlpCuerpo.Controls.Add(this.pnlCuerpo, 1, 0);
+            this.tlpCuerpo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tlpCuerpo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(40)))));
+            this.tlpCuerpo.Location = new System.Drawing.Point(2, 3);
+            this.tlpCuerpo.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.tlpCuerpo.Name = "tlpCuerpo";
+            this.tlpCuerpo.RowCount = 1;
+            this.tlpCuerpo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpCuerpo.Size = new System.Drawing.Size(380, 1);
+            this.tlpCuerpo.TabIndex = 4;
+            // 
+            // iconoNotificacion
+            // 
+            this.iconoNotificacion.BackColor = System.Drawing.Color.Transparent;
+            this.iconoNotificacion.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.iconoNotificacion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.iconoNotificacion.FlatAppearance.BorderSize = 0;
+            this.iconoNotificacion.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconoNotificacion.IconChar = FontAwesome.Sharp.IconChar.ExclamationTriangle;
+            this.iconoNotificacion.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
+            this.iconoNotificacion.IconFont = FontAwesome.Sharp.IconFont.Solid;
+            this.iconoNotificacion.Location = new System.Drawing.Point(0, 0);
+            this.iconoNotificacion.Margin = new System.Windows.Forms.Padding(0);
+            this.iconoNotificacion.Name = "iconoNotificacion";
+            this.iconoNotificacion.Size = new System.Drawing.Size(43, 1);
+            this.iconoNotificacion.TabIndex = 30;
+            this.iconoNotificacion.UseVisualStyleBackColor = false;
+            // 
+            // pnlCuerpo
+            // 
+            this.pnlCuerpo.BackColor = System.Drawing.Color.Transparent;
+            this.pnlCuerpo.Controls.Add(this.lblMensaje);
+            this.pnlCuerpo.Controls.Add(this.lblTitulo);
+            this.pnlCuerpo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlCuerpo.Location = new System.Drawing.Point(46, 3);
+            this.pnlCuerpo.Name = "pnlCuerpo";
+            this.pnlCuerpo.Size = new System.Drawing.Size(331, 1);
+            this.pnlCuerpo.TabIndex = 31;
+            // 
+            // lblMensaje
+            // 
+            this.lblMensaje.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblMensaje.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F);
+            this.lblMensaje.Location = new System.Drawing.Point(0, 22);
+            this.lblMensaje.Name = "lblMensaje";
+            this.lblMensaje.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+            this.lblMensaje.Size = new System.Drawing.Size(331, 0);
+            this.lblMensaje.TabIndex = 40;
+            this.lblMensaje.Text = "NOTIFICACION TEXT";
+            this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // lblTitulo
+            // 
+            this.lblTitulo.BackColor = System.Drawing.Color.Transparent;
+            this.lblTitulo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.lblTitulo.ForeColor = System.Drawing.Color.Black;
+            this.lblTitulo.Location = new System.Drawing.Point(0, 0);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(331, 22);
+            this.lblTitulo.TabIndex = 39;
+            this.lblTitulo.Text = "Titulo";
+            this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanel4
             // 
@@ -299,13 +362,14 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel4.Controls.Add(this.btnConfirmarCambios, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.btnCancelarCambios, 1, 0);
-            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(2, 28);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(378, 43);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(384, 43);
             this.tableLayoutPanel4.TabIndex = 67;
+            this.tableLayoutPanel4.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel4_Paint);
             // 
             // btnConfirmarCambios
             // 
@@ -321,7 +385,7 @@
             this.btnConfirmarCambios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnConfirmarCambios.Location = new System.Drawing.Point(3, 3);
             this.btnConfirmarCambios.Name = "btnConfirmarCambios";
-            this.btnConfirmarCambios.Size = new System.Drawing.Size(183, 37);
+            this.btnConfirmarCambios.Size = new System.Drawing.Size(186, 37);
             this.btnConfirmarCambios.TabIndex = 1;
             this.btnConfirmarCambios.Text = "Confirmar";
             this.btnConfirmarCambios.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
@@ -340,14 +404,45 @@
             this.btnCancelarCambios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelarCambios.Font = new System.Drawing.Font("Roboto Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarCambios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
-            this.btnCancelarCambios.Location = new System.Drawing.Point(192, 3);
+            this.btnCancelarCambios.Location = new System.Drawing.Point(195, 3);
             this.btnCancelarCambios.Name = "btnCancelarCambios";
-            this.btnCancelarCambios.Size = new System.Drawing.Size(183, 37);
+            this.btnCancelarCambios.Size = new System.Drawing.Size(186, 37);
             this.btnCancelarCambios.TabIndex = 0;
             this.btnCancelarCambios.Text = "Cancelar";
             this.btnCancelarCambios.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
             this.btnCancelarCambios.UseVisualStyleBackColor = false;
             this.btnCancelarCambios.Click += new System.EventHandler(this.btnCancelarCambios_Click);
+            // 
+            // lblNombreVentana
+            // 
+            this.lblNombreVentana.AutoSize = true;
+            this.lblNombreVentana.BackColor = System.Drawing.Color.Transparent;
+            this.lblNombreVentana.Font = new System.Drawing.Font("Roboto Medium", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreVentana.ForeColor = System.Drawing.Color.Black;
+            this.lblNombreVentana.Location = new System.Drawing.Point(17, 4);
+            this.lblNombreVentana.Name = "lblNombreVentana";
+            this.lblNombreVentana.Size = new System.Drawing.Size(133, 15);
+            this.lblNombreVentana.TabIndex = 38;
+            this.lblNombreVentana.Text = "Confirmar cambios";
+            // 
+            // iconButton1
+            // 
+            this.iconButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.iconButton1.BackColor = System.Drawing.Color.Transparent;
+            this.iconButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.iconButton1.FlatAppearance.BorderSize = 0;
+            this.iconButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.Times;
+            this.iconButton1.IconColor = System.Drawing.Color.Black;
+            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Solid;
+            this.iconButton1.IconSize = 15;
+            this.iconButton1.Location = new System.Drawing.Point(365, 1);
+            this.iconButton1.Margin = new System.Windows.Forms.Padding(0);
+            this.iconButton1.Name = "iconButton1";
+            this.iconButton1.Size = new System.Drawing.Size(20, 20);
+            this.iconButton1.TabIndex = 36;
+            this.iconButton1.UseVisualStyleBackColor = false;
+            this.iconButton1.Click += new System.EventHandler(this.btnCancelarCambios_Click);
             // 
             // gcAgregarItem
             // 
@@ -358,7 +453,7 @@
             this.gcAgregarItem.Controls.Add(this.iconButton2);
             this.gcAgregarItem.Controls.Add(this.tableLayoutPanel2);
             this.gcAgregarItem.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.gcAgregarItem.Location = new System.Drawing.Point(0, 147);
+            this.gcAgregarItem.Location = new System.Drawing.Point(0, 302);
             this.gcAgregarItem.Name = "gcAgregarItem";
             this.gcAgregarItem.Size = new System.Drawing.Size(388, 298);
             this.gcAgregarItem.TabIndex = 68;
@@ -706,7 +801,7 @@
             this.groupControl8.Name = "groupControl8";
             this.groupControl8.Size = new System.Drawing.Size(189, 58);
             this.groupControl8.TabIndex = 64;
-            this.groupControl8.Text = "  Carácter *";
+            this.groupControl8.Text = "  Símbolo *";
             // 
             // groupControl5
             // 
@@ -750,15 +845,15 @@
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel11.Location = new System.Drawing.Point(3, 3);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(7, 445);
+            this.panel11.Size = new System.Drawing.Size(7, 600);
             this.panel11.TabIndex = 1;
             // 
             // formAsignarItemProtocolo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(411, 476);
-            this.Controls.Add(this.gcAgregarEnsayo);
+            this.ClientSize = new System.Drawing.Size(411, 631);
+            this.Controls.Add(this.gcAgregar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "formAsignarItemProtocolo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
@@ -767,13 +862,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.gcItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvItems)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.lueItemSimbolos.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.gcAgregarEnsayo)).EndInit();
-            this.gcAgregarEnsayo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gcAgregar)).EndInit();
+            this.gcAgregar.ResumeLayout(false);
             this.tlpRealizados.ResumeLayout(false);
             this.pnlPendientes.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl2)).EndInit();
-            this.groupControl2.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gcConfirmar)).EndInit();
+            this.gcConfirmar.ResumeLayout(false);
+            this.gcConfirmar.PerformLayout();
+            this.tlpNoti.ResumeLayout(false);
+            this.tlpCuerpo.ResumeLayout(false);
+            this.pnlCuerpo.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcAgregarItem)).EndInit();
             this.gcAgregarItem.ResumeLayout(false);
@@ -808,13 +906,12 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gvItems;
         private System.Windows.Forms.CheckBox cbCertificado;
         private DevExpress.XtraEditors.LookUpEdit lueItemSimbolos;
-        private DevExpress.XtraEditors.GroupControl gcAgregarEnsayo;
+        private DevExpress.XtraEditors.GroupControl gcAgregar;
         private FontAwesome.Sharp.IconButton btnCerrarMin;
         private System.Windows.Forms.TableLayoutPanel tlpRealizados;
         private System.Windows.Forms.Panel pnlPendientes;
-        private DevExpress.XtraEditors.GroupControl groupControl2;
+        private DevExpress.XtraEditors.GroupControl gcConfirmar;
         private FontAwesome.Sharp.IconButton iconButton1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private AAFControles.AAFBoton btnConfirmarCambios;
         private AAFControles.AAFBoton btnCancelarCambios;
@@ -842,5 +939,12 @@
         private ScrapKP.AAFControles.AAFTextBox tbEsp01;
         private DevExpress.XtraEditors.GroupControl groupControl5;
         private ScrapKP.AAFControles.AAFTextBox tbNombre;
+        private System.Windows.Forms.TableLayoutPanel tlpNoti;
+        private System.Windows.Forms.TableLayoutPanel tlpCuerpo;
+        private FontAwesome.Sharp.IconButton iconoNotificacion;
+        private System.Windows.Forms.Panel pnlCuerpo;
+        private System.Windows.Forms.Label lblMensaje;
+        private System.Windows.Forms.Label lblTitulo;
+        private System.Windows.Forms.Label lblNombreVentana;
     }
 }

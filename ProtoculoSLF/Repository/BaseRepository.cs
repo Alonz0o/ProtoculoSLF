@@ -112,48 +112,7 @@ namespace ProtoculoSLF.Repository
 
             return res;
         }
-        internal bool AgregarItemProtocolo(ProtocoloItem pi)
-        {
-            bool res = false;
-            using (var conexion = new MySqlConnection(connectionString))
-            {
-                conexion.Open();
-                using (var transaction = conexion.BeginTransaction())
-                {
-                    using (var command = conexion.CreateCommand())
-                    {
-                        command.Transaction = transaction;
-                        try
-                        {
-                            command.CommandText = @"INSERT INTO formatoprotocoloa_item (controles,unidad,usuario,certificado,especificacion_min,especificacion,especificacion_max,simbolo) 
-                                                                                VALUES (@pNombre,@pMedida,@pUsuario,@pEsCertificado,@pEpecificacionMin,@pEspecificacion,@pEpecificacionMax,@pCaracter)";
-                            command.Parameters.Add("@pNombre", MySqlDbType.String).Value = pi.Nombre;
-                            command.Parameters.Add("@pMedida", MySqlDbType.String).Value = pi.Medida;
-                            command.Parameters.Add("@pUsuario", MySqlDbType.String).Value = "ARIEL ALON";
-                            command.Parameters.Add("@pEsCertificado", MySqlDbType.Int32).Value = pi.EsCertificado;
-                            command.Parameters.Add("@pEpecificacionMin", MySqlDbType.Int32).Value = pi.EspecificacionMin;
-                            command.Parameters.Add("@pEspecificacion", MySqlDbType.Double).Value = pi.Especificacion;
-                            command.Parameters.Add("@pEpecificacionMax", MySqlDbType.Int32).Value = pi.EspecificacionMax;
-                            command.Parameters.Add("@pCaracter", MySqlDbType.String).Value = pi.Simbolo;
-                            if (command.ExecuteNonQuery() != 1)
-                            {
-                                throw new Exception("Error al insertar itemProtocolo");
-                            }
-
-                            transaction.Commit();
-                            res = true;
-                        }
-                        catch (Exception)
-                        {
-                            transaction.Rollback();
-                            res = false;
-                        }
-                    }
-                }
-            }
-
-            return res;
-        }
+        
 
 
         internal void GetProtocolos()
@@ -213,6 +172,9 @@ namespace ProtoculoSLF.Repository
                             Id = reader[0] != DBNull.Value ? reader.GetInt32(0) : 0,
                             Nombre = reader[1] != DBNull.Value ? reader.GetString(1) : "",
                             Medida = reader[2] != DBNull.Value ? reader.GetString(2) : "",
+                            EspecificacionMin = espeficacionMin,
+                            Especificacion = espeficacion,
+                            EspecificacionMax = espeficacionMax,
                             EsCertificadoSiNo = esCertificado ? "SI" : "NO",
                             EspecificacionDato = simbolo == "-" ? espeficacionMin + " - " + espeficacionMax : simbolo == "N" ? "VALIDA" : espeficacion + " " + simbolo + " " + espeficacionMax,
                         };
@@ -250,6 +212,9 @@ namespace ProtoculoSLF.Repository
                             Id = reader[0] != DBNull.Value ? reader.GetInt32(0) : 0,
                             Nombre = reader[1] != DBNull.Value ? reader.GetString(1) : "",
                             Medida = reader[2] != DBNull.Value ? reader.GetString(2) : "",
+                            EspecificacionMin = espeficacionMin,
+                            Especificacion = espeficacion,
+                            EspecificacionMax = espeficacionMax,
                             EsCertificadoSiNo = esCertificado ? "SI" : "NO",
                             EspecificacionDato = simbolo == "-" ? espeficacionMin + " - " + espeficacionMax : simbolo == "N" ? "VALIDA" : espeficacion + " " + simbolo + " " + espeficacionMax,
                             Orden = reader[8] != DBNull.Value ? reader.GetInt32(8) : 0,
@@ -475,6 +440,151 @@ namespace ProtoculoSLF.Repository
 
                 return pes;
             }
+        }
+        internal bool AgregarItemProtocolo(ProtocoloItem pi)
+        {
+            bool res = false;
+            using (var conexion = new MySqlConnection(connectionString))
+            {
+                conexion.Open();
+                using (var transaction = conexion.BeginTransaction())
+                {
+                    using (var command = conexion.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        try
+                        {
+                            command.CommandText = @"INSERT INTO formatoprotocoloa_item (controles,unidad,usuario,certificado,especificacion_min,especificacion,especificacion_max,simbolo) 
+                                                                                VALUES (@pNombre,@pMedida,@pUsuario,@pEsCertificado,@pEpecificacionMin,@pEspecificacion,@pEpecificacionMax,@pCaracter)";
+                            command.Parameters.Add("@pNombre", MySqlDbType.String).Value = pi.Nombre;
+                            command.Parameters.Add("@pMedida", MySqlDbType.String).Value = pi.Medida;
+                            command.Parameters.Add("@pUsuario", MySqlDbType.String).Value = "ARIEL ALON";
+                            command.Parameters.Add("@pEsCertificado", MySqlDbType.Int32).Value = pi.EsCertificado;
+                            command.Parameters.Add("@pEpecificacionMin", MySqlDbType.Int32).Value = pi.EspecificacionMin;
+                            command.Parameters.Add("@pEspecificacion", MySqlDbType.Double).Value = pi.Especificacion;
+                            command.Parameters.Add("@pEpecificacionMax", MySqlDbType.Int32).Value = pi.EspecificacionMax;
+                            command.Parameters.Add("@pCaracter", MySqlDbType.String).Value = pi.Simbolo;
+                            if (command.ExecuteNonQuery() != 1)
+                            {
+                                throw new Exception("Error al insertar itemProtocolo");
+                            }
+
+                            transaction.Commit();
+                            res = true;
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            res = false;
+                        }
+                    }
+                }
+            }
+
+            return res;
+        }
+        internal bool DeleteItem(string qryUpdate, int idItem)
+        {
+            bool res = false;
+            using (var conexion = new MySqlConnection(connectionString))
+            {
+                conexion.Open();
+                using (var transaction = conexion.BeginTransaction())
+                {
+                    using (var command = conexion.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        try
+                        {
+                            command.CommandText = @"DELETE FROM formatoprotocoloa_item WHERE (iditem = @pIdItem);";
+                            command.Parameters.Add("@pIdItem", MySqlDbType.Int32).Value = idItem;
+                            if (command.ExecuteNonQuery() != 1)
+                            {
+                                throw new Exception("Error al modificar TX");
+                            }
+
+                            if (qryUpdate != "NO")
+                            {
+                                command.CommandText = qryUpdate;
+                                if (command.ExecuteNonQuery() <= 0)
+                                {
+                                    throw new Exception("Error al actualizar SCRAPS");
+                                }
+                            }
+
+                            transaction.Commit();
+                            res = true;
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            res = false;
+                        }
+                    }
+                }
+            }
+
+            return res;
+        }
+
+        internal bool UpdateItem(string qryUpdate, ProtocoloItem pi)
+        {
+            bool res = false;
+            using (var conexion = new MySqlConnection(connectionString))
+            {
+                conexion.Open();
+                using (var transaction = conexion.BeginTransaction())
+                {
+                    using (var command = conexion.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        try
+                        {
+                            command.CommandText = @"UPDATE formatoprotocoloa_item SET controles = @pNombre,
+                                                                                      unidad = @pMedida,
+                                                                                      usuario = @pUsuario,
+                                                                                      certificado = @pEsCertificado,
+                                                                                      especificacion_min = @pEpecificacionMin,
+                                                                                      especificacion = @pEspecificacion,
+                                                                                      especificacion_max = @pEpecificacionMax,
+                                                                                      simbolo = @pSimbolo
+                                                                                      WHERE iditem = (@pIdItem);";
+                            command.Parameters.Add("@pNombre", MySqlDbType.String).Value = pi.Nombre;
+                            command.Parameters.Add("@pMedida", MySqlDbType.String).Value = pi.Medida;
+                            command.Parameters.Add("@pUsuario", MySqlDbType.String).Value = "ARIEL ALON";
+                            command.Parameters.Add("@pEsCertificado", MySqlDbType.Int32).Value = pi.EsCertificado;
+                            command.Parameters.Add("@pEpecificacionMin", MySqlDbType.Double).Value = pi.EspecificacionMin;
+                            command.Parameters.Add("@pEspecificacion", MySqlDbType.Double).Value = pi.Especificacion;
+                            command.Parameters.Add("@pEpecificacionMax", MySqlDbType.Double).Value = pi.EspecificacionMax;
+                            command.Parameters.Add("@pSimbolo", MySqlDbType.String).Value = pi.Simbolo;
+                            command.Parameters.Add("@pIdItem", MySqlDbType.Int32).Value = pi.Id;
+                            if (command.ExecuteNonQuery() != 1)
+                            {
+                                throw new Exception("Error al modificar TX");
+                            }
+
+                            if (qryUpdate != "NO")
+                            {
+                                command.CommandText = qryUpdate;
+                                if (command.ExecuteNonQuery() <= 0)
+                                {
+                                    throw new Exception("Error al actualizar SCRAPS");
+                                }
+                            }
+
+                            transaction.Commit();
+                            res = true;
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            res = false;
+                        }
+                    }
+                }
+            }
+
+            return res;
         }
     }
 }

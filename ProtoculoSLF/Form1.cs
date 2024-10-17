@@ -51,7 +51,7 @@ namespace ProtoculoSLF
             {
                 if (br.GetCambios() != 0)
                 {
-                    formNotificacion noti = new formNotificacion("success", "Información", "Se agrego un ensayo.");
+                    formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se agrego un ensayo.");
                     noti.Show();
                     GetEnsayosRealizados();
                 }
@@ -240,7 +240,7 @@ namespace ProtoculoSLF
 
             GridColumn cCantBobina = new GridColumn();
             cCantBobina.FieldName = "CantidadBobinas";
-            cCantBobina.Caption = "Bobina N°";
+            cCantBobina.Caption = "Cantidad N°";
             cCantBobina.UnboundDataType = typeof(string);
             cCantBobina.Visible = true;
             cCantBobina.OptionsColumn.AllowEdit = false;
@@ -391,7 +391,8 @@ namespace ProtoculoSLF
             if (EsModificadoNtProtocolo)
             {
                 gvProtocolos.RefreshData();
-                MessageBox.Show("Protocolo N° Modificado");
+                formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se modifico correctamente.");
+                noti.Show();
             }
         }
 
@@ -420,6 +421,7 @@ namespace ProtoculoSLF
 
             if (formAsignarItemProtocolo.instancia != null)
             {
+                formAsignarItemProtocolo.instancia.confirmar = "MOVERFILAS";
                 formAsignarItemProtocolo.instancia.items.Remove(data);
                 formAsignarItemProtocolo.instancia.RefrescarDatos();
                 formAsignarItemProtocolo.instancia.itemsAConfirmar.Add(data);
@@ -562,6 +564,27 @@ namespace ProtoculoSLF
                     gcValorItem.Visible = true;
                     gcValidarValor.Visible = false;
                 }        
+            }
+        }
+
+        private void btnMinimizar_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+
+        }
+
+        private void btnMaxMin_Click(object sender, EventArgs e)
+        {
+            if (WindowState == FormWindowState.Normal)
+            {
+                WindowState = FormWindowState.Maximized;
+                btnMaxMin.IconChar = FontAwesome.Sharp.IconChar.WindowRestore;
+            }
+            else
+            {
+                WindowState = FormWindowState.Normal;
+                btnMaxMin.IconChar = FontAwesome.Sharp.IconChar.WindowMaximize;
+
             }
         }
     }

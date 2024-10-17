@@ -32,20 +32,20 @@
             this.btnCerrarMin = new FontAwesome.Sharp.IconButton();
             this.tlpRealizados = new System.Windows.Forms.TableLayoutPanel();
             this.pnlPendientes = new System.Windows.Forms.Panel();
-            this.gcCliente = new DevExpress.XtraEditors.GroupControl();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.lueTipo = new DevExpress.XtraEditors.LookUpEdit();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAgregarItem = new ProtoculoSLF.AAFControles.AAFBoton();
             this.btnCancelar = new ProtoculoSLF.AAFControles.AAFBoton();
+            this.gcCliente = new DevExpress.XtraEditors.GroupControl();
+            this.lueProtocolo = new DevExpress.XtraEditors.LookUpEdit();
+            this.panel2 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.gcPoe)).BeginInit();
             this.gcPoe.SuspendLayout();
             this.tlpRealizados.SuspendLayout();
             this.pnlPendientes.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcCliente)).BeginInit();
             this.gcCliente.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lueTipo.Properties)).BeginInit();
-            this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lueProtocolo.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // gcPoe
@@ -112,48 +112,6 @@
             this.pnlPendientes.Size = new System.Drawing.Size(277, 105);
             this.pnlPendientes.TabIndex = 0;
             // 
-            // gcCliente
-            // 
-            this.gcCliente.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.gcCliente.Appearance.Options.UseBorderColor = true;
-            this.gcCliente.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gcCliente.AppearanceCaption.Options.UseFont = true;
-            this.gcCliente.Controls.Add(this.lueTipo);
-            this.gcCliente.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gcCliente.Location = new System.Drawing.Point(0, 0);
-            this.gcCliente.Name = "gcCliente";
-            this.gcCliente.Size = new System.Drawing.Size(277, 59);
-            this.gcCliente.TabIndex = 67;
-            this.gcCliente.Text = "  Seleccione protocolo";
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 3);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(7, 105);
-            this.panel2.TabIndex = 1;
-            // 
-            // lueTipo
-            // 
-            this.lueTipo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lueTipo.EditValue = "";
-            this.lueTipo.Location = new System.Drawing.Point(2, 23);
-            this.lueTipo.Name = "lueTipo";
-            this.lueTipo.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.lueTipo.Properties.Appearance.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lueTipo.Properties.Appearance.Options.UseFont = true;
-            this.lueTipo.Properties.Appearance.Options.UseForeColor = true;
-            this.lueTipo.Properties.AutoHeight = false;
-            this.lueTipo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lueTipo.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
-            this.lueTipo.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
-            this.lueTipo.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.lueTipo.Size = new System.Drawing.Size(273, 34);
-            this.lueTipo.TabIndex = 64;
-            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
@@ -213,6 +171,48 @@
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
             // 
+            // gcCliente
+            // 
+            this.gcCliente.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.gcCliente.Appearance.Options.UseBorderColor = true;
+            this.gcCliente.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gcCliente.AppearanceCaption.Options.UseFont = true;
+            this.gcCliente.Controls.Add(this.lueProtocolo);
+            this.gcCliente.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gcCliente.Location = new System.Drawing.Point(0, 0);
+            this.gcCliente.Name = "gcCliente";
+            this.gcCliente.Size = new System.Drawing.Size(277, 59);
+            this.gcCliente.TabIndex = 67;
+            this.gcCliente.Text = "  Seleccione protocolo";
+            // 
+            // lueProtocolo
+            // 
+            this.lueProtocolo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lueProtocolo.EditValue = "";
+            this.lueProtocolo.Location = new System.Drawing.Point(2, 23);
+            this.lueProtocolo.Name = "lueProtocolo";
+            this.lueProtocolo.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.lueProtocolo.Properties.Appearance.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.lueProtocolo.Properties.Appearance.Options.UseFont = true;
+            this.lueProtocolo.Properties.Appearance.Options.UseForeColor = true;
+            this.lueProtocolo.Properties.AutoHeight = false;
+            this.lueProtocolo.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lueProtocolo.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
+            this.lueProtocolo.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
+            this.lueProtocolo.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.lueProtocolo.Size = new System.Drawing.Size(273, 34);
+            this.lueProtocolo.TabIndex = 64;
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(7, 105);
+            this.panel2.TabIndex = 1;
+            // 
             // formAsignarProtocolo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -228,10 +228,10 @@
             this.gcPoe.ResumeLayout(false);
             this.tlpRealizados.ResumeLayout(false);
             this.pnlPendientes.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcCliente)).EndInit();
             this.gcCliente.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.lueTipo.Properties)).EndInit();
-            this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.lueProtocolo.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -243,7 +243,7 @@
         private System.Windows.Forms.Panel pnlPendientes;
         private DevExpress.XtraEditors.GroupControl gcCliente;
         private System.Windows.Forms.Panel panel2;
-        private DevExpress.XtraEditors.LookUpEdit lueTipo;
+        private DevExpress.XtraEditors.LookUpEdit lueProtocolo;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private AAFControles.AAFBoton btnAgregarItem;
         private AAFControles.AAFBoton btnCancelar;

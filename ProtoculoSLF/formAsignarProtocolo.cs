@@ -19,25 +19,36 @@ namespace ProtoculoSLF
         {
             InitializeComponent();
             this.idNt = idNt;
+            Deactivate += (s, e) => Close();
+
         }
 
         private void formAsignarProtocolo_Load(object sender, EventArgs e)
         {
-            lueTipo.Properties.DataSource = Form1.instancia.br.GetFormatosProtocolos().OrderByDescending(d => d.Fecha);
-            lueTipo.Properties.PopulateColumns();
-            lueTipo.Properties.Columns[0].Visible = false;
+            lueProtocolo.Properties.DataSource = Form1.instancia.br.GetFormatosProtocolos().OrderByDescending(d => d.Fecha);
+            lueProtocolo.Properties.PopulateColumns();
+            lueProtocolo.Properties.Columns[0].Visible = false;
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
-            if (lueTipo.Text!="") {
-                if (Form1.instancia.br.ModificarNtIdProtocolo(idNt, Convert.ToInt32(lueTipo.Text))) {
-                    Form1.instancia.EsModificadoNtProtocolo = true;
-                    Form1.instancia.nts.FirstOrDefault(n => n.Id == idNt).IdProtocolo = Convert.ToInt32(lueTipo.Text);
+            var lueProtocoloA = lueProtocolo.GetSelectedDataRow() as Protocolo;
+            if (lueProtocoloA == null)
+            {
+                formNotificacion noti = new formNotificacion("warning", "Recomendación", "Protocolo","Debe seleccionar algún protocolo.");
+                noti.Show();
+                lueProtocolo.Focus();
+                return;
+            }
 
+            if (!string.IsNullOrEmpty(lueProtocoloA.Id.ToString()))
+            {
+                if (Form1.instancia.br.ModificarNtIdProtocolo(idNt, lueProtocoloA.FormatoProtocolo))
+                {
+                    Form1.instancia.EsModificadoNtProtocolo = true;
+                    Form1.instancia.nts.FirstOrDefault(n => n.Id == idNt).IdProtocolo = lueProtocoloA.FormatoProtocolo;
                     Close();
                 }
-
             }
         }
 

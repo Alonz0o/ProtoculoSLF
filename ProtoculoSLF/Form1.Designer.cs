@@ -467,6 +467,7 @@
             this.barButtonItem2.Caption = "Crear Protocolo";
             this.barButtonItem2.Id = 2;
             this.barButtonItem2.Name = "barButtonItem2";
+            this.barButtonItem2.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
             // bmNts
             // 
@@ -537,7 +538,9 @@
             this.groupControl8.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
             this.groupControl8.Appearance.Options.UseBorderColor = true;
             this.groupControl8.AppearanceCaption.Font = new System.Drawing.Font("Roboto Medium", 10F, System.Drawing.FontStyle.Bold);
+            this.groupControl8.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.groupControl8.AppearanceCaption.Options.UseFont = true;
+            this.groupControl8.AppearanceCaption.Options.UseForeColor = true;
             this.groupControl8.Controls.Add(this.gcProtocolos);
             this.groupControl8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupControl8.Location = new System.Drawing.Point(0, 0);
@@ -1041,6 +1044,7 @@
             this.btnMinimizar.Size = new System.Drawing.Size(20, 23);
             this.btnMinimizar.TabIndex = 37;
             this.btnMinimizar.UseVisualStyleBackColor = false;
+            this.btnMinimizar.Click += new System.EventHandler(this.btnMinimizar_Click);
             // 
             // btnMaxMin
             // 
@@ -1058,6 +1062,7 @@
             this.btnMaxMin.Size = new System.Drawing.Size(20, 23);
             this.btnMaxMin.TabIndex = 36;
             this.btnMaxMin.UseVisualStyleBackColor = false;
+            this.btnMaxMin.Click += new System.EventHandler(this.btnMaxMin_Click);
             // 
             // btnSalir
             // 
