@@ -98,6 +98,7 @@
             this.btnMinimizar = new FontAwesome.Sharp.IconButton();
             this.btnMaxMin = new FontAwesome.Sharp.IconButton();
             this.btnSalir = new FontAwesome.Sharp.IconButton();
+            this.iconButton1 = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.gcItemsProtocolo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvItemsProtocolo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcFormatoValores)).BeginInit();
@@ -921,18 +922,29 @@
             // tlpNav
             // 
             this.tlpNav.BackColor = System.Drawing.Color.Transparent;
-            this.tlpNav.ColumnCount = 4;
+            this.tlpNav.ColumnCount = 5;
             this.tlpNav.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56F));
             this.tlpNav.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpNav.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 51F));
             this.tlpNav.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 219F));
             this.tlpNav.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 51F));
-            this.tlpNav.Controls.Add(this.tableLayoutPanel3, 2, 0);
             this.tlpNav.Controls.Add(this.panel8, 0, 0);
+            this.tlpNav.Controls.Add(this.tableLayoutPanel3, 3, 0);
+            this.tlpNav.Controls.Add(this.iconButton1, 2, 0);
             this.tlpNav.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpNav.Location = new System.Drawing.Point(0, 23);
             this.tlpNav.Name = "tlpNav";
             this.tlpNav.RowCount = 1;
             this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tlpNav.Size = new System.Drawing.Size(1170, 51);
             this.tlpNav.TabIndex = 59;
             // 
@@ -942,7 +954,6 @@
             this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Controls.Add(this.panel6, 0, 1);
             this.tableLayoutPanel3.Controls.Add(this.panel5, 0, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(900, 0);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -1081,6 +1092,28 @@
             this.btnSalir.TabIndex = 35;
             this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
+            // 
+            // iconButton1
+            // 
+            this.iconButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.iconButton1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.iconButton1.FlatAppearance.BorderSize = 0;
+            this.iconButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(14)))), ((int)(((byte)(69)))));
+            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.Bell;
+            this.iconButton1.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(14)))), ((int)(((byte)(69)))));
+            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Solid;
+            this.iconButton1.IconSize = 30;
+            this.iconButton1.Location = new System.Drawing.Point(849, 0);
+            this.iconButton1.Margin = new System.Windows.Forms.Padding(0);
+            this.iconButton1.Name = "iconButton1";
+            this.iconButton1.Size = new System.Drawing.Size(51, 51);
+            this.iconButton1.TabIndex = 38;
+            this.iconButton1.Text = "11";
+            this.iconButton1.TextAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.iconButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButton1.UseCompatibleTextRendering = true;
             // 
             // Form1
             // 
@@ -1230,6 +1263,7 @@
         private System.Windows.Forms.Panel panel11;
         private DevExpress.XtraEditors.GroupControl gcValorItem;
         private ScrapKP.AAFControles.AAFTextBox tbValorEnsayo;
+        private FontAwesome.Sharp.IconButton iconButton1;
     }
 }
 
