@@ -62,6 +62,7 @@
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.groupControl8 = new DevExpress.XtraEditors.GroupControl();
+            this.btnAsignarCodigo = new FontAwesome.Sharp.IconButton();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.gcFormatoItems = new DevExpress.XtraEditors.GroupControl();
@@ -87,18 +88,21 @@
             this.panel10 = new System.Windows.Forms.Panel();
             this.aafPanel2 = new ProtoculoSLF.AAFPanel();
             this.tlpNav = new System.Windows.Forms.TableLayoutPanel();
+            this.panel8 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.panel12 = new System.Windows.Forms.Panel();
-            this.panel8 = new System.Windows.Forms.Panel();
+            this.iconButton1 = new FontAwesome.Sharp.IconButton();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnAgregarProtocolo = new ProtoculoSLF.AAFControles.AAFBoton();
+            this.btnAgregarItem = new ProtoculoSLF.AAFControles.AAFBoton();
             this.panel9 = new System.Windows.Forms.Panel();
             this.btnMinimizar = new FontAwesome.Sharp.IconButton();
             this.btnMaxMin = new FontAwesome.Sharp.IconButton();
             this.btnSalir = new FontAwesome.Sharp.IconButton();
-            this.iconButton1 = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.gcItemsProtocolo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvItemsProtocolo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcFormatoValores)).BeginInit();
@@ -156,6 +160,7 @@
             this.tableLayoutPanel3.SuspendLayout();
             this.panel6.SuspendLayout();
             this.panel5.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
             this.panel9.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -354,7 +359,7 @@
             this.groupControl7.Name = "groupControl7";
             this.groupControl7.Size = new System.Drawing.Size(175, 52);
             this.groupControl7.TabIndex = 65;
-            this.groupControl7.Text = "  Numero de pallet";
+            this.groupControl7.Text = "  Condición";
             // 
             // lblPalletNum
             // 
@@ -542,6 +547,7 @@
             this.groupControl8.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.groupControl8.AppearanceCaption.Options.UseFont = true;
             this.groupControl8.AppearanceCaption.Options.UseForeColor = true;
+            this.groupControl8.Controls.Add(this.btnAsignarCodigo);
             this.groupControl8.Controls.Add(this.gcProtocolos);
             this.groupControl8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupControl8.Location = new System.Drawing.Point(0, 0);
@@ -550,6 +556,26 @@
             this.groupControl8.Size = new System.Drawing.Size(182, 399);
             this.groupControl8.TabIndex = 63;
             this.groupControl8.Text = "  Códigos";
+            // 
+            // btnAsignarCodigo
+            // 
+            this.btnAsignarCodigo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnAsignarCodigo.BackColor = System.Drawing.Color.Transparent;
+            this.btnAsignarCodigo.BackgroundImage = global::ProtoculoSLF.Properties.Resources.add_16x16;
+            this.btnAsignarCodigo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnAsignarCodigo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAsignarCodigo.FlatAppearance.BorderSize = 0;
+            this.btnAsignarCodigo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAsignarCodigo.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnAsignarCodigo.IconColor = System.Drawing.SystemColors.Highlight;
+            this.btnAsignarCodigo.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnAsignarCodigo.IconSize = 20;
+            this.btnAsignarCodigo.Location = new System.Drawing.Point(156, 1);
+            this.btnAsignarCodigo.Name = "btnAsignarCodigo";
+            this.btnAsignarCodigo.Size = new System.Drawing.Size(20, 20);
+            this.btnAsignarCodigo.TabIndex = 34;
+            this.btnAsignarCodigo.UseVisualStyleBackColor = false;
+            this.btnAsignarCodigo.Click += new System.EventHandler(this.btnAsignarCodigo_Click);
             // 
             // groupControl1
             // 
@@ -925,28 +951,39 @@
             this.tlpNav.ColumnCount = 5;
             this.tlpNav.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56F));
             this.tlpNav.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpNav.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 51F));
+            this.tlpNav.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 69F));
             this.tlpNav.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 219F));
             this.tlpNav.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 51F));
             this.tlpNav.Controls.Add(this.panel8, 0, 0);
             this.tlpNav.Controls.Add(this.tableLayoutPanel3, 3, 0);
             this.tlpNav.Controls.Add(this.iconButton1, 2, 0);
+            this.tlpNav.Controls.Add(this.tableLayoutPanel2, 1, 0);
             this.tlpNav.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tlpNav.Location = new System.Drawing.Point(0, 23);
             this.tlpNav.Name = "tlpNav";
             this.tlpNav.RowCount = 1;
             this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 51F));
+            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 51F));
+            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 51F));
+            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 51F));
+            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 51F));
+            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 51F));
+            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 51F));
+            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 51F));
+            this.tlpNav.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 51F));
             this.tlpNav.Size = new System.Drawing.Size(1170, 51);
             this.tlpNav.TabIndex = 59;
+            // 
+            // panel8
+            // 
+            this.panel8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel8.Location = new System.Drawing.Point(0, 0);
+            this.panel8.Margin = new System.Windows.Forms.Padding(0);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(56, 51);
+            this.panel8.TabIndex = 4;
             // 
             // tableLayoutPanel3
             // 
@@ -1017,15 +1054,92 @@
             this.panel12.Size = new System.Drawing.Size(219, 1);
             this.panel12.TabIndex = 3;
             // 
-            // panel8
+            // iconButton1
             // 
-            this.panel8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.panel8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel8.Location = new System.Drawing.Point(0, 0);
-            this.panel8.Margin = new System.Windows.Forms.Padding(0);
-            this.panel8.Name = "panel8";
-            this.panel8.Size = new System.Drawing.Size(56, 51);
-            this.panel8.TabIndex = 4;
+            this.iconButton1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.iconButton1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.iconButton1.FlatAppearance.BorderSize = 0;
+            this.iconButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.iconButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.iconButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(14)))), ((int)(((byte)(69)))));
+            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.Bell;
+            this.iconButton1.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(14)))), ((int)(((byte)(69)))));
+            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Solid;
+            this.iconButton1.IconSize = 30;
+            this.iconButton1.Location = new System.Drawing.Point(831, 0);
+            this.iconButton1.Margin = new System.Windows.Forms.Padding(0);
+            this.iconButton1.Name = "iconButton1";
+            this.iconButton1.Size = new System.Drawing.Size(69, 51);
+            this.iconButton1.TabIndex = 38;
+            this.iconButton1.Text = "1";
+            this.iconButton1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            this.iconButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.iconButton1.UseCompatibleTextRendering = true;
+            this.iconButton1.Visible = false;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 5;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel2.Controls.Add(this.btnAgregarProtocolo, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnAgregarItem, 2, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(56, 18);
+            this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 1;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(775, 33);
+            this.tableLayoutPanel2.TabIndex = 39;
+            // 
+            // btnAgregarProtocolo
+            // 
+            this.btnAgregarProtocolo.BackColor = System.Drawing.Color.Transparent;
+            this.btnAgregarProtocolo.BackgroundColor = System.Drawing.Color.Transparent;
+            this.btnAgregarProtocolo.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAgregarProtocolo.BorderRadius = 0;
+            this.btnAgregarProtocolo.BorderSize = 1;
+            this.btnAgregarProtocolo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregarProtocolo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAgregarProtocolo.FlatAppearance.BorderSize = 0;
+            this.btnAgregarProtocolo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAgregarProtocolo.Font = new System.Drawing.Font("Roboto Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarProtocolo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAgregarProtocolo.Location = new System.Drawing.Point(155, 0);
+            this.btnAgregarProtocolo.Margin = new System.Windows.Forms.Padding(0);
+            this.btnAgregarProtocolo.Name = "btnAgregarProtocolo";
+            this.btnAgregarProtocolo.Size = new System.Drawing.Size(155, 33);
+            this.btnAgregarProtocolo.TabIndex = 2;
+            this.btnAgregarProtocolo.Text = "Protocolos";
+            this.btnAgregarProtocolo.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAgregarProtocolo.UseVisualStyleBackColor = false;
+            // 
+            // btnAgregarItem
+            // 
+            this.btnAgregarItem.BackColor = System.Drawing.Color.Transparent;
+            this.btnAgregarItem.BackgroundColor = System.Drawing.Color.Transparent;
+            this.btnAgregarItem.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAgregarItem.BorderRadius = 0;
+            this.btnAgregarItem.BorderSize = 1;
+            this.btnAgregarItem.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregarItem.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAgregarItem.FlatAppearance.BorderSize = 0;
+            this.btnAgregarItem.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnAgregarItem.Font = new System.Drawing.Font("Roboto Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAgregarItem.Location = new System.Drawing.Point(310, 0);
+            this.btnAgregarItem.Margin = new System.Windows.Forms.Padding(0);
+            this.btnAgregarItem.Name = "btnAgregarItem";
+            this.btnAgregarItem.Size = new System.Drawing.Size(155, 33);
+            this.btnAgregarItem.TabIndex = 3;
+            this.btnAgregarItem.Text = "Protocolo Ítems";
+            this.btnAgregarItem.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAgregarItem.UseVisualStyleBackColor = false;
+            this.btnAgregarItem.Click += new System.EventHandler(this.btnAgregarItem_Click);
             // 
             // panel9
             // 
@@ -1092,28 +1206,6 @@
             this.btnSalir.TabIndex = 35;
             this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
-            // 
-            // iconButton1
-            // 
-            this.iconButton1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.iconButton1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.iconButton1.FlatAppearance.BorderSize = 0;
-            this.iconButton1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.iconButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.iconButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(14)))), ((int)(((byte)(69)))));
-            this.iconButton1.IconChar = FontAwesome.Sharp.IconChar.Bell;
-            this.iconButton1.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(14)))), ((int)(((byte)(69)))));
-            this.iconButton1.IconFont = FontAwesome.Sharp.IconFont.Solid;
-            this.iconButton1.IconSize = 30;
-            this.iconButton1.Location = new System.Drawing.Point(849, 0);
-            this.iconButton1.Margin = new System.Windows.Forms.Padding(0);
-            this.iconButton1.Name = "iconButton1";
-            this.iconButton1.Size = new System.Drawing.Size(51, 51);
-            this.iconButton1.TabIndex = 38;
-            this.iconButton1.Text = "11";
-            this.iconButton1.TextAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.iconButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.iconButton1.UseCompatibleTextRendering = true;
             // 
             // Form1
             // 
@@ -1187,6 +1279,7 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.panel6.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1264,6 +1357,10 @@
         private DevExpress.XtraEditors.GroupControl gcValorItem;
         private ScrapKP.AAFControles.AAFTextBox tbValorEnsayo;
         private FontAwesome.Sharp.IconButton iconButton1;
+        private FontAwesome.Sharp.IconButton btnAsignarCodigo;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private AAFControles.AAFBoton btnAgregarProtocolo;
+        private AAFControles.AAFBoton btnAgregarItem;
     }
 }
 

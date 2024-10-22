@@ -38,9 +38,6 @@ namespace ProtoculoSLF
             GenerarTablaProtocolosItem();
             GenerarTablaNts();
             GenerarTablaEnsayos();
-            gvProtocolos.BestFitColumns();
-            gvItemsProtocolo.BestFitColumns();
-            gvNts.BestFitColumns();
             await GetEnsayosTask();
 
         }
@@ -127,6 +124,7 @@ namespace ProtoculoSLF
                         if (p != null)
                         {
                             idCodigoSeleccionado = p.Id;
+                            esPorLote= p.EsPorLote;
                             nts = br.GetNTs(idCodigoSeleccionado);
                             if (nts.Count != 0)
                             {
@@ -147,7 +145,6 @@ namespace ProtoculoSLF
                     }
                 }
             };
-
         }
         private void LimpiarMenuProtocolo()
         {
@@ -369,6 +366,7 @@ namespace ProtoculoSLF
         }
         
         public int idCodigoSeleccionado = 0;
+        public bool esPorLote;
         public int idProtocoloSeleccionado = 0;
 
         private void dvProtocolos_DragDrop(object sender, DragEventArgs e)
@@ -379,10 +377,11 @@ namespace ProtoculoSLF
             datosReporte.Cliente = data.Cliente;
             datosReporte.Lote = data.OP + "/" + data.NumPallet;
             datosReporte.Pallet = data.NumPallet;
-            //groupControl3.Text = "Protocolo N° " + idProtocoloSeleccionado + " | ITEMS";
+            gcFormatoItems.Text = "Protocolo N° " + idProtocoloSeleccionado + " | ITEMS";
             lblNtNum.Text = "NT N° " + data.NumNT;
             lblProtocoloId.Text = "Protocolo N° " + data.IdProtocolo;
-            lblPalletNum.Text = "Pallet N° " + data.NumPallet;
+            lblPalletNum.Text = esPorLote ? "Por lote" : "Pallet N° " + data.NumPallet;
+            groupControl7.Text = esPorLote ? "  Por lote" : "  Por Pallet";
             GetProtocoloItems();
             GetEnsayosRealizados();
             
@@ -457,9 +456,7 @@ namespace ProtoculoSLF
 
             if (formAsignarItemProtocolo.instancia != null)
             {
-                formAsignarItemProtocolo.instancia.confirmar = "MOVERFILAS";
                 formAsignarItemProtocolo.instancia.items.Remove(data);
-                formAsignarItemProtocolo.instancia.RefrescarDatos();
                 formAsignarItemProtocolo.instancia.itemsAConfirmar.Add(data);
             }
 
@@ -652,6 +649,23 @@ namespace ProtoculoSLF
                 btnMaxMin.IconChar = FontAwesome.Sharp.IconChar.WindowMaximize;
 
             }
+        }
+
+        private void btnAsignarCodigo_Click(object sender, EventArgs e)
+        {
+            formAgregarCodigo form = new formAgregarCodigo();
+            form.Size = panel7.Size;
+            Point locationOnScreen = panel7.PointToScreen(Point.Empty);
+            form.Location = new Point(locationOnScreen.X, locationOnScreen.Y);
+            form.Show();
+        }
+
+        private void btnAgregarItem_Click(object sender, EventArgs e)
+        {
+            formAgregarItems form = new formAgregarItems();
+            Point locationOnScreen = btnAgregarItem.PointToScreen(Point.Empty);
+            form.Location = new Point(locationOnScreen.X, locationOnScreen.Y + btnAgregarItem.Height + 5);
+            form.Show();
         }
     }
 }

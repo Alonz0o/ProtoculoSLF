@@ -11,10 +11,13 @@
         public double Especificacion { get; set; }
         public double EspecificacionMax { get; set; }
         public bool EsCertificado { get; set; }
+        public bool EsConstante { get; set; }
+
         public string EsCertificadoSiNo { get; set; }
+        public int IdProtocolo { get; set; }
         public int IdProtocoloItem { get; set; }
         public string EspecificacionDato { get; set; }
-
+        public bool Seleccionar { get; set; }
         public override string ToString()
         {
             return Nombre;

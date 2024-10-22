@@ -1,20 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Configuration;
 using MySqlConnector;
-using System.Security.Cryptography;
-using static System.Windows.Forms.MonthCalendar;
-using System.Windows.Forms;
 using ProtoculoSLF.Model;
-using DevExpress.DataProcessing.InMemoryDataProcessor;
-using DevExpress.Pdf.Native.BouncyCastle.Utilities.Collections;
-using DevExpress.XtraBars.Customization;
-using DevExpress.XtraRichEdit.Import.Html;
 
 namespace ProtoculoSLF.Repository
 {
@@ -67,7 +57,7 @@ namespace ProtoculoSLF.Repository
                 conexion.Open();
                 using (var command = conexion.CreateCommand())
                 {
-                    command.CommandText = "SELECT id_nt_log,valor_log,correcto_log,accion_creada FROM formatoprotocoloa_ensayo_log WHERE accion_creada >= NOW() - INTERVAL 5 SECOND;";
+                    command.CommandText = "SELECT id_nt_log,valor_log,correcto_log,accion_creada FROM formato_ensayo_log WHERE accion_creada >= NOW() - INTERVAL 5 SECOND;";
                     return command.ExecuteScalar() != DBNull.Value ? Convert.ToInt32(command.ExecuteScalar()) : 0;
                 }
             }
@@ -86,8 +76,8 @@ namespace ProtoculoSLF.Repository
                         command.Transaction = transaction;
                         try
                         {
-                            command.CommandText = @"INSERT INTO formatoprotocoloa_ensayo (id_nt,id_protocolo_item,valor_ensayo,correcto) 
-                                                                                  VALUES (@pIdNt,@pIdProtocoloItem,@pValor,@pCorrecto);";
+                            command.CommandText = @"INSERT INTO formato_ensayo (id_nt,id_protocolo_item,valor_ensayo,correcto) 
+                                                                        VALUES (@pIdNt,@pIdProtocoloItem,@pValor,@pCorrecto);";
                             command.Parameters.Add("@pIdNt", MySqlDbType.Int32).Value = idNt;
                             command.Parameters.Add("@pIdProtocoloItem", MySqlDbType.Int32).Value = idProtocoloItem;
                             command.Parameters.Add("@pValor", MySqlDbType.Double).Value = valor;
@@ -123,9 +113,9 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT e.IdCodigo,e.formato_protocol,e.fecha_modificacion,fp.Descripcion,e.Numero_Art_Cliente
+                command.CommandText = @"SELECT e.IdCodigo,e.formato_protocol,e.fecha_modificacion,fp.nombre,e.Numero_Art_Cliente,fp.por_lote,fp.por_pallet
                                         FROM extrusion e 
-                                        LEFT JOIN formatosdeprotocolos fp ON e.formato_protocol=fp.id_formato;";
+                                        LEFT JOIN formato_protocolo fp ON e.formato_protocol=fp.id;";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -137,6 +127,8 @@ namespace ProtoculoSLF.Repository
                             Fecha = reader[2] != DBNull.Value ? reader.GetDateTime(2) : new DateTime(1993, 1, 20),
                             Descripcion = reader[3] != DBNull.Value ? reader.GetString(3) : "",
                             CodigoCliente = reader[4] != DBNull.Value ? reader.GetString(4) : "",
+                            EsPorLote = reader.IsDBNull(5) ? false : Convert.ToBoolean(reader.GetInt32(5)),
+                            EsPorPallet = reader.IsDBNull(6) ? false : Convert.ToBoolean(reader.GetInt32(6)),
                         };
                         ps.Add(p);
                     }
@@ -154,27 +146,20 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fi.iditem,fi.controles,fi.unidad,fi.certificado,fi.simbolo,fi.especificacion_min,fi.especificacion,fi.especificacion_max
-                                        FROM formatoprotocoloa_item fi;";
+                command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica
+                                        FROM formato_item fi;";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
                         var esCertificado = reader[3] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(3)) : false;
-                        var simbolo = reader[4] != DBNull.Value ? reader.GetString(4) : "";
-                        var espeficacionMin = reader[5] != DBNull.Value ? reader.GetDouble(5) : 0.0;
-                        var espeficacion = reader[6] != DBNull.Value ? reader.GetDouble(6) : 0.0;
-                        var espeficacionMax = reader[7] != DBNull.Value ? reader.GetDouble(7) : 0.0;
                         ProtocoloItem pi = new ProtocoloItem
                         {
-                            Id = reader[0] != DBNull.Value ? reader.GetInt32(0) : 0,
-                            Nombre = reader[1] != DBNull.Value ? reader.GetString(1) : "",
-                            Medida = reader[2] != DBNull.Value ? reader.GetString(2) : "",
-                            EspecificacionMin = espeficacionMin,
-                            Especificacion = espeficacion,
-                            EspecificacionMax = espeficacionMax,
+                            Id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+                            Nombre = reader.IsDBNull(1) ? "" : reader.GetString(1),
+                            Medida = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                            EsCertificado = esCertificado,
                             EsCertificadoSiNo = esCertificado ? "SI" : "NO",
-                            EspecificacionDato = simbolo == "-" ? espeficacionMin + " - " + espeficacionMax : simbolo == "N" ? "VALIDA" : espeficacion + " " + simbolo + " " + espeficacionMax,
                         };
                         pis.Add(pi);
                     }
@@ -191,9 +176,9 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fi.iditem,fi.controles,fi.unidad,fi.certificado,fi.simbolo,fi.especificacion_min,fi.especificacion,fi.especificacion_max,fpi.orden,fpi.id
-                                        FROM formatoprotocoloa_protocolo_item fpi
-                                        JOIN formatoprotocoloa_item fi on fpi.id_item = fi.iditem
+                command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fpi.simbolo,fpi.especificacion_min,fpi.especificacion,fpi.especificacion_max,fpi.orden,fpi.id
+                                        FROM formato_protocolo_item fpi
+                                        JOIN formato_item fi on fpi.id_item = fi.id
                                         WHERE fpi.id_protocolo = @pIdProtocolo;";
                 command.Parameters.Add("@pIdProtocolo", MySqlDbType.Int32).Value = idProtocolo;
                 using (var reader = command.ExecuteReader())
@@ -258,7 +243,7 @@ namespace ProtoculoSLF.Repository
             }
             return nts;
         }
-
+        //VER VER SE MODIFICO BASE DE DATOS
         internal List<ProtocoloEnsayo> GetEnsayosItems(object idProtocolo)
         {
             List<ProtocoloEnsayo> pes = new List<ProtocoloEnsayo>();
@@ -267,10 +252,10 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fe.id,fi.controles,fe.valor_ensayo,fe.correcto,fi.simbolo,fpi.orden,fi.especificacion_min,fi.especificacion,fi.especificacion_max,fe.id_protocolo_item,fi.unidad
-                                        FROM formatoprotocoloa_ensayo fe
-                                        JOIN formatoprotocoloa_protocolo_item fpi on fe.id_protocolo_item = fpi.id
-                                        JOIN formatoprotocoloa_item fi on fpi.id_item = fi.iditem
+                command.CommandText = @"SELECT fe.id,fi.nombre,fe.valor_ensayo,fe.correcto,fpi.simbolo,fpi.orden,fpi.especificacion_min,fpi.especificacion,fpi.especificacion_max,fpi.id,fi.unidad
+                                        FROM formato_ensayo fe
+                                        JOIN formato_protocolo_item fpi on fe.id_protocolo_item = fpi.id
+                                        JOIN formato_item fi on fpi.id_item = fi.id
                                         WHERE fpi.id_protocolo = @pIdProtocolo;";
                 command.Parameters.Add("@pIdProtocolo", MySqlDbType.Int32).Value = idProtocolo;
                 using (var reader = command.ExecuteReader())
@@ -326,10 +311,10 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fe.id,fi.controles,fe.valor_ensayo,fe.correcto,fi.simbolo,fpi.orden,fi.especificacion_min,fi.especificacion,fi.especificacion_max,fe.id_protocolo_item,fi.unidad
-                                        FROM formatoprotocoloa_ensayo fe
-                                        JOIN formatoprotocoloa_protocolo_item fpi on fe.id_protocolo_item = fpi.id
-                                        JOIN formatoprotocoloa_item fi on fpi.id_item = fi.iditem
+                command.CommandText = @"SELECT fe.id,fi.nombre,fe.valor_ensayo,fe.correcto,fpi.simbolo,fpi.orden,fpi.especificacion_min,fpi.especificacion,fpi.especificacion_max,fe.id_protocolo_item,fi.unidad
+                                        FROM formato_ensayo fe
+                                        JOIN formato_protocolo_item fpi on fe.id_protocolo_item = fpi.id
+                                        JOIN formato_item fi on fpi.id_item = fi.id
                                         WHERE fe.id_protocolo_item=@pIdProtocoloItem;";
                 command.Parameters.Add("@pIdProtocoloItem", MySqlDbType.Int32).Value = idProtocoloItem;
                 using (var reader = command.ExecuteReader())
@@ -464,7 +449,7 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fe.valor_ensayo FROM formatoprotocoloa_ensayo fe where fe.id_protocolo_item=@pIdProtocoloItem;";
+                command.CommandText = @"SELECT fe.valor_ensayo FROM formato_ensayo fe where fe.id_protocolo_item=@pIdProtocoloItem;";
                 command.Parameters.Add("@pIdProtocoloItem", MySqlDbType.Int32).Value = peSeleccionado.IdProtocoloItem;
                 using (var reader = command.ExecuteReader())
                 {
@@ -496,16 +481,15 @@ namespace ProtoculoSLF.Repository
                         command.Transaction = transaction;
                         try
                         {
-                            command.CommandText = @"INSERT INTO formatoprotocoloa_item (controles,unidad,usuario,certificado,especificacion_min,especificacion,especificacion_max,simbolo) 
-                                                                                VALUES (@pNombre,@pMedida,@pUsuario,@pEsCertificado,@pEpecificacionMin,@pEspecificacion,@pEpecificacionMax,@pCaracter)";
-                            command.Parameters.Add("@pNombre", MySqlDbType.String).Value = pi.Nombre;
-                            command.Parameters.Add("@pMedida", MySqlDbType.String).Value = pi.Medida;
-                            command.Parameters.Add("@pUsuario", MySqlDbType.String).Value = "ARIEL ALON";
-                            command.Parameters.Add("@pEsCertificado", MySqlDbType.Int32).Value = pi.EsCertificado;
-                            command.Parameters.Add("@pEpecificacionMin", MySqlDbType.Int32).Value = pi.EspecificacionMin;
+                            command.CommandText = @"INSERT INTO formato_protocolo_item (id_protocolo,id_item,orden,especificacion_min,especificacion,especificacion_max,simbolo) 
+                                                                                VALUES (@pIdProtocolo,@pIdItem,@pOrden,@pEpecificacionMin,@pEspecificacion,@pEpecificacionMax,@pSimbolo)";
+                            command.Parameters.Add("@pIdProtocolo", MySqlDbType.Int32).Value = pi.IdProtocolo;
+                            command.Parameters.Add("@pIdItem", MySqlDbType.Int32).Value = pi.Id;
+                            command.Parameters.Add("@pOrden", MySqlDbType.Int32).Value = pi.Orden;
+                            command.Parameters.Add("@pEpecificacionMin", MySqlDbType.Double).Value = pi.EspecificacionMin;
                             command.Parameters.Add("@pEspecificacion", MySqlDbType.Double).Value = pi.Especificacion;
-                            command.Parameters.Add("@pEpecificacionMax", MySqlDbType.Int32).Value = pi.EspecificacionMax;
-                            command.Parameters.Add("@pCaracter", MySqlDbType.String).Value = pi.Simbolo;
+                            command.Parameters.Add("@pEpecificacionMax", MySqlDbType.Double).Value = pi.EspecificacionMax;
+                            command.Parameters.Add("@pSimbolo", MySqlDbType.String).Value = pi.Simbolo;
                             if (command.ExecuteNonQuery() != 1)
                             {
                                 throw new Exception("Error al insertar itemProtocolo");
@@ -699,6 +683,172 @@ namespace ProtoculoSLF.Repository
             }
 
             return res;
+        }
+
+        internal List<ProtocoloItem> GetExtrusionItems(int idCodigo)
+        {
+
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT ancho,ancho_min,ancho_max,fuelle,fuelle_min,fuelle_max,espesor,espesor_min,espesor_max 
+                                        FROM extrusion
+                                        WHERE idcodigo = @pIdCodigo;";
+                command.Parameters.Add("@pIdCodigo", MySqlDbType.Int32).Value = idCodigo;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        //LO PASO A MILIMETROS UNIDAD = 2, LO MULTIPLICO POR 10
+                        var simbolo = "±";
+                        var espeficacionAncho = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0)*10;
+                        var espeficacionAnchoMin = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1);
+                        var espeficacionAnchoMax = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2);
+                        var especificacionAnchoDato = espeficacionAncho + simbolo + espeficacionAnchoMax;
+
+                        var espeficacionFuelle = reader.IsDBNull(3) ? 0.0 : reader.GetDouble(3) * 10;
+                        var espeficacionFuelleMin = reader.IsDBNull(4) ? 0.0 : reader.GetDouble(4);
+                        var espeficacionFuelleMax = reader.IsDBNull(5) ? 0.0 : reader.GetDouble(5);
+                        var especificacionFuelleDato = espeficacionFuelle + simbolo + espeficacionFuelleMax;
+
+                        var espeficacionEspesor = reader.IsDBNull(6) ? 0.0 : reader.GetDouble(6) * 10;
+                        var espeficacionEspesorMin = reader.IsDBNull(7) ? 0.0 : reader.GetDouble(7);
+                        var espeficacionEspesorMax = reader.IsDBNull(8) ? 0.0 : reader.GetDouble(8);
+                        var especificacionEspesorDato = espeficacionEspesor + simbolo + espeficacionEspesorMax;
+
+                        List<ProtocoloItem> eds = new List<ProtocoloItem> {
+                            new ProtocoloItem { Nombre ="Ancho Extrusión",Simbolo = "±", Medida="Milimetro",Especificacion = espeficacionAncho,EspecificacionMin = espeficacionAnchoMin,EspecificacionMax=espeficacionAnchoMax,EspecificacionDato=especificacionAnchoDato ,Seleccionar = false},
+                            new ProtocoloItem { Nombre ="Fuelle Extrusión",Simbolo = "±",Medida="Milimetro",Especificacion=espeficacionFuelle,EspecificacionMin = espeficacionFuelleMin,EspecificacionMax=espeficacionFuelleMax,EspecificacionDato=especificacionFuelleDato,Seleccionar = false},
+                            new ProtocoloItem { Nombre ="Espesor Extrusión",Simbolo = "±",Medida ="Micron",Especificacion=espeficacionEspesor,EspecificacionMin = espeficacionEspesorMin,EspecificacionMax=espeficacionEspesorMax,EspecificacionDato=especificacionEspesorDato,Seleccionar = false},
+
+                        };
+
+                        return eds;
+
+                    }
+
+                }
+
+                return null;
+            }
+        }
+        internal List<ProtocoloItem> GetImpresionItems(int idCodigo)
+        {
+            List<ProtocoloItem> itemsConfeccion = new List<ProtocoloItem>();
+
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT ancho,ancho_min,ancho_max,fuelle,fuelle_min,fuelle_max,espesor,espesor_min,espesor_max
+                                        FROM impresion 
+                                        WHERE IdCodigo = @pIdCodigo";
+                command.Parameters.Add("@pIdCodigo", MySqlDbType.Int32).Value = idCodigo;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        var simbolo = "±";
+                        var espeficacionAncho = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0) * 10;
+                        var espeficacionAnchoMin = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1);
+                        var espeficacionAnchoMax = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2);
+                        var especificacionAnchoDato = espeficacionAncho + simbolo + espeficacionAnchoMax;
+               
+                        //var espeficacionFuelle = reader.IsDBNull(3) ? 0.0 : reader.GetDouble(3) * 10;
+                        //var espeficacionFuelleMin = reader.IsDBNull(4) ? 0.0 : reader.GetDouble(4);
+                        //var espeficacionFuelleMax = reader.IsDBNull(5) ? 0.0 : reader.GetDouble(5);
+                        //var especificacionFuelleDato = espeficacionFuelle + simbolo + espeficacionFuelleMax;
+
+                        var espeficacionEspesor = reader.IsDBNull(6) ? 0.0 : reader.GetDouble(6);
+                        var espeficacionEspesorMin = reader.IsDBNull(7) ? 0.0 : reader.GetDouble(7);
+                        var espeficacionEspesorMax = reader.IsDBNull(8) ? 0.0 : reader.GetDouble(8);
+                        var especificacionEspesorDato = espeficacionEspesor + simbolo + espeficacionEspesorMax;
+
+                        itemsConfeccion.Add(new ProtocoloItem { Nombre = "Ancho impresión", Simbolo = "±", Medida = "Milimetro", Especificacion = espeficacionAncho, EspecificacionMin = espeficacionAnchoMin, EspecificacionMax = espeficacionAnchoMax, EspecificacionDato = especificacionAnchoDato, Seleccionar = false });
+                        //itemsConfeccion.Add(new ProtocoloItem { Nombre = "Fuelle impresión", Simbolo = "±", Medida = "Milimetro", Especificacion = espeficacionFuelle, EspecificacionMin = espeficacionFuelleMin, EspecificacionMax = espeficacionFuelleMax, EspecificacionDato = especificacionFuelleDato, Seleccionar = false });
+                        itemsConfeccion.Add(new ProtocoloItem { Nombre = "Espesor impresión", Simbolo = "±", Medida = "Micron", Especificacion = espeficacionEspesor, EspecificacionMin = espeficacionEspesorMin, EspecificacionMax = espeficacionEspesorMax, EspecificacionDato = especificacionEspesorDato, Seleccionar = false });
+
+                    }
+
+                }
+                return itemsConfeccion;
+            }
+        }
+        internal List<ProtocoloItem> GetConfeccionItems(int idCodigo)
+        {
+            List<ProtocoloItem> itemsConfeccion = new List<ProtocoloItem>();
+            
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT ancho,ancho_min,ancho_max,largo,largo_min,largo_max,fuelle,fuelle_min,fuelle_max,espesor,espesor_min,espesor_max
+                                        FROM confeccion 
+                                        WHERE IdCodigo = @pIdCodigo";
+                command.Parameters.Add("@pIdCodigo", MySqlDbType.Int32).Value = idCodigo;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        var simbolo = "±";
+                        var espeficacionAncho = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0) * 10;
+                        var espeficacionAnchoMin = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1);
+                        var espeficacionAnchoMax = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2);
+                        var especificacionAnchoDato = espeficacionAncho + simbolo + espeficacionAnchoMax;
+
+                        var espeficacionLargo = reader.IsDBNull(3) ? 0.0 : reader.GetDouble(3) * 10;
+                        var espeficacionLargoMin = reader.IsDBNull(4) ? 0.0 : reader.GetDouble(4);
+                        var espeficacionLargoMax = reader.IsDBNull(5) ? 0.0 : reader.GetDouble(5);
+                        var especificacionLargoDato = espeficacionLargo + simbolo + espeficacionLargoMax;
+
+                        var espeficacionFuelle = reader.IsDBNull(6) ? 0.0 : reader.GetDouble(6) *10;
+                        var espeficacionFuelleMin = reader.IsDBNull(7) ? 0.0 : reader.GetDouble(7);
+                        var espeficacionFuelleMax = reader.IsDBNull(8) ? 0.0 : reader.GetDouble(8);
+                        var especificacionFuelleDato = espeficacionFuelle + simbolo + espeficacionFuelleMax;
+
+                        var espeficacionEspesor = reader.IsDBNull(9) ? 0.0 : reader.GetDouble(9);
+                        var espeficacionEspesorMin = reader.IsDBNull(10) ? 0.0 : reader.GetDouble(10);
+                        var espeficacionEspesorMax = reader.IsDBNull(11) ? 0.0 : reader.GetDouble(11);
+                        var especificacionEspesorDato = espeficacionEspesor + simbolo + espeficacionEspesorMax;
+
+                        itemsConfeccion.Add(new ProtocoloItem { Nombre = "Ancho de bolsa", Simbolo = "±", Medida = "Milimetro", Especificacion = espeficacionAncho, EspecificacionMin = espeficacionAnchoMin, EspecificacionMax = espeficacionAnchoMax, EspecificacionDato = especificacionAnchoDato, Seleccionar = false });
+                        itemsConfeccion.Add(new ProtocoloItem { Nombre = "Largo de bolsa", Simbolo = "±", Medida = "Milimetro", Especificacion = espeficacionLargo, EspecificacionMin = espeficacionLargoMin, EspecificacionMax = espeficacionLargoMax, EspecificacionDato = especificacionLargoDato, Seleccionar = false });
+                        itemsConfeccion.Add(new ProtocoloItem { Nombre = "Fuelle Confección", Simbolo = "±", Medida = "Milimetro", Especificacion = espeficacionFuelle, EspecificacionMin = espeficacionFuelleMin, EspecificacionMax = espeficacionFuelleMax, EspecificacionDato = especificacionFuelleDato, Seleccionar = false });
+                        itemsConfeccion.Add(new ProtocoloItem { Nombre = "Espesor Confección", Simbolo = "±", Medida = "Micron", Especificacion = espeficacionEspesor, EspecificacionMin = espeficacionEspesorMin, EspecificacionMax = espeficacionEspesorMax, EspecificacionDato = especificacionEspesorDato, Seleccionar = false });
+            
+                    }
+
+                }
+                command.CommandText = @"SELECT largo_solapa,largo_solapat,fuelle,fuellet,ancho_bobina,ancho_bobinat,DistanciaAlOrificioWicket,DistanciaAlOrificioWicketT,DistanciaEntreOrificioWicket,DistanciaEntreOrificioWicketT,LargoCorteSoft,LargoCorteSoftT
+                                        FROM confeccion_wicketera 
+                                        WHERE IdCodigo = @pIdCodigo";
+                using (var reader = command.ExecuteReader())
+                {               
+                    if (reader.Read())
+                    {
+                        var simbolo = "±";
+                        var especificacionSolapaWick = reader.IsDBNull(0) ? 0.0 : reader.GetInt32(0);
+                        var especificacionSolapaWickMax = reader.IsDBNull(1) ? 0.0 : reader.GetInt32(1);
+                        var especificacionSolapaWickDato = especificacionSolapaWick + simbolo + especificacionSolapaWickMax;
+
+                        var especificacionFuelleWick = reader.IsDBNull(2) ? 0.0 : reader.GetInt32(2);
+                        var especificacionFuelleWickMax = reader.IsDBNull(3) ? 0.0 : reader.GetInt32(3);
+                        var especificacionFuelleWickDato = especificacionFuelleWick + simbolo + especificacionFuelleWickMax;
+
+                        var especificacionAnchoBobinaWick = reader.IsDBNull(4) ? 0.0 : reader.GetInt32(4);
+                        var especificacionAnchoBobinaWickMax = reader.IsDBNull(5) ? 0.0 : reader.GetInt32(5);
+                        var especificacionAnchoBobinaWickDato = especificacionAnchoBobinaWick + simbolo + especificacionAnchoBobinaWickMax;
+                        itemsConfeccion.Add(new ProtocoloItem { Nombre = "Largo solapa wicket", Simbolo = "±", Medida = "Milimetro", Especificacion = especificacionSolapaWick, EspecificacionMax = especificacionSolapaWickMax, EspecificacionDato = especificacionSolapaWickDato, Seleccionar = false });
+                        itemsConfeccion.Add(new ProtocoloItem { Nombre = "Fuelle wicket", Simbolo = "±", Medida = "Milimetro", Especificacion = especificacionFuelleWick, EspecificacionMax = especificacionFuelleWickMax, EspecificacionDato = especificacionFuelleWickDato, Seleccionar = false });
+                        itemsConfeccion.Add(new ProtocoloItem { Nombre = "Ancho bobina wicket", Simbolo = "±", Medida = "Milimetro", Especificacion = especificacionAnchoBobinaWick, EspecificacionMax = especificacionAnchoBobinaWickMax, EspecificacionDato = especificacionAnchoBobinaWickDato, Seleccionar = false });
+                    }
+                }
+                return itemsConfeccion;
+            }
         }
     }
 }
