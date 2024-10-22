@@ -184,14 +184,5 @@ namespace ProtoculoSLF
             }
         }
 
-        private void btnConfirmarCambios_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnCancelarCambios_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

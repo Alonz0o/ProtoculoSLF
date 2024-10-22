@@ -103,7 +103,7 @@
             this.gcAgregar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gcAgregar.Location = new System.Drawing.Point(0, 0);
             this.gcAgregar.Name = "gcAgregar";
-            this.gcAgregar.Size = new System.Drawing.Size(395, 637);
+            this.gcAgregar.Size = new System.Drawing.Size(395, 553);
             this.gcAgregar.TabIndex = 4;
             this.gcAgregar.Text = "  Protocolos Ítem";
             // 
@@ -124,6 +124,7 @@
             this.btnMostrarAgregarItem.Size = new System.Drawing.Size(20, 20);
             this.btnMostrarAgregarItem.TabIndex = 37;
             this.btnMostrarAgregarItem.UseVisualStyleBackColor = false;
+            this.btnMostrarAgregarItem.Click += new System.EventHandler(this.btnMostrarAgregarItem_Click);
             // 
             // btnCerrarMin
             // 
@@ -159,7 +160,7 @@
             this.tlpRealizados.Name = "tlpRealizados";
             this.tlpRealizados.RowCount = 1;
             this.tlpRealizados.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpRealizados.Size = new System.Drawing.Size(391, 612);
+            this.tlpRealizados.Size = new System.Drawing.Size(391, 528);
             this.tlpRealizados.TabIndex = 3;
             // 
             // pnlPendientes
@@ -172,7 +173,7 @@
             this.pnlPendientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPendientes.Location = new System.Drawing.Point(16, 3);
             this.pnlPendientes.Name = "pnlPendientes";
-            this.pnlPendientes.Size = new System.Drawing.Size(372, 606);
+            this.pnlPendientes.Size = new System.Drawing.Size(372, 522);
             this.pnlPendientes.TabIndex = 0;
             // 
             // gcItems
@@ -181,7 +182,7 @@
             this.gcItems.Location = new System.Drawing.Point(0, 0);
             this.gcItems.MainView = this.gvItems;
             this.gcItems.Name = "gcItems";
-            this.gcItems.Size = new System.Drawing.Size(372, 179);
+            this.gcItems.Size = new System.Drawing.Size(372, 153);
             this.gcItems.TabIndex = 1;
             this.gcItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvItems});
@@ -204,7 +205,7 @@
             this.gcConfirmar.Controls.Add(this.lblNombreVentana);
             this.gcConfirmar.Controls.Add(this.btnCerrarConfirmar);
             this.gcConfirmar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.gcConfirmar.Location = new System.Drawing.Point(0, 179);
+            this.gcConfirmar.Location = new System.Drawing.Point(0, 153);
             this.gcConfirmar.Name = "gcConfirmar";
             this.gcConfirmar.Size = new System.Drawing.Size(372, 129);
             this.gcConfirmar.TabIndex = 67;
@@ -396,9 +397,9 @@
             this.gcAgregarItem.Controls.Add(this.btnCerrarAgregar);
             this.gcAgregarItem.Controls.Add(this.tableLayoutPanel2);
             this.gcAgregarItem.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.gcAgregarItem.Location = new System.Drawing.Point(0, 308);
+            this.gcAgregarItem.Location = new System.Drawing.Point(0, 282);
             this.gcAgregarItem.Name = "gcAgregarItem";
-            this.gcAgregarItem.Size = new System.Drawing.Size(372, 298);
+            this.gcAgregarItem.Size = new System.Drawing.Size(372, 240);
             this.gcAgregarItem.TabIndex = 68;
             this.gcAgregarItem.Text = "  Agregar protocolo ítem";
             this.gcAgregarItem.Visible = false;
@@ -435,7 +436,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(368, 273);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(368, 215);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // panel7
@@ -449,7 +450,7 @@
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(3, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(362, 267);
+            this.panel7.Size = new System.Drawing.Size(362, 209);
             this.panel7.TabIndex = 0;
             // 
             // groupControl3
@@ -550,7 +551,7 @@
             this.tableLayoutPanel5.Controls.Add(this.btnAgregarItem, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.btnCancelar, 1, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 224);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 166);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -576,6 +577,7 @@
             this.btnAgregarItem.Text = "Agregar";
             this.btnAgregarItem.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnAgregarItem.UseVisualStyleBackColor = false;
+            this.btnAgregarItem.Click += new System.EventHandler(this.btnAgregarItem_Click);
             // 
             // btnCancelar
             // 
@@ -596,6 +598,7 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
             this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCerrarAgregar_Click);
             // 
             // groupControl5
             // 
@@ -617,7 +620,7 @@
             // 
             this.cbMantener.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cbMantener.BackColor = System.Drawing.Color.Transparent;
-            this.cbMantener.Location = new System.Drawing.Point(284, 3);
+            this.cbMantener.Location = new System.Drawing.Point(284, 2);
             this.cbMantener.Name = "cbMantener";
             this.cbMantener.Size = new System.Drawing.Size(73, 18);
             this.cbMantener.TabIndex = 10;
@@ -652,14 +655,14 @@
             this.panel11.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel11.Location = new System.Drawing.Point(3, 3);
             this.panel11.Name = "panel11";
-            this.panel11.Size = new System.Drawing.Size(7, 606);
+            this.panel11.Size = new System.Drawing.Size(7, 522);
             this.panel11.TabIndex = 1;
             // 
             // formAgregarItems
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(395, 637);
+            this.ClientSize = new System.Drawing.Size(395, 553);
             this.Controls.Add(this.gcAgregar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "formAgregarItems";

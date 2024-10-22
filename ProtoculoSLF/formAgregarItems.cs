@@ -3,6 +3,7 @@ using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using ProtoculoSLF.Model;
+using ProtoculoSLF.Repository;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,11 +31,12 @@ namespace ProtoculoSLF
             GenerarTablaItems();
             GetItems();
             List<Unidad> unidades = new List<Unidad> {
-                new Unidad{ Nombre="Milimetro", Descripcion="Milimetro" },
-                new Unidad{ Nombre="Kg/pulgada", Descripcion="Diferente de" },
-                new Unidad{ Nombre="Micron", Descripcion="Micron" },
                 new Unidad{ Nombre="NA", Descripcion="No asigar" },
+                new Unidad{ Nombre="Milimetro", Descripcion="mm" },
+                new Unidad{ Nombre="Kg/pulgada", Descripcion="kg/in" },
+                new Unidad{ Nombre="Micron", Descripcion="µm" },
             };
+
             lueItemUnidad.Properties.DataSource = unidades;
         }
         private void GetItems()
@@ -150,19 +152,19 @@ namespace ProtoculoSLF
                             gcAgregarItem.Visible = true;
                             tbNombre.Texts = protocoloItemSeleccionado.Nombre;
                             cbCertificado.Checked = protocoloItemSeleccionado.EsCertificado;
-                            cbConstante.Checked = protocoloItemSeleccionado.es
+                            cbConstante.Checked = protocoloItemSeleccionado.EsConstante;
                             lueItemUnidad.ItemIndex = BuscarUnidadIndex(protocoloItemSeleccionado.Medida);
                         }
                     }
                 }
             };
         }
-        private int BuscarUnidadIndex(string simbolo)
+        private int BuscarUnidadIndex(string medida)
         {
             var dataSource = lueItemUnidad.Properties.DataSource as List<Unidad>;
             if (dataSource != null)
             {
-                var index = dataSource.FindIndex(e => simbolo == e.Nombre);
+                var index = dataSource.FindIndex(e => medida == e.Nombre);
                 return index != -1 ? index : 0;
             }
             return 0;
@@ -185,6 +187,55 @@ namespace ProtoculoSLF
         {
             gcAgregarItem.Visible = false;
 
+        }
+
+        private void btnMostrarAgregarItem_Click(object sender, EventArgs e)
+        {
+            cbMantener.Visible = false;
+            cbMantener.Checked = false;
+            gcAgregarItem.Visible = true;
+        }
+        private bool ValidarFormularioItems()
+        {
+            //VERIFICAR SIMBOLO
+            if (!Utils.IsSoloLetrasMultipleEspacios(tbNombre.Texts))
+            {
+                formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Debe indroduccir nombre de control");
+                noti.Show();
+                tbNombre.Focus();
+                return false;
+            }
+
+            var lueUnidadA = lueItemUnidad.GetSelectedDataRow() as Unidad;
+            if (lueUnidadA == null)
+            {
+                formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Debe seleccionar Unidad.");
+                noti.Show();
+                lueItemUnidad.Focus();
+                return false;
+            }
+            return true;
+        }
+
+        private void btnAgregarItem_Click(object sender, EventArgs e)
+        {
+            if (!ValidarFormularioItems()) return;
+
+            ProtocoloItem pi = new ProtocoloItem();
+            pi.Nombre = tbNombre.Text;
+            pi.IdProtocolo = Form1.instancia.idProtocoloSeleccionado;
+            var lueUnidadA = lueItemUnidad.GetSelectedDataRow() as Unidad;
+            if (Form1.instancia.br.AgregarItemProtocolo(pi))
+            {
+                LimpiarFormularioAgregarItem();
+                formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se agrego correctamente un nuevo item: " + pi.Nombre);
+                noti.Show();
+            }
+        }
+        private void LimpiarFormularioAgregarItem()
+        {
+            tbNombre.Texts = string.Empty;
+            lueItemUnidad.Text = string.Empty;
         }
     }
 }

@@ -146,7 +146,7 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica
+                command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fi.constante
                                         FROM formato_item fi;";
                 using (var reader = command.ExecuteReader())
                 {
@@ -158,6 +158,7 @@ namespace ProtoculoSLF.Repository
                             Id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
                             Nombre = reader.IsDBNull(1) ? "" : reader.GetString(1),
                             Medida = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                            EsConstante = reader.IsDBNull(3) ? false : Convert.ToBoolean(reader.GetInt32(3)),
                             EsCertificado = esCertificado,
                             EsCertificadoSiNo = esCertificado ? "SI" : "NO",
                         };
