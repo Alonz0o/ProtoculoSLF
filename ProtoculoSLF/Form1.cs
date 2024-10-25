@@ -123,6 +123,15 @@ namespace ProtoculoSLF
                         Protocolo p = gridView.GetRow(rowIndex) as Protocolo;
                         if (p != null)
                         {
+                            
+                            if(br.GetTotalDeItemsPorIdCodigo(p.Id) == 0){
+                                formAgregarCodigo form = new formAgregarCodigo(p);
+                                form.Size = panel7.Size;
+                                Point locationOnScreen = panel7.PointToScreen(Point.Empty);
+                                form.Location = new Point(locationOnScreen.X, locationOnScreen.Y);
+                                form.Show();
+                            }
+
                             idCodigoSeleccionado = p.Id;
                             esPorLote= p.EsPorLote;
                             nts = br.GetNTs(idCodigoSeleccionado);
@@ -653,11 +662,7 @@ namespace ProtoculoSLF
 
         private void btnAsignarCodigo_Click(object sender, EventArgs e)
         {
-            formAgregarCodigo form = new formAgregarCodigo();
-            form.Size = panel7.Size;
-            Point locationOnScreen = panel7.PointToScreen(Point.Empty);
-            form.Location = new Point(locationOnScreen.X, locationOnScreen.Y);
-            form.Show();
+         
         }
 
         private void btnAgregarItem_Click(object sender, EventArgs e)

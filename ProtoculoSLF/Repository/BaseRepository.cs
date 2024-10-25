@@ -851,5 +851,19 @@ namespace ProtoculoSLF.Repository
                 return itemsConfeccion;
             }
         }
+
+        internal int GetTotalDeItemsPorIdCodigo(int idCodigo)
+        {
+            using (var conexion = new MySqlConnection(connectionString))
+            {
+                conexion.Open();
+                using (var command = conexion.CreateCommand())
+                {
+                    command.CommandText = @"SELECT count(id) FROM formato_protocolo_item WHERE id_codigo = @pIdCodigo";
+                    command.Parameters.Add("@pIdCodigo", MySqlDbType.Int32).Value = idCodigo;
+                    return command.ExecuteScalar() != DBNull.Value ? Convert.ToInt32(command.ExecuteScalar()) : 0;
+                }
+            }
+        }
     }
 }

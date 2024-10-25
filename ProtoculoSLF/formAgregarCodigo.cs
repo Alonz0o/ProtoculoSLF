@@ -20,29 +20,41 @@ namespace ProtoculoSLF
         List<ProtocoloItem> itemsExtrusion = new List<ProtocoloItem>();
         List<ProtocoloItem> itemsConfeccion = new List<ProtocoloItem>();
         List<ProtocoloItem> itemsImpresion = new List<ProtocoloItem>();
-
-        public formAgregarCodigo()
+        Protocolo protocoloSeleccionado = new Protocolo();
+        public formAgregarCodigo(Protocolo p)
         {
+            this.protocoloSeleccionado = p;
             InitializeComponent();
             GenerarTablaItems(gcItemsExtrusion,gvItemsExtrusion,itemsExtrusion);
             GenerarTablaItems(gcItemsImpresion, gvItemsImpresion, itemsImpresion);
             GenerarTablaItems(gcItemsConfeccion, gvItemsConfeccion, itemsConfeccion);
+            GetIdCodigoTolerancias();
+            CargarDatosIdCodigo();
+        }
 
+        private void CargarDatosIdCodigo()
+        {
+            lblTitulo.Text = "El codigo: " + protocoloSeleccionado.Id + "no tiene";
+            tbCodigo.Texts = protocoloSeleccionado.Id+"";
+            tbNombreProtocolo.Texts = protocoloSeleccionado.Descripcion;
+            tbNumeroProtocolo.Texts = protocoloSeleccionado.FormatoProtocolo + "";
         }
 
         private void btnCerrarMin_Click(object sender, EventArgs e)
         {
             Close();
         }
-
+        private void GetIdCodigoTolerancias() {
+            itemsExtrusion = Form1.instancia.br.GetExtrusionItems(protocoloSeleccionado.Id);
+            gcItemsExtrusion.DataSource = itemsExtrusion;
+            itemsImpresion = Form1.instancia.br.GetImpresionItems(protocoloSeleccionado.Id);
+            gcItemsImpresion.DataSource = itemsImpresion;
+            itemsConfeccion = Form1.instancia.br.GetConfeccionItems(protocoloSeleccionado.Id);
+            gcItemsConfeccion.DataSource = itemsConfeccion;
+        }
         private void btnBuscarCodigo_Click(object sender, EventArgs e)
         {
-            itemsExtrusion = Form1.instancia.br.GetExtrusionItems(1745006);
-            gcItemsExtrusion.DataSource = itemsExtrusion;
-            itemsImpresion = Form1.instancia.br.GetImpresionItems(1745006);
-            gcItemsImpresion.DataSource = itemsImpresion;
-            itemsConfeccion = Form1.instancia.br.GetConfeccionItems(1745006);
-            gcItemsConfeccion.DataSource = itemsConfeccion;
+           
         }
         private void GenerarTablaItems(GridControl gc, GridView gv, List<ProtocoloItem> items)
         {
