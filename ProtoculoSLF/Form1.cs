@@ -117,6 +117,7 @@ namespace ProtoculoSLF
 
             botonVer.ButtonClick += (sender, e) =>
             {
+                idNtSeleccionado = 0;
                 ButtonEdit buttonEdit = sender as ButtonEdit;
                 if (buttonEdit != null && e.Button.Index == 0)
                 {
@@ -128,8 +129,10 @@ namespace ProtoculoSLF
                         if (p != null)
                         {
                             idCodigoSeleccionado = p.Id;
-
                             idProtocoloSeleccionado = p.FormatoProtocolo;
+
+                            GetProtocoloItems();
+                            GetProtocoloNts();
 
                             if (br.GetTotalDeItemsProtocolo(idProtocoloSeleccionado) == 0) {
                                 formAsignarItemsAProtocolo form = new formAsignarItemsAProtocolo(p);
@@ -137,7 +140,9 @@ namespace ProtoculoSLF
                                 Point locationOnScreen = panel7.PointToScreen(Point.Empty);
                                 form.Location = new Point(locationOnScreen.X, locationOnScreen.Y);
                                 form.ShowDialog();
+                                if (EsCanceladoFormAsignarItemAProtocolo) return;
                             }
+
                             if (br.GetTotalDeItemsPorIdCodigo(idCodigoSeleccionado) == 0){
                                 formAgregarCodigo form = new formAgregarCodigo(p);
                                 form.Size = panel7.Size;
@@ -145,8 +150,7 @@ namespace ProtoculoSLF
                                 form.Location = new Point(locationOnScreen.X, locationOnScreen.Y);
                                 form.Show();
                             }
-                            GetProtocoloItems();
-                            GetProtocoloNts();
+                           
                             LimpiarMenuProtocolo();
                             protocoloEnsayos.Clear();
                             gvFormatoValores.RefreshData();
@@ -167,6 +171,7 @@ namespace ProtoculoSLF
                 }
             };
         }
+        public bool EsCanceladoFormAsignarItemAProtocolo = false;
         private void LimpiarMenuProtocolo()
         {
             lblCliente.Text = string.Empty;
@@ -502,8 +507,8 @@ namespace ProtoculoSLF
 
         private void btnAgregarEnsayo_Click(object sender, EventArgs e)
         {
-
-            lueItemEnsayos.Properties.DataSource = br.GetProtocolosItems(idProtocoloSeleccionado);
+            if (idCodigoSeleccionado == 0 || idNtSeleccionado==0) return;
+            lueItemEnsayos.Properties.DataSource = br.GetProtocolosItemsEspecificacionPorCodigo(idCodigoSeleccionado);
             gcAgregarEnsayo.Visible = true;
         }
 
@@ -540,23 +545,25 @@ namespace ProtoculoSLF
                 lueItemEnsayos.Focus();
                 return false;
             }
-            //VERIFICAR NUMERO MIN
-            if (tbValorEnsayo.Texts == string.Empty)
-            {
-                formNotificacion noti = new formNotificacion("warning", "Recomendación", "Asignar Ítem", "Debe ingresar numero.");
-                noti.Show();
-                tbValorEnsayo.Focus();
-                return false;
+            if (lueNombreA.Simbolo!="C") {
+                //VERIFICAR NUMERO MIN
+                if (tbValorEnsayo.Texts == string.Empty)
+                {
+                    formNotificacion noti = new formNotificacion("warning", "Recomendación", "Asignar Ítem", "Debe ingresar numero.");
+                    noti.Show();
+                    tbValorEnsayo.Focus();
+                    return false;
+                }
+                if (tbValorEnsayo.Texts.Contains(".")) tbValorEnsayo.Texts = tbValorEnsayo.Texts.Replace('.', ','); ;
+                if (!Utils.IsSoloNumODecimal(tbValorEnsayo.Texts))
+                {
+                    formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Deben ser numeros enteros o decimales separados por coma (,).");
+                    noti.Show();
+                    tbValorEnsayo.Focus();
+                    return false;
+                }
             }
 
-            if (tbValorEnsayo.Texts.Contains(".")) tbValorEnsayo.Texts = tbValorEnsayo.Texts.Replace('.', ','); ;
-            if (!Utils.IsSoloNumODecimal(tbValorEnsayo.Texts))
-            {
-                formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Deben ser numeros enteros o decimales separados por coma (,).");
-                noti.Show();
-                tbValorEnsayo.Focus();
-                return false;
-            }
             return true;
         }
         public void GetEnsayosRealizados()
@@ -633,7 +640,7 @@ namespace ProtoculoSLF
             var lueNombreA = lueItemEnsayos.GetSelectedDataRow() as ProtocoloItem;
 
             if (lueNombreA!=null) {
-                if (lueNombreA.EspecificacionDato == "VALIDA")
+                if (lueNombreA.Simbolo == "C")
                 {
                     gcValorItem.Visible = false;
                     gcValidarValor.Visible = true;

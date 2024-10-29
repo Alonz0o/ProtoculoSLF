@@ -84,15 +84,23 @@ namespace ProtoculoSLF
             cCertifica.UnboundDataType = typeof(string);
             cCertifica.OptionsColumn.AllowEdit = false;
 
+            GridColumn cSimbolo = new GridColumn();
+            cSimbolo.FieldName = "Simbolo";
+            cSimbolo.Caption = "SIM";
+            cSimbolo.Visible = true;
+            cSimbolo.UnboundDataType = typeof(string);
+            cSimbolo.Visible = true;
+            cSimbolo.OptionsColumn.AllowEdit = false;
+
             GridColumn cOrden = new GridColumn();
             cOrden.FieldName = "Orden";
             cOrden.Caption = "Orden";
             cOrden.Visible = true;
-            cNombre.UnboundDataType = typeof(string);
-            cNombre.Visible = true;
-            cNombre.OptionsColumn.AllowEdit = false;
+            cOrden.UnboundDataType = typeof(string);
+            cOrden.Visible = true;
+            cOrden.OptionsColumn.AllowEdit = false;
 
-            gvItemsAsignados.Columns.AddRange(new GridColumn[] { cNombre, cMedida, cCertifica, cOrden });
+            gvItemsAsignados.Columns.AddRange(new GridColumn[] { cNombre, cMedida, cCertifica, cSimbolo,cOrden });
             gcItemsAsignados.DataSource = protocoItems;
         }
 

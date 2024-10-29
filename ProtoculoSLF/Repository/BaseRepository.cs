@@ -144,7 +144,7 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fi.constante
+                command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fi.constante,fi.simbolo
                                         FROM formato_item fi;";
                 using (var reader = command.ExecuteReader())
                 {
@@ -156,9 +156,10 @@ namespace ProtoculoSLF.Repository
                             Id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
                             Nombre = reader.IsDBNull(1) ? "" : reader.GetString(1),
                             Medida = reader.IsDBNull(2) ? "Constante" : reader.GetString(2),
-                            EsConstante = reader.IsDBNull(3) ? false : Convert.ToBoolean(reader.GetInt32(3)),
+                            EsConstante = reader.IsDBNull(4) ? false : Convert.ToBoolean(reader.GetInt32(4)),
                             EsCertificado = esCertificado,
                             EsCertificadoSiNo = esCertificado ? "SI" : "NO",
+                            Simbolo = reader.IsDBNull(5) ? "" : reader.GetString(5),
                         };
                         pis.Add(pi);
                     }
@@ -174,7 +175,7 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fpi.orden,fpie.especificacion,fpie.especificacion_min,fpie.especificacion_max,fpie.simbolo,fpi.id
+                command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fpi.orden,fpie.especificacion,fpie.especificacion_min,fpie.especificacion_max,fi.simbolo,fpi.id
                                         FROM formato_protocolo_item fpi
                                         JOIN formato_protocolo_item_especificacion fpie on fpi.id = fpie.id_formato_protocolo_item
                                         JOIN formato_item fi on fpi.id_item = fi.id
@@ -196,6 +197,7 @@ namespace ProtoculoSLF.Repository
                             Medida = reader[2] != DBNull.Value ? reader.GetString(2) : "",
                             EsCertificadoSiNo = esCertificado ? "SI" : "NO",
                             Orden = reader[4] != DBNull.Value ? reader.GetInt32(4) : 0,
+                            Simbolo = simbolo,
                             EspecificacionMin = espeficacionMin,
                             Especificacion = espeficacion,
                             EspecificacionMax = espeficacionMax,
@@ -287,7 +289,7 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fe.id,fi.nombre,fe.valor_ensayo,fe.correcto,fpie.simbolo,fpi.orden,fpie.especificacion_min,fpie.especificacion,fpie.especificacion_max,fpi.id,fi.unidad
+                command.CommandText = @"SELECT fe.id,fi.nombre,fe.valor_ensayo,fe.correcto,fi.simbolo,fpi.orden,fpie.especificacion_min,fpie.especificacion,fpie.especificacion_max,fpi.id,fi.unidad
                                         FROM formato_ensayo fe
                                         JOIN formato_protocolo_item fpi on fe.id_protocolo_item = fpi.id
                                         JOIN formato_protocolo_item_especificacion fpie on fpi.id = fpie.id_formato_protocolo_item
@@ -518,13 +520,15 @@ namespace ProtoculoSLF.Repository
                         command.Transaction = transaction;
                         try
                         {
-                            command.CommandText = @"INSERT INTO formato_item (nombre,unidad,usuario,certifica,constante) 
-                                                                      VALUES (@pNombre,@pUnidad,@pUsuario,@pCertifica,@pConstante); SELECT LAST_INSERT_ID();";
+                            command.CommandText = @"INSERT INTO formato_item (nombre,unidad,usuario,certifica,constante,simbolo) 
+                                                                      VALUES (@pNombre,@pUnidad,@pUsuario,@pCertifica,@pConstante,@pSimbolo); SELECT LAST_INSERT_ID();";
                             command.Parameters.Add("@pNombre", MySqlDbType.String).Value = pi.Nombre;
                             command.Parameters.Add("@pUnidad", MySqlDbType.String).Value = pi.Medida;
                             command.Parameters.Add("@pUsuario", MySqlDbType.String).Value = "ALON";
                             command.Parameters.Add("@pCertifica", MySqlDbType.Int32).Value = pi.EsCertificado;
                             command.Parameters.Add("@pConstante", MySqlDbType.Int32).Value = pi.EsConstante;
+                            command.Parameters.Add("@pSimbolo", MySqlDbType.String).Value = pi.Simbolo;
+
                             if (command.ExecuteNonQuery() != 1)
                             {
                                 throw new Exception("Error al insertar itemProtocolo");
@@ -556,13 +560,15 @@ namespace ProtoculoSLF.Repository
                         command.Transaction = transaction;
                         try
                         {
-                            command.CommandText = @"INSERT INTO formato_item (nombre,unidad,usuario,certifica,constante) 
-                                                                      VALUES (@pNombre,@pUnidad,@pUsuario,@pCertifica,@pConstante); SELECT LAST_INSERT_ID();";
+                            command.CommandText = @"INSERT INTO formato_item (nombre,unidad,usuario,certifica,constante,simbolo) 
+                                                                      VALUES (@pNombre,@pUnidad,@pUsuario,@pCertifica,@pConstante,@pSimbolo); SELECT LAST_INSERT_ID();";
                             command.Parameters.Add("@pNombre", MySqlDbType.String).Value = pi.Nombre;
                             command.Parameters.Add("@pUnidad", MySqlDbType.String).Value = pi.Medida;
                             command.Parameters.Add("@pUsuario", MySqlDbType.String).Value = "ALON";
                             command.Parameters.Add("@pCertifica", MySqlDbType.Int32).Value = pi.EsCertificado;
                             command.Parameters.Add("@pConstante", MySqlDbType.Int32).Value = pi.EsConstante;
+                            command.Parameters.Add("@pSimbolo", MySqlDbType.String).Value = pi.Simbolo;
+
                             pi.Id = Convert.ToInt32(command.ExecuteScalar());
 
                             if (pi.Id == -1 || pi.Id == 0)
@@ -610,14 +616,13 @@ namespace ProtoculoSLF.Repository
                                 throw new Exception("Error al insertar itemProtocolo");
                             }
 
-                            command.CommandText = @"INSERT INTO formato_protocolo_item_especificacion (id_codigo,id_formato_protocolo_item,especificacion,especificacion_min,especificacion_max,simbolo) 
-                                                                                               VALUES (@pIdCodigo,@pIdProtocoloItem,@pEspecificacion,@pEpecificacionMin,@pEpecificacionMax,@pSimbolo);";
+                            command.CommandText = @"INSERT INTO formato_protocolo_item_especificacion (id_codigo,id_formato_protocolo_item,especificacion,especificacion_min,especificacion_max) 
+                                                                                               VALUES (@pIdCodigo,@pIdProtocoloItem,@pEspecificacion,@pEpecificacionMin,@pEpecificacionMax);";
                             command.Parameters.Add("@pIdCodigo", MySqlDbType.Int32).Value = idCodigo;
                             command.Parameters.Add("@pIdProtocoloItem", MySqlDbType.Int32).Value = pi.IdProtocoloItem;
                             command.Parameters.Add("@pEpecificacionMin", MySqlDbType.Double).Value = pi.EspecificacionMin;
                             command.Parameters.Add("@pEspecificacion", MySqlDbType.Double).Value = pi.Especificacion;
                             command.Parameters.Add("@pEpecificacionMax", MySqlDbType.Double).Value = pi.EspecificacionMax;
-                            command.Parameters.Add("@pSimbolo", MySqlDbType.String).Value = pi.Simbolo;
                             if (command.ExecuteNonQuery() != 1)
                             {
                                 throw new Exception("Error al insertar itemProtocolo");

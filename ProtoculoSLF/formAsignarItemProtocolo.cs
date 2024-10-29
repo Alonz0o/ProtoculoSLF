@@ -32,23 +32,12 @@ namespace ProtoculoSLF
         private void formAsignarItemProtocolo_Load(object sender, EventArgs e)
         {
 
-            List<Simbolo> simbolos = new List<Simbolo> { 
-                //new Simbolo{ Caracter ="=",Significado="Igual a" },
-                //new Simbolo{ Caracter ="≠",Significado="Diferente de" },
-                new Simbolo{ Caracter ="<",Significado="Menor que" },
-                new Simbolo{ Caracter =">",Significado="Mayor que" },
-                //new Simbolo{ Caracter ="≤",Significado="Menor o igual a" },
-                //new Simbolo{ Caracter ="≥",Significado="Mayor o igual a" },
-                new Simbolo{ Caracter ="±",Significado="Más o menos" },
-                //new Simbolo{ Caracter ="∓",Significado="Menos o más" },
-                new Simbolo{ Caracter ="-",Significado="Entre A y B" },
+           
 
-            };
-
-            lueItemSimbolos.Properties.DataSource = simbolos;
             GetItems();
-
             lueNombreItem.Properties.DataSource = items;
+          
+
         }
 
         private void GetItems()
@@ -76,20 +65,21 @@ namespace ProtoculoSLF
             pi.IdProtocolo = Form1.instancia.idProtocoloSeleccionado;
             pi.IdProtocoloItem = Form1.instancia.br.GetFormatoProtocoloItemId(pi.IdProtocolo,pi.Id);
             //pi.Orden = Form1.instancia.br.GetUltimaPosicionProtocoloItem();
-            var lueCaracterA = lueItemSimbolos.GetSelectedDataRow() as Simbolo;
+            if (!lueControlA.EsConstante) {
+                if (!string.IsNullOrEmpty(tbEsp02.Texts))
+                {
+                    pi.EspecificacionMin = Convert.ToDouble(tbEsp01.Texts);
+                    pi.EspecificacionMax = Convert.ToDouble(tbEsp02.Texts);
+                }
+                else pi.EspecificacionMax = Convert.ToDouble(tbEsp01.Texts);
 
-            pi.Simbolo = lueCaracterA.Caracter;
-            if (!string.IsNullOrEmpty(tbEsp02.Texts))
-            {
-                pi.EspecificacionMin = Convert.ToDouble(tbEsp01.Texts);
-                pi.EspecificacionMax = Convert.ToDouble(tbEsp02.Texts);
-            }
-            else pi.EspecificacionMax = Convert.ToDouble(tbEsp01.Texts);
+                if (!string.IsNullOrEmpty(tbEspecificacion.Texts))
+                {
+                    pi.Especificacion = Convert.ToDouble(tbEspecificacion.Texts);
+                }
 
-            if (!string.IsNullOrEmpty(tbEspecificacion.Texts))
-            {
-                pi.Especificacion = Convert.ToDouble(tbEspecificacion.Texts);
             }
+            
 
             if (Form1.instancia.br.AgregarItemProtocolo(pi,Form1.instancia.idCodigoSeleccionado))
             {
@@ -131,16 +121,6 @@ namespace ProtoculoSLF
                 return false;
             }
 
-            //VERIFICAR SIMBOLO
-            var lueSimboloA = lueItemSimbolos.GetSelectedDataRow() as Simbolo;
-            if (lueSimboloA == null)
-            {
-                formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Debe seleccionar símbolo.");
-                noti.Show();
-                lueItemSimbolos.Focus();
-                return false;
-            }
-
             //VERIFICAR NUMERO MIN
             if (tbEsp01.Texts == string.Empty)
             {
@@ -167,7 +147,6 @@ namespace ProtoculoSLF
             lueNombreItem.Text = string.Empty;
             tbEspecificacion.Texts = string.Empty;
             tbEsp01.Texts = string.Empty;
-            lueItemSimbolos.Text = string.Empty;
         }
 
         private void btnCerrarMin_Click(object sender, EventArgs e)
@@ -175,31 +154,58 @@ namespace ProtoculoSLF
             Close();
         }
 
-        private void lueItemSimbolos_EditValueChanged(object sender, EventArgs e)
+        private void lueNombreItem_EditValueChanged(object sender, EventArgs e)
         {
-            var lueSimbolosA = lueItemSimbolos.GetSelectedDataRow() as Simbolo;
-            if (lueSimbolosA == null) return;
-            gcSimboloSignificado.Text = lueSimbolosA.Significado;
-            if (lueSimbolosA.Caracter == "-")
-            {
-                gcSimboloSignificado.Text = "Entre (A)";
-                tableLayoutPanel7.ColumnStyles[0].Width = 0F;
-                tableLayoutPanel7.ColumnStyles[1].Width = 100F;
+            var lueControlA = lueNombreItem.GetSelectedDataRow() as ProtocoloItem;
+            if (lueControlA == null) return;
 
-                tableLayoutPanel8.ColumnStyles[0].Width = 50F;
-                tableLayoutPanel8.ColumnStyles[1].Width = 50F;
-                tableLayoutPanel8.ColumnStyles[2].Width = 50F;
+            List<Simbolo> simbolos = new List<Simbolo> { 
+                //new Simbolo{ Caracter ="=",Significado="Igual a" },
+                //new Simbolo{ Caracter ="≠",Significado="Diferente de" },
+                new Simbolo{ Caracter ="<",Significado="Menor que" },
+                new Simbolo{ Caracter =">",Significado="Mayor que" },
+                //new Simbolo{ Caracter ="≤",Significado="Menor o igual a" },
+                //new Simbolo{ Caracter ="≥",Significado="Mayor o igual a" },
+                new Simbolo{ Caracter ="±",Significado="Más o menos" },
+                //new Simbolo{ Caracter ="∓",Significado="Menos o más" },
+                new Simbolo{ Caracter ="-",Significado="Entre A y B" },
+
+            };
+
+            if (lueControlA.Simbolo == "C" || lueControlA.Simbolo == "")
+            {
+                tableLayoutPanel7.Visible = false;
+                gcSimboloSignificado.Visible = false;
             }
             else {
-                tableLayoutPanel7.ColumnStyles[0].Width = 50F;
-                tableLayoutPanel7.ColumnStyles[1].Width = 50F;
+                tableLayoutPanel7.Visible = true;
+                gcSimboloSignificado.Visible = true;
+                var significado = simbolos.FirstOrDefault(s => s.Caracter == lueControlA.Simbolo);
+                gcSimboloSignificado.Text = significado.Significado + " (" + significado.Caracter + ")";
+                if (significado.Caracter == "-")
+                {
+                    gcSimboloSignificado.Text = "Entre (A)";
+                    tableLayoutPanel7.ColumnStyles[0].Width = 0F;
+                    tableLayoutPanel7.ColumnStyles[1].Width = 100F;
 
-                tableLayoutPanel8.ColumnStyles[0].Width = 50F;
-                tableLayoutPanel8.ColumnStyles[1].Width = 0F;
-                tableLayoutPanel8.ColumnStyles[2].Width = 50F;
+                    tableLayoutPanel8.ColumnStyles[0].Width = 50F;
+                    tableLayoutPanel8.ColumnStyles[1].Width = 50F;
+                    tableLayoutPanel8.ColumnStyles[2].Width = 50F;
+                }
+                else
+                {
+                    tableLayoutPanel7.ColumnStyles[0].Width = 50F;
+                    tableLayoutPanel7.ColumnStyles[1].Width = 50F;
+
+                    tableLayoutPanel8.ColumnStyles[0].Width = 50F;
+                    tableLayoutPanel8.ColumnStyles[1].Width = 0F;
+                    tableLayoutPanel8.ColumnStyles[2].Width = 50F;
+
+                }
 
             }
-        }
 
+            
+        }
     }
 }

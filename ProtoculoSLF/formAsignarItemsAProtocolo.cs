@@ -21,9 +21,9 @@ namespace ProtoculoSLF
         List<ProtocoloItem> protocoItems = new List<ProtocoloItem>();
         private List<ProtocoloItem> items = new List<ProtocoloItem>();
         Protocolo protocoloSeleccionado = new Protocolo();
-
         public formAsignarItemsAProtocolo(Protocolo p)
         {
+            Form1.instancia.EsCanceladoFormAsignarItemAProtocolo = false;
             InitializeComponent();
             protocoloSeleccionado = p;
 
@@ -69,6 +69,13 @@ namespace ProtoculoSLF
             cCertifica.UnboundDataType = typeof(string);
             cCertifica.OptionsColumn.AllowEdit = false;
 
+            GridColumn cSimbolo = new GridColumn();
+            cSimbolo.FieldName = "Simbolo";
+            cSimbolo.Caption = "Simbolo";
+            cSimbolo.Visible = true;
+            cSimbolo.UnboundDataType = typeof(string);
+            cSimbolo.OptionsColumn.AllowEdit = false;
+
             GridColumn cOrden = new GridColumn();
             cOrden.FieldName = "Orden";
             cOrden.Caption = "Orden";
@@ -77,7 +84,7 @@ namespace ProtoculoSLF
             cNombre.Visible = true;
             cNombre.OptionsColumn.AllowEdit = false;
 
-            gvTodosItems.Columns.AddRange(new GridColumn[] { cNombre, cMedida, cCertifica, cOrden });
+            gvTodosItems.Columns.AddRange(new GridColumn[] { cNombre, cMedida, cCertifica, cSimbolo, cOrden });
             gcTodosItems.DataSource = items;
 
         }
@@ -104,13 +111,19 @@ namespace ProtoculoSLF
             cCertifica.UnboundDataType = typeof(string);
             cCertifica.OptionsColumn.AllowEdit = false;
 
+            GridColumn cSimbolo = new GridColumn();
+            cSimbolo.FieldName = "Simbolo";
+            cSimbolo.Caption = "Simbolo";
+            cSimbolo.Visible = true;
+            cSimbolo.UnboundDataType = typeof(string);
+            cSimbolo.OptionsColumn.AllowEdit = false;
+
             GridColumn cOrden = new GridColumn();
             cOrden.FieldName = "Orden";
             cOrden.Caption = "Orden";
             cOrden.Visible = true;
-            cNombre.UnboundDataType = typeof(string);
-            cNombre.Visible = true;
-            cNombre.OptionsColumn.AllowEdit = false;
+            cOrden.UnboundDataType = typeof(string);
+            cOrden.OptionsColumn.AllowEdit = false;
 
             GridColumn cBorrar = new GridColumn();
             cBorrar.FieldName = "FNBorrar";
@@ -118,7 +131,7 @@ namespace ProtoculoSLF
             cBorrar.Width = 16;
             cBorrar.Visible = true;
 
-            gvItemsAsignados.Columns.AddRange(new GridColumn[] { cNombre, cMedida, cCertifica, cOrden, cBorrar });
+            gvItemsAsignados.Columns.AddRange(new GridColumn[] { cNombre, cMedida, cCertifica,cSimbolo, cOrden, cBorrar });
             gcItemsAsignados.DataSource = protocoItems;
 
             RepositoryItemButtonEdit botonBorrar = new RepositoryItemButtonEdit();
@@ -179,6 +192,7 @@ namespace ProtoculoSLF
 
         private void btnCerrarMin_Click(object sender, EventArgs e)
         {
+            Form1.instancia.EsCanceladoFormAsignarItemAProtocolo = true;
             Close();
         }
 

@@ -46,7 +46,7 @@ namespace ProtoculoSLF.Report
                 Font = new DevExpress.Drawing.DXFont("Calibri", 10.75F)
             };
             row.Cells.Add(cell1);
-            var EspecificacionDato = pes.Simbolo == "-" ? pes.EspecificacionMin + " - " + pes.EspecificacionMax : pes.Simbolo == "N" ? "OK" : pes.Especificacion + " " + pes.Simbolo + " " + pes.EspecificacionMax;
+            var EspecificacionDato = pes.Simbolo == "-" ? pes.EspecificacionMin + " - " + pes.EspecificacionMax : pes.Simbolo == "C" ? "PASS/FAIL" : pes.Especificacion + " " + pes.Simbolo + " " + pes.EspecificacionMax;
 
             XRTableCell cell2 = new XRTableCell
             {

@@ -86,7 +86,7 @@
             this.gcAgregar.Name = "gcAgregar";
             this.gcAgregar.Size = new System.Drawing.Size(589, 519);
             this.gcAgregar.TabIndex = 5;
-            this.gcAgregar.Text = "  Generando Protocolo...";
+            this.gcAgregar.Text = "   Asistente de configuración";
             // 
             // btnCerrarMin
             // 

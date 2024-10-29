@@ -64,6 +64,8 @@
             this.cbMantener = new System.Windows.Forms.CheckBox();
             this.tbNombre = new ScrapKP.AAFControles.AAFTextBox();
             this.panel11 = new System.Windows.Forms.Panel();
+            this.gcSimbolo = new DevExpress.XtraEditors.GroupControl();
+            this.lueItemSimbolos = new DevExpress.XtraEditors.LookUpEdit();
             ((System.ComponentModel.ISupportInitialize)(this.gcAgregar)).BeginInit();
             this.gcAgregar.SuspendLayout();
             this.tlpRealizados.SuspendLayout();
@@ -89,6 +91,9 @@
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
             this.groupControl5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.gcSimbolo)).BeginInit();
+            this.gcSimbolo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lueItemSimbolos.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // gcAgregar
@@ -182,7 +187,7 @@
             this.gcItems.Location = new System.Drawing.Point(0, 0);
             this.gcItems.MainView = this.gvItems;
             this.gcItems.Name = "gcItems";
-            this.gcItems.Size = new System.Drawing.Size(372, 153);
+            this.gcItems.Size = new System.Drawing.Size(372, 78);
             this.gcItems.TabIndex = 1;
             this.gcItems.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvItems});
@@ -205,7 +210,7 @@
             this.gcConfirmar.Controls.Add(this.lblNombreVentana);
             this.gcConfirmar.Controls.Add(this.btnCerrarConfirmar);
             this.gcConfirmar.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.gcConfirmar.Location = new System.Drawing.Point(0, 153);
+            this.gcConfirmar.Location = new System.Drawing.Point(0, 78);
             this.gcConfirmar.Name = "gcConfirmar";
             this.gcConfirmar.Size = new System.Drawing.Size(372, 129);
             this.gcConfirmar.TabIndex = 67;
@@ -397,9 +402,9 @@
             this.gcAgregarItem.Controls.Add(this.btnCerrarAgregar);
             this.gcAgregarItem.Controls.Add(this.tableLayoutPanel2);
             this.gcAgregarItem.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.gcAgregarItem.Location = new System.Drawing.Point(0, 282);
+            this.gcAgregarItem.Location = new System.Drawing.Point(0, 207);
             this.gcAgregarItem.Name = "gcAgregarItem";
-            this.gcAgregarItem.Size = new System.Drawing.Size(372, 240);
+            this.gcAgregarItem.Size = new System.Drawing.Size(372, 315);
             this.gcAgregarItem.TabIndex = 68;
             this.gcAgregarItem.Text = "  Agregar protocolo ítem";
             this.gcAgregarItem.Visible = false;
@@ -436,7 +441,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(368, 215);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(368, 290);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // panel7
@@ -444,13 +449,14 @@
             this.panel7.AutoScroll = true;
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
             this.panel7.Controls.Add(this.groupControl3);
+            this.panel7.Controls.Add(this.gcSimbolo);
             this.panel7.Controls.Add(this.groupControl13);
             this.panel7.Controls.Add(this.tableLayoutPanel5);
             this.panel7.Controls.Add(this.groupControl5);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel7.Location = new System.Drawing.Point(3, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(362, 209);
+            this.panel7.Size = new System.Drawing.Size(362, 284);
             this.panel7.TabIndex = 0;
             // 
             // groupControl3
@@ -461,7 +467,7 @@
             this.groupControl3.AppearanceCaption.Options.UseFont = true;
             this.groupControl3.Controls.Add(this.tableLayoutPanel6);
             this.groupControl3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControl3.Location = new System.Drawing.Point(0, 116);
+            this.groupControl3.Location = new System.Drawing.Point(0, 174);
             this.groupControl3.Name = "groupControl3";
             this.groupControl3.Size = new System.Drawing.Size(362, 49);
             this.groupControl3.TabIndex = 68;
@@ -551,7 +557,7 @@
             this.tableLayoutPanel5.Controls.Add(this.btnAgregarItem, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.btnCancelar, 1, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 166);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 241);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -658,6 +664,40 @@
             this.panel11.Size = new System.Drawing.Size(7, 522);
             this.panel11.TabIndex = 1;
             // 
+            // gcSimbolo
+            // 
+            this.gcSimbolo.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.gcSimbolo.Appearance.Options.UseBorderColor = true;
+            this.gcSimbolo.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gcSimbolo.AppearanceCaption.Options.UseFont = true;
+            this.gcSimbolo.Controls.Add(this.lueItemSimbolos);
+            this.gcSimbolo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gcSimbolo.Location = new System.Drawing.Point(0, 116);
+            this.gcSimbolo.Margin = new System.Windows.Forms.Padding(0);
+            this.gcSimbolo.Name = "gcSimbolo";
+            this.gcSimbolo.Size = new System.Drawing.Size(362, 58);
+            this.gcSimbolo.TabIndex = 76;
+            this.gcSimbolo.Text = "  Símbolo *";
+            // 
+            // lueItemSimbolos
+            // 
+            this.lueItemSimbolos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lueItemSimbolos.EditValue = "";
+            this.lueItemSimbolos.Location = new System.Drawing.Point(2, 23);
+            this.lueItemSimbolos.Name = "lueItemSimbolos";
+            this.lueItemSimbolos.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.lueItemSimbolos.Properties.Appearance.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.lueItemSimbolos.Properties.Appearance.Options.UseFont = true;
+            this.lueItemSimbolos.Properties.Appearance.Options.UseForeColor = true;
+            this.lueItemSimbolos.Properties.AutoHeight = false;
+            this.lueItemSimbolos.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lueItemSimbolos.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
+            this.lueItemSimbolos.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
+            this.lueItemSimbolos.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.lueItemSimbolos.Size = new System.Drawing.Size(358, 33);
+            this.lueItemSimbolos.TabIndex = 63;
+            // 
             // formAgregarItems
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -695,6 +735,9 @@
             this.tableLayoutPanel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
             this.groupControl5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.gcSimbolo)).EndInit();
+            this.gcSimbolo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.lueItemSimbolos.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -737,5 +780,7 @@
         private System.Windows.Forms.CheckBox cbMantener;
         private ScrapKP.AAFControles.AAFTextBox tbNombre;
         private System.Windows.Forms.Panel panel11;
+        private DevExpress.XtraEditors.GroupControl gcSimbolo;
+        private DevExpress.XtraEditors.LookUpEdit lueItemSimbolos;
     }
 }

@@ -36,7 +36,19 @@ namespace ProtoculoSLF
                 new Unidad{ Nombre="Kg/pulgada", Descripcion="kg/in" },
                 new Unidad{ Nombre="Micron", Descripcion="µm" },
             };
+            List<Simbolo> simbolos = new List<Simbolo> { 
+                //new Simbolo{ Caracter ="=",Significado="Igual a" },
+                //new Simbolo{ Caracter ="≠",Significado="Diferente de" },
+                new Simbolo{ Caracter ="<",Significado="Menor que" },
+                new Simbolo{ Caracter =">",Significado="Mayor que" },
+                //new Simbolo{ Caracter ="≤",Significado="Menor o igual a" },
+                //new Simbolo{ Caracter ="≥",Significado="Mayor o igual a" },
+                new Simbolo{ Caracter ="±",Significado="Más o menos" },
+                //new Simbolo{ Caracter ="∓",Significado="Menos o más" },
+                new Simbolo{ Caracter ="-",Significado="Entre A y B" },
 
+            };
+            lueItemSimbolos.Properties.DataSource = simbolos;
             lueItemUnidad.Properties.DataSource = unidades;
         }
         private void GetItems()
@@ -47,6 +59,8 @@ namespace ProtoculoSLF
         private void cbCaracter_CheckedChanged(object sender, EventArgs e)
         {
             groupControl13.Visible = !cbConstante.Checked;
+            gcSimbolo.Visible = !cbConstante.Checked;
+
         }
 
         private void GenerarTablaItems()
@@ -78,6 +92,12 @@ namespace ProtoculoSLF
             cCertifica.UnboundDataType = typeof(string);
             cCertifica.OptionsColumn.AllowEdit = false;
 
+            GridColumn cSimbolo = new GridColumn();
+            cSimbolo.FieldName = "Simbolo";
+            cSimbolo.Caption = "SIM";
+            cSimbolo.Width = 16;
+            cSimbolo.Visible = true;
+
             GridColumn cBorrar = new GridColumn();
             cBorrar.FieldName = "FNBorrar";
             cBorrar.Caption = " ";
@@ -90,7 +110,7 @@ namespace ProtoculoSLF
             cModificar.Width = 16;
             cModificar.Visible = true;
 
-            gvItems.Columns.AddRange(new GridColumn[] { cId, cNombre, cMedida, cCertifica, cBorrar, cModificar });
+            gvItems.Columns.AddRange(new GridColumn[] { cId, cNombre, cMedida, cCertifica, cSimbolo,cBorrar, cModificar });
             gcItems.DataSource = items;
 
             RepositoryItemButtonEdit botonBorrar = new RepositoryItemButtonEdit();
@@ -216,7 +236,15 @@ namespace ProtoculoSLF
                     return false;
                 }
                 else piAgregar.Medida = lueUnidadA.Nombre;
-
+                var lueSimboloA = lueItemSimbolos.GetSelectedDataRow() as Simbolo;
+                if (lueSimboloA == null)
+                {
+                    formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Debe seleccionar símbolo.");
+                    noti.Show();
+                    lueItemSimbolos.Focus();
+                    return false;
+                }
+                else piAgregar.Simbolo = lueSimboloA.Caracter;
             }
             return true;
         }
@@ -232,6 +260,7 @@ namespace ProtoculoSLF
         {
             if (!ValidarFormularioItems()) return;
             piAgregar.EsCertificado = cbCertificado.Checked;
+            if (cbConstante.Checked) piAgregar.Simbolo = "C";
             piAgregar.EsConstante = cbConstante.Checked;
             if (Form1.instancia.br.AgregarItem(piAgregar))
             {

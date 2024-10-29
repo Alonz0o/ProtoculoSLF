@@ -130,7 +130,7 @@
             this.gcAgregar.Name = "gcAgregar";
             this.gcAgregar.Size = new System.Drawing.Size(959, 701);
             this.gcAgregar.TabIndex = 4;
-            this.gcAgregar.Text = "  Generando Protocolo...";
+            this.gcAgregar.Text = "   Asistente de configuración";
             // 
             // btnMostrarAgregarItem
             // 
@@ -260,6 +260,7 @@
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
             this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCerrarMin_Click);
             // 
             // gcAgregarItem
             // 
@@ -310,7 +311,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 207F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 255F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(938, 255);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -765,7 +766,7 @@
             this.lblMensaje.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
             this.lblMensaje.Size = new System.Drawing.Size(889, 35);
             this.lblMensaje.TabIndex = 40;
-            this.lblMensaje.Text = "Se agregara un item, para este protocolo y este pallet";
+            this.lblMensaje.Text = "Se deben agregar items especificados";
             this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // lblTitulo
