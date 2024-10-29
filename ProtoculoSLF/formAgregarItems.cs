@@ -195,40 +195,49 @@ namespace ProtoculoSLF
             cbMantener.Checked = false;
             gcAgregarItem.Visible = true;
         }
+
         private bool ValidarFormularioItems()
         {
-            //VERIFICAR SIMBOLO
             if (!Utils.IsSoloLetrasMultipleEspacios(tbNombre.Texts))
             {
-                formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Debe indroduccir nombre de control");
-                noti.Show();
+                MostrarNotificacion("Debe introducir nombre de control");
                 tbNombre.Focus();
                 return false;
             }
+            else piAgregar.Nombre = tbNombre.Texts;
 
-            var lueUnidadA = lueItemUnidad.GetSelectedDataRow() as Unidad;
-            if (lueUnidadA == null)
+            if (!cbConstante.Checked)
             {
-                formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Debe seleccionar Unidad.");
-                noti.Show();
-                lueItemUnidad.Focus();
-                return false;
+                var lueUnidadA = lueItemUnidad.GetSelectedDataRow() as Unidad;
+                if (lueUnidadA == null)
+                {
+                    MostrarNotificacion("Debe seleccionar Unidad.");
+                    lueItemUnidad.Focus();
+                    return false;
+                }
+                else piAgregar.Medida = lueUnidadA.Nombre;
+
             }
             return true;
         }
+        private void MostrarNotificacion(string mensaje)
+        {
+            formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", mensaje);
+            noti.Show();
+        }
+
+        ProtocoloItem piAgregar = new ProtocoloItem();
 
         private void btnAgregarItem_Click(object sender, EventArgs e)
         {
             if (!ValidarFormularioItems()) return;
-
-            ProtocoloItem pi = new ProtocoloItem();
-            pi.Nombre = tbNombre.Text;
-            pi.IdProtocolo = Form1.instancia.idProtocoloSeleccionado;
-            var lueUnidadA = lueItemUnidad.GetSelectedDataRow() as Unidad;
-            if (Form1.instancia.br.AgregarItemProtocolo(pi))
+            piAgregar.EsCertificado = cbCertificado.Checked;
+            piAgregar.EsConstante = cbConstante.Checked;
+            if (Form1.instancia.br.AgregarItem(piAgregar))
             {
                 LimpiarFormularioAgregarItem();
-                formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se agrego correctamente un nuevo item: " + pi.Nombre);
+                formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se agrego correctamente un nuevo item: " + piAgregar.Nombre);
+                GetItems();
                 noti.Show();
             }
         }

@@ -306,7 +306,7 @@
             this.btnConfirmarCambios.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnConfirmarCambios.FlatAppearance.BorderSize = 0;
             this.btnConfirmarCambios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConfirmarCambios.Font = new System.Drawing.Font("Roboto Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirmarCambios.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfirmarCambios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnConfirmarCambios.Location = new System.Drawing.Point(3, 3);
             this.btnConfirmarCambios.Name = "btnConfirmarCambios";
@@ -327,7 +327,7 @@
             this.btnCancelarCambios.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCancelarCambios.FlatAppearance.BorderSize = 0;
             this.btnCancelarCambios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelarCambios.Font = new System.Drawing.Font("Roboto Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelarCambios.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarCambios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
             this.btnCancelarCambios.Location = new System.Drawing.Point(271, 3);
             this.btnCancelarCambios.Name = "btnCancelarCambios";
@@ -342,11 +342,11 @@
             // 
             this.lblNombreVentana.AutoSize = true;
             this.lblNombreVentana.BackColor = System.Drawing.Color.Transparent;
-            this.lblNombreVentana.Font = new System.Drawing.Font("Roboto Medium", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreVentana.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombreVentana.ForeColor = System.Drawing.Color.Black;
             this.lblNombreVentana.Location = new System.Drawing.Point(17, 4);
             this.lblNombreVentana.Name = "lblNombreVentana";
-            this.lblNombreVentana.Size = new System.Drawing.Size(133, 15);
+            this.lblNombreVentana.Size = new System.Drawing.Size(136, 16);
             this.lblNombreVentana.TabIndex = 38;
             this.lblNombreVentana.Text = "Confirmar cambios";
             // 
@@ -501,7 +501,7 @@
             this.btnAgregarItem.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAgregarItem.FlatAppearance.BorderSize = 0;
             this.btnAgregarItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregarItem.Font = new System.Drawing.Font("Roboto Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnAgregarItem.Location = new System.Drawing.Point(3, 3);
             this.btnAgregarItem.Name = "btnAgregarItem";
@@ -522,7 +522,7 @@
             this.btnCancelar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCancelar.FlatAppearance.BorderSize = 0;
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelar.Font = new System.Drawing.Font("Roboto Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
             this.btnCancelar.Location = new System.Drawing.Point(268, 3);
             this.btnCancelar.Name = "btnCancelar";

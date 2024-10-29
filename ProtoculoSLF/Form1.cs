@@ -20,6 +20,7 @@ using ProtoculoSLF.Report;
 using System.IO;
 using IniParser.Model;
 using IniParser;
+using DevExpress.ClipboardSource.SpreadsheetML;
 
 namespace ProtoculoSLF
 {
@@ -32,6 +33,9 @@ namespace ProtoculoSLF
         public List<ProtocoloEnsayo> protocoloEnsayos = new List<ProtocoloEnsayo>();
         public ReporteDatos datosReporte = new ReporteDatos();
         public static Form1 instancia;
+        public int idCodigoSeleccionado = 0;
+        public bool esPorLote;
+        public int idProtocoloSeleccionado = 0;
         private async void Form1_Load(object sender, EventArgs e)
         {
             GenerarTablaProtocolos();
@@ -123,33 +127,41 @@ namespace ProtoculoSLF
                         Protocolo p = gridView.GetRow(rowIndex) as Protocolo;
                         if (p != null)
                         {
-                            
-                            if(br.GetTotalDeItemsPorIdCodigo(p.Id) == 0){
+                            idCodigoSeleccionado = p.Id;
+
+                            idProtocoloSeleccionado = p.FormatoProtocolo;
+
+                            if (br.GetTotalDeItemsProtocolo(idProtocoloSeleccionado) == 0) {
+                                formAsignarItemsAProtocolo form = new formAsignarItemsAProtocolo(p);
+                                form.Width = panel7.Width;
+                                Point locationOnScreen = panel7.PointToScreen(Point.Empty);
+                                form.Location = new Point(locationOnScreen.X, locationOnScreen.Y);
+                                form.ShowDialog();
+                            }
+                            if (br.GetTotalDeItemsPorIdCodigo(idCodigoSeleccionado) == 0){
                                 formAgregarCodigo form = new formAgregarCodigo(p);
                                 form.Size = panel7.Size;
                                 Point locationOnScreen = panel7.PointToScreen(Point.Empty);
                                 form.Location = new Point(locationOnScreen.X, locationOnScreen.Y);
                                 form.Show();
                             }
+                            GetProtocoloItems();
+                            GetProtocoloNts();
+                            LimpiarMenuProtocolo();
+                            protocoloEnsayos.Clear();
+                            gvFormatoValores.RefreshData();
+                            dvProtocolos.DocumentSource = null;
 
-                            idCodigoSeleccionado = p.Id;
-                            esPorLote= p.EsPorLote;
-                            nts = br.GetNTs(idCodigoSeleccionado);
+                       
                             if (nts.Count != 0)
                             {
-                                gcNts.DataSource = nts;
                                 datosReporte.Producto = p.Descripcion;
                                 datosReporte.CodigoCliente = p.CodigoCliente;
                                 var parametrosCodigo = nts.FirstOrDefault();
-                                LimpiarMenuProtocolo();
                                 lblCliente.Text = parametrosCodigo.Cliente;                       
                             }
-                            else
-                            {
-                                gcItemsProtocolo.DataSource = null;
-                                gcNts.DataSource = null;
-                                if (protocoItems.Count != 0) gcItemsProtocolo.DataSource = null;
-                            }
+                            lblProtocoloId.Text = "Protocolo N° " + idProtocoloSeleccionado;
+
                         }
                     }
                 }
@@ -161,7 +173,7 @@ namespace ProtoculoSLF
             lblNtNum.Text = string.Empty;
             lblProtocoloId.Text = string.Empty;
             lblPalletNum.Text = string.Empty;
-            //groupControl3.Text = "Protocolo ITEMS";
+            gcFormatoItems.Text = "Protocolo ITEMS";
         }
         private void GenerarTablaProtocolosItem()
         {
@@ -249,14 +261,7 @@ namespace ProtoculoSLF
             cCantBobina.Caption = "Cantidad N°";
             cCantBobina.UnboundDataType = typeof(string);
             cCantBobina.Visible = true;
-            cCantBobina.OptionsColumn.AllowEdit = false;
-
-            GridColumn cIdProtocolo = new GridColumn();
-            cIdProtocolo.FieldName = "IdProtocolo";
-            cIdProtocolo.Caption = "Protocolo N°";
-            cIdProtocolo.UnboundDataType = typeof(string);
-            cIdProtocolo.Visible = true;
-            cIdProtocolo.OptionsColumn.AllowEdit = false;
+            cCantBobina.OptionsColumn.AllowEdit = false;       
 
             GridColumn cFecha = new GridColumn();
             cFecha.FieldName = "Creado";
@@ -265,7 +270,7 @@ namespace ProtoculoSLF
             cFecha.Visible = true;
             cFecha.OptionsColumn.AllowEdit = false;
 
-            gvNts.Columns.AddRange(new GridColumn[] { cId, cNT, cOP, cPallet, cIdProtocolo, cCantBobina, cFecha });
+            gvNts.Columns.AddRange(new GridColumn[] { cId, cNT, cOP, cPallet, cCantBobina, cFecha });
             gcNts.DataSource = nts;
 
             GridColumnSortInfo[] sortInfo = {
@@ -373,25 +378,34 @@ namespace ProtoculoSLF
             };
 
         }
-        
-        public int idCodigoSeleccionado = 0;
-        public bool esPorLote;
-        public int idProtocoloSeleccionado = 0;
+
+
+        private void gvNts_MouseMove(object sender, MouseEventArgs e)
+        {
+            var view = sender as GridView;
+            var hitInfo = view.CalcHitInfo(e.Location);
+            if (hitInfo.InRow && e.Button == MouseButtons.Left)
+            {
+                var data = view.GetRow(hitInfo.RowHandle);
+                if (data != null)
+                {
+                    gcNts.DoDragDrop(data, DragDropEffects.Move);
+                }
+            }
+        }
 
         private void dvProtocolos_DragDrop(object sender, DragEventArgs e)
         {
+
             var data = (NT)e.Data.GetData(typeof(NT));
-            idProtocoloSeleccionado = data.IdProtocolo;
             idNtSeleccionado = data.NumNT;
             datosReporte.Cliente = data.Cliente;
             datosReporte.Lote = data.OP + "/" + data.NumPallet;
             datosReporte.Pallet = data.NumPallet;
             gcFormatoItems.Text = "Protocolo N° " + idProtocoloSeleccionado + " | ITEMS";
             lblNtNum.Text = "NT N° " + data.NumNT;
-            lblProtocoloId.Text = "Protocolo N° " + data.IdProtocolo;
             lblPalletNum.Text = esPorLote ? "Por lote" : "Pallet N° " + data.NumPallet;
             groupControl7.Text = esPorLote ? "  Por lote" : "  Por Pallet";
-            GetProtocoloItems();
             GetEnsayosRealizados();
             
         }
@@ -466,13 +480,17 @@ namespace ProtoculoSLF
             if (formAsignarItemProtocolo.instancia != null)
             {
                 formAsignarItemProtocolo.instancia.items.Remove(data);
-                formAsignarItemProtocolo.instancia.itemsAConfirmar.Add(data);
             }
 
         }
+        public void GetProtocoloNts()
+        {
+            nts = br.GetNTs(idCodigoSeleccionado);
+            gcNts.DataSource = nts;
+        }
 
         public void GetProtocoloItems() {
-            protocoItems = br.GetProtocolosItems(idProtocoloSeleccionado);
+            protocoItems = br.GetProtocolosItemsEspecificacionPorCodigo(idCodigoSeleccionado);
             gcItemsProtocolo.DataSource = protocoItems;
         }
         public void RefrescarDatosGvItemsProtocolo() {
@@ -480,19 +498,7 @@ namespace ProtoculoSLF
 
         }
 
-        private void gvNts_MouseMove(object sender, MouseEventArgs e)
-        {
-            var view = sender as GridView;
-            var hitInfo = view.CalcHitInfo(e.Location);
-            if (hitInfo.InRow && e.Button == MouseButtons.Left)
-            {
-                var data = view.GetRow(hitInfo.RowHandle);
-                if (data != null)
-                {
-                    gcNts.DoDragDrop(data, DragDropEffects.Move);
-                }
-            }
-        }
+     
 
         private void btnAgregarEnsayo_Click(object sender, EventArgs e)
         {
@@ -557,7 +563,7 @@ namespace ProtoculoSLF
         {
             dvProtocolos.DocumentSource = null;
 
-            protocoloEnsayos = br.GetEnsayosItems(idProtocoloSeleccionado).OrderBy(e=>e.Orden).ToList();
+            protocoloEnsayos = br.GetEnsayosItems(idNtSeleccionado).OrderBy(e=>e.Orden).ToList();
             if (protocoloEnsayos.Count != 0)
             {
                 xrCertificadoReal protocolo = new xrCertificadoReal();

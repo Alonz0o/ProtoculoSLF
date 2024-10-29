@@ -12,7 +12,6 @@
         public double EspecificacionMax { get; set; }
         public bool EsCertificado { get; set; }
         public bool EsConstante { get; set; }
-
         public string EsCertificadoSiNo { get; set; }
         public int IdProtocolo { get; set; }
         public int IdProtocoloItem { get; set; }

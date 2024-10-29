@@ -22,7 +22,6 @@ namespace ProtoculoSLF
     {
         public List<ProtocoloItem> items = new List<ProtocoloItem>();
         public static formAsignarItemProtocolo instancia;
-        public List<ProtocoloItem> itemsAConfirmar = new List<ProtocoloItem>();
 
         public formAsignarItemProtocolo()
         {
@@ -34,23 +33,38 @@ namespace ProtoculoSLF
         {
 
             List<Simbolo> simbolos = new List<Simbolo> { 
-                new Simbolo{ Caracter ="=",Significado="Igual a" },
-                new Simbolo{ Caracter ="≠",Significado="Diferente de" },
+                //new Simbolo{ Caracter ="=",Significado="Igual a" },
+                //new Simbolo{ Caracter ="≠",Significado="Diferente de" },
                 new Simbolo{ Caracter ="<",Significado="Menor que" },
                 new Simbolo{ Caracter =">",Significado="Mayor que" },
-                new Simbolo{ Caracter ="≤",Significado="Menor o igual a" },
-                new Simbolo{ Caracter ="≥",Significado="Mayor o igual a" },
+                //new Simbolo{ Caracter ="≤",Significado="Menor o igual a" },
+                //new Simbolo{ Caracter ="≥",Significado="Mayor o igual a" },
                 new Simbolo{ Caracter ="±",Significado="Más o menos" },
-                new Simbolo{ Caracter ="∓",Significado="Menos o más" },
+                //new Simbolo{ Caracter ="∓",Significado="Menos o más" },
                 new Simbolo{ Caracter ="-",Significado="Entre A y B" },
 
             };
 
             lueItemSimbolos.Properties.DataSource = simbolos;
-            lueNombreItem.Properties.DataSource = Form1.instancia.br.GetItems();
+            GetItems();
 
+            lueNombreItem.Properties.DataSource = items;
         }
 
+        private void GetItems()
+        {
+
+            items = Form1.instancia.br.GetItems();
+
+            var itemsDiferentes = items
+                .Concat(Form1.instancia.protocoItems)
+                .GroupBy(x => x.Id)
+                .Where(g => g.Count() == 1)
+                .Select(g => g.First())
+                .ToList();
+
+            items = itemsDiferentes;
+        }
 
         private void btnAgregarItem_Click(object sender, EventArgs e)
         {
@@ -60,6 +74,8 @@ namespace ProtoculoSLF
             var lueControlA = lueNombreItem.GetSelectedDataRow() as ProtocoloItem;
             pi.Id = lueControlA.Id;
             pi.IdProtocolo = Form1.instancia.idProtocoloSeleccionado;
+            pi.IdProtocoloItem = Form1.instancia.br.GetFormatoProtocoloItemId(pi.IdProtocolo,pi.Id);
+            //pi.Orden = Form1.instancia.br.GetUltimaPosicionProtocoloItem();
             var lueCaracterA = lueItemSimbolos.GetSelectedDataRow() as Simbolo;
 
             pi.Simbolo = lueCaracterA.Caracter;
@@ -75,11 +91,12 @@ namespace ProtoculoSLF
                 pi.Especificacion = Convert.ToDouble(tbEspecificacion.Texts);
             }
 
-            if (Form1.instancia.br.AgregarItemProtocolo(pi))
+            if (Form1.instancia.br.AgregarItemProtocolo(pi,Form1.instancia.idCodigoSeleccionado))
             {
                 LimpiarFormularioAgregarItem();
                 formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se agrego correctamente un nuevo item: " + pi.Nombre);
                 noti.Show();
+                Form1.instancia.GetProtocoloItems();
             }
 
         }

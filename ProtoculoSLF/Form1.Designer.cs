@@ -350,7 +350,7 @@
             // 
             this.groupControl7.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
             this.groupControl7.Appearance.Options.UseBorderColor = true;
-            this.groupControl7.AppearanceCaption.Font = new System.Drawing.Font("Roboto Medium", 10F, System.Drawing.FontStyle.Bold);
+            this.groupControl7.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.groupControl7.AppearanceCaption.Options.UseFont = true;
             this.groupControl7.Controls.Add(this.lblPalletNum);
             this.groupControl7.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -375,7 +375,7 @@
             // 
             this.groupControl6.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
             this.groupControl6.Appearance.Options.UseBorderColor = true;
-            this.groupControl6.AppearanceCaption.Font = new System.Drawing.Font("Roboto Medium", 10F, System.Drawing.FontStyle.Bold);
+            this.groupControl6.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.groupControl6.AppearanceCaption.Options.UseFont = true;
             this.groupControl6.Controls.Add(this.lblProtocoloId);
             this.groupControl6.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -400,7 +400,7 @@
             // 
             this.groupControl5.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
             this.groupControl5.Appearance.Options.UseBorderColor = true;
-            this.groupControl5.AppearanceCaption.Font = new System.Drawing.Font("Roboto Medium", 10F, System.Drawing.FontStyle.Bold);
+            this.groupControl5.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.groupControl5.AppearanceCaption.Options.UseFont = true;
             this.groupControl5.Controls.Add(this.lblNtNum);
             this.groupControl5.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -425,7 +425,7 @@
             // 
             this.gcFiltroTipo.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
             this.gcFiltroTipo.Appearance.Options.UseBorderColor = true;
-            this.gcFiltroTipo.AppearanceCaption.Font = new System.Drawing.Font("Roboto Medium", 10F, System.Drawing.FontStyle.Bold);
+            this.gcFiltroTipo.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.gcFiltroTipo.AppearanceCaption.Options.UseFont = true;
             this.gcFiltroTipo.Controls.Add(this.lblCliente);
             this.gcFiltroTipo.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -543,7 +543,7 @@
             // 
             this.groupControl8.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
             this.groupControl8.Appearance.Options.UseBorderColor = true;
-            this.groupControl8.AppearanceCaption.Font = new System.Drawing.Font("Roboto Medium", 10F, System.Drawing.FontStyle.Bold);
+            this.groupControl8.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.groupControl8.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.groupControl8.AppearanceCaption.Options.UseFont = true;
             this.groupControl8.AppearanceCaption.Options.UseForeColor = true;
@@ -581,7 +581,7 @@
             // 
             this.groupControl1.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
             this.groupControl1.Appearance.Options.UseBorderColor = true;
-            this.groupControl1.AppearanceCaption.Font = new System.Drawing.Font("Roboto Medium", 10F, System.Drawing.FontStyle.Bold);
+            this.groupControl1.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.groupControl1.AppearanceCaption.Options.UseFont = true;
             this.groupControl1.Controls.Add(this.gcNts);
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -615,7 +615,7 @@
             // 
             this.gcFormatoItems.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
             this.gcFormatoItems.Appearance.Options.UseBorderColor = true;
-            this.gcFormatoItems.AppearanceCaption.Font = new System.Drawing.Font("Roboto Medium", 10F, System.Drawing.FontStyle.Bold);
+            this.gcFormatoItems.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.gcFormatoItems.AppearanceCaption.Options.UseFont = true;
             this.gcFormatoItems.Controls.Add(this.btnAsignarItem);
             this.gcFormatoItems.Controls.Add(this.gcItemsProtocolo);
@@ -631,7 +631,7 @@
             // 
             this.gcEnsayos.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
             this.gcEnsayos.Appearance.Options.UseBorderColor = true;
-            this.gcEnsayos.AppearanceCaption.Font = new System.Drawing.Font("Roboto Medium", 10F, System.Drawing.FontStyle.Bold);
+            this.gcEnsayos.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.gcEnsayos.AppearanceCaption.Options.UseFont = true;
             this.gcEnsayos.Controls.Add(this.gcFormatoValores);
             this.gcEnsayos.Controls.Add(this.gcAgregarEnsayo);
@@ -769,7 +769,7 @@
             this.btnAgregarEnsayoValor.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAgregarEnsayoValor.FlatAppearance.BorderSize = 0;
             this.btnAgregarEnsayoValor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregarEnsayoValor.Font = new System.Drawing.Font("Roboto Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarEnsayoValor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarEnsayoValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnAgregarEnsayoValor.Location = new System.Drawing.Point(3, 3);
             this.btnAgregarEnsayoValor.Name = "btnAgregarEnsayoValor";
@@ -790,7 +790,7 @@
             this.btnCancelarEnsayo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCancelarEnsayo.FlatAppearance.BorderSize = 0;
             this.btnCancelarEnsayo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelarEnsayo.Font = new System.Drawing.Font("Roboto Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelarEnsayo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarEnsayo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
             this.btnCancelarEnsayo.Location = new System.Drawing.Point(115, 3);
             this.btnCancelarEnsayo.Name = "btnCancelarEnsayo";
@@ -1013,7 +1013,7 @@
             // label1
             // 
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Roboto Medium", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(14)))), ((int)(((byte)(69)))));
             this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
@@ -1036,7 +1036,7 @@
             // label5
             // 
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Font = new System.Drawing.Font("Roboto Medium", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(14)))), ((int)(((byte)(69)))));
             this.label5.Location = new System.Drawing.Point(0, 0);
             this.label5.Name = "label5";
@@ -1107,7 +1107,7 @@
             this.btnAgregarProtocolo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAgregarProtocolo.FlatAppearance.BorderSize = 0;
             this.btnAgregarProtocolo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnAgregarProtocolo.Font = new System.Drawing.Font("Roboto Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarProtocolo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarProtocolo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnAgregarProtocolo.Location = new System.Drawing.Point(155, 0);
             this.btnAgregarProtocolo.Margin = new System.Windows.Forms.Padding(0);
@@ -1117,6 +1117,7 @@
             this.btnAgregarProtocolo.Text = "Protocolos";
             this.btnAgregarProtocolo.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnAgregarProtocolo.UseVisualStyleBackColor = false;
+            this.btnAgregarProtocolo.Visible = false;
             // 
             // btnAgregarItem
             // 
@@ -1129,7 +1130,7 @@
             this.btnAgregarItem.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAgregarItem.FlatAppearance.BorderSize = 0;
             this.btnAgregarItem.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnAgregarItem.Font = new System.Drawing.Font("Roboto Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAgregarItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnAgregarItem.Location = new System.Drawing.Point(310, 0);
             this.btnAgregarItem.Margin = new System.Windows.Forms.Padding(0);
