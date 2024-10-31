@@ -134,7 +134,8 @@ namespace ProtoculoSLF
                             GetProtocoloItems();
                             GetProtocoloNts();
 
-                            if (br.GetTotalDeItemsProtocolo(idProtocoloSeleccionado) == 0) {
+                            if (br.GetTotalDeItemsProtocolo(idProtocoloSeleccionado) == 0)
+                            {
                                 formAsignarItemsAProtocolo form = new formAsignarItemsAProtocolo(p);
                                 form.Width = panel7.Width;
                                 Point locationOnScreen = panel7.PointToScreen(Point.Empty);
@@ -143,26 +144,60 @@ namespace ProtoculoSLF
                                 if (EsCanceladoFormAsignarItemAProtocolo) return;
                             }
 
-                            if (br.GetTotalDeItemsPorIdCodigo(idCodigoSeleccionado) == 0){
+                            //if (br.GetTotalDeItemsPorIdCodigo(idCodigoSeleccionado) == 0)
+
+
+                            if (br.GetTotalDeItemsPorProtocolo(idCodigoSeleccionado) == 0)
+                            {
                                 formAgregarCodigo form = new formAgregarCodigo(p);
                                 form.Size = panel7.Size;
                                 Point locationOnScreen = panel7.PointToScreen(Point.Empty);
                                 form.Location = new Point(locationOnScreen.X, locationOnScreen.Y);
                                 form.Show();
                             }
-                           
+                            else
+                            {                             
+                                List<string> items = br.GetItemsDelProtocolo(idProtocoloSeleccionado);
+                                var itemsExtrusion = br.GetExtrusionItems(idCodigoSeleccionado);
+                                var itemsImpresion = br.GetImpresionItems(idCodigoSeleccionado);
+                                var itemsConfeccion = br.GetConfeccionItems(idCodigoSeleccionado);
+
+                                List<ProtocoloItem> itemsSeleccionados = new List<ProtocoloItem>();
+                                List<ProtocoloItem> itemsIguales = new List<ProtocoloItem>();
+
+                                itemsSeleccionados.AddRange(itemsExtrusion);
+                                itemsSeleccionados.AddRange(itemsImpresion);
+                                itemsSeleccionados.AddRange(itemsConfeccion);
+
+                                foreach (var nombre in items)
+                                {
+                                    itemsIguales.Add(itemsSeleccionados.FirstOrDefault(i => i.Nombre.ToLower() == nombre.ToLower()));
+                                }
+
+                                foreach (var item in itemsIguales)
+                                {
+                                    item.IdProtocoloItem = br.GetIdProtocoloItemPorNombre(item.Nombre);
+                                    if (br.EstaEnItemEspecificado(idCodigoSeleccionado, item.Nombre) == 0)
+                                    {
+                                        br.AgregarItemProtocolo(item, idCodigoSeleccionado);
+                                    }
+
+                                }
+                                var pp = "";
+                            }
+
                             LimpiarMenuProtocolo();
                             protocoloEnsayos.Clear();
                             gvFormatoValores.RefreshData();
                             dvProtocolos.DocumentSource = null;
 
-                       
+
                             if (nts.Count != 0)
                             {
                                 datosReporte.Producto = p.Descripcion;
                                 datosReporte.CodigoCliente = p.CodigoCliente;
                                 var parametrosCodigo = nts.FirstOrDefault();
-                                lblCliente.Text = parametrosCodigo.Cliente;                       
+                                lblCliente.Text = parametrosCodigo.Cliente;
                             }
                             lblProtocoloId.Text = "Protocolo N° " + idProtocoloSeleccionado;
 

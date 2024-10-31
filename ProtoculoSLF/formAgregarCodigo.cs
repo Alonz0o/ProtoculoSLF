@@ -144,6 +144,8 @@ namespace ProtoculoSLF
             itemsSeleccionados.AddRange(itemsExtrusion.FindAll(ex => ex.Seleccionar == true).ToList());
             itemsSeleccionados.AddRange(itemsImpresion.FindAll(ex => ex.Seleccionar == true).ToList());
             itemsSeleccionados.AddRange(itemsConfeccion.FindAll(ex => ex.Seleccionar == true).ToList());
+            var disposicion = rbPorLote.Checked ? 1 : rbPorPallet.Checked ? 2 : 0;
+            Form1.instancia.br.UpdateDisposicionProtocolo(disposicion,protocoloSeleccionado.FormatoProtocolo);
             foreach (var item in itemsSeleccionados)
             {
                 item.IdProtocoloItem = Form1.instancia.br.GetIdProtocoloItemPorNombre(item.Nombre);

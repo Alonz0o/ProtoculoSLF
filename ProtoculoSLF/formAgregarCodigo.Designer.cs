@@ -57,6 +57,10 @@
             this.gcItemsAsignados = new DevExpress.XtraGrid.GridControl();
             this.gvItemsAsignados = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupControl11 = new DevExpress.XtraEditors.GroupControl();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.rbPorPallet = new System.Windows.Forms.RadioButton();
+            this.rbPorLote = new System.Windows.Forms.RadioButton();
             this.groupControl8 = new DevExpress.XtraEditors.GroupControl();
             this.tbCliente = new ScrapKP.AAFControles.AAFTextBox();
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
@@ -103,6 +107,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.gcItemsAsignados)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvItemsAsignados)).BeginInit();
             this.tableLayoutPanel6.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl11)).BeginInit();
+            this.groupControl11.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl8)).BeginInit();
             this.groupControl8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
@@ -213,11 +220,11 @@
             this.tableLayoutPanel5.Controls.Add(this.btnAgregarItem, 0, 0);
             this.tableLayoutPanel5.Controls.Add(this.btnCancelar, 1, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 633);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 663);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(942, 43);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(925, 43);
             this.tableLayoutPanel5.TabIndex = 66;
             // 
             // btnAgregarItem
@@ -234,7 +241,7 @@
             this.btnAgregarItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnAgregarItem.Location = new System.Drawing.Point(3, 3);
             this.btnAgregarItem.Name = "btnAgregarItem";
-            this.btnAgregarItem.Size = new System.Drawing.Size(465, 37);
+            this.btnAgregarItem.Size = new System.Drawing.Size(456, 37);
             this.btnAgregarItem.TabIndex = 1;
             this.btnAgregarItem.Text = "Agregar";
             this.btnAgregarItem.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
@@ -253,9 +260,9 @@
             this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
-            this.btnCancelar.Location = new System.Drawing.Point(474, 3);
+            this.btnCancelar.Location = new System.Drawing.Point(465, 3);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(465, 37);
+            this.btnCancelar.Size = new System.Drawing.Size(457, 37);
             this.btnCancelar.TabIndex = 0;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
@@ -272,9 +279,9 @@
             this.gcAgregarItem.AppearanceCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             this.gcAgregarItem.Controls.Add(this.tableLayoutPanel2);
             this.gcAgregarItem.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gcAgregarItem.Location = new System.Drawing.Point(0, 321);
+            this.gcAgregarItem.Location = new System.Drawing.Point(0, 373);
             this.gcAgregarItem.Name = "gcAgregarItem";
-            this.gcAgregarItem.Size = new System.Drawing.Size(942, 280);
+            this.gcAgregarItem.Size = new System.Drawing.Size(925, 280);
             this.gcAgregarItem.TabIndex = 68;
             this.gcAgregarItem.Text = "  Procesos y tolerancias por defecto";
             // 
@@ -291,7 +298,7 @@
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(938, 255);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(921, 255);
             this.tableLayoutPanel2.TabIndex = 3;
             // 
             // tableLayoutPanel1
@@ -312,7 +319,7 @@
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 255F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(938, 255);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(921, 255);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // groupControl10
@@ -322,10 +329,10 @@
             this.groupControl10.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupControl10.AppearanceCaption.Options.UseFont = true;
             this.groupControl10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl10.Location = new System.Drawing.Point(702, 0);
+            this.groupControl10.Location = new System.Drawing.Point(690, 0);
             this.groupControl10.Margin = new System.Windows.Forms.Padding(0);
             this.groupControl10.Name = "groupControl10";
-            this.groupControl10.Size = new System.Drawing.Size(236, 255);
+            this.groupControl10.Size = new System.Drawing.Size(231, 255);
             this.groupControl10.TabIndex = 78;
             this.groupControl10.Text = "  Rebobinado *";
             // 
@@ -337,10 +344,10 @@
             this.groupControl6.AppearanceCaption.Options.UseFont = true;
             this.groupControl6.Controls.Add(this.gcItemsImpresion);
             this.groupControl6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl6.Location = new System.Drawing.Point(234, 0);
+            this.groupControl6.Location = new System.Drawing.Point(230, 0);
             this.groupControl6.Margin = new System.Windows.Forms.Padding(0);
             this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(234, 255);
+            this.groupControl6.Size = new System.Drawing.Size(230, 255);
             this.groupControl6.TabIndex = 77;
             this.groupControl6.Text = "  Impresión *";
             // 
@@ -350,7 +357,7 @@
             this.gcItemsImpresion.Location = new System.Drawing.Point(2, 23);
             this.gcItemsImpresion.MainView = this.gvItemsImpresion;
             this.gcItemsImpresion.Name = "gcItemsImpresion";
-            this.gcItemsImpresion.Size = new System.Drawing.Size(230, 230);
+            this.gcItemsImpresion.Size = new System.Drawing.Size(226, 230);
             this.gcItemsImpresion.TabIndex = 12;
             this.gcItemsImpresion.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvItemsImpresion});
@@ -373,7 +380,7 @@
             this.groupControl5.Location = new System.Drawing.Point(0, 0);
             this.groupControl5.Margin = new System.Windows.Forms.Padding(0);
             this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(234, 255);
+            this.groupControl5.Size = new System.Drawing.Size(230, 255);
             this.groupControl5.TabIndex = 75;
             this.groupControl5.Text = "  Extrusión *";
             // 
@@ -383,7 +390,7 @@
             this.gcItemsExtrusion.Location = new System.Drawing.Point(2, 23);
             this.gcItemsExtrusion.MainView = this.gvItemsExtrusion;
             this.gcItemsExtrusion.Name = "gcItemsExtrusion";
-            this.gcItemsExtrusion.Size = new System.Drawing.Size(230, 230);
+            this.gcItemsExtrusion.Size = new System.Drawing.Size(226, 230);
             this.gcItemsExtrusion.TabIndex = 12;
             this.gcItemsExtrusion.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvItemsExtrusion});
@@ -403,10 +410,10 @@
             this.groupControl2.AppearanceCaption.Options.UseFont = true;
             this.groupControl2.Controls.Add(this.gcItemsConfeccion);
             this.groupControl2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl2.Location = new System.Drawing.Point(468, 0);
+            this.groupControl2.Location = new System.Drawing.Point(460, 0);
             this.groupControl2.Margin = new System.Windows.Forms.Padding(0);
             this.groupControl2.Name = "groupControl2";
-            this.groupControl2.Size = new System.Drawing.Size(234, 255);
+            this.groupControl2.Size = new System.Drawing.Size(230, 255);
             this.groupControl2.TabIndex = 76;
             this.groupControl2.Text = "  Confección *";
             // 
@@ -416,7 +423,7 @@
             this.gcItemsConfeccion.Location = new System.Drawing.Point(2, 23);
             this.gcItemsConfeccion.MainView = this.gvItemsConfeccion;
             this.gcItemsConfeccion.Name = "gcItemsConfeccion";
-            this.gcItemsConfeccion.Size = new System.Drawing.Size(230, 230);
+            this.gcItemsConfeccion.Size = new System.Drawing.Size(226, 230);
             this.gcItemsConfeccion.TabIndex = 12;
             this.gcItemsConfeccion.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvItemsConfeccion});
@@ -440,7 +447,7 @@
             this.groupControl9.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl9.Location = new System.Drawing.Point(0, 69);
             this.groupControl9.Name = "groupControl9";
-            this.groupControl9.Size = new System.Drawing.Size(942, 252);
+            this.groupControl9.Size = new System.Drawing.Size(925, 304);
             this.groupControl9.TabIndex = 82;
             this.groupControl9.Text = "  Datos del codigo";
             // 
@@ -457,7 +464,7 @@
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(938, 227);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(921, 279);
             this.tableLayoutPanel3.TabIndex = 3;
             // 
             // tableLayoutPanel4
@@ -474,7 +481,7 @@
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(938, 227);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(921, 279);
             this.tableLayoutPanel4.TabIndex = 81;
             // 
             // groupControl7
@@ -489,7 +496,7 @@
             this.groupControl7.Location = new System.Drawing.Point(0, 0);
             this.groupControl7.Margin = new System.Windows.Forms.Padding(0);
             this.groupControl7.Name = "groupControl7";
-            this.groupControl7.Size = new System.Drawing.Size(468, 227);
+            this.groupControl7.Size = new System.Drawing.Size(460, 279);
             this.groupControl7.TabIndex = 83;
             this.groupControl7.Text = "  Items protocolo 167";
             // 
@@ -506,7 +513,7 @@
             this.btnAsignarItemAProtocolo.IconColor = System.Drawing.SystemColors.Highlight;
             this.btnAsignarItemAProtocolo.IconFont = FontAwesome.Sharp.IconFont.Auto;
             this.btnAsignarItemAProtocolo.IconSize = 20;
-            this.btnAsignarItemAProtocolo.Location = new System.Drawing.Point(443, 1);
+            this.btnAsignarItemAProtocolo.Location = new System.Drawing.Point(435, 1);
             this.btnAsignarItemAProtocolo.Name = "btnAsignarItemAProtocolo";
             this.btnAsignarItemAProtocolo.Size = new System.Drawing.Size(20, 20);
             this.btnAsignarItemAProtocolo.TabIndex = 34;
@@ -518,7 +525,7 @@
             this.gcItemsAsignados.Location = new System.Drawing.Point(2, 23);
             this.gcItemsAsignados.MainView = this.gvItemsAsignados;
             this.gcItemsAsignados.Name = "gcItemsAsignados";
-            this.gcItemsAsignados.Size = new System.Drawing.Size(464, 202);
+            this.gcItemsAsignados.Size = new System.Drawing.Size(456, 254);
             this.gcItemsAsignados.TabIndex = 13;
             this.gcItemsAsignados.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvItemsAsignados});
@@ -534,21 +541,79 @@
             // 
             this.tableLayoutPanel6.ColumnCount = 1;
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel6.Controls.Add(this.groupControl11, 0, 4);
             this.tableLayoutPanel6.Controls.Add(this.groupControl8, 0, 0);
             this.tableLayoutPanel6.Controls.Add(this.groupControl4, 0, 3);
             this.tableLayoutPanel6.Controls.Add(this.groupControl3, 0, 2);
             this.tableLayoutPanel6.Controls.Add(this.groupControl1, 0, 1);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(468, 0);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(460, 0);
             this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 4;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(470, 227);
+            this.tableLayoutPanel6.RowCount = 5;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(461, 279);
             this.tableLayoutPanel6.TabIndex = 82;
+            // 
+            // groupControl11
+            // 
+            this.groupControl11.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.groupControl11.Appearance.Options.UseBorderColor = true;
+            this.groupControl11.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupControl11.AppearanceCaption.Options.UseFont = true;
+            this.groupControl11.Controls.Add(this.tableLayoutPanel7);
+            this.groupControl11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupControl11.Location = new System.Drawing.Point(0, 220);
+            this.groupControl11.Margin = new System.Windows.Forms.Padding(0);
+            this.groupControl11.Name = "groupControl11";
+            this.groupControl11.Size = new System.Drawing.Size(461, 59);
+            this.groupControl11.TabIndex = 80;
+            this.groupControl11.Text = "  Disposición";
+            // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.ColumnCount = 2;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel7.Controls.Add(this.rbPorPallet, 1, 0);
+            this.tableLayoutPanel7.Controls.Add(this.rbPorLote, 0, 0);
+            this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(2, 23);
+            this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 1;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(457, 34);
+            this.tableLayoutPanel7.TabIndex = 0;
+            // 
+            // rbPorPallet
+            // 
+            this.rbPorPallet.AutoSize = true;
+            this.rbPorPallet.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rbPorPallet.Location = new System.Drawing.Point(231, 3);
+            this.rbPorPallet.Name = "rbPorPallet";
+            this.rbPorPallet.Size = new System.Drawing.Size(223, 28);
+            this.rbPorPallet.TabIndex = 1;
+            this.rbPorPallet.TabStop = true;
+            this.rbPorPallet.Text = "Por Pallet";
+            this.rbPorPallet.UseVisualStyleBackColor = true;
+            // 
+            // rbPorLote
+            // 
+            this.rbPorLote.AutoSize = true;
+            this.rbPorLote.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rbPorLote.Location = new System.Drawing.Point(3, 3);
+            this.rbPorLote.Name = "rbPorLote";
+            this.rbPorLote.Size = new System.Drawing.Size(222, 28);
+            this.rbPorLote.TabIndex = 0;
+            this.rbPorLote.TabStop = true;
+            this.rbPorLote.Text = "Por Lote";
+            this.rbPorLote.UseVisualStyleBackColor = true;
             // 
             // groupControl8
             // 
@@ -561,7 +626,7 @@
             this.groupControl8.Location = new System.Drawing.Point(0, 0);
             this.groupControl8.Margin = new System.Windows.Forms.Padding(0);
             this.groupControl8.Name = "groupControl8";
-            this.groupControl8.Size = new System.Drawing.Size(470, 56);
+            this.groupControl8.Size = new System.Drawing.Size(461, 55);
             this.groupControl8.TabIndex = 79;
             this.groupControl8.Text = "  Cliente";
             // 
@@ -581,7 +646,7 @@
             this.tbCliente.Padding = new System.Windows.Forms.Padding(19, 8, 8, 8);
             this.tbCliente.PasswordChar = false;
             this.tbCliente.SelectionStart = 0;
-            this.tbCliente.Size = new System.Drawing.Size(466, 33);
+            this.tbCliente.Size = new System.Drawing.Size(457, 33);
             this.tbCliente.TabIndex = 1;
             this.tbCliente.Texts = "";
             this.tbCliente.UnderlinedStyle = true;
@@ -594,10 +659,10 @@
             this.groupControl4.AppearanceCaption.Options.UseFont = true;
             this.groupControl4.Controls.Add(this.tbNumeroProtocolo);
             this.groupControl4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl4.Location = new System.Drawing.Point(0, 168);
+            this.groupControl4.Location = new System.Drawing.Point(0, 165);
             this.groupControl4.Margin = new System.Windows.Forms.Padding(0);
             this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(470, 59);
+            this.groupControl4.Size = new System.Drawing.Size(461, 55);
             this.groupControl4.TabIndex = 78;
             this.groupControl4.Text = "  Protocolo N° *";
             // 
@@ -617,7 +682,7 @@
             this.tbNumeroProtocolo.Padding = new System.Windows.Forms.Padding(19, 8, 8, 8);
             this.tbNumeroProtocolo.PasswordChar = false;
             this.tbNumeroProtocolo.SelectionStart = 0;
-            this.tbNumeroProtocolo.Size = new System.Drawing.Size(466, 33);
+            this.tbNumeroProtocolo.Size = new System.Drawing.Size(457, 33);
             this.tbNumeroProtocolo.TabIndex = 1;
             this.tbNumeroProtocolo.Texts = "";
             this.tbNumeroProtocolo.UnderlinedStyle = true;
@@ -630,10 +695,10 @@
             this.groupControl3.AppearanceCaption.Options.UseFont = true;
             this.groupControl3.Controls.Add(this.tbNombreProtocolo);
             this.groupControl3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl3.Location = new System.Drawing.Point(0, 112);
+            this.groupControl3.Location = new System.Drawing.Point(0, 110);
             this.groupControl3.Margin = new System.Windows.Forms.Padding(0);
             this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(470, 56);
+            this.groupControl3.Size = new System.Drawing.Size(461, 55);
             this.groupControl3.TabIndex = 77;
             this.groupControl3.Text = "  Protocolo Nombre *";
             // 
@@ -653,7 +718,7 @@
             this.tbNombreProtocolo.Padding = new System.Windows.Forms.Padding(19, 8, 8, 8);
             this.tbNombreProtocolo.PasswordChar = false;
             this.tbNombreProtocolo.SelectionStart = 0;
-            this.tbNombreProtocolo.Size = new System.Drawing.Size(466, 33);
+            this.tbNombreProtocolo.Size = new System.Drawing.Size(457, 33);
             this.tbNombreProtocolo.TabIndex = 1;
             this.tbNombreProtocolo.Texts = "";
             this.tbNombreProtocolo.UnderlinedStyle = true;
@@ -666,10 +731,10 @@
             this.groupControl1.AppearanceCaption.Options.UseFont = true;
             this.groupControl1.Controls.Add(this.tbCodigo);
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl1.Location = new System.Drawing.Point(0, 56);
+            this.groupControl1.Location = new System.Drawing.Point(0, 55);
             this.groupControl1.Margin = new System.Windows.Forms.Padding(0);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(470, 56);
+            this.groupControl1.Size = new System.Drawing.Size(461, 55);
             this.groupControl1.TabIndex = 76;
             this.groupControl1.Text = "  Codigo *";
             // 
@@ -689,7 +754,7 @@
             this.tbCodigo.Padding = new System.Windows.Forms.Padding(19, 8, 8, 8);
             this.tbCodigo.PasswordChar = false;
             this.tbCodigo.SelectionStart = 0;
-            this.tbCodigo.Size = new System.Drawing.Size(466, 33);
+            this.tbCodigo.Size = new System.Drawing.Size(457, 33);
             this.tbCodigo.TabIndex = 1;
             this.tbCodigo.Texts = "";
             this.tbCodigo.UnderlinedStyle = true;
@@ -708,7 +773,7 @@
             this.tlpNoti.Name = "tlpNoti";
             this.tlpNoti.RowCount = 1;
             this.tlpNoti.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpNoti.Size = new System.Drawing.Size(942, 69);
+            this.tlpNoti.Size = new System.Drawing.Size(925, 69);
             this.tlpNoti.TabIndex = 80;
             // 
             // tlpCuerpo
@@ -726,7 +791,7 @@
             this.tlpCuerpo.Name = "tlpCuerpo";
             this.tlpCuerpo.RowCount = 1;
             this.tlpCuerpo.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tlpCuerpo.Size = new System.Drawing.Size(938, 63);
+            this.tlpCuerpo.Size = new System.Drawing.Size(921, 63);
             this.tlpCuerpo.TabIndex = 4;
             // 
             // iconoNotificacion
@@ -754,7 +819,7 @@
             this.pnlCuerpo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlCuerpo.Location = new System.Drawing.Point(46, 3);
             this.pnlCuerpo.Name = "pnlCuerpo";
-            this.pnlCuerpo.Size = new System.Drawing.Size(889, 57);
+            this.pnlCuerpo.Size = new System.Drawing.Size(872, 57);
             this.pnlCuerpo.TabIndex = 31;
             // 
             // lblMensaje
@@ -764,7 +829,7 @@
             this.lblMensaje.Location = new System.Drawing.Point(0, 22);
             this.lblMensaje.Name = "lblMensaje";
             this.lblMensaje.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.lblMensaje.Size = new System.Drawing.Size(889, 35);
+            this.lblMensaje.Size = new System.Drawing.Size(872, 35);
             this.lblMensaje.TabIndex = 40;
             this.lblMensaje.Text = "Se deben agregar items especificados";
             this.lblMensaje.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -777,7 +842,7 @@
             this.lblTitulo.ForeColor = System.Drawing.Color.Black;
             this.lblTitulo.Location = new System.Drawing.Point(0, 0);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(889, 22);
+            this.lblTitulo.Size = new System.Drawing.Size(872, 22);
             this.lblTitulo.TabIndex = 39;
             this.lblTitulo.Text = "Agregando un item al protocolo 167";
             this.lblTitulo.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -832,6 +897,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.gcItemsAsignados)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvItemsAsignados)).EndInit();
             this.tableLayoutPanel6.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl11)).EndInit();
+            this.groupControl11.ResumeLayout(false);
+            this.tableLayoutPanel7.ResumeLayout(false);
+            this.tableLayoutPanel7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl8)).EndInit();
             this.groupControl8.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
@@ -893,5 +962,9 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private DevExpress.XtraEditors.GroupControl groupControl10;
         private FontAwesome.Sharp.IconButton btnAsignarItemAProtocolo;
+        private DevExpress.XtraEditors.GroupControl groupControl11;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private System.Windows.Forms.RadioButton rbPorPallet;
+        private System.Windows.Forms.RadioButton rbPorLote;
     }
 }
