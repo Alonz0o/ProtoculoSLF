@@ -65,6 +65,8 @@ namespace ProtoculoSLF.AAFControles
             BackColor = Color.MediumSlateBlue;
             ForeColor = Color.White;
             Resize += new EventHandler(Button_Resize);
+            
+            
         }
 
         private void Button_Resize(object sender, EventArgs e)
@@ -85,6 +87,20 @@ namespace ProtoculoSLF.AAFControles
             path.AddArc(rect.X, rect.Bottom - curveSize, curveSize, curveSize, 90, 90);
             path.CloseFigure();
             return path;
+        }
+        protected override void OnMouseEnter(EventArgs e)
+        {
+            base.OnMouseEnter(e);
+           BackColor = Color.White;
+            Invalidate();
+
+        }
+        protected override void OnMouseLeave(EventArgs e)
+        {
+            base.OnMouseLeave(e);
+            BackColor = Color.BlanchedAlmond;
+            Invalidate();
+
         }
         protected override void OnPaint(PaintEventArgs pevent)
         {
@@ -138,5 +154,7 @@ namespace ProtoculoSLF.AAFControles
         {
             Invalidate();
         }
+
+       
     }
 }

@@ -97,8 +97,8 @@
             this.panel12 = new System.Windows.Forms.Panel();
             this.iconButton1 = new FontAwesome.Sharp.IconButton();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.btnAgregarProtocolo = new ProtoculoSLF.AAFControles.AAFBoton();
             this.btnAgregarItem = new ProtoculoSLF.AAFControles.AAFBoton();
+            this.btnAgregarProtocolo = new ProtoculoSLF.AAFControles.AAFBoton();
             this.panel9 = new System.Windows.Forms.Panel();
             this.btnMinimizar = new FontAwesome.Sharp.IconButton();
             this.btnMaxMin = new FontAwesome.Sharp.IconButton();
@@ -191,7 +191,7 @@
             this.gcItemsProtocolo.Location = new System.Drawing.Point(2, 23);
             this.gcItemsProtocolo.MainView = this.gvItemsProtocolo;
             this.gcItemsProtocolo.Name = "gcItemsProtocolo";
-            this.gcItemsProtocolo.Size = new System.Drawing.Size(265, 354);
+            this.gcItemsProtocolo.Size = new System.Drawing.Size(265, 353);
             this.gcItemsProtocolo.TabIndex = 1;
             this.gcItemsProtocolo.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvItemsProtocolo});
@@ -211,7 +211,7 @@
             this.gcFormatoValores.Location = new System.Drawing.Point(2, 23);
             this.gcFormatoValores.MainView = this.gvFormatoValores;
             this.gcFormatoValores.Name = "gcFormatoValores";
-            this.gcFormatoValores.Size = new System.Drawing.Size(265, 202);
+            this.gcFormatoValores.Size = new System.Drawing.Size(265, 203);
             this.gcFormatoValores.TabIndex = 2;
             this.gcFormatoValores.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvFormatoValores});
@@ -281,7 +281,7 @@
             this.gcProtocolos.Location = new System.Drawing.Point(2, 23);
             this.gcProtocolos.MainView = this.gvProtocolos;
             this.gcProtocolos.Name = "gcProtocolos";
-            this.gcProtocolos.Size = new System.Drawing.Size(178, 374);
+            this.gcProtocolos.Size = new System.Drawing.Size(178, 373);
             this.gcProtocolos.TabIndex = 0;
             this.gcProtocolos.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvProtocolos});
@@ -299,7 +299,7 @@
             this.gcNts.Location = new System.Drawing.Point(2, 23);
             this.gcNts.MainView = this.gvNts;
             this.gcNts.Name = "gcNts";
-            this.gcNts.Size = new System.Drawing.Size(178, 364);
+            this.gcNts.Size = new System.Drawing.Size(178, 365);
             this.gcNts.TabIndex = 2;
             this.gcNts.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvNts});
@@ -536,14 +536,14 @@
             // 
             this.splitContainer3.Panel2.Controls.Add(this.groupControl1);
             this.splitContainer3.Size = new System.Drawing.Size(182, 792);
-            this.splitContainer3.SplitterDistance = 399;
+            this.splitContainer3.SplitterDistance = 398;
             this.splitContainer3.TabIndex = 48;
             // 
             // groupControl8
             // 
             this.groupControl8.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
             this.groupControl8.Appearance.Options.UseBorderColor = true;
-            this.groupControl8.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.groupControl8.AppearanceCaption.Font = new System.Drawing.Font("Oxanium SemiBold", 11F, System.Drawing.FontStyle.Bold);
             this.groupControl8.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.groupControl8.AppearanceCaption.Options.UseFont = true;
             this.groupControl8.AppearanceCaption.Options.UseForeColor = true;
@@ -553,7 +553,7 @@
             this.groupControl8.Location = new System.Drawing.Point(0, 0);
             this.groupControl8.Margin = new System.Windows.Forms.Padding(0);
             this.groupControl8.Name = "groupControl8";
-            this.groupControl8.Size = new System.Drawing.Size(182, 399);
+            this.groupControl8.Size = new System.Drawing.Size(182, 398);
             this.groupControl8.TabIndex = 63;
             this.groupControl8.Text = "  Códigos";
             // 
@@ -588,7 +588,7 @@
             this.groupControl1.Location = new System.Drawing.Point(0, 0);
             this.groupControl1.Margin = new System.Windows.Forms.Padding(0);
             this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(182, 389);
+            this.groupControl1.Size = new System.Drawing.Size(182, 390);
             this.groupControl1.TabIndex = 63;
             this.groupControl1.Text = "  NT´s";
             // 
@@ -608,7 +608,7 @@
             // 
             this.splitContainer1.Panel2.Controls.Add(this.gcEnsayos);
             this.splitContainer1.Size = new System.Drawing.Size(269, 792);
-            this.splitContainer1.SplitterDistance = 379;
+            this.splitContainer1.SplitterDistance = 378;
             this.splitContainer1.TabIndex = 50;
             // 
             // gcFormatoItems
@@ -623,7 +623,7 @@
             this.gcFormatoItems.Location = new System.Drawing.Point(0, 0);
             this.gcFormatoItems.Margin = new System.Windows.Forms.Padding(0);
             this.gcFormatoItems.Name = "gcFormatoItems";
-            this.gcFormatoItems.Size = new System.Drawing.Size(269, 379);
+            this.gcFormatoItems.Size = new System.Drawing.Size(269, 378);
             this.gcFormatoItems.TabIndex = 63;
             this.gcFormatoItems.Text = "  Formato ítems";
             // 
@@ -640,7 +640,7 @@
             this.gcEnsayos.Location = new System.Drawing.Point(0, 0);
             this.gcEnsayos.Margin = new System.Windows.Forms.Padding(0);
             this.gcEnsayos.Name = "gcEnsayos";
-            this.gcEnsayos.Size = new System.Drawing.Size(269, 409);
+            this.gcEnsayos.Size = new System.Drawing.Size(269, 410);
             this.gcEnsayos.TabIndex = 63;
             this.gcEnsayos.Text = "  Protocolos ensayos";
             // 
@@ -653,7 +653,7 @@
             this.gcAgregarEnsayo.Controls.Add(this.btnCerrarMin);
             this.gcAgregarEnsayo.Controls.Add(this.tlpRealizados);
             this.gcAgregarEnsayo.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.gcAgregarEnsayo.Location = new System.Drawing.Point(2, 225);
+            this.gcAgregarEnsayo.Location = new System.Drawing.Point(2, 226);
             this.gcAgregarEnsayo.Name = "gcAgregarEnsayo";
             this.gcAgregarEnsayo.Size = new System.Drawing.Size(265, 182);
             this.gcAgregarEnsayo.TabIndex = 2;
@@ -1085,16 +1085,39 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel2.Controls.Add(this.btnAgregarProtocolo, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btnAgregarItem, 2, 0);
-            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(56, 18);
+            this.tableLayoutPanel2.Controls.Add(this.btnAgregarItem, 4, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btnAgregarProtocolo, 3, 0);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(56, 0);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(775, 33);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(775, 40);
             this.tableLayoutPanel2.TabIndex = 39;
+            // 
+            // btnAgregarItem
+            // 
+            this.btnAgregarItem.BackColor = System.Drawing.Color.Transparent;
+            this.btnAgregarItem.BackgroundColor = System.Drawing.Color.Transparent;
+            this.btnAgregarItem.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAgregarItem.BorderRadius = 0;
+            this.btnAgregarItem.BorderSize = 1;
+            this.btnAgregarItem.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnAgregarItem.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAgregarItem.FlatAppearance.BorderSize = 0;
+            this.btnAgregarItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregarItem.Font = new System.Drawing.Font("Oxanium SemiBold", 12F, System.Drawing.FontStyle.Bold);
+            this.btnAgregarItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAgregarItem.Location = new System.Drawing.Point(620, 0);
+            this.btnAgregarItem.Margin = new System.Windows.Forms.Padding(0);
+            this.btnAgregarItem.Name = "btnAgregarItem";
+            this.btnAgregarItem.Size = new System.Drawing.Size(155, 40);
+            this.btnAgregarItem.TabIndex = 3;
+            this.btnAgregarItem.Text = "Protocolo Ítems";
+            this.btnAgregarItem.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAgregarItem.UseVisualStyleBackColor = false;
+            this.btnAgregarItem.Click += new System.EventHandler(this.btnAgregarItem_Click);
             // 
             // btnAgregarProtocolo
             // 
@@ -1107,40 +1130,17 @@
             this.btnAgregarProtocolo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAgregarProtocolo.FlatAppearance.BorderSize = 0;
             this.btnAgregarProtocolo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnAgregarProtocolo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarProtocolo.Font = new System.Drawing.Font("Oxanium SemiBold", 12F, System.Drawing.FontStyle.Bold);
             this.btnAgregarProtocolo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnAgregarProtocolo.Location = new System.Drawing.Point(155, 0);
+            this.btnAgregarProtocolo.Location = new System.Drawing.Point(465, 0);
             this.btnAgregarProtocolo.Margin = new System.Windows.Forms.Padding(0);
             this.btnAgregarProtocolo.Name = "btnAgregarProtocolo";
-            this.btnAgregarProtocolo.Size = new System.Drawing.Size(155, 33);
+            this.btnAgregarProtocolo.Size = new System.Drawing.Size(155, 40);
             this.btnAgregarProtocolo.TabIndex = 2;
             this.btnAgregarProtocolo.Text = "Protocolos";
             this.btnAgregarProtocolo.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnAgregarProtocolo.UseVisualStyleBackColor = false;
             this.btnAgregarProtocolo.Visible = false;
-            // 
-            // btnAgregarItem
-            // 
-            this.btnAgregarItem.BackColor = System.Drawing.Color.Transparent;
-            this.btnAgregarItem.BackgroundColor = System.Drawing.Color.Transparent;
-            this.btnAgregarItem.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnAgregarItem.BorderRadius = 0;
-            this.btnAgregarItem.BorderSize = 1;
-            this.btnAgregarItem.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAgregarItem.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAgregarItem.FlatAppearance.BorderSize = 0;
-            this.btnAgregarItem.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnAgregarItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnAgregarItem.Location = new System.Drawing.Point(310, 0);
-            this.btnAgregarItem.Margin = new System.Windows.Forms.Padding(0);
-            this.btnAgregarItem.Name = "btnAgregarItem";
-            this.btnAgregarItem.Size = new System.Drawing.Size(155, 33);
-            this.btnAgregarItem.TabIndex = 3;
-            this.btnAgregarItem.Text = "Protocolo Ítems";
-            this.btnAgregarItem.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnAgregarItem.UseVisualStyleBackColor = false;
-            this.btnAgregarItem.Click += new System.EventHandler(this.btnAgregarItem_Click);
             // 
             // panel9
             // 

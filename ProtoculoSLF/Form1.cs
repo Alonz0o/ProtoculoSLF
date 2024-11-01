@@ -1,13 +1,10 @@
 ﻿using DevExpress.XtraGrid.Views.Grid;
-using DevExpress.XtraGrid;
 using ProtoculoSLF.Repository;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using DevExpress.XtraEditors.Repository;
@@ -20,7 +17,6 @@ using ProtoculoSLF.Report;
 using System.IO;
 using IniParser.Model;
 using IniParser;
-using DevExpress.ClipboardSource.SpreadsheetML;
 
 namespace ProtoculoSLF
 {
@@ -190,7 +186,6 @@ namespace ProtoculoSLF
                             protocoloEnsayos.Clear();
                             gvFormatoValores.RefreshData();
                             dvProtocolos.DocumentSource = null;
-
 
                             if (nts.Count != 0)
                             {
@@ -418,7 +413,22 @@ namespace ProtoculoSLF
             };
 
         }
+        int idOrden = 0;
+        private void dvProtocolos_DragDrop(object sender, DragEventArgs e)
+        {
+            var data = (NT)e.Data.GetData(typeof(NT));
+            idNtSeleccionado = data.NumNT;
+            datosReporte.Cliente = data.Cliente;
+            datosReporte.Lote = data.OP + "/" + data.NumPallet;
+            datosReporte.Pallet = data.NumPallet;
+            idOrden = Convert.ToInt32(data.OP.Split('/')[0]);
+            gcFormatoItems.Text = "Protocolo N° " + idProtocoloSeleccionado + " | ITEMS";
+            lblNtNum.Text = "NT N° " + data.NumNT;
+            lblPalletNum.Text = esPorLote ? "Por lote" : "Pallet N° " + data.NumPallet;
+            groupControl7.Text = esPorLote ? "  Por lote" : "  Por Pallet";
+            GetEnsayosRealizados();
 
+        }
 
         private void gvNts_MouseMove(object sender, MouseEventArgs e)
         {
@@ -434,21 +444,7 @@ namespace ProtoculoSLF
             }
         }
 
-        private void dvProtocolos_DragDrop(object sender, DragEventArgs e)
-        {
-
-            var data = (NT)e.Data.GetData(typeof(NT));
-            idNtSeleccionado = data.NumNT;
-            datosReporte.Cliente = data.Cliente;
-            datosReporte.Lote = data.OP + "/" + data.NumPallet;
-            datosReporte.Pallet = data.NumPallet;
-            gcFormatoItems.Text = "Protocolo N° " + idProtocoloSeleccionado + " | ITEMS";
-            lblNtNum.Text = "NT N° " + data.NumNT;
-            lblPalletNum.Text = esPorLote ? "Por lote" : "Pallet N° " + data.NumPallet;
-            groupControl7.Text = esPorLote ? "  Por lote" : "  Por Pallet";
-            GetEnsayosRealizados();
-            
-        }
+        
 
         private void dvProtocolos_DragEnter(object sender, DragEventArgs e)
         {
@@ -601,17 +597,33 @@ namespace ProtoculoSLF
 
             return true;
         }
+        //public void GetEnsayosRealizados()
+        //{
+        //    dvProtocolos.DocumentSource = null;
+
+        //    protocoloEnsayos = br.GetEnsayosItems(idNtSeleccionado).OrderBy(e=>e.Orden).ToList();
+        //    if (protocoloEnsayos.Count != 0)
+        //    {
+        //        xrCertificadoReal protocolo = new xrCertificadoReal();
+        //        dvProtocolos.DocumentSource = protocolo;
+        //        dvProtocolos.InitiateDocumentCreation();
+        //    } 
+        //    gcFormatoValores.DataSource = protocoloEnsayos;
+        //}
+
         public void GetEnsayosRealizados()
         {
             dvProtocolos.DocumentSource = null;
 
-            protocoloEnsayos = br.GetEnsayosItems(idNtSeleccionado).OrderBy(e=>e.Orden).ToList();
+            var pp = br.GetItemsDelProtocolo(idProtocoloSeleccionado);
+            if (pp.Contains("Ancho de bolsa")) protocoloEnsayos.AddRange(br.GetEnsayosItemsAnchoBolsa("Ancho de bolsa",idOrden,idCodigoSeleccionado));
+
             if (protocoloEnsayos.Count != 0)
             {
                 xrCertificadoReal protocolo = new xrCertificadoReal();
                 dvProtocolos.DocumentSource = protocolo;
                 dvProtocolos.InitiateDocumentCreation();
-            } 
+            }
             gcFormatoValores.DataSource = protocoloEnsayos;
         }
 
