@@ -33,11 +33,16 @@
             this.tlpRealizados = new System.Windows.Forms.TableLayoutPanel();
             this.pnlPendientes = new System.Windows.Forms.Panel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnAgregarItem = new ProtoculoSLF.AAFControles.AAFBoton();
+            this.btnCancelar = new ProtoculoSLF.AAFControles.AAFBoton();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.gcEsp02 = new DevExpress.XtraEditors.GroupControl();
+            this.tbEsp02 = new ScrapKP.AAFControles.AAFTextBox();
             this.gcSimboloSignificado = new DevExpress.XtraEditors.GroupControl();
+            this.tbEsp01 = new ScrapKP.AAFControles.AAFTextBox();
             this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.tbEspecificacion = new ScrapKP.AAFControles.AAFTextBox();
             this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
             this.lueNombreItem = new DevExpress.XtraEditors.LookUpEdit();
             this.tlpNoti = new System.Windows.Forms.TableLayoutPanel();
@@ -47,11 +52,6 @@
             this.lblMensaje = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
-            this.btnAgregarItem = new ProtoculoSLF.AAFControles.AAFBoton();
-            this.btnCancelar = new ProtoculoSLF.AAFControles.AAFBoton();
-            this.tbEsp02 = new ScrapKP.AAFControles.AAFTextBox();
-            this.tbEsp01 = new ScrapKP.AAFControles.AAFTextBox();
-            this.tbEspecificacion = new ScrapKP.AAFControles.AAFTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.gcAgregar)).BeginInit();
             this.gcAgregar.SuspendLayout();
             this.tlpRealizados.SuspendLayout();
@@ -158,6 +158,48 @@
             this.tableLayoutPanel5.Size = new System.Drawing.Size(460, 43);
             this.tableLayoutPanel5.TabIndex = 66;
             // 
+            // btnAgregarItem
+            // 
+            this.btnAgregarItem.BackColor = System.Drawing.Color.Transparent;
+            this.btnAgregarItem.BackgroundColor = System.Drawing.Color.Transparent;
+            this.btnAgregarItem.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAgregarItem.BorderRadius = 4;
+            this.btnAgregarItem.BorderSize = 3;
+            this.btnAgregarItem.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAgregarItem.FlatAppearance.BorderSize = 0;
+            this.btnAgregarItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregarItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAgregarItem.Location = new System.Drawing.Point(3, 3);
+            this.btnAgregarItem.Name = "btnAgregarItem";
+            this.btnAgregarItem.Size = new System.Drawing.Size(224, 37);
+            this.btnAgregarItem.TabIndex = 1;
+            this.btnAgregarItem.Text = "Agregar";
+            this.btnAgregarItem.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAgregarItem.UseVisualStyleBackColor = false;
+            this.btnAgregarItem.Click += new System.EventHandler(this.btnAgregarItem_Click);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.BackColor = System.Drawing.Color.Transparent;
+            this.btnCancelar.BackgroundColor = System.Drawing.Color.Transparent;
+            this.btnCancelar.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
+            this.btnCancelar.BorderRadius = 4;
+            this.btnCancelar.BorderSize = 3;
+            this.btnCancelar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
+            this.btnCancelar.Location = new System.Drawing.Point(233, 3);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(224, 37);
+            this.btnCancelar.TabIndex = 0;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
+            this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCerrarMin_Click);
+            // 
             // tableLayoutPanel8
             // 
             this.tableLayoutPanel8.ColumnCount = 2;
@@ -189,6 +231,27 @@
             this.gcEsp02.TabIndex = 68;
             this.gcEsp02.Text = "  Y (B) *";
             // 
+            // tbEsp02
+            // 
+            this.tbEsp02.BackColor = System.Drawing.Color.White;
+            this.tbEsp02.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.tbEsp02.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.tbEsp02.BorderSize = 2;
+            this.tbEsp02.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbEsp02.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
+            this.tbEsp02.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.tbEsp02.Location = new System.Drawing.Point(1, 23);
+            this.tbEsp02.Margin = new System.Windows.Forms.Padding(4);
+            this.tbEsp02.Multiline = false;
+            this.tbEsp02.Name = "tbEsp02";
+            this.tbEsp02.Padding = new System.Windows.Forms.Padding(19, 8, 8, 8);
+            this.tbEsp02.PasswordChar = false;
+            this.tbEsp02.SelectionStart = 0;
+            this.tbEsp02.Size = new System.Drawing.Size(0, 33);
+            this.tbEsp02.TabIndex = 2;
+            this.tbEsp02.Texts = "";
+            this.tbEsp02.UnderlinedStyle = true;
+            // 
             // gcSimboloSignificado
             // 
             this.gcSimboloSignificado.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
@@ -203,6 +266,27 @@
             this.gcSimboloSignificado.Size = new System.Drawing.Size(460, 58);
             this.gcSimboloSignificado.TabIndex = 67;
             this.gcSimboloSignificado.Text = "  Significado *";
+            // 
+            // tbEsp01
+            // 
+            this.tbEsp01.BackColor = System.Drawing.Color.White;
+            this.tbEsp01.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.tbEsp01.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.tbEsp01.BorderSize = 2;
+            this.tbEsp01.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbEsp01.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
+            this.tbEsp01.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.tbEsp01.Location = new System.Drawing.Point(2, 23);
+            this.tbEsp01.Margin = new System.Windows.Forms.Padding(4);
+            this.tbEsp01.Multiline = false;
+            this.tbEsp01.Name = "tbEsp01";
+            this.tbEsp01.Padding = new System.Windows.Forms.Padding(19, 8, 8, 8);
+            this.tbEsp01.PasswordChar = false;
+            this.tbEsp01.SelectionStart = 0;
+            this.tbEsp01.Size = new System.Drawing.Size(456, 33);
+            this.tbEsp01.TabIndex = 2;
+            this.tbEsp01.Texts = "";
+            this.tbEsp01.UnderlinedStyle = true;
             // 
             // tableLayoutPanel7
             // 
@@ -234,6 +318,27 @@
             this.groupControl1.Size = new System.Drawing.Size(230, 58);
             this.groupControl1.TabIndex = 66;
             this.groupControl1.Text = "  Especificación *";
+            // 
+            // tbEspecificacion
+            // 
+            this.tbEspecificacion.BackColor = System.Drawing.Color.White;
+            this.tbEspecificacion.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.tbEspecificacion.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.tbEspecificacion.BorderSize = 2;
+            this.tbEspecificacion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbEspecificacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
+            this.tbEspecificacion.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.tbEspecificacion.Location = new System.Drawing.Point(2, 23);
+            this.tbEspecificacion.Margin = new System.Windows.Forms.Padding(4);
+            this.tbEspecificacion.Multiline = false;
+            this.tbEspecificacion.Name = "tbEspecificacion";
+            this.tbEspecificacion.Padding = new System.Windows.Forms.Padding(19, 8, 8, 8);
+            this.tbEspecificacion.PasswordChar = false;
+            this.tbEspecificacion.SelectionStart = 0;
+            this.tbEspecificacion.Size = new System.Drawing.Size(226, 33);
+            this.tbEspecificacion.TabIndex = 2;
+            this.tbEspecificacion.Texts = "";
+            this.tbEspecificacion.UnderlinedStyle = true;
             // 
             // groupControl5
             // 
@@ -370,111 +475,6 @@
             this.panel11.Name = "panel11";
             this.panel11.Size = new System.Drawing.Size(7, 287);
             this.panel11.TabIndex = 1;
-            // 
-            // btnAgregarItem
-            // 
-            this.btnAgregarItem.BackColor = System.Drawing.Color.Transparent;
-            this.btnAgregarItem.BackgroundColor = System.Drawing.Color.Transparent;
-            this.btnAgregarItem.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnAgregarItem.BorderRadius = 4;
-            this.btnAgregarItem.BorderSize = 3;
-            this.btnAgregarItem.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAgregarItem.FlatAppearance.BorderSize = 0;
-            this.btnAgregarItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregarItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnAgregarItem.Location = new System.Drawing.Point(3, 3);
-            this.btnAgregarItem.Name = "btnAgregarItem";
-            this.btnAgregarItem.Size = new System.Drawing.Size(224, 37);
-            this.btnAgregarItem.TabIndex = 1;
-            this.btnAgregarItem.Text = "Agregar";
-            this.btnAgregarItem.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnAgregarItem.UseVisualStyleBackColor = false;
-            this.btnAgregarItem.Click += new System.EventHandler(this.btnAgregarItem_Click);
-            // 
-            // btnCancelar
-            // 
-            this.btnCancelar.BackColor = System.Drawing.Color.Transparent;
-            this.btnCancelar.BackgroundColor = System.Drawing.Color.Transparent;
-            this.btnCancelar.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
-            this.btnCancelar.BorderRadius = 4;
-            this.btnCancelar.BorderSize = 3;
-            this.btnCancelar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnCancelar.FlatAppearance.BorderSize = 0;
-            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
-            this.btnCancelar.Location = new System.Drawing.Point(233, 3);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(224, 37);
-            this.btnCancelar.TabIndex = 0;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
-            this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCerrarMin_Click);
-            // 
-            // tbEsp02
-            // 
-            this.tbEsp02.BackColor = System.Drawing.Color.White;
-            this.tbEsp02.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.tbEsp02.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.tbEsp02.BorderSize = 2;
-            this.tbEsp02.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbEsp02.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
-            this.tbEsp02.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.tbEsp02.Location = new System.Drawing.Point(1, 23);
-            this.tbEsp02.Margin = new System.Windows.Forms.Padding(4);
-            this.tbEsp02.Multiline = false;
-            this.tbEsp02.Name = "tbEsp02";
-            this.tbEsp02.Padding = new System.Windows.Forms.Padding(19, 8, 8, 8);
-            this.tbEsp02.PasswordChar = false;
-            this.tbEsp02.SelectionStart = 0;
-            this.tbEsp02.Size = new System.Drawing.Size(0, 33);
-            this.tbEsp02.TabIndex = 2;
-            this.tbEsp02.Texts = "";
-            this.tbEsp02.UnderlinedStyle = true;
-            // 
-            // tbEsp01
-            // 
-            this.tbEsp01.BackColor = System.Drawing.Color.White;
-            this.tbEsp01.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.tbEsp01.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.tbEsp01.BorderSize = 2;
-            this.tbEsp01.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbEsp01.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
-            this.tbEsp01.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.tbEsp01.Location = new System.Drawing.Point(2, 23);
-            this.tbEsp01.Margin = new System.Windows.Forms.Padding(4);
-            this.tbEsp01.Multiline = false;
-            this.tbEsp01.Name = "tbEsp01";
-            this.tbEsp01.Padding = new System.Windows.Forms.Padding(19, 8, 8, 8);
-            this.tbEsp01.PasswordChar = false;
-            this.tbEsp01.SelectionStart = 0;
-            this.tbEsp01.Size = new System.Drawing.Size(456, 33);
-            this.tbEsp01.TabIndex = 2;
-            this.tbEsp01.Texts = "";
-            this.tbEsp01.UnderlinedStyle = true;
-            // 
-            // tbEspecificacion
-            // 
-            this.tbEspecificacion.BackColor = System.Drawing.Color.White;
-            this.tbEspecificacion.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.tbEspecificacion.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.tbEspecificacion.BorderSize = 2;
-            this.tbEspecificacion.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbEspecificacion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
-            this.tbEspecificacion.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.tbEspecificacion.Location = new System.Drawing.Point(2, 23);
-            this.tbEspecificacion.Margin = new System.Windows.Forms.Padding(4);
-            this.tbEspecificacion.Multiline = false;
-            this.tbEspecificacion.Name = "tbEspecificacion";
-            this.tbEspecificacion.Padding = new System.Windows.Forms.Padding(19, 8, 8, 8);
-            this.tbEspecificacion.PasswordChar = false;
-            this.tbEspecificacion.SelectionStart = 0;
-            this.tbEspecificacion.Size = new System.Drawing.Size(226, 33);
-            this.tbEspecificacion.TabIndex = 2;
-            this.tbEspecificacion.Texts = "";
-            this.tbEspecificacion.UnderlinedStyle = true;
             // 
             // formAsignarItemProtocolo
             // 

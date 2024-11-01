@@ -134,15 +134,15 @@ namespace ProtoculoSLF
                             GetProtocoloItems();
                             GetProtocoloNts();
 
-                            if (br.GetTotalDeItemsProtocolo(idProtocoloSeleccionado) == 0)
-                            {
-                                formAsignarItemsAProtocolo form = new formAsignarItemsAProtocolo(p);
-                                form.Width = panel7.Width;
-                                Point locationOnScreen = panel7.PointToScreen(Point.Empty);
-                                form.Location = new Point(locationOnScreen.X, locationOnScreen.Y);
-                                form.ShowDialog();
-                                if (EsCanceladoFormAsignarItemAProtocolo) return;
-                            }
+                            //if (br.GetTotalDeItemsProtocolo(idProtocoloSeleccionado) == 0)
+                            //{
+                            //    formAsignarItemsAProtocolo form = new formAsignarItemsAProtocolo(p);
+                            //    form.Width = panel7.Width;
+                            //    Point locationOnScreen = panel7.PointToScreen(Point.Empty);
+                            //    form.Location = new Point(locationOnScreen.X, locationOnScreen.Y);
+                            //    form.ShowDialog();
+                            //    if (EsCanceladoFormAsignarItemAProtocolo) return;
+                            //}
 
                             //if (br.GetTotalDeItemsPorIdCodigo(idCodigoSeleccionado) == 0)
 
