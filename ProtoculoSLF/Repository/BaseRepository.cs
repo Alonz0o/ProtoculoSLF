@@ -103,9 +103,9 @@ namespace ProtoculoSLF.Repository
             return res;
         }
 
-        internal void GetProtocolos()
+        internal List<Protocolo> GetProtocolos()
         {
-            List<Protocolo> ps = new List<Protocolo>();
+            List<Protocolo> protocolos = new List<Protocolo>();
             List<ProtocoloItem> pis = new List<ProtocoloItem>();
 
             using (var conexion = new MySqlConnection(connectionString))
@@ -130,11 +130,11 @@ namespace ProtoculoSLF.Repository
                             CodigoCliente = reader[4] != DBNull.Value ? reader.GetString(4) : "",
                             Disposicion = reader.IsDBNull(5) ? 0 : reader.GetInt32(5),
                         };
-                        ps.Add(p);
+                        protocolos.Add(p);
                     }
                 }
 
-                Form1.instancia.protocolos = ps;
+               return protocolos;
             }
         }
 
@@ -146,7 +146,7 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fpi.id,fi.nombre,fi.unidad,fi.certifica,fi.simbolo 
+                command.CommandText = @"SELECT fpi.id,fi.nombre,fi.unidad,fi.certifica,fi.simbolo,fi.id
                                         FROM formato_protocolo_item fpi
                                         JOIN formato_item fi ON fpi.id_item = fi.id
                                         WHERE fpi.id_protocolo = @pIdProtocolo;";
@@ -158,6 +158,7 @@ namespace ProtoculoSLF.Repository
                         var esCertificado = reader[3] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(3)) : false;
                         ProtocoloItem pi = new ProtocoloItem
                         {
+                            Id = reader.IsDBNull(5) ? 0 : reader.GetInt32(5),
                             IdProtocoloItem = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
                             Nombre = reader.IsDBNull(1) ? "" : reader.GetString(1),
                             Medida = reader.IsDBNull(2) ? "Constante" : reader.GetString(2),
@@ -636,14 +637,15 @@ namespace ProtoculoSLF.Repository
                         command.Transaction = transaction;
                         try
                         {
-                            command.CommandText = @"INSERT INTO formato_item (nombre,unidad,usuario,certifica,constante,simbolo) 
-                                                                      VALUES (@pNombre,@pUnidad,@pUsuario,@pCertifica,@pConstante,@pSimbolo); SELECT LAST_INSERT_ID();";
+                            command.CommandText = @"INSERT INTO formato_item (nombre,unidad,usuario,certifica,constante,simbolo,proceso) 
+                                                                      VALUES (@pNombre,@pUnidad,@pUsuario,@pCertifica,@pConstante,@pSimbolo,@pProceso); SELECT LAST_INSERT_ID();";
                             command.Parameters.Add("@pNombre", MySqlDbType.String).Value = pi.Nombre;
                             command.Parameters.Add("@pUnidad", MySqlDbType.String).Value = pi.Medida;
                             command.Parameters.Add("@pUsuario", MySqlDbType.String).Value = "ALON";
                             command.Parameters.Add("@pCertifica", MySqlDbType.Int32).Value = pi.EsCertificado;
                             command.Parameters.Add("@pConstante", MySqlDbType.Int32).Value = pi.EsConstante;
                             command.Parameters.Add("@pSimbolo", MySqlDbType.String).Value = pi.Simbolo;
+                            command.Parameters.Add("@pProceso", MySqlDbType.String).Value = pi.Proceso;
 
                             if (command.ExecuteNonQuery() != 1)
                             {
@@ -1378,5 +1380,89 @@ namespace ProtoculoSLF.Repository
             }
             return res;
         }
+
+        internal Especificacion GetFichaLogisticaConfeccionAncho(int idCodigo)
+        {
+            Especificacion esp = new Especificacion();
+
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT ancho,ancho_min,ancho_max
+                                        FROM confeccion 
+                                        WHERE idcodigo = @pIdCodigo;";
+                command.Parameters.Add("@pIdCodigo", MySqlDbType.Double).Value = idCodigo;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        esp.Medio = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0) * 10;
+                        esp.Minimo = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1);
+                        esp.Maximo = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2);
+                    }
+
+                }
+
+                return esp;
+            }
+        }
+        internal Especificacion GetFichaLogisticaConfeccionLargo(int idCodigo)
+        {
+            Especificacion esp = new Especificacion();
+
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT largo,largo_min,largo_max
+                                        FROM confeccion 
+                                        WHERE idcodigo = @pIdCodigo;";
+                command.Parameters.Add("@pIdCodigo", MySqlDbType.Double).Value = idCodigo;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        esp.Medio = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0) * 10;
+                        esp.Minimo = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1);
+                        esp.Maximo = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2);
+                    }
+
+                }
+
+                return esp;
+            }
+        }
+
+        internal Especificacion GetFichaLogisticaConfeccionEspesor(int idCodigo)
+        {
+            Especificacion esp = new Especificacion();
+
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT espesor,espesor_min,espesor_max
+                                        FROM confeccion 
+                                        WHERE idcodigo = @pIdCodigo;";
+                command.Parameters.Add("@pIdCodigo", MySqlDbType.Double).Value = idCodigo;
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        esp.Medio = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0) * 10;
+                        esp.Minimo = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1);
+                        esp.Maximo = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2);
+                    }
+
+                }
+
+                return esp;
+            }
+        }
+
     }
 }

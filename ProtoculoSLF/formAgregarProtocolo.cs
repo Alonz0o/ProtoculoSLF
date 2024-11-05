@@ -217,7 +217,14 @@ namespace ProtoculoSLF
             if (!ValidarFormularioItems()) return;
             var sqlUpdate = SQLUpdateIdProtocolo();
             var sqlInsert = SQLInsertProtocoloItem();
-            Form1.instancia.br.InsertAProtocolo(protocoloACrear, sqlUpdate, sqlInsert);
+            if (Form1.instancia.br.InsertAProtocolo(protocoloACrear, sqlUpdate, sqlInsert))
+            {
+                Form1.instancia.GetProtocolos();
+                formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se genero correctamente el protocolo: " + protocoloACrear.FormatoProtocolo);
+                noti.Show();
+                Close();
+            }
+            else MessageBox.Show("ERROR");
         }
         private string SQLUpdateIdProtocolo()
         {

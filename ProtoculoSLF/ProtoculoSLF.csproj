@@ -164,6 +164,7 @@
     <Compile Include="formNotificacion.Designer.cs">
       <DependentUpon>formNotificacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\Especificacion.cs" />
     <Compile Include="Model\ExtrusionDatos.cs" />
     <Compile Include="Model\NT.cs" />
     <Compile Include="Model\Protocolo.cs" />

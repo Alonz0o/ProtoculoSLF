@@ -567,6 +567,8 @@
             // 
             // tbValorEnsayo
             // 
+            this.tbValorEnsayo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.tbValorEnsayo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
             this.tbValorEnsayo.BackColor = System.Drawing.Color.White;
             this.tbValorEnsayo.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.tbValorEnsayo.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;

@@ -62,7 +62,6 @@
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.groupControl8 = new DevExpress.XtraEditors.GroupControl();
-            this.btnAsignarCodigo = new FontAwesome.Sharp.IconButton();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.gcFormatoItems = new DevExpress.XtraEditors.GroupControl();
@@ -547,7 +546,6 @@
             this.groupControl8.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.groupControl8.AppearanceCaption.Options.UseFont = true;
             this.groupControl8.AppearanceCaption.Options.UseForeColor = true;
-            this.groupControl8.Controls.Add(this.btnAsignarCodigo);
             this.groupControl8.Controls.Add(this.gcProtocolos);
             this.groupControl8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupControl8.Location = new System.Drawing.Point(0, 0);
@@ -556,26 +554,6 @@
             this.groupControl8.Size = new System.Drawing.Size(182, 398);
             this.groupControl8.TabIndex = 63;
             this.groupControl8.Text = "  Códigos";
-            // 
-            // btnAsignarCodigo
-            // 
-            this.btnAsignarCodigo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnAsignarCodigo.BackColor = System.Drawing.Color.Transparent;
-            this.btnAsignarCodigo.BackgroundImage = global::ProtoculoSLF.Properties.Resources.add_16x16;
-            this.btnAsignarCodigo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.btnAsignarCodigo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnAsignarCodigo.FlatAppearance.BorderSize = 0;
-            this.btnAsignarCodigo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAsignarCodigo.IconChar = FontAwesome.Sharp.IconChar.None;
-            this.btnAsignarCodigo.IconColor = System.Drawing.SystemColors.Highlight;
-            this.btnAsignarCodigo.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnAsignarCodigo.IconSize = 20;
-            this.btnAsignarCodigo.Location = new System.Drawing.Point(156, 1);
-            this.btnAsignarCodigo.Name = "btnAsignarCodigo";
-            this.btnAsignarCodigo.Size = new System.Drawing.Size(20, 20);
-            this.btnAsignarCodigo.TabIndex = 34;
-            this.btnAsignarCodigo.UseVisualStyleBackColor = false;
-            this.btnAsignarCodigo.Click += new System.EventHandler(this.btnAsignarCodigo_Click);
             // 
             // groupControl1
             // 
@@ -1108,7 +1086,7 @@
             this.btnAgregarItem.Cursor = System.Windows.Forms.Cursors.Hand;
             this.btnAgregarItem.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAgregarItem.FlatAppearance.BorderSize = 0;
-            this.btnAgregarItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregarItem.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAgregarItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             this.btnAgregarItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnAgregarItem.Location = new System.Drawing.Point(620, 0);
@@ -1360,7 +1338,6 @@
         private DevExpress.XtraEditors.GroupControl gcValorItem;
         private ScrapKP.AAFControles.AAFTextBox tbValorEnsayo;
         private FontAwesome.Sharp.IconButton iconButton1;
-        private FontAwesome.Sharp.IconButton btnAsignarCodigo;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private AAFControles.AAFBoton btnAgregarProtocolo;
         private AAFControles.AAFBoton btnAgregarItem;

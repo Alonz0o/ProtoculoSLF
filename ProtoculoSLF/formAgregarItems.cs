@@ -48,8 +48,17 @@ namespace ProtoculoSLF
                 new Simbolo{ Caracter ="-",Significado="Entre A y B" },
 
             };
+            List<string> proceso = new List<string> {
+                "Extrusión",
+                "Impresión",
+                "Confección",
+                "Rebobinado",
+                "Wicket"
+
+            };
             lueItemSimbolos.Properties.DataSource = simbolos;
-            lueItemUnidad.Properties.DataSource = unidades;
+            lueItemUnidades.Properties.DataSource = unidades;
+            lueItemProcesos.Properties.DataSource = proceso;
         }
         private void GetItems()
         {
@@ -173,7 +182,7 @@ namespace ProtoculoSLF
                             tbNombre.Texts = protocoloItemSeleccionado.Nombre;
                             cbCertificado.Checked = protocoloItemSeleccionado.EsCertificado;
                             cbConstante.Checked = protocoloItemSeleccionado.EsConstante;
-                            lueItemUnidad.ItemIndex = BuscarUnidadIndex(protocoloItemSeleccionado.Medida);
+                            lueItemUnidades.ItemIndex = BuscarUnidadIndex(protocoloItemSeleccionado.Medida);
                         }
                     }
                 }
@@ -181,7 +190,7 @@ namespace ProtoculoSLF
         }
         private int BuscarUnidadIndex(string medida)
         {
-            var dataSource = lueItemUnidad.Properties.DataSource as List<Unidad>;
+            var dataSource = lueItemUnidades.Properties.DataSource as List<Unidad>;
             if (dataSource != null)
             {
                 var index = dataSource.FindIndex(e => medida == e.Nombre);
@@ -228,14 +237,6 @@ namespace ProtoculoSLF
 
             if (!cbConstante.Checked)
             {
-                var lueUnidadA = lueItemUnidad.GetSelectedDataRow() as Unidad;
-                if (lueUnidadA == null)
-                {
-                    MostrarNotificacion("Debe seleccionar Unidad.");
-                    lueItemUnidad.Focus();
-                    return false;
-                }
-                else piAgregar.Medida = lueUnidadA.Nombre;
                 var lueSimboloA = lueItemSimbolos.GetSelectedDataRow() as Simbolo;
                 if (lueSimboloA == null)
                 {
@@ -245,6 +246,23 @@ namespace ProtoculoSLF
                     return false;
                 }
                 else piAgregar.Simbolo = lueSimboloA.Caracter;
+                var lueUnidadA = lueItemUnidades.GetSelectedDataRow() as Unidad;
+                if (lueUnidadA == null)
+                {
+                    MostrarNotificacion("Debe seleccionar Unidad.");
+                    lueItemUnidades.Focus();
+                    return false;
+                }
+                else piAgregar.Medida = lueUnidadA.Nombre;                
+                var lueProcesoA = lueItemProcesos.GetSelectedDataRow() as string;
+                if (lueProcesoA == null)
+                {
+                    formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Debe seleccionar proceso.");
+                    noti.Show();
+                    lueItemProcesos.Focus();
+                    return false;
+                }
+                else piAgregar.Proceso = lueProcesoA;
             }
             return true;
         }
@@ -273,7 +291,11 @@ namespace ProtoculoSLF
         private void LimpiarFormularioAgregarItem()
         {
             tbNombre.Texts = string.Empty;
-            lueItemUnidad.Text = string.Empty;
+            lueItemUnidades.Text = string.Empty;
+            lueItemSimbolos.Text = string.Empty;
+            lueItemProcesos.Text = string.Empty;
+            cbCertificado.Checked = false;
+            cbConstante.Checked = false;
         }
     }
 }

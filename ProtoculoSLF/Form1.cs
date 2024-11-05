@@ -34,15 +34,7 @@ namespace ProtoculoSLF
         public int idProtocoloSeleccionado = 0;
         private int disposicion;
 
-        private async void Form1_Load(object sender, EventArgs e)
-        {
-            GenerarTablaProtocolos();
-            GenerarTablaProtocolosItem();
-            GenerarTablaNts();
-            GenerarTablaEnsayos();
-            await GetEnsayosTask();
-
-        }
+      
 
         private async Task GetEnsayosTask()
         {
@@ -61,12 +53,20 @@ namespace ProtoculoSLF
         public Form1()
         {
             InitializeComponent();
+            GenerarTablaProtocolos();
+            GenerarTablaProtocolosItem();
+            GenerarTablaNts();
+            GenerarTablaEnsayos();
             if (!File.Exists(archivoINI)) File.Create(archivoINI).Close();
             LeerConfigSplitter();
             instancia = this;
-            br.GetProtocolos();
-        }
+            GetProtocolos();
 
+        }
+        private async void Form1_Load(object sender, EventArgs e)
+        {
+            await GetEnsayosTask();
+        }
         private void GenerarTablaProtocolos()
         {
             GridColumn cId = new GridColumn();
@@ -521,6 +521,11 @@ namespace ProtoculoSLF
                 formAsignarItemProtocolo.instancia.items.Remove(data);
             }
 
+        }
+        public void GetProtocolos()
+        {
+            protocolos = br.GetProtocolos();            
+            gcProtocolos.DataSource = protocolos;
         }
         public void GetProtocoloNts()
         {
