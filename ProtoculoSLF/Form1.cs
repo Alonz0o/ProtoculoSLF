@@ -32,6 +32,8 @@ namespace ProtoculoSLF
         public int idCodigoSeleccionado = 0;
         public bool esPorLote;
         public int idProtocoloSeleccionado = 0;
+        private int disposicion;
+
         private async void Form1_Load(object sender, EventArgs e)
         {
             GenerarTablaProtocolos();
@@ -88,12 +90,12 @@ namespace ProtoculoSLF
             cFecha.Visible = true;
             cFecha.OptionsColumn.AllowEdit = false;
 
-            GridColumn cDescripcion = new GridColumn();
-            cDescripcion.FieldName = "Descripcion";
-            cDescripcion.Caption = "Descripcion";
-            cDescripcion.UnboundDataType = typeof(string);
-            cDescripcion.Visible = true;
-            cDescripcion.OptionsColumn.AllowEdit = false;
+            GridColumn cNombre = new GridColumn();
+            cNombre.FieldName = "Nombre";
+            cNombre.Caption = "Nombre";
+            cNombre.UnboundDataType = typeof(string);
+            cNombre.Visible = true;
+            cNombre.OptionsColumn.AllowEdit = false;
 
             GridColumn cVerProtocolo = new GridColumn();
             cVerProtocolo.FieldName = "FNVerProtocolo";
@@ -101,7 +103,7 @@ namespace ProtoculoSLF
             cVerProtocolo.Width = 16;
             cVerProtocolo.Visible = true;
 
-            gvProtocolos.Columns.AddRange(new GridColumn[] { cId, cIdFormato, cFecha, cDescripcion, cVerProtocolo });
+            gvProtocolos.Columns.AddRange(new GridColumn[] { cId, cIdFormato, cFecha, cNombre, cVerProtocolo });
             gcProtocolos.DataSource = protocolos.OrderByDescending(e => e.Fecha);
 
             RepositoryItemButtonEdit botonVer = new RepositoryItemButtonEdit();
@@ -126,7 +128,7 @@ namespace ProtoculoSLF
                         {
                             idCodigoSeleccionado = p.Id;
                             idProtocoloSeleccionado = p.FormatoProtocolo;
-
+                            disposicion = p.Disposicion;
                             GetProtocoloItems();
                             GetProtocoloNts();
 
@@ -143,44 +145,44 @@ namespace ProtoculoSLF
                             //if (br.GetTotalDeItemsPorIdCodigo(idCodigoSeleccionado) == 0)
 
 
-                            if (br.GetTotalDeItemsPorProtocolo(idCodigoSeleccionado) == 0)
-                            {
-                                formAgregarCodigo form = new formAgregarCodigo(p);
-                                form.Size = panel7.Size;
-                                Point locationOnScreen = panel7.PointToScreen(Point.Empty);
-                                form.Location = new Point(locationOnScreen.X, locationOnScreen.Y);
-                                form.Show();
-                            }
-                            else
-                            {                             
-                                List<string> items = br.GetItemsDelProtocolo(idProtocoloSeleccionado);
-                                var itemsExtrusion = br.GetExtrusionItems(idCodigoSeleccionado);
-                                var itemsImpresion = br.GetImpresionItems(idCodigoSeleccionado);
-                                var itemsConfeccion = br.GetConfeccionItems(idCodigoSeleccionado);
+                            //if (br.GetTotalDeItemsPorProtocolo(idCodigoSeleccionado) == 0)
+                            //{
+                            //    formAgregarCodigo form = new formAgregarCodigo(p);
+                            //    form.Size = panel7.Size;
+                            //    Point locationOnScreen = panel7.PointToScreen(Point.Empty);
+                            //    form.Location = new Point(locationOnScreen.X, locationOnScreen.Y);
+                            //    form.Show();
+                            //}
+                            //else
+                            //{                             
+                            //    List<string> items = br.GetItemsDelProtocolo(idProtocoloSeleccionado);
+                            //    var itemsExtrusion = br.GetExtrusionItems(idCodigoSeleccionado);
+                            //    var itemsImpresion = br.GetImpresionItems(idCodigoSeleccionado);
+                            //    var itemsConfeccion = br.GetConfeccionItems(idCodigoSeleccionado);
 
-                                List<ProtocoloItem> itemsSeleccionados = new List<ProtocoloItem>();
-                                List<ProtocoloItem> itemsIguales = new List<ProtocoloItem>();
+                            //    List<ProtocoloItem> itemsSeleccionados = new List<ProtocoloItem>();
+                            //    List<ProtocoloItem> itemsIguales = new List<ProtocoloItem>();
 
-                                itemsSeleccionados.AddRange(itemsExtrusion);
-                                itemsSeleccionados.AddRange(itemsImpresion);
-                                itemsSeleccionados.AddRange(itemsConfeccion);
+                            //    itemsSeleccionados.AddRange(itemsExtrusion);
+                            //    itemsSeleccionados.AddRange(itemsImpresion);
+                            //    itemsSeleccionados.AddRange(itemsConfeccion);
 
-                                foreach (var nombre in items)
-                                {
-                                    itemsIguales.Add(itemsSeleccionados.FirstOrDefault(i => i.Nombre.ToLower() == nombre.ToLower()));
-                                }
+                            //    foreach (var nombre in items)
+                            //    {
+                            //        itemsIguales.Add(itemsSeleccionados.FirstOrDefault(i => i.Nombre.ToLower() == nombre.ToLower()));
+                            //    }
 
-                                foreach (var item in itemsIguales)
-                                {
-                                    item.IdProtocoloItem = br.GetIdProtocoloItemPorNombre(item.Nombre);
-                                    if (br.EstaEnItemEspecificado(idCodigoSeleccionado, item.Nombre) == 0)
-                                    {
-                                        br.AgregarItemProtocolo(item, idCodigoSeleccionado);
-                                    }
+                            //    foreach (var item in itemsIguales)
+                            //    {
+                            //        item.IdProtocoloItem = br.GetIdProtocoloItemPorNombre(item.Nombre);
+                            //        if (br.EstaEnItemEspecificado(idCodigoSeleccionado, item.Nombre) == 0)
+                            //        {
+                            //            br.AgregarItemProtocolo(item, idCodigoSeleccionado);
+                            //        }
 
-                                }
-                                var pp = "";
-                            }
+                            //    }
+                            //    var pp = "";
+                            //}
 
                             LimpiarMenuProtocolo();
                             protocoloEnsayos.Clear();
@@ -195,12 +197,13 @@ namespace ProtoculoSLF
                                 lblCliente.Text = parametrosCodigo.Cliente;
                             }
                             lblProtocoloId.Text = "Protocolo N° " + idProtocoloSeleccionado;
-
+                            lblPalletNum.Text = disposicion == 1 ? "Por lote" : "Por pallet";
                         }
                     }
                 }
             };
         }
+
         public bool EsCanceladoFormAsignarItemAProtocolo = false;
         private void LimpiarMenuProtocolo()
         {
@@ -424,8 +427,8 @@ namespace ProtoculoSLF
             idOrden = Convert.ToInt32(data.OP.Split('/')[0]);
             gcFormatoItems.Text = "Protocolo N° " + idProtocoloSeleccionado + " | ITEMS";
             lblNtNum.Text = "NT N° " + data.NumNT;
-            lblPalletNum.Text = esPorLote ? "Por lote" : "Pallet N° " + data.NumPallet;
-            groupControl7.Text = esPorLote ? "  Por lote" : "  Por Pallet";
+            lblPalletNum.Text = disposicion == 1 ? "Por lote" : "Por pallet: " + data.NumPallet;
+
             GetEnsayosRealizados();
 
         }
@@ -724,6 +727,14 @@ namespace ProtoculoSLF
         {
          
         }
+        private void btnAgregarProtocolo_Click(object sender, EventArgs e)
+        {
+            formAgregarProtocolo form = new formAgregarProtocolo();
+            form.Size = panel7.Size;
+            Point locationOnScreen = panel7.PointToScreen(Point.Empty);
+            form.Location = new Point(locationOnScreen.X, locationOnScreen.Y);
+            form.Show();
+        }
 
         private void btnAgregarItem_Click(object sender, EventArgs e)
         {
@@ -732,5 +743,7 @@ namespace ProtoculoSLF
             form.Location = new Point(locationOnScreen.X, locationOnScreen.Y + btnAgregarItem.Height + 5);
             form.Show();
         }
+
+       
     }
 }

@@ -233,6 +233,8 @@
             // 
             // tbEsp02
             // 
+            this.tbEsp02.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.tbEsp02.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
             this.tbEsp02.BackColor = System.Drawing.Color.White;
             this.tbEsp02.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.tbEsp02.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;
@@ -269,6 +271,8 @@
             // 
             // tbEsp01
             // 
+            this.tbEsp01.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.tbEsp01.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
             this.tbEsp01.BackColor = System.Drawing.Color.White;
             this.tbEsp01.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.tbEsp01.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;
@@ -321,6 +325,8 @@
             // 
             // tbEspecificacion
             // 
+            this.tbEspecificacion.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.tbEspecificacion.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
             this.tbEspecificacion.BackColor = System.Drawing.Color.White;
             this.tbEspecificacion.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.tbEspecificacion.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;

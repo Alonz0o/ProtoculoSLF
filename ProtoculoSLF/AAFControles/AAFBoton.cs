@@ -88,20 +88,7 @@ namespace ProtoculoSLF.AAFControles
             path.CloseFigure();
             return path;
         }
-        protected override void OnMouseEnter(EventArgs e)
-        {
-            base.OnMouseEnter(e);
-           BackColor = Color.White;
-            Invalidate();
 
-        }
-        protected override void OnMouseLeave(EventArgs e)
-        {
-            base.OnMouseLeave(e);
-            BackColor = Color.BlanchedAlmond;
-            Invalidate();
-
-        }
         protected override void OnPaint(PaintEventArgs pevent)
         {
             base.OnPaint(pevent);

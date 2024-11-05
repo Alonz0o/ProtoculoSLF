@@ -122,6 +122,12 @@
     <Compile Include="formAgregarItems.Designer.cs">
       <DependentUpon>formAgregarItems.cs</DependentUpon>
     </Compile>
+    <Compile Include="formAgregarProtocolo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formAgregarProtocolo.Designer.cs">
+      <DependentUpon>formAgregarProtocolo.cs</DependentUpon>
+    </Compile>
     <Compile Include="formAsignarItemProtocolo.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -190,6 +196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formAgregarItems.resx">
       <DependentUpon>formAgregarItems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formAgregarProtocolo.resx">
+      <DependentUpon>formAgregarProtocolo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formAsignarItemProtocolo.resx">
       <DependentUpon>formAsignarItemProtocolo.cs</DependentUpon>

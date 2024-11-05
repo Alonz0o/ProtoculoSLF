@@ -31,28 +31,22 @@ namespace ProtoculoSLF
         }
         private void formAsignarItemProtocolo_Load(object sender, EventArgs e)
         {
-
-           
-
             GetItems();
             lueNombreItem.Properties.DataSource = items;
-          
-
         }
 
         private void GetItems()
         {
 
-            items = Form1.instancia.br.GetItems();
+            items = Form1.instancia.br.GetItemsDelProtocoloNUEVO(Form1.instancia.idProtocoloSeleccionado);
 
-            var itemsDiferentes = items
-                .Concat(Form1.instancia.protocoItems)
-                .GroupBy(x => x.Id)
-                .Where(g => g.Count() == 1)
-                .Select(g => g.First())
-                .ToList();
+            //var itemsDiferentes = items
+            //    .Concat(Form1.instancia.protocoItems)
+            //    .GroupBy(x => x.Id)
+            //    .Where(g => g.Count() == 1)
+            //    .Select(g => g.First())
+            //    .ToList();
 
-            items = itemsDiferentes;
         }
 
         private void btnAgregarItem_Click(object sender, EventArgs e)
@@ -64,7 +58,6 @@ namespace ProtoculoSLF
             pi.Id = lueControlA.Id;
             pi.IdProtocolo = Form1.instancia.idProtocoloSeleccionado;
             pi.IdProtocoloItem = Form1.instancia.br.GetFormatoProtocoloItemId(pi.IdProtocolo,pi.Id);
-            //pi.Orden = Form1.instancia.br.GetUltimaPosicionProtocoloItem();
             if (!lueControlA.EsConstante) {
                 if (!string.IsNullOrEmpty(tbEsp02.Texts))
                 {

@@ -129,6 +129,25 @@ namespace ScrapKP.AAFControles
             set { textBox1.SelectionStart = value; }
         }
         [Category("AFFComponente")]
+        public AutoCompleteMode AutoCompleteMode
+        {
+            get { return textBox1.AutoCompleteMode; }
+            set { textBox1.AutoCompleteMode = value; }
+        }
+        
+        [Category("AFFComponente")]
+        public AutoCompleteSource AutoCompleteSource
+        {
+            get { return textBox1.AutoCompleteSource; }
+            set { textBox1.AutoCompleteSource = value; }
+        }
+        [Category("AFFComponente")]
+        public AutoCompleteStringCollection AutoCompleteCustomSource
+        {
+            get { return textBox1.AutoCompleteCustomSource; }
+            set { textBox1.AutoCompleteCustomSource = value; }
+        }
+        [Category("AFFComponente")]
         public string Texts
         {
             get { return textBox1.Text; }
@@ -197,10 +216,6 @@ namespace ScrapKP.AAFControles
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
             this.OnKeyPress(e);
-        }
-        public int GetSelectionStart()
-        {
-            return textBox1.SelectionStart;
         }
 
         private void textBox1_KeyDown_1(object sender, KeyEventArgs e)

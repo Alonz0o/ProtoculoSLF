@@ -543,7 +543,7 @@
             // 
             this.groupControl8.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
             this.groupControl8.Appearance.Options.UseBorderColor = true;
-            this.groupControl8.AppearanceCaption.Font = new System.Drawing.Font("Oxanium SemiBold", 11F, System.Drawing.FontStyle.Bold);
+            this.groupControl8.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Bold);
             this.groupControl8.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.groupControl8.AppearanceCaption.Options.UseFont = true;
             this.groupControl8.AppearanceCaption.Options.UseForeColor = true;
@@ -819,6 +819,8 @@
             // 
             // tbValorEnsayo
             // 
+            this.tbValorEnsayo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.tbValorEnsayo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
             this.tbValorEnsayo.BackColor = System.Drawing.Color.White;
             this.tbValorEnsayo.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.tbValorEnsayo.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;
@@ -1107,7 +1109,7 @@
             this.btnAgregarItem.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAgregarItem.FlatAppearance.BorderSize = 0;
             this.btnAgregarItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregarItem.Font = new System.Drawing.Font("Oxanium SemiBold", 12F, System.Drawing.FontStyle.Bold);
+            this.btnAgregarItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             this.btnAgregarItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnAgregarItem.Location = new System.Drawing.Point(620, 0);
             this.btnAgregarItem.Margin = new System.Windows.Forms.Padding(0);
@@ -1130,7 +1132,7 @@
             this.btnAgregarProtocolo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnAgregarProtocolo.FlatAppearance.BorderSize = 0;
             this.btnAgregarProtocolo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnAgregarProtocolo.Font = new System.Drawing.Font("Oxanium SemiBold", 12F, System.Drawing.FontStyle.Bold);
+            this.btnAgregarProtocolo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             this.btnAgregarProtocolo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnAgregarProtocolo.Location = new System.Drawing.Point(465, 0);
             this.btnAgregarProtocolo.Margin = new System.Windows.Forms.Padding(0);
@@ -1140,7 +1142,7 @@
             this.btnAgregarProtocolo.Text = "Protocolos";
             this.btnAgregarProtocolo.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnAgregarProtocolo.UseVisualStyleBackColor = false;
-            this.btnAgregarProtocolo.Visible = false;
+            this.btnAgregarProtocolo.Click += new System.EventHandler(this.btnAgregarProtocolo_Click);
             // 
             // panel9
             // 
