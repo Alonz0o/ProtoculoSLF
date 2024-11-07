@@ -2,6 +2,7 @@
 using ProtoculoSLF.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace ProtoculoSLF
@@ -21,7 +22,7 @@ namespace ProtoculoSLF
         {
             GetItems();
             lueNombreItem.Properties.DataSource = items;
-            lblTitulo.Text = "Agregando un ítem especificado para: " + Form1.instancia.idCodigoSeleccionado;
+            lblTitulo.Text = "Ítem especificado para: " + Form1.instancia.idCodigoSeleccionado;
         }
 
         private void GetItems()
@@ -29,13 +30,13 @@ namespace ProtoculoSLF
 
             items = Form1.instancia.br.GetItemsDelProtocoloNUEVO(Form1.instancia.idProtocoloSeleccionado);
 
-            //var itemsDiferentes = items
-            //    .Concat(Form1.instancia.protocoItems)
-            //    .GroupBy(x => x.Id)
-            //    .Where(g => g.Count() == 1)
-            //    .Select(g => g.First())
-            //    .ToList();
-
+            var itemsDiferentes = items
+                .Concat(Form1.instancia.protocoItems)
+                .GroupBy(x => x.Id)
+                .Where(g => g.Count() == 1)
+                .Select(g => g.First())
+                .ToList();
+            items = itemsDiferentes;
         }
             ProtocoloItem itemAgregar = new ProtocoloItem();
 
@@ -157,6 +158,10 @@ namespace ProtoculoSLF
         {
             lueNombreItem.Text = string.Empty;
             tbSimboloSignificado.Texts = string.Empty;
+            tbEspMed.Texts = string.Empty;
+            tbEspMin.Texts = string.Empty;
+            tbEspMax.Texts = string.Empty;
+            
         }
 
         private void btnCerrarMin_Click(object sender, EventArgs e)
@@ -171,6 +176,10 @@ namespace ProtoculoSLF
             if (lueControlA == null) return;
             if (lueControlA.Simbolo == "±")
             {
+                tbEspMed.Texts = "";
+                tbEspMin.Texts = "";
+                tbEspMax.Texts = "";
+
                 gcSimboloSignificado.Text = "  Significado de símbolo (±)";
                 tbSimboloSignificado.Texts = "(Más o menos) Se debe colocar especificación media y la tolerancia mínima y máxima.";
                 tableLayoutPanel1.ColumnStyles[0].Width = 50F;

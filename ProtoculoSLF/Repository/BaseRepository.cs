@@ -5,6 +5,8 @@ using System.Linq;
 using System.Configuration;
 using MySqlConnector;
 using ProtoculoSLF.Model;
+using DevExpress.DataProcessing.InMemoryDataProcessor;
+using System.Windows.Forms;
 
 namespace ProtoculoSLF.Repository
 {
@@ -113,9 +115,10 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT e.IdCodigo,e.id_formato_protocolo,e.fecha_modificacion,fp.nombre,e.Numero_Art_Cliente,fp.disposicion
+                command.CommandText = @"SELECT e.IdCodigo,e.id_formato_protocolo,e.fecha_modificacion,fp.nombre,e.Numero_Art_Cliente,fp.disposicion,fl.Razon_Social 
                                         FROM extrusion e 
                                         JOIN formato_protocolo fp ON e.id_formato_protocolo=fp.id
+                                        JOIN ficha_logistica fl ON e.NumeroCliente = fl.Num_Cliente
                                         WHERE e.id_formato_protocolo IS NOT NULL;";
                 using (var reader = command.ExecuteReader())
                 {
@@ -129,6 +132,7 @@ namespace ProtoculoSLF.Repository
                             Nombre = reader[3] != DBNull.Value ? reader.GetString(3) : "",
                             CodigoCliente = reader[4] != DBNull.Value ? reader.GetString(4) : "",
                             Disposicion = reader.IsDBNull(5) ? 0 : reader.GetInt32(5),
+                            Cliente = reader[6] != DBNull.Value ? reader.GetString(6) : "",
                         };
                         protocolos.Add(p);
                     }
@@ -281,11 +285,10 @@ namespace ProtoculoSLF.Repository
                     }
                 }
             }
-
             return pis;
 
         }
-
+        
         internal List<NT> GetNTs(object idCodigo)
         {
             List<NT> nts = new List<NT>();
@@ -317,68 +320,37 @@ namespace ProtoculoSLF.Repository
             }
             return nts;
         }
-
-        //VER VER SE MODIFICO BASE DE DATOS
-        //internal List<ProtocoloEnsayo> GetEnsayosItems(object idNt)
-        //{
-        //    List<ProtocoloEnsayo> pes = new List<ProtocoloEnsayo>();
-        //    using (var conexion = new MySqlConnection(connectionString))
-        //    using (var command = new MySqlCommand())
-        //    {
-        //        conexion.Open();
-        //        command.Connection = conexion;
-        //        command.CommandText = @"SELECT fe.id,fi.nombre,fe.valor_ensayo,fe.correcto,fi.simbolo,fpi.orden,fpie.especificacion_min,fpie.especificacion,fpie.especificacion_max,fpi.id,fi.unidad
-        //                                FROM formato_ensayo fe
-        //                                JOIN formato_protocolo_item fpi on fe.id_protocolo_item = fpi.id
-        //                                JOIN formato_protocolo_item_especificacion fpie on fpi.id = fpie.id_formato_protocolo_item
-        //                                JOIN formato_item fi on fpi.id_item = fi.id
-        //                                WHERE fe.id_nt = @pIdNt;";
-        //        command.Parameters.Add("@pIdNt", MySqlDbType.Int32).Value = idNt;
-        //        using (var reader = command.ExecuteReader())
-        //        {
-        //            while (reader.Read())
-        //            {
-        //                var valorEnsayo = reader[2] != DBNull.Value ? reader.GetDouble(2) : 0.0;
-        //                var simbolo = reader[4] != DBNull.Value ? reader.GetString(4) : "";
-        //                var esCorrecto = reader[3] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(3)) : false;
-        //                ProtocoloEnsayo pe = new ProtocoloEnsayo
-        //                {
-        //                    Id = reader[0] != DBNull.Value ? reader.GetInt32(0) : 0,
-        //                    Nombre = reader[1] != DBNull.Value ? reader.GetString(1) : "",
-        //                    Simbolo = simbolo,
-        //                    ValorEnsayo = simbolo == "N" ? (esCorrecto ? "OK" : "NO") : valorEnsayo.ToString(),
-        //                    EsCorrectoSiNo = esCorrecto ? "SI" : "NO",
-        //                    Orden = reader[5] != DBNull.Value ? reader.GetInt32(5) : 0,
-        //                    EspecificacionMin = reader[6] != DBNull.Value ? reader.GetDouble(6) : 0.0,
-        //                    Especificacion = reader[7] != DBNull.Value ? reader.GetDouble(7) : 0.0,
-        //                    EspecificacionMax = reader[8] != DBNull.Value ? reader.GetDouble(8) : 0.0,
-        //                    IdProtocoloItem = reader[9] != DBNull.Value ? reader.GetInt32(9) : 0,
-        //                    Unidad = reader[10] != DBNull.Value ? reader.GetString(10) : "",
-        //                };
-        //                pes.Add(pe);
-        //            }
-        //        }
-        //    }
-
-        //    return pes.GroupBy(i => i.Nombre)
-        //        .Select(grupo => new ProtocoloEnsayo
-        //        {
-        //            Id = grupo.FirstOrDefault().Id,
-        //            Nombre = grupo.Key,
-        //            ValorEnsayo = grupo.FirstOrDefault().Simbolo == "N" ? grupo.FirstOrDefault().ValorEnsayo : grupo.Where(p => double.TryParse(p.ValorEnsayo, out _))
-        //                                                                               .Select(p => double.Parse(p.ValorEnsayo))
-        //                                                                               .DefaultIfEmpty(0)
-        //                                                                               .Average().ToString(),
-        //            Orden = grupo.FirstOrDefault().Orden,
-        //            EspecificacionMin = grupo.FirstOrDefault().EspecificacionMin,
-        //            Especificacion = grupo.FirstOrDefault().Especificacion,
-        //            EspecificacionMax = grupo.FirstOrDefault().EspecificacionMax,
-        //            IdProtocoloItem = grupo.FirstOrDefault().IdProtocoloItem,
-        //            Simbolo = grupo.FirstOrDefault().Simbolo,
-        //            Unidad = grupo.FirstOrDefault().Unidad,
-        //        }).ToList();
-        //}
-
+        internal List<NT> GetNTsPorLote(int idCodigo)
+        {
+            List<NT> nts = new List<NT>();
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT o_p,count(nt),sum(pallets),sum(cant_bobinas)
+                                        FROM nt 
+                                        WHERE codigo=@pIdCodigo
+                                        GROUP BY o_p;";
+                command.Parameters.Add("@pIdCodigo", MySqlDbType.Int32).Value = idCodigo;
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        NT n = new NT
+                        {
+                            OP = reader.IsDBNull(0) ? "" : reader.GetString(0),
+                            NumNT = reader.IsDBNull(1) ? 0 : reader.GetInt32(1),
+                            NumPallet = reader.IsDBNull(2) ? 0 : reader.GetInt32(2),
+                            CantidadBobinas = reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
+                        };
+                        nts.Add(n);
+                    }
+                }
+            }
+            return nts;
+        }
+ 
         internal List<ProtocoloEnsayo> GetEnsayosItemsAnchoBolsa(string nombreItem, int orden, int codigo)
         {
             ProtocoloItem p = new ProtocoloItem();
