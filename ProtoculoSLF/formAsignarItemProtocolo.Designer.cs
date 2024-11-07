@@ -32,8 +32,13 @@
             this.btnCerrarMin = new FontAwesome.Sharp.IconButton();
             this.tlpRealizados = new System.Windows.Forms.TableLayoutPanel();
             this.pnlPendientes = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupControl7 = new DevExpress.XtraEditors.GroupControl();
+            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
             this.gcSimboloSignificado = new DevExpress.XtraEditors.GroupControl();
+            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
             this.lueNombreItem = new DevExpress.XtraEditors.LookUpEdit();
             this.tlpNoti = new System.Windows.Forms.TableLayoutPanel();
@@ -43,11 +48,6 @@
             this.lblMensaje = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.panel11 = new System.Windows.Forms.Panel();
-            this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
-            this.groupControl6 = new DevExpress.XtraEditors.GroupControl();
-            this.groupControl7 = new DevExpress.XtraEditors.GroupControl();
             this.tbEspMax = new ScrapKP.AAFControles.AAFTextBox();
             this.tbEspMed = new ScrapKP.AAFControles.AAFTextBox();
             this.tbEspMin = new ScrapKP.AAFControles.AAFTextBox();
@@ -58,24 +58,24 @@
             this.gcAgregar.SuspendLayout();
             this.tlpRealizados.SuspendLayout();
             this.pnlPendientes.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
+            this.groupControl4.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).BeginInit();
+            this.groupControl7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
+            this.groupControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).BeginInit();
+            this.groupControl6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcSimboloSignificado)).BeginInit();
             this.gcSimboloSignificado.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
             this.groupControl5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lueNombreItem.Properties)).BeginInit();
             this.tlpNoti.SuspendLayout();
             this.tlpCuerpo.SuspendLayout();
             this.pnlCuerpo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
-            this.groupControl4.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
-            this.groupControl3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).BeginInit();
-            this.groupControl6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).BeginInit();
-            this.groupControl7.SuspendLayout();
             this.SuspendLayout();
             // 
             // gcAgregar
@@ -146,6 +146,101 @@
             this.pnlPendientes.Size = new System.Drawing.Size(418, 495);
             this.pnlPendientes.TabIndex = 0;
             // 
+            // groupControl4
+            // 
+            this.groupControl4.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.groupControl4.Appearance.Options.UseBorderColor = true;
+            this.groupControl4.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupControl4.AppearanceCaption.Options.UseFont = true;
+            this.groupControl4.AppearanceCaption.Options.UseTextOptions = true;
+            this.groupControl4.AppearanceCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.groupControl4.Controls.Add(this.tableLayoutPanel1);
+            this.groupControl4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupControl4.Location = new System.Drawing.Point(0, 197);
+            this.groupControl4.Margin = new System.Windows.Forms.Padding(0);
+            this.groupControl4.Name = "groupControl4";
+            this.groupControl4.Size = new System.Drawing.Size(418, 81);
+            this.groupControl4.TabIndex = 79;
+            this.groupControl4.Text = "Especificación";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel1.Controls.Add(this.groupControl7, 2, 0);
+            this.tableLayoutPanel1.Controls.Add(this.groupControl3, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.groupControl6, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 23);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(414, 58);
+            this.tableLayoutPanel1.TabIndex = 75;
+            // 
+            // groupControl7
+            // 
+            this.groupControl7.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.groupControl7.Appearance.Options.UseBorderColor = true;
+            this.groupControl7.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupControl7.AppearanceCaption.Options.UseFont = true;
+            this.groupControl7.Controls.Add(this.tbEspMax);
+            this.groupControl7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupControl7.Location = new System.Drawing.Point(276, 0);
+            this.groupControl7.Margin = new System.Windows.Forms.Padding(0);
+            this.groupControl7.Name = "groupControl7";
+            this.groupControl7.Size = new System.Drawing.Size(138, 58);
+            this.groupControl7.TabIndex = 68;
+            this.groupControl7.Text = "  Maximo *";
+            // 
+            // groupControl3
+            // 
+            this.groupControl3.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.groupControl3.Appearance.Options.UseBorderColor = true;
+            this.groupControl3.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupControl3.AppearanceCaption.Options.UseFont = true;
+            this.groupControl3.Controls.Add(this.tbEspMed);
+            this.groupControl3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupControl3.Location = new System.Drawing.Point(138, 0);
+            this.groupControl3.Margin = new System.Windows.Forms.Padding(0);
+            this.groupControl3.Name = "groupControl3";
+            this.groupControl3.Size = new System.Drawing.Size(138, 58);
+            this.groupControl3.TabIndex = 66;
+            this.groupControl3.Text = "  Medio *";
+            // 
+            // groupControl6
+            // 
+            this.groupControl6.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.groupControl6.Appearance.Options.UseBorderColor = true;
+            this.groupControl6.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupControl6.AppearanceCaption.Options.UseFont = true;
+            this.groupControl6.Controls.Add(this.tbEspMin);
+            this.groupControl6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupControl6.Location = new System.Drawing.Point(0, 0);
+            this.groupControl6.Margin = new System.Windows.Forms.Padding(0);
+            this.groupControl6.Name = "groupControl6";
+            this.groupControl6.Size = new System.Drawing.Size(138, 58);
+            this.groupControl6.TabIndex = 67;
+            this.groupControl6.Text = "  Minimo *";
+            // 
+            // gcSimboloSignificado
+            // 
+            this.gcSimboloSignificado.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.gcSimboloSignificado.Appearance.Options.UseBorderColor = true;
+            this.gcSimboloSignificado.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gcSimboloSignificado.AppearanceCaption.Options.UseFont = true;
+            this.gcSimboloSignificado.Controls.Add(this.tbSimboloSignificado);
+            this.gcSimboloSignificado.Dock = System.Windows.Forms.DockStyle.Top;
+            this.gcSimboloSignificado.Enabled = false;
+            this.gcSimboloSignificado.Location = new System.Drawing.Point(0, 127);
+            this.gcSimboloSignificado.Margin = new System.Windows.Forms.Padding(0);
+            this.gcSimboloSignificado.Name = "gcSimboloSignificado";
+            this.gcSimboloSignificado.Size = new System.Drawing.Size(418, 70);
+            this.gcSimboloSignificado.TabIndex = 67;
+            this.gcSimboloSignificado.Text = "  Significado de símbolo (+)";
+            // 
             // tableLayoutPanel5
             // 
             this.tableLayoutPanel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
@@ -162,21 +257,6 @@
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel5.Size = new System.Drawing.Size(418, 43);
             this.tableLayoutPanel5.TabIndex = 66;
-            // 
-            // gcSimboloSignificado
-            // 
-            this.gcSimboloSignificado.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.gcSimboloSignificado.Appearance.Options.UseBorderColor = true;
-            this.gcSimboloSignificado.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gcSimboloSignificado.AppearanceCaption.Options.UseFont = true;
-            this.gcSimboloSignificado.Controls.Add(this.tbSimboloSignificado);
-            this.gcSimboloSignificado.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gcSimboloSignificado.Location = new System.Drawing.Point(0, 127);
-            this.gcSimboloSignificado.Margin = new System.Windows.Forms.Padding(0);
-            this.gcSimboloSignificado.Name = "gcSimboloSignificado";
-            this.gcSimboloSignificado.Size = new System.Drawing.Size(418, 70);
-            this.gcSimboloSignificado.TabIndex = 67;
-            this.gcSimboloSignificado.Text = "  Significado de símbolo (+)";
             // 
             // groupControl5
             // 
@@ -314,85 +394,6 @@
             this.panel11.Size = new System.Drawing.Size(7, 489);
             this.panel11.TabIndex = 1;
             // 
-            // groupControl4
-            // 
-            this.groupControl4.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.groupControl4.Appearance.Options.UseBorderColor = true;
-            this.groupControl4.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupControl4.AppearanceCaption.Options.UseFont = true;
-            this.groupControl4.AppearanceCaption.Options.UseTextOptions = true;
-            this.groupControl4.AppearanceCaption.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            this.groupControl4.Controls.Add(this.tableLayoutPanel1);
-            this.groupControl4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControl4.Location = new System.Drawing.Point(0, 197);
-            this.groupControl4.Margin = new System.Windows.Forms.Padding(0);
-            this.groupControl4.Name = "groupControl4";
-            this.groupControl4.Size = new System.Drawing.Size(418, 81);
-            this.groupControl4.TabIndex = 79;
-            this.groupControl4.Text = "Especificación";
-            // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel1.Controls.Add(this.groupControl7, 2, 0);
-            this.tableLayoutPanel1.Controls.Add(this.groupControl3, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.groupControl6, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(2, 23);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(414, 58);
-            this.tableLayoutPanel1.TabIndex = 75;
-            // 
-            // groupControl3
-            // 
-            this.groupControl3.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.groupControl3.Appearance.Options.UseBorderColor = true;
-            this.groupControl3.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupControl3.AppearanceCaption.Options.UseFont = true;
-            this.groupControl3.Controls.Add(this.tbEspMed);
-            this.groupControl3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl3.Location = new System.Drawing.Point(137, 0);
-            this.groupControl3.Margin = new System.Windows.Forms.Padding(0);
-            this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(137, 58);
-            this.groupControl3.TabIndex = 66;
-            this.groupControl3.Text = "  Medio *";
-            // 
-            // groupControl6
-            // 
-            this.groupControl6.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.groupControl6.Appearance.Options.UseBorderColor = true;
-            this.groupControl6.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupControl6.AppearanceCaption.Options.UseFont = true;
-            this.groupControl6.Controls.Add(this.tbEspMin);
-            this.groupControl6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl6.Location = new System.Drawing.Point(0, 0);
-            this.groupControl6.Margin = new System.Windows.Forms.Padding(0);
-            this.groupControl6.Name = "groupControl6";
-            this.groupControl6.Size = new System.Drawing.Size(137, 58);
-            this.groupControl6.TabIndex = 67;
-            this.groupControl6.Text = "  Minimo *";
-            // 
-            // groupControl7
-            // 
-            this.groupControl7.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.groupControl7.Appearance.Options.UseBorderColor = true;
-            this.groupControl7.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupControl7.AppearanceCaption.Options.UseFont = true;
-            this.groupControl7.Controls.Add(this.tbEspMax);
-            this.groupControl7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl7.Location = new System.Drawing.Point(274, 0);
-            this.groupControl7.Margin = new System.Windows.Forms.Padding(0);
-            this.groupControl7.Name = "groupControl7";
-            this.groupControl7.Size = new System.Drawing.Size(140, 58);
-            this.groupControl7.TabIndex = 68;
-            this.groupControl7.Text = "  Maximo *";
-            // 
             // tbEspMax
             // 
             this.tbEspMax.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
@@ -411,7 +412,7 @@
             this.tbEspMax.Padding = new System.Windows.Forms.Padding(19, 8, 8, 8);
             this.tbEspMax.PasswordChar = false;
             this.tbEspMax.SelectionStart = 0;
-            this.tbEspMax.Size = new System.Drawing.Size(136, 33);
+            this.tbEspMax.Size = new System.Drawing.Size(134, 33);
             this.tbEspMax.TabIndex = 2;
             this.tbEspMax.Texts = "";
             this.tbEspMax.UnderlinedStyle = true;
@@ -434,7 +435,7 @@
             this.tbEspMed.Padding = new System.Windows.Forms.Padding(19, 8, 8, 8);
             this.tbEspMed.PasswordChar = false;
             this.tbEspMed.SelectionStart = 0;
-            this.tbEspMed.Size = new System.Drawing.Size(133, 33);
+            this.tbEspMed.Size = new System.Drawing.Size(134, 33);
             this.tbEspMed.TabIndex = 2;
             this.tbEspMed.Texts = "";
             this.tbEspMed.UnderlinedStyle = true;
@@ -457,7 +458,7 @@
             this.tbEspMin.Padding = new System.Windows.Forms.Padding(19, 8, 8, 8);
             this.tbEspMin.PasswordChar = false;
             this.tbEspMin.SelectionStart = 0;
-            this.tbEspMin.Size = new System.Drawing.Size(133, 33);
+            this.tbEspMin.Size = new System.Drawing.Size(134, 33);
             this.tbEspMin.TabIndex = 2;
             this.tbEspMin.Texts = "";
             this.tbEspMin.UnderlinedStyle = true;
@@ -542,24 +543,24 @@
             this.gcAgregar.ResumeLayout(false);
             this.tlpRealizados.ResumeLayout(false);
             this.pnlPendientes.ResumeLayout(false);
-            this.tableLayoutPanel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
+            this.groupControl4.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).EndInit();
+            this.groupControl7.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
+            this.groupControl3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).EndInit();
+            this.groupControl6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcSimboloSignificado)).EndInit();
             this.gcSimboloSignificado.ResumeLayout(false);
+            this.tableLayoutPanel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
             this.groupControl5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.lueNombreItem.Properties)).EndInit();
             this.tlpNoti.ResumeLayout(false);
             this.tlpCuerpo.ResumeLayout(false);
             this.pnlCuerpo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
-            this.groupControl4.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
-            this.groupControl3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).EndInit();
-            this.groupControl6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl7)).EndInit();
-            this.groupControl7.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

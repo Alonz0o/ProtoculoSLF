@@ -41,11 +41,12 @@ namespace ProtoculoSLF
         {
             while (true)
             {
-                if (br.GetCambios() != 0)
+                if (br.GetCambios() > 0)
                 {
+                    MessageBox.Show("sadsa");
                     formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se agrego un ensayo.");
                     noti.Show();
-                    GetEnsayosRealizados();
+                    //GetEnsayosRealizados();
                 }
                 await Task.Delay(TimeSpan.FromSeconds(5));
             }
@@ -138,9 +139,6 @@ namespace ProtoculoSLF
 
                             if (p.Disposicion == 1)  GetProtocoloNtsPorPallets();                          
                             else GetProtocoloNts();
-
-
-
 
                             LimpiarMenuProtocolo();
                             protocoloEnsayos.Clear();
@@ -436,8 +434,8 @@ namespace ProtoculoSLF
             lblNtNum.Text = "NT N° " + data.NumNT;
             lblPalletNum.Text = disposicion == 1 ? "Por lote" : "Por pallet: " + data.NumPallet;
 
-            GetEnsayosRealizados();
-
+            if (disposicion == 1) GetEnsayosRealizadosPorLote(data.OP);
+            else GetEnsayosRealizados();
         }
 
         private void gvNts_MouseMove(object sender, MouseEventArgs e)
@@ -624,6 +622,20 @@ namespace ProtoculoSLF
 
             var pp = br.GetItemsDelProtocolo(idProtocoloSeleccionado);
             if (pp.Contains("Ancho de bolsa")) protocoloEnsayos.AddRange(br.GetEnsayosItemsAnchoBolsa("Ancho de bolsa",idOrden,idCodigoSeleccionado));
+
+            if (protocoloEnsayos.Count != 0)
+            {
+                xrCertificadoReal protocolo = new xrCertificadoReal();
+                dvProtocolos.DocumentSource = protocolo;
+                dvProtocolos.InitiateDocumentCreation();
+            }
+            gcFormatoValores.DataSource = protocoloEnsayos;
+        }
+
+        public void GetEnsayosRealizadosPorLote(string op)
+        {
+            dvProtocolos.DocumentSource = null;
+            protocoloEnsayos = br.GetEnsayosPorLote(op);
 
             if (protocoloEnsayos.Count != 0)
             {

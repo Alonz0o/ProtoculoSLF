@@ -59,7 +59,7 @@ namespace ProtoculoSLF.Repository
                 conexion.Open();
                 using (var command = conexion.CreateCommand())
                 {
-                    command.CommandText = "SELECT id_nt_log,valor_log,correcto_log,accion_creada FROM formato_ensayo_log WHERE accion_creada >= NOW() - INTERVAL 5 SECOND;";
+                    command.CommandText = "SELECT id,id_nt_log,valor_log,correcto_log,accion_creada FROM formato_ensayo_log WHERE accion_creada >= NOW() - INTERVAL 5 SECOND;";
                     return command.ExecuteScalar() != DBNull.Value ? Convert.ToInt32(command.ExecuteScalar()) : 0;
                 }
             }
@@ -350,7 +350,67 @@ namespace ProtoculoSLF.Repository
             }
             return nts;
         }
- 
+
+        internal List<ProtocoloEnsayo> GetEnsayosPorLote(string op)
+        {
+            ProtocoloItem p = new ProtocoloItem();
+            List<ProtocoloEnsayo> pes = new List<ProtocoloEnsayo>();
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+
+                conexion.Open();
+                command.Connection = conexion;
+
+                command.CommandText = $@"SELECT fi.nombre,fi.simbolo,fpi.orden,fpie.especificacion,fpie.especificacion_min,fpie.especificacion_max,fpi.id,fi.unidad,fe.valor_ensayo
+                                        FROM formato_ensayo fe
+                                        JOIN formato_protocolo_item fpi ON fe.id_protocolo_item = fpi.id
+                                        JOIN formato_protocolo_item_especificacion fpie on fpi.id = fpie.id_formato_protocolo_item                           
+                                        JOIN formato_item fi on fpi.id_item = fi.id
+                                        WHERE fe.op = @pOp";
+                command.Parameters.Add("@pOp", MySqlDbType.String).Value = op;
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var valorEnsayo = reader[8] != DBNull.Value ? reader.GetDouble(8) : 0.0;
+                        ProtocoloEnsayo pe = new ProtocoloEnsayo
+                        {
+                            Nombre = reader[0] != DBNull.Value ? reader.GetString(0) : "",
+                            Simbolo = reader[1] != DBNull.Value ? reader.GetString(1) : "",
+                            Orden = reader[2] != DBNull.Value ? reader.GetInt32(2) : 0,
+                            Especificacion = reader[3] != DBNull.Value ? reader.GetDouble(3) : 0.0,
+                            EspecificacionMin = reader[4] != DBNull.Value ? reader.GetDouble(4) : 0.0,
+                            EspecificacionMax = reader[5] != DBNull.Value ? reader.GetDouble(5) : 0.0,
+                            IdProtocoloItem = reader[6] != DBNull.Value ? reader.GetInt32(6) : 0,
+                            Unidad = reader[7] != DBNull.Value ? reader.GetString(7) : "",
+                            ValorEnsayo = valorEnsayo.ToString(),
+
+                        };
+                        pes.Add(pe);
+                    }
+                }
+            }
+
+            return pes.GroupBy(i => i.Nombre)
+                .Select(grupo => new ProtocoloEnsayo
+                {
+                    Id = grupo.FirstOrDefault().Id,
+                    Nombre = grupo.Key,
+                    ValorEnsayo = grupo.FirstOrDefault().Simbolo == "N" ? grupo.FirstOrDefault().ValorEnsayo : grupo.Where(pr => double.TryParse(pr.ValorEnsayo, out _))
+                                                                                       .Select(pr => double.Parse(pr.ValorEnsayo))
+                                                                                       .DefaultIfEmpty(0)
+                                                                                       .Average().ToString(),
+                    Orden = grupo.FirstOrDefault().Orden,
+                    EspecificacionMin = grupo.FirstOrDefault().EspecificacionMin,
+                    Especificacion = grupo.FirstOrDefault().Especificacion,
+                    EspecificacionMax = grupo.FirstOrDefault().EspecificacionMax,
+                    IdProtocoloItem = grupo.FirstOrDefault().IdProtocoloItem,
+                    Simbolo = grupo.FirstOrDefault().Simbolo,
+                    Unidad = grupo.FirstOrDefault().Unidad,
+                }).ToList();
+        }
+
         internal List<ProtocoloEnsayo> GetEnsayosItemsAnchoBolsa(string nombreItem, int orden, int codigo)
         {
             ProtocoloItem p = new ProtocoloItem();
@@ -438,7 +498,7 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fe.id,fi.nombre,fe.valor_ensayo,fe.correcto,fpi.simbolo,fpi.orden,fpi.especificacion_min,fpi.especificacion,fpi.especificacion_max,fe.id_protocolo_item,fi.unidad
+                command.CommandText = @"SELECT fe.id,fi.nombre,fe.valor_ensayo,fe.correcto,fi.simbolo,fpi.orden,fpi.especificacion_min,fpi.especificacion,fpi.especificacion_max,fe.id_protocolo_item,fi.unidad
                                         FROM formato_ensayo fe
                                         JOIN formato_protocolo_item fpi on fe.id_protocolo_item = fpi.id
                                         JOIN formato_item fi on fpi.id_item = fi.id

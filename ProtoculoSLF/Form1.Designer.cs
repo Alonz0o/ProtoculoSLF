@@ -272,6 +272,7 @@
             this.btnAgregarEnsayo.Size = new System.Drawing.Size(20, 20);
             this.btnAgregarEnsayo.TabIndex = 34;
             this.btnAgregarEnsayo.UseVisualStyleBackColor = false;
+            this.btnAgregarEnsayo.Visible = false;
             this.btnAgregarEnsayo.Click += new System.EventHandler(this.btnAgregarEnsayo_Click);
             // 
             // gcProtocolos
