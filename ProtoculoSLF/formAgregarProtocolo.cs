@@ -264,7 +264,7 @@ namespace ProtoculoSLF
                 if (Form1.instancia.br.InsertAProtocolo(protocoloACrear, sqlUpdate, sqlInsert, "modificar"))
                 {
                     Form1.instancia.GetProtocolos();
-                    formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se genero correctamente el protocolo: " + protocoloACrear.FormatoProtocolo);
+                    formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se modifico correctamente el protocolo: " + protocoloACrear.FormatoProtocolo);
                     noti.Show();
                     Close();
                 }
@@ -290,7 +290,6 @@ namespace ProtoculoSLF
         private string SQLUpdateIdProtocolo()
         {
             List<Protocolo> seleccionados = protocolos.FindAll(ex => ex.Seleccionar == true).ToList();
-            //idProtocolo = Convert.ToInt32(tbNumeroProtocolo.Texts);
             var qry1 = $"UPDATE extrusion SET id_formato_protocolo = {idProtocolo}";
             var qry2 = " WHERE IdCodigo IN (";
             foreach (var s in seleccionados)
@@ -304,7 +303,17 @@ namespace ProtoculoSLF
         }
         private string SQLInsertProtocoloItem()
         {
+            var borrarDuplicados = Form1.instancia.br.GetProtocolosItems(idProtocolo);
             var items = tbNumeroProtocolo.Visible == true ? protocoItems : itemsAsignados;
+            if (borrarDuplicados.Count != 0) {
+                var itemsDiferentes = items
+                    .Concat(borrarDuplicados)
+                    .GroupBy(x => x.Id)
+                    .Where(g => g.Count() == 1)
+                    .Select(g => g.First())
+                    .ToList();
+                items = itemsDiferentes;
+            }
             string sqlInsertarProtocoloItem = "INSERT INTO formato_protocolo_item(id_protocolo,id_item,orden) VALUES ";
             string sqlInsertarProtocoloItem2 = "";
             foreach (var item in items)

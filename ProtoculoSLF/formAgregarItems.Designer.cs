@@ -55,20 +55,20 @@
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.cbConstante = new System.Windows.Forms.CheckBox();
             this.cbCertificado = new System.Windows.Forms.CheckBox();
-            this.gcSimbolo = new DevExpress.XtraEditors.GroupControl();
-            this.lueItemSimbolos = new DevExpress.XtraEditors.LookUpEdit();
-            this.groupControl13 = new DevExpress.XtraEditors.GroupControl();
-            this.lueItemUnidades = new DevExpress.XtraEditors.LookUpEdit();
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.lueItemProcesos = new DevExpress.XtraEditors.LookUpEdit();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAgregarItem = new ProtoculoSLF.AAFControles.AAFBoton();
             this.btnCancelar = new ProtoculoSLF.AAFControles.AAFBoton();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupControl13 = new DevExpress.XtraEditors.GroupControl();
+            this.lueItemUnidades = new DevExpress.XtraEditors.LookUpEdit();
+            this.gcSimbolo = new DevExpress.XtraEditors.GroupControl();
+            this.lueItemSimbolos = new DevExpress.XtraEditors.LookUpEdit();
             this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
             this.cbMantener = new System.Windows.Forms.CheckBox();
             this.tbNombre = new ScrapKP.AAFControles.AAFTextBox();
             this.panel11 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.lueItemProcesos = new DevExpress.XtraEditors.LookUpEdit();
             ((System.ComponentModel.ISupportInitialize)(this.gcAgregar)).BeginInit();
             this.gcAgregar.SuspendLayout();
             this.tlpRealizados.SuspendLayout();
@@ -88,19 +88,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gcSimbolo)).BeginInit();
-            this.gcSimbolo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lueItemSimbolos.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl13)).BeginInit();
-            this.groupControl13.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lueItemUnidades.Properties)).BeginInit();
-            this.tableLayoutPanel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
-            this.groupControl5.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lueItemProcesos.Properties)).BeginInit();
+            this.tableLayoutPanel5.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl13)).BeginInit();
+            this.groupControl13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lueItemUnidades.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcSimbolo)).BeginInit();
+            this.gcSimbolo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lueItemSimbolos.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
+            this.groupControl5.SuspendLayout();
             this.SuspendLayout();
             // 
             // gcAgregar
@@ -348,6 +348,7 @@
             this.btnConfirmarCambios.Text = "Confirmar";
             this.btnConfirmarCambios.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnConfirmarCambios.UseVisualStyleBackColor = false;
+            this.btnConfirmarCambios.Click += new System.EventHandler(this.btnConfirmarCambios_Click);
             // 
             // btnCancelarCambios
             // 
@@ -456,8 +457,8 @@
             this.panel7.AutoScroll = true;
             this.panel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
             this.panel7.Controls.Add(this.groupControl3);
-            this.panel7.Controls.Add(this.groupControl1);
             this.panel7.Controls.Add(this.tableLayoutPanel5);
+            this.panel7.Controls.Add(this.groupControl1);
             this.panel7.Controls.Add(this.tableLayoutPanel1);
             this.panel7.Controls.Add(this.groupControl5);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -520,73 +521,39 @@
             this.cbCertificado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cbCertificado.UseVisualStyleBackColor = true;
             // 
-            // gcSimbolo
+            // groupControl1
             // 
-            this.gcSimbolo.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.gcSimbolo.Appearance.Options.UseBorderColor = true;
-            this.gcSimbolo.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gcSimbolo.AppearanceCaption.Options.UseFont = true;
-            this.gcSimbolo.Controls.Add(this.lueItemSimbolos);
-            this.gcSimbolo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gcSimbolo.Location = new System.Drawing.Point(0, 0);
-            this.gcSimbolo.Margin = new System.Windows.Forms.Padding(0);
-            this.gcSimbolo.Name = "gcSimbolo";
-            this.gcSimbolo.Size = new System.Drawing.Size(181, 54);
-            this.gcSimbolo.TabIndex = 76;
-            this.gcSimbolo.Text = "  Símbolo *";
+            this.groupControl1.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.groupControl1.Appearance.Options.UseBorderColor = true;
+            this.groupControl1.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupControl1.AppearanceCaption.Options.UseFont = true;
+            this.groupControl1.Controls.Add(this.lueItemProcesos);
+            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupControl1.Location = new System.Drawing.Point(0, 112);
+            this.groupControl1.Margin = new System.Windows.Forms.Padding(0);
+            this.groupControl1.Name = "groupControl1";
+            this.groupControl1.Size = new System.Drawing.Size(362, 54);
+            this.groupControl1.TabIndex = 78;
+            this.groupControl1.Text = "  Proceso *";
             // 
-            // lueItemSimbolos
+            // lueItemProcesos
             // 
-            this.lueItemSimbolos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lueItemSimbolos.EditValue = "";
-            this.lueItemSimbolos.Location = new System.Drawing.Point(2, 23);
-            this.lueItemSimbolos.Name = "lueItemSimbolos";
-            this.lueItemSimbolos.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.lueItemSimbolos.Properties.Appearance.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lueItemSimbolos.Properties.Appearance.Options.UseFont = true;
-            this.lueItemSimbolos.Properties.Appearance.Options.UseForeColor = true;
-            this.lueItemSimbolos.Properties.AutoHeight = false;
-            this.lueItemSimbolos.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            this.lueItemProcesos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lueItemProcesos.EditValue = "";
+            this.lueItemProcesos.Location = new System.Drawing.Point(2, 23);
+            this.lueItemProcesos.Name = "lueItemProcesos";
+            this.lueItemProcesos.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.lueItemProcesos.Properties.Appearance.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.lueItemProcesos.Properties.Appearance.Options.UseFont = true;
+            this.lueItemProcesos.Properties.Appearance.Options.UseForeColor = true;
+            this.lueItemProcesos.Properties.AutoHeight = false;
+            this.lueItemProcesos.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lueItemSimbolos.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
-            this.lueItemSimbolos.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
-            this.lueItemSimbolos.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.lueItemSimbolos.Size = new System.Drawing.Size(177, 29);
-            this.lueItemSimbolos.TabIndex = 63;
-            // 
-            // groupControl13
-            // 
-            this.groupControl13.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.groupControl13.Appearance.Options.UseBorderColor = true;
-            this.groupControl13.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupControl13.AppearanceCaption.Options.UseFont = true;
-            this.groupControl13.Controls.Add(this.lueItemUnidades);
-            this.groupControl13.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl13.Location = new System.Drawing.Point(181, 0);
-            this.groupControl13.Margin = new System.Windows.Forms.Padding(0);
-            this.groupControl13.Name = "groupControl13";
-            this.groupControl13.Size = new System.Drawing.Size(181, 54);
-            this.groupControl13.TabIndex = 64;
-            this.groupControl13.Text = "  Unidad *";
-            // 
-            // lueItemUnidades
-            // 
-            this.lueItemUnidades.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lueItemUnidades.EditValue = "";
-            this.lueItemUnidades.Location = new System.Drawing.Point(2, 23);
-            this.lueItemUnidades.Name = "lueItemUnidades";
-            this.lueItemUnidades.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.lueItemUnidades.Properties.Appearance.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lueItemUnidades.Properties.Appearance.Options.UseFont = true;
-            this.lueItemUnidades.Properties.Appearance.Options.UseForeColor = true;
-            this.lueItemUnidades.Properties.AutoHeight = false;
-            this.lueItemUnidades.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lueItemUnidades.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
-            this.lueItemUnidades.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
-            this.lueItemUnidades.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.lueItemUnidades.Size = new System.Drawing.Size(177, 29);
-            this.lueItemUnidades.TabIndex = 63;
+            this.lueItemProcesos.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
+            this.lueItemProcesos.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
+            this.lueItemProcesos.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.lueItemProcesos.Size = new System.Drawing.Size(358, 29);
+            this.lueItemProcesos.TabIndex = 63;
             // 
             // tableLayoutPanel5
             // 
@@ -646,6 +613,90 @@
             this.btnCancelar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCerrarAgregar_Click);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.Controls.Add(this.groupControl13, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.gcSimbolo, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 58);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(362, 54);
+            this.tableLayoutPanel1.TabIndex = 77;
+            // 
+            // groupControl13
+            // 
+            this.groupControl13.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.groupControl13.Appearance.Options.UseBorderColor = true;
+            this.groupControl13.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupControl13.AppearanceCaption.Options.UseFont = true;
+            this.groupControl13.Controls.Add(this.lueItemUnidades);
+            this.groupControl13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupControl13.Location = new System.Drawing.Point(181, 0);
+            this.groupControl13.Margin = new System.Windows.Forms.Padding(0);
+            this.groupControl13.Name = "groupControl13";
+            this.groupControl13.Size = new System.Drawing.Size(181, 54);
+            this.groupControl13.TabIndex = 64;
+            this.groupControl13.Text = "  Unidad *";
+            // 
+            // lueItemUnidades
+            // 
+            this.lueItemUnidades.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lueItemUnidades.EditValue = "";
+            this.lueItemUnidades.Location = new System.Drawing.Point(2, 23);
+            this.lueItemUnidades.Name = "lueItemUnidades";
+            this.lueItemUnidades.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.lueItemUnidades.Properties.Appearance.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.lueItemUnidades.Properties.Appearance.Options.UseFont = true;
+            this.lueItemUnidades.Properties.Appearance.Options.UseForeColor = true;
+            this.lueItemUnidades.Properties.AutoHeight = false;
+            this.lueItemUnidades.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lueItemUnidades.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
+            this.lueItemUnidades.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
+            this.lueItemUnidades.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.lueItemUnidades.Size = new System.Drawing.Size(177, 29);
+            this.lueItemUnidades.TabIndex = 63;
+            // 
+            // gcSimbolo
+            // 
+            this.gcSimbolo.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.gcSimbolo.Appearance.Options.UseBorderColor = true;
+            this.gcSimbolo.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.gcSimbolo.AppearanceCaption.Options.UseFont = true;
+            this.gcSimbolo.Controls.Add(this.lueItemSimbolos);
+            this.gcSimbolo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gcSimbolo.Location = new System.Drawing.Point(0, 0);
+            this.gcSimbolo.Margin = new System.Windows.Forms.Padding(0);
+            this.gcSimbolo.Name = "gcSimbolo";
+            this.gcSimbolo.Size = new System.Drawing.Size(181, 54);
+            this.gcSimbolo.TabIndex = 76;
+            this.gcSimbolo.Text = "  Símbolo *";
+            // 
+            // lueItemSimbolos
+            // 
+            this.lueItemSimbolos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lueItemSimbolos.EditValue = "";
+            this.lueItemSimbolos.Location = new System.Drawing.Point(2, 23);
+            this.lueItemSimbolos.Name = "lueItemSimbolos";
+            this.lueItemSimbolos.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.lueItemSimbolos.Properties.Appearance.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.lueItemSimbolos.Properties.Appearance.Options.UseFont = true;
+            this.lueItemSimbolos.Properties.Appearance.Options.UseForeColor = true;
+            this.lueItemSimbolos.Properties.AutoHeight = false;
+            this.lueItemSimbolos.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lueItemSimbolos.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
+            this.lueItemSimbolos.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
+            this.lueItemSimbolos.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.lueItemSimbolos.Size = new System.Drawing.Size(177, 29);
+            this.lueItemSimbolos.TabIndex = 63;
             // 
             // groupControl5
             // 
@@ -707,56 +758,6 @@
             this.panel11.Size = new System.Drawing.Size(7, 522);
             this.panel11.TabIndex = 1;
             // 
-            // tableLayoutPanel1
-            // 
-            this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel1.Controls.Add(this.groupControl13, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.gcSimbolo, 0, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 58);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(362, 54);
-            this.tableLayoutPanel1.TabIndex = 77;
-            // 
-            // groupControl1
-            // 
-            this.groupControl1.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.groupControl1.Appearance.Options.UseBorderColor = true;
-            this.groupControl1.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupControl1.AppearanceCaption.Options.UseFont = true;
-            this.groupControl1.Controls.Add(this.lueItemProcesos);
-            this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControl1.Location = new System.Drawing.Point(0, 112);
-            this.groupControl1.Margin = new System.Windows.Forms.Padding(0);
-            this.groupControl1.Name = "groupControl1";
-            this.groupControl1.Size = new System.Drawing.Size(362, 54);
-            this.groupControl1.TabIndex = 78;
-            this.groupControl1.Text = "  Proceso *";
-            // 
-            // lueItemProcesos
-            // 
-            this.lueItemProcesos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lueItemProcesos.EditValue = "";
-            this.lueItemProcesos.Location = new System.Drawing.Point(2, 23);
-            this.lueItemProcesos.Name = "lueItemProcesos";
-            this.lueItemProcesos.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.lueItemProcesos.Properties.Appearance.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lueItemProcesos.Properties.Appearance.Options.UseFont = true;
-            this.lueItemProcesos.Properties.Appearance.Options.UseForeColor = true;
-            this.lueItemProcesos.Properties.AutoHeight = false;
-            this.lueItemProcesos.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lueItemProcesos.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
-            this.lueItemProcesos.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
-            this.lueItemProcesos.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.lueItemProcesos.Size = new System.Drawing.Size(358, 29);
-            this.lueItemProcesos.TabIndex = 63;
-            // 
             // formAgregarItems
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -788,19 +789,19 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gcSimbolo)).EndInit();
-            this.gcSimbolo.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.lueItemSimbolos.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl13)).EndInit();
-            this.groupControl13.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.lueItemUnidades.Properties)).EndInit();
-            this.tableLayoutPanel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
-            this.groupControl5.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.lueItemProcesos.Properties)).EndInit();
+            this.tableLayoutPanel5.ResumeLayout(false);
+            this.tableLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl13)).EndInit();
+            this.groupControl13.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.lueItemUnidades.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcSimbolo)).EndInit();
+            this.gcSimbolo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.lueItemSimbolos.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
+            this.groupControl5.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

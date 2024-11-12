@@ -8,6 +8,9 @@ using ProtoculoSLF.Model;
 using DevExpress.DataProcessing.InMemoryDataProcessor;
 using System.Windows.Forms;
 using DevExpress.PivotGrid.OLAP.Mdx;
+using DevExpress.Pdf.Native.BouncyCastle.Utilities.Collections;
+using DevExpress.XtraRichEdit.Import.Html;
+using System.Diagnostics;
 
 namespace ProtoculoSLF.Repository
 {
@@ -186,7 +189,7 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fi.simbolo
+                command.CommandText = @"SELECT fi.id,fi.nombre,fi.unidad,fi.certifica,fi.constante,fi.sector,fi.simbolo
                                         FROM formato_item fi;";
                 using (var reader = command.ExecuteReader())
                 {
@@ -199,8 +202,10 @@ namespace ProtoculoSLF.Repository
                             Nombre = reader.IsDBNull(1) ? "" : reader.GetString(1),
                             Medida = reader.IsDBNull(2) ? "Constante" : reader.GetString(2),
                             EsCertificado = esCertificado,
+                            EsConstante = reader[4] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(4)) : false,
                             EsCertificadoSiNo = esCertificado ? "SI" : "NO",
-                            Simbolo = reader.IsDBNull(4) ? "" : reader.GetString(4),
+                            Proceso = reader.IsDBNull(5) ? "" : reader.GetString(5),
+                            Simbolo = reader.IsDBNull(6) ? "" : reader.GetString(6),
                         };
                         pis.Add(pi);
                     }
@@ -854,27 +859,29 @@ namespace ProtoculoSLF.Repository
                         command.Transaction = transaction;
                         try
                         {
-                            command.CommandText = @"UPDATE formatoprotocoloa_item SET controles = @pNombre,
-                                                                                      unidad = @pMedida,
-                                                                                      usuario = @pUsuario,
-                                                                                      certificado = @pEsCertificado,
-                                                                                      especificacion_min = @pEpecificacionMin,
-                                                                                      especificacion = @pEspecificacion,
-                                                                                      especificacion_max = @pEpecificacionMax,
-                                                                                      simbolo = @pSimbolo
-                                                                                      WHERE iditem = (@pIdItem);";
+                           // INSERT INTO formato_item(nombre, unidad, usuario, certifica, constante, simbolo, proceso)
+                           //VALUES(@pNombre, @pUnidad, @pUsuario, @pCertifica, @pConstante, @pSimbolo, @pProceso); SELECT LAST_INSERT_ID(); ";
+
+
+                            command.CommandText = @"UPDATE formato_item SET nombre = @pNombre,
+                                                                            unidad = @pMedida,
+                                                                            usuario = @pUsuario,
+                                                                            certificado = @pEsCertificado,
+                                                                            constante = @pConstante,
+                                                                            simbolo = @pSimbolo,
+                                                                            proceso = @pProceso                                                                                     
+                                                                            WHERE id = (@pIdItem);";
                             command.Parameters.Add("@pNombre", MySqlDbType.String).Value = pi.Nombre;
                             command.Parameters.Add("@pMedida", MySqlDbType.String).Value = pi.Medida;
                             command.Parameters.Add("@pUsuario", MySqlDbType.String).Value = "ARIEL ALON";
                             command.Parameters.Add("@pEsCertificado", MySqlDbType.Int32).Value = pi.EsCertificado;
-                            command.Parameters.Add("@pEpecificacionMin", MySqlDbType.Double).Value = pi.EspecificacionMin;
-                            command.Parameters.Add("@pEspecificacion", MySqlDbType.Double).Value = pi.Especificacion;
-                            command.Parameters.Add("@pEpecificacionMax", MySqlDbType.Double).Value = pi.EspecificacionMax;
+                            command.Parameters.Add("@pConstante", MySqlDbType.Double).Value = pi.EsConstante;
                             command.Parameters.Add("@pSimbolo", MySqlDbType.String).Value = pi.Simbolo;
+                            command.Parameters.Add("@pProceso", MySqlDbType.Double).Value = pi.Proceso;
                             command.Parameters.Add("@pIdItem", MySqlDbType.Int32).Value = pi.Id;
                             if (command.ExecuteNonQuery() != 1)
                             {
-                                throw new Exception("Error al modificar TX");
+                                throw new Exception("Error al modificar ITEM");
                             }
 
                             if (qryUpdate != "NO")

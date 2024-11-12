@@ -49,8 +49,6 @@ namespace ProtoculoSLF
             itemAgregar.IdProtocolo = Form1.instancia.idProtocoloSeleccionado;
             itemAgregar.IdProtocoloItem = lueControlA.IdProtocoloItem;
 
-            
-
             if (Form1.instancia.br.AgregarItemProtocolo(itemAgregar,Form1.instancia.idCodigoSeleccionado))
             {
                 LimpiarFormularioAgregarItem();

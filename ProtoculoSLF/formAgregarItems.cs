@@ -67,6 +67,7 @@ namespace ProtoculoSLF
         }
         private void cbCaracter_CheckedChanged(object sender, EventArgs e)
         {
+            tableLayoutPanel1.Visible = !cbConstante.Checked;
             groupControl13.Visible = !cbConstante.Checked;
             gcSimbolo.Visible = !cbConstante.Checked;
 
@@ -183,6 +184,9 @@ namespace ProtoculoSLF
                             cbCertificado.Checked = protocoloItemSeleccionado.EsCertificado;
                             cbConstante.Checked = protocoloItemSeleccionado.EsConstante;
                             lueItemUnidades.ItemIndex = BuscarUnidadIndex(protocoloItemSeleccionado.Medida);
+                            lueItemProcesos.ItemIndex = BuscarSectorIndex(protocoloItemSeleccionado.Proceso);
+                            lueItemSimbolos.ItemIndex = BuscarSimboloIndex(protocoloItemSeleccionado.Simbolo);
+
                         }
                     }
                 }
@@ -198,7 +202,26 @@ namespace ProtoculoSLF
             }
             return 0;
         }
-
+        private int BuscarSectorIndex(string sector)
+        {
+            var dataSource = lueItemProcesos.Properties.DataSource as List<string>;
+            if (dataSource != null)
+            {
+                var index = dataSource.FindIndex(e => sector == e);
+                return index != -1 ? index : 0;
+            }
+            return 0;
+        }
+        private int BuscarSimboloIndex(string simbolo)
+        {
+            var dataSource = lueItemSimbolos.Properties.DataSource as List<Simbolo>;
+            if (dataSource != null)
+            {
+                var index = dataSource.FindIndex(e => simbolo == e.Caracter);
+                return index != -1 ? index : 0;
+            }
+            return 0;
+        }
         private void btnCerrarMin_Click(object sender, EventArgs e)
         {
             Close();
@@ -276,6 +299,7 @@ namespace ProtoculoSLF
 
         private void btnAgregarItem_Click(object sender, EventArgs e)
         {
+            piAgregar = new ProtocoloItem();
             if (!ValidarFormularioItems()) return;
             piAgregar.EsCertificado = cbCertificado.Checked;
             if (cbConstante.Checked) piAgregar.Simbolo = "C";
@@ -296,6 +320,48 @@ namespace ProtoculoSLF
             lueItemProcesos.Text = string.Empty;
             cbCertificado.Checked = false;
             cbConstante.Checked = false;
+        }
+
+        private void btnConfirmarCambios_Click(object sender, EventArgs e)
+        {
+            if (confirmar == "UPDATEITEM")
+            {
+                piAgregar = new ProtocoloItem();
+                if (!ValidarFormularioItems()) return;
+          
+                if (!Form1.instancia.br.GetNombreItemDuplicado(piAgregar.Nombre.Trim().ToLower()) && !cbMantener.Checked)
+                {
+                    formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Ese nombre de control esta en uso.");
+                    noti.Show();
+                    return;
+                }
+
+                piAgregar.EsCertificado = cbCertificado.Checked;
+                if (cbConstante.Checked) piAgregar.Simbolo = "C";
+                piAgregar.EsConstante = cbConstante.Checked;
+                piAgregar.Id = protocoloItemSeleccionado.Id;
+
+                if (Form1.instancia.br.UpdateItem("NO", piAgregar))
+                {
+                    formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se modifico correctamente el ítem: " + protocoloItemSeleccionado.Nombre);
+                    noti.Show();
+                    gcConfirmar.Visible = false;
+                    GetItems();
+                    LimpiarFormularioAgregarItem();
+                }
+            }
+
+            if (confirmar == "DELETEITEM")
+            {
+
+                if (Form1.instancia.br.DeleteItem("NO", protocoloItemSeleccionado.Id))
+                {
+                    formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se borro correctamente el ítem: " + protocoloItemSeleccionado.Nombre);
+                    noti.Show();
+                    gcConfirmar.Visible = false;
+                    GetItems();
+                }
+            }
         }
     }
 }
