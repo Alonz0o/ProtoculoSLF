@@ -26,8 +26,6 @@ namespace ProtoculoSLF
         private void formAsignarProtocolo_Load(object sender, EventArgs e)
         {
             lueProtocolo.Properties.DataSource = Form1.instancia.br.GetFormatosProtocolos().OrderByDescending(d => d.Fecha);
-            lueProtocolo.Properties.PopulateColumns();
-            lueProtocolo.Properties.Columns[0].Visible = false;
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)

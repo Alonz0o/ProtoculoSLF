@@ -54,7 +54,7 @@
             this.pMenuGvNts = new DevExpress.XtraBars.PopupMenu(this.components);
             this.bhiCabeceraNts = new DevExpress.XtraBars.BarHeaderItem();
             this.bbiAsignarProtocolo = new DevExpress.XtraBars.BarButtonItem();
-            this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
+            this.bbiQuitarProtocolo = new DevExpress.XtraBars.BarButtonItem();
             this.bmNts = new DevExpress.XtraBars.BarManager(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
@@ -102,6 +102,15 @@
             this.btnMinimizar = new FontAwesome.Sharp.IconButton();
             this.btnMaxMin = new FontAwesome.Sharp.IconButton();
             this.btnSalir = new FontAwesome.Sharp.IconButton();
+            this.pMenuGvProtocolos = new DevExpress.XtraBars.PopupMenu(this.components);
+            this.bmProtocolos = new DevExpress.XtraBars.BarManager(this.components);
+            this.barDockControl1 = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControl2 = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControl3 = new DevExpress.XtraBars.BarDockControl();
+            this.barDockControl4 = new DevExpress.XtraBars.BarDockControl();
+            this.barHeaderItem1 = new DevExpress.XtraBars.BarHeaderItem();
+            this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
             ((System.ComponentModel.ISupportInitialize)(this.gcItemsProtocolo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvItemsProtocolo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcFormatoValores)).BeginInit();
@@ -161,6 +170,8 @@
             this.panel5.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
             this.panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pMenuGvProtocolos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bmProtocolos)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAsignarItem
@@ -292,6 +303,7 @@
             this.gvProtocolos.Name = "gvProtocolos";
             this.gvProtocolos.OptionsFind.AlwaysVisible = true;
             this.gvProtocolos.OptionsView.ShowGroupPanel = false;
+            this.gvProtocolos.RowClick += new DevExpress.XtraGrid.Views.Grid.RowClickEventHandler(this.gvProtocolos_RowClick);
             // 
             // gcNts
             // 
@@ -451,7 +463,7 @@
             this.pMenuGvNts.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
             new DevExpress.XtraBars.LinkPersistInfo(this.bhiCabeceraNts),
             new DevExpress.XtraBars.LinkPersistInfo(this.bbiAsignarProtocolo),
-            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItem2)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiQuitarProtocolo)});
             this.pMenuGvNts.Manager = this.bmNts;
             this.pMenuGvNts.Name = "pMenuGvNts";
             // 
@@ -468,12 +480,12 @@
             this.bbiAsignarProtocolo.Name = "bbiAsignarProtocolo";
             this.bbiAsignarProtocolo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiAsignarProtocolo_ItemClick);
             // 
-            // barButtonItem2
+            // bbiQuitarProtocolo
             // 
-            this.barButtonItem2.Caption = "Crear Protocolo";
-            this.barButtonItem2.Id = 2;
-            this.barButtonItem2.Name = "barButtonItem2";
-            this.barButtonItem2.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            this.bbiQuitarProtocolo.Caption = "Quitar Protocolo";
+            this.bbiQuitarProtocolo.Id = 2;
+            this.bbiQuitarProtocolo.Name = "bbiQuitarProtocolo";
+            this.bbiQuitarProtocolo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiQuitarProtocolo_ItemClick);
             // 
             // bmNts
             // 
@@ -485,7 +497,7 @@
             this.bmNts.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.bhiCabeceraNts,
             this.bbiAsignarProtocolo,
-            this.barButtonItem2});
+            this.bbiQuitarProtocolo});
             this.bmNts.MaxItemId = 3;
             // 
             // barDockControlTop
@@ -1113,15 +1125,17 @@
             this.btnAgregarProtocolo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAgregarProtocolo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold);
             this.btnAgregarProtocolo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAgregarProtocolo.Image = global::ProtoculoSLF.Properties.Resources.drop_16x16;
+            this.btnAgregarProtocolo.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.btnAgregarProtocolo.Location = new System.Drawing.Point(465, 0);
             this.btnAgregarProtocolo.Margin = new System.Windows.Forms.Padding(0);
             this.btnAgregarProtocolo.Name = "btnAgregarProtocolo";
+            this.btnAgregarProtocolo.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
             this.btnAgregarProtocolo.Size = new System.Drawing.Size(155, 40);
             this.btnAgregarProtocolo.TabIndex = 2;
             this.btnAgregarProtocolo.Text = "Protocolos";
             this.btnAgregarProtocolo.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnAgregarProtocolo.UseVisualStyleBackColor = false;
-            this.btnAgregarProtocolo.Click += new System.EventHandler(this.btnAgregarProtocolo_Click);
             // 
             // panel9
             // 
@@ -1189,6 +1203,79 @@
             this.btnSalir.UseVisualStyleBackColor = false;
             this.btnSalir.Click += new System.EventHandler(this.btnSalir_Click);
             // 
+            // pMenuGvProtocolos
+            // 
+            this.pMenuGvProtocolos.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
+            new DevExpress.XtraBars.LinkPersistInfo(this.bhiCabeceraNts),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiAsignarProtocolo),
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiQuitarProtocolo)});
+            this.pMenuGvProtocolos.Manager = this.bmNts;
+            this.pMenuGvProtocolos.Name = "pMenuGvProtocolos";
+            // 
+            // bmProtocolos
+            // 
+            this.bmProtocolos.DockControls.Add(this.barDockControl1);
+            this.bmProtocolos.DockControls.Add(this.barDockControl2);
+            this.bmProtocolos.DockControls.Add(this.barDockControl3);
+            this.bmProtocolos.DockControls.Add(this.barDockControl4);
+            this.bmProtocolos.Form = this;
+            this.bmProtocolos.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
+            this.barHeaderItem1,
+            this.barButtonItem1,
+            this.barButtonItem3});
+            this.bmProtocolos.MaxItemId = 3;
+            // 
+            // barDockControl1
+            // 
+            this.barDockControl1.CausesValidation = false;
+            this.barDockControl1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.barDockControl1.Location = new System.Drawing.Point(0, 0);
+            this.barDockControl1.Manager = this.bmProtocolos;
+            this.barDockControl1.Size = new System.Drawing.Size(1176, 0);
+            // 
+            // barDockControl2
+            // 
+            this.barDockControl2.CausesValidation = false;
+            this.barDockControl2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.barDockControl2.Location = new System.Drawing.Point(0, 882);
+            this.barDockControl2.Manager = this.bmProtocolos;
+            this.barDockControl2.Size = new System.Drawing.Size(1176, 0);
+            // 
+            // barDockControl3
+            // 
+            this.barDockControl3.CausesValidation = false;
+            this.barDockControl3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.barDockControl3.Location = new System.Drawing.Point(0, 0);
+            this.barDockControl3.Manager = this.bmProtocolos;
+            this.barDockControl3.Size = new System.Drawing.Size(0, 882);
+            // 
+            // barDockControl4
+            // 
+            this.barDockControl4.CausesValidation = false;
+            this.barDockControl4.Dock = System.Windows.Forms.DockStyle.Right;
+            this.barDockControl4.Location = new System.Drawing.Point(1176, 0);
+            this.barDockControl4.Manager = this.bmProtocolos;
+            this.barDockControl4.Size = new System.Drawing.Size(0, 882);
+            // 
+            // barHeaderItem1
+            // 
+            this.barHeaderItem1.Caption = "Acciones para";
+            this.barHeaderItem1.Id = 0;
+            this.barHeaderItem1.Name = "barHeaderItem1";
+            // 
+            // barButtonItem1
+            // 
+            this.barButtonItem1.Caption = "Asignar Protocolo";
+            this.barButtonItem1.Id = 1;
+            this.barButtonItem1.Name = "barButtonItem1";
+            // 
+            // barButtonItem3
+            // 
+            this.barButtonItem3.Caption = "Crear Protocolo";
+            this.barButtonItem3.Id = 2;
+            this.barButtonItem3.Name = "barButtonItem3";
+            this.barButtonItem3.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1199,6 +1286,10 @@
             this.Controls.Add(this.barDockControlRight);
             this.Controls.Add(this.barDockControlBottom);
             this.Controls.Add(this.barDockControlTop);
+            this.Controls.Add(this.barDockControl3);
+            this.Controls.Add(this.barDockControl4);
+            this.Controls.Add(this.barDockControl2);
+            this.Controls.Add(this.barDockControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form1";
             this.Text = "Form1";
@@ -1263,6 +1354,8 @@
             this.panel5.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.panel9.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pMenuGvProtocolos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bmProtocolos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1290,7 +1383,7 @@
         private DevExpress.XtraBars.BarDockControl barDockControlLeft;
         private DevExpress.XtraBars.BarDockControl barDockControlRight;
         private DevExpress.XtraBars.BarButtonItem bbiAsignarProtocolo;
-        private DevExpress.XtraBars.BarButtonItem barButtonItem2;
+        private DevExpress.XtraBars.BarButtonItem bbiQuitarProtocolo;
         private FontAwesome.Sharp.IconButton btnAsignarItem;
         private System.Windows.Forms.Label lblNtNum;
         private FontAwesome.Sharp.IconButton btnAgregarEnsayo;
@@ -1342,6 +1435,15 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private AAFControles.AAFBoton btnAgregarProtocolo;
         private AAFControles.AAFBoton btnAgregarItem;
+        private DevExpress.XtraBars.BarDockControl barDockControl1;
+        private DevExpress.XtraBars.BarManager bmProtocolos;
+        private DevExpress.XtraBars.BarDockControl barDockControl2;
+        private DevExpress.XtraBars.BarDockControl barDockControl3;
+        private DevExpress.XtraBars.BarDockControl barDockControl4;
+        private DevExpress.XtraBars.BarHeaderItem barHeaderItem1;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem1;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem3;
+        private DevExpress.XtraBars.PopupMenu pMenuGvProtocolos;
     }
 }
 

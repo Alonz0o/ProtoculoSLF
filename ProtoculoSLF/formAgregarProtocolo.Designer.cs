@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.gcAgregar = new DevExpress.XtraEditors.GroupControl();
-            this.btnMostrarAgregarItem = new FontAwesome.Sharp.IconButton();
             this.btnCerrarMin = new FontAwesome.Sharp.IconButton();
             this.tlpRealizados = new System.Windows.Forms.TableLayoutPanel();
             this.pnlPendientes = new System.Windows.Forms.Panel();
@@ -57,6 +56,7 @@
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.tbDescripcionProtocolo = new ScrapKP.AAFControles.AAFTextBox();
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
+            this.lueProtocolos = new DevExpress.XtraEditors.LookUpEdit();
             this.tbNumeroProtocolo = new ScrapKP.AAFControles.AAFTextBox();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
             this.tbNombreProtocolo = new ScrapKP.AAFControles.AAFTextBox();
@@ -104,6 +104,7 @@
             this.groupControl2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
             this.groupControl4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lueProtocolos.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl11)).BeginInit();
@@ -120,7 +121,6 @@
             this.gcAgregar.Appearance.Options.UseBorderColor = true;
             this.gcAgregar.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F, System.Drawing.FontStyle.Bold);
             this.gcAgregar.AppearanceCaption.Options.UseFont = true;
-            this.gcAgregar.Controls.Add(this.btnMostrarAgregarItem);
             this.gcAgregar.Controls.Add(this.btnCerrarMin);
             this.gcAgregar.Controls.Add(this.tlpRealizados);
             this.gcAgregar.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -129,24 +129,6 @@
             this.gcAgregar.Size = new System.Drawing.Size(924, 689);
             this.gcAgregar.TabIndex = 5;
             this.gcAgregar.Text = "   Asistente de configuración";
-            // 
-            // btnMostrarAgregarItem
-            // 
-            this.btnMostrarAgregarItem.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnMostrarAgregarItem.BackColor = System.Drawing.Color.Transparent;
-            this.btnMostrarAgregarItem.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnMostrarAgregarItem.FlatAppearance.BorderSize = 0;
-            this.btnMostrarAgregarItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnMostrarAgregarItem.IconChar = FontAwesome.Sharp.IconChar.Plus;
-            this.btnMostrarAgregarItem.IconColor = System.Drawing.Color.Azure;
-            this.btnMostrarAgregarItem.IconFont = FontAwesome.Sharp.IconFont.Solid;
-            this.btnMostrarAgregarItem.IconSize = 15;
-            this.btnMostrarAgregarItem.Location = new System.Drawing.Point(881, 1);
-            this.btnMostrarAgregarItem.Margin = new System.Windows.Forms.Padding(0);
-            this.btnMostrarAgregarItem.Name = "btnMostrarAgregarItem";
-            this.btnMostrarAgregarItem.Size = new System.Drawing.Size(20, 20);
-            this.btnMostrarAgregarItem.TabIndex = 37;
-            this.btnMostrarAgregarItem.UseVisualStyleBackColor = false;
             // 
             // btnCerrarMin
             // 
@@ -317,7 +299,7 @@
             this.btnAgregarProtocolo.Name = "btnAgregarProtocolo";
             this.btnAgregarProtocolo.Size = new System.Drawing.Size(439, 37);
             this.btnAgregarProtocolo.TabIndex = 1;
-            this.btnAgregarProtocolo.Text = "Agregar";
+            this.btnAgregarProtocolo.Text = "Generar Protocolo";
             this.btnAgregarProtocolo.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnAgregarProtocolo.UseVisualStyleBackColor = false;
             this.btnAgregarProtocolo.Click += new System.EventHandler(this.btnAgregarProtocolo_Click);
@@ -511,10 +493,10 @@
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 1;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 57F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 57F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 57F));
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 57F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 134F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 134F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 134F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 134F));
             this.tableLayoutPanel6.Size = new System.Drawing.Size(886, 57);
             this.tableLayoutPanel6.TabIndex = 82;
             // 
@@ -562,6 +544,7 @@
             this.groupControl4.Appearance.Options.UseBorderColor = true;
             this.groupControl4.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupControl4.AppearanceCaption.Options.UseFont = true;
+            this.groupControl4.Controls.Add(this.lueProtocolos);
             this.groupControl4.Controls.Add(this.tbNumeroProtocolo);
             this.groupControl4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupControl4.Enabled = false;
@@ -572,6 +555,30 @@
             this.groupControl4.TabIndex = 78;
             this.groupControl4.Text = "  Protocolo N°";
             // 
+            // lueProtocolos
+            // 
+            this.lueProtocolos.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lueProtocolos.EditValue = "";
+            this.lueProtocolos.Location = new System.Drawing.Point(2, 56);
+            this.lueProtocolos.Name = "lueProtocolos";
+            this.lueProtocolos.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.lueProtocolos.Properties.Appearance.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.lueProtocolos.Properties.Appearance.Options.UseFont = true;
+            this.lueProtocolos.Properties.Appearance.Options.UseForeColor = true;
+            this.lueProtocolos.Properties.AutoHeight = false;
+            this.lueProtocolos.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.lueProtocolos.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Nombre", "Nombre"),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("FormatoProtocolo", "Protocolo N°"),
+            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Fecha", "Creacion")});
+            this.lueProtocolos.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
+            this.lueProtocolos.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
+            this.lueProtocolos.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
+            this.lueProtocolos.Size = new System.Drawing.Size(217, 33);
+            this.lueProtocolos.TabIndex = 65;
+            this.lueProtocolos.EditValueChanged += new System.EventHandler(this.lueProtocolos_EditValueChanged);
+            // 
             // tbNumeroProtocolo
             // 
             this.tbNumeroProtocolo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
@@ -580,7 +587,7 @@
             this.tbNumeroProtocolo.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.tbNumeroProtocolo.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;
             this.tbNumeroProtocolo.BorderSize = 2;
-            this.tbNumeroProtocolo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbNumeroProtocolo.Dock = System.Windows.Forms.DockStyle.Top;
             this.tbNumeroProtocolo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
             this.tbNumeroProtocolo.ForeColor = System.Drawing.SystemColors.GrayText;
             this.tbNumeroProtocolo.Location = new System.Drawing.Point(2, 23);
@@ -661,7 +668,7 @@
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
             this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 32F));
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 109F));
             this.tableLayoutPanel7.Size = new System.Drawing.Size(219, 32);
             this.tableLayoutPanel7.TabIndex = 0;
             // 
@@ -831,6 +838,7 @@
             this.groupControl2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
             this.groupControl4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.lueProtocolos.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl11)).EndInit();
@@ -847,7 +855,6 @@
         #endregion
 
         private DevExpress.XtraEditors.GroupControl gcAgregar;
-        private FontAwesome.Sharp.IconButton btnMostrarAgregarItem;
         private FontAwesome.Sharp.IconButton btnCerrarMin;
         private System.Windows.Forms.TableLayoutPanel tlpRealizados;
         private System.Windows.Forms.Panel pnlPendientes;
@@ -889,5 +896,6 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gvCodigos;
         private DevExpress.XtraEditors.GroupControl groupControl2;
         private ScrapKP.AAFControles.AAFTextBox tbDescripcionProtocolo;
+        private DevExpress.XtraEditors.LookUpEdit lueProtocolos;
     }
 }

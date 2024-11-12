@@ -7,6 +7,7 @@ using MySqlConnector;
 using ProtoculoSLF.Model;
 using DevExpress.DataProcessing.InMemoryDataProcessor;
 using System.Windows.Forms;
+using DevExpress.PivotGrid.OLAP.Mdx;
 
 namespace ProtoculoSLF.Repository
 {
@@ -542,8 +543,8 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT id_formato,descripcion,fecha 
-                                        FROM formatosdeprotocolos;";
+                command.CommandText = @"SELECT id,nombre,observacion,disposicion,creacion
+                                        FROM formato_protocolo;";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -551,8 +552,11 @@ namespace ProtoculoSLF.Repository
                         Protocolo p = new Protocolo
                         {
                             FormatoProtocolo = reader[0] != DBNull.Value ? reader.GetInt32(0) : 0,
-                            Descripcion = reader[1] != DBNull.Value ? reader.GetString(1) : "",
-                            Fecha = reader[2] != DBNull.Value ? reader.GetDateTime(2) : new DateTime(1993, 1, 20),
+                            Nombre = reader[1] != DBNull.Value ? reader.GetString(1) : "",
+                            Descripcion = reader[2] != DBNull.Value ? reader.GetString(2) : "",
+                            Disposicion = reader[3] != DBNull.Value ? reader.GetInt32(3) : 0,
+                            Fecha = reader[4] != DBNull.Value ? reader.GetDateTime(4) : new DateTime(1993, 1, 20),
+
                         };
                         ps.Add(p);
                     }
@@ -1358,7 +1362,7 @@ namespace ProtoculoSLF.Repository
             }
         }
 
-        internal bool InsertAProtocolo(Protocolo protocoloACrear, string qryUpdate, string qryInsertProtocoloItems)
+        internal bool InsertAProtocolo(Protocolo protocoloACrear, string qryUpdate, string qryInsertProtocoloItems,string accion)
         {
             bool res = false;
             using (var conexion = new MySqlConnection(connectionString))
@@ -1371,13 +1375,26 @@ namespace ProtoculoSLF.Repository
                         command.Transaction = transaction;
                         try
                         {
-                            command.CommandText = @"INSERT INTO formato_protocolo (nombre,estado,observacion,usuario,disposicion) 
+                            if (accion == "modificar")
+                            {
+                                command.CommandText = @"UPDATE formato_protocolo SET nombre = @pNombre,
+                                                                                     estado = @pEstado,
+                                                                                     observacion = @pObservacion,
+                                                                                     usuario = @pUsuario,
+                                                                                     disposicion = @pDisposicion
+                                                                                     WHERE id = (@pIdProtocolo); SELECT LAST_INSERT_ID();";
+                            }
+                            else {
+                                command.CommandText = @"INSERT INTO formato_protocolo (nombre,estado,observacion,usuario,disposicion) 
                                                                            VALUES (@pNombre,@pEstado,@pObservacion,@pUsuario,@pDisposicion); SELECT LAST_INSERT_ID();";
+                               
+                            }
                             command.Parameters.Add("@pNombre", MySqlDbType.String).Value = protocoloACrear.Nombre;
                             command.Parameters.Add("@pEstado", MySqlDbType.Int32).Value = 1;
                             command.Parameters.Add("@pUsuario", MySqlDbType.String).Value = "ADMIN";
                             command.Parameters.Add("@pObservacion", MySqlDbType.String).Value = protocoloACrear.Descripcion;
                             command.Parameters.Add("@pDisposicion", MySqlDbType.Int32).Value = protocoloACrear.Disposicion;
+                            command.Parameters.Add("@pIdProtocolo", MySqlDbType.Int32).Value = protocoloACrear.FormatoProtocolo;
 
                             if (command.ExecuteNonQuery() != 1)
                             {
@@ -1496,5 +1513,39 @@ namespace ProtoculoSLF.Repository
             }
         }
 
+        internal bool QuitarProtocoloACodigo(int idCodigo)
+        {
+            bool res = false;
+            using (var conexion = new MySqlConnection(connectionString))
+            {
+                conexion.Open();
+                using (var transaction = conexion.BeginTransaction())
+                {
+                    using (var command = conexion.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        try
+                        {
+                            command.CommandText = @"UPDATE extrusion SET id_formato_protocolo = NULL                                                                                    
+                                                                                     WHERE IdCodigo = @pIdCodigo;";
+                            command.Parameters.Add("@pIdCodigo", MySqlDbType.Double).Value = idCodigo;
+                            if (command.ExecuteNonQuery() != 1)
+                            {
+                                throw new Exception("Error al modificar protocolo");
+                            }
+                            transaction.Commit();
+                            res = true;
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            res = false;
+                        }
+                    }
+                }
+            }
+
+            return res;
+        }
     }
 }

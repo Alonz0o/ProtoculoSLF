@@ -64,7 +64,42 @@ namespace ProtoculoSLF
             instancia = this;
             GetProtocolos();
 
+            ContextMenuStrip contextMenu = new ContextMenuStrip();
+
+            // BOTON PROTOCOLO
+            ToolStripMenuItem itemAgregarProtocolo = new ToolStripMenuItem("Asistente de protocolo");
+            itemAgregarProtocolo.Size = btnAgregarProtocolo.Size;
+            itemAgregarProtocolo.Click += AgregarProtocolo_Click;
+            contextMenu.Items.Add(itemAgregarProtocolo);
+
+            ToolStripMenuItem itemModificarProtocolo = new ToolStripMenuItem("Modificar protocolo");
+            itemModificarProtocolo.Click += ModificarProtocolo_Click;
+            contextMenu.Items.Add(itemModificarProtocolo);
+
+            btnAgregarProtocolo.ContextMenuStrip = contextMenu;
+            btnAgregarProtocolo.Click += (s, e) => {
+                contextMenu.Show(btnAgregarProtocolo, new Point(0, btnAgregarProtocolo.Height));
+            };
         }
+       
+        private void AgregarProtocolo_Click(object sender, EventArgs e)
+        {
+            formAgregarProtocolo form = new formAgregarProtocolo("agregar");
+            form.Size = panel7.Size;
+            Point locationOnScreen = panel7.PointToScreen(Point.Empty);
+            form.Location = new Point(locationOnScreen.X, locationOnScreen.Y);
+            form.Show();
+        }
+
+        private void ModificarProtocolo_Click(object sender, EventArgs e)
+        {
+            formAgregarProtocolo form = new formAgregarProtocolo("modificar");
+            form.Size = panel7.Size;
+            Point locationOnScreen = panel7.PointToScreen(Point.Empty);
+            form.Location = new Point(locationOnScreen.X, locationOnScreen.Y);
+            form.Show();
+        }
+
         private async void Form1_Load(object sender, EventArgs e)
         {
             await GetEnsayosTask();
@@ -487,13 +522,23 @@ namespace ProtoculoSLF
         private void bbiAsignarProtocolo_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             EsModificadoNtProtocolo = false;
-            formAsignarProtocolo form = new formAsignarProtocolo(idNtSeleccionado);
+            formAsignarProtocolo form = new formAsignarProtocolo(idCodigoAModificara);
             form.Location = posicionNts;
             form.ShowDialog();
             if (EsModificadoNtProtocolo)
             {
-                gvProtocolos.RefreshData();
+                GetProtocolos();
                 formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se modifico correctamente.");
+                noti.Show();
+            }
+        }
+
+        private void bbiQuitarProtocolo_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
+        {
+            if (br.QuitarProtocoloACodigo(idCodigoAModificara))
+            {
+                GetProtocolos();
+                formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se quito correctamente.");
                 noti.Show();
             }
         }
@@ -743,14 +788,7 @@ namespace ProtoculoSLF
         {
          
         }
-        private void btnAgregarProtocolo_Click(object sender, EventArgs e)
-        {
-            formAgregarProtocolo form = new formAgregarProtocolo();
-            form.Size = panel7.Size;
-            Point locationOnScreen = panel7.PointToScreen(Point.Empty);
-            form.Location = new Point(locationOnScreen.X, locationOnScreen.Y);
-            form.Show();
-        }
+
 
         private void btnAgregarItem_Click(object sender, EventArgs e)
         {
@@ -760,6 +798,27 @@ namespace ProtoculoSLF
             form.Show();
         }
 
-       
+        int idCodigoAModificara =0;
+        private void gvProtocolos_RowClick(object sender, RowClickEventArgs e)
+        {
+            if (e.Button.IsRight() & gvProtocolos.FocusedRowHandle >= 0)
+            {
+                GridView gridView = gvProtocolos;
+                if (gridView != null)
+                {
+                    int rowIndex = gridView.FocusedRowHandle;
+                    var s = gridView.GetRow(rowIndex) as Protocolo;
+                    if (s != null)
+                    {
+                        idCodigoAModificara = s.Id;
+                        bhiCabeceraNts.Caption = "Acciones para: " + s.Id;
+                    }
+                }
+                posicionNts = MousePosition;
+                pMenuGvNts.ShowPopup(MousePosition);
+            }
+        }
+
+      
     }
 }
