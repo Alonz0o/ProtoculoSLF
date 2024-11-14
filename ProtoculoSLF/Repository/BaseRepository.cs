@@ -678,15 +678,15 @@ namespace ProtoculoSLF.Repository
                         command.Transaction = transaction;
                         try
                         {
-                            command.CommandText = @"INSERT INTO formato_item (nombre,unidad,usuario,certifica,constante,simbolo,proceso) 
-                                                                      VALUES (@pNombre,@pUnidad,@pUsuario,@pCertifica,@pConstante,@pSimbolo,@pProceso); SELECT LAST_INSERT_ID();";
+                            command.CommandText = @"INSERT INTO formato_item (nombre,unidad,usuario,certifica,constante,simbolo,sector) 
+                                                                      VALUES (@pNombre,@pUnidad,@pUsuario,@pCertifica,@pConstante,@pSimbolo,@pSector); SELECT LAST_INSERT_ID();";
                             command.Parameters.Add("@pNombre", MySqlDbType.String).Value = pi.Nombre;
                             command.Parameters.Add("@pUnidad", MySqlDbType.String).Value = pi.Medida;
                             command.Parameters.Add("@pUsuario", MySqlDbType.String).Value = "ALON";
                             command.Parameters.Add("@pCertifica", MySqlDbType.Int32).Value = pi.EsCertificado;
                             command.Parameters.Add("@pConstante", MySqlDbType.Int32).Value = pi.EsConstante;
                             command.Parameters.Add("@pSimbolo", MySqlDbType.String).Value = pi.Simbolo;
-                            command.Parameters.Add("@pProceso", MySqlDbType.String).Value = pi.Proceso;
+                            command.Parameters.Add("@pSector", MySqlDbType.String).Value = pi.Proceso;
 
                             if (command.ExecuteNonQuery() != 1)
                             {
@@ -859,10 +859,6 @@ namespace ProtoculoSLF.Repository
                         command.Transaction = transaction;
                         try
                         {
-                           // INSERT INTO formato_item(nombre, unidad, usuario, certifica, constante, simbolo, proceso)
-                           //VALUES(@pNombre, @pUnidad, @pUsuario, @pCertifica, @pConstante, @pSimbolo, @pProceso); SELECT LAST_INSERT_ID(); ";
-
-
                             command.CommandText = @"UPDATE formato_item SET nombre = @pNombre,
                                                                             unidad = @pMedida,
                                                                             usuario = @pUsuario,
@@ -1492,7 +1488,7 @@ namespace ProtoculoSLF.Repository
             }
         }
 
-        internal Especificacion GetFichaLogisticaConfeccionEspesor(int idCodigo)
+        internal Especificacion GetFichaLogisticaEspesor(int idCodigo)
         {
             Especificacion esp = new Especificacion();
 
@@ -1502,7 +1498,7 @@ namespace ProtoculoSLF.Repository
                 conexion.Open();
                 command.Connection = conexion;
                 command.CommandText = @"SELECT espesor,espesor_min,espesor_max
-                                        FROM confeccion 
+                                        FROM extrusion 
                                         WHERE idcodigo = @pIdCodigo;";
                 command.Parameters.Add("@pIdCodigo", MySqlDbType.Double).Value = idCodigo;
                 using (var reader = command.ExecuteReader())

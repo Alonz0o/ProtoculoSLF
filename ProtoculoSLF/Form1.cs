@@ -17,7 +17,6 @@ using ProtoculoSLF.Report;
 using System.IO;
 using IniParser.Model;
 using IniParser;
-using DevExpress.XtraExport.Helpers;
 
 namespace ProtoculoSLF
 {
@@ -34,8 +33,7 @@ namespace ProtoculoSLF
         public bool esPorLote;
         public int idProtocoloSeleccionado = 0;
         private int disposicion;
-
-      
+        string archivoINI = Directory.GetCurrentDirectory() + @"\config.ini";
 
         private async Task GetEnsayosTask()
         {
@@ -43,7 +41,6 @@ namespace ProtoculoSLF
             {
                 if (br.GetCambios() > 0)
                 {
-                    MessageBox.Show("sadsa");
                     formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se agrego un ensayo.");
                     noti.Show();
                     //GetEnsayosRealizados();
@@ -701,7 +698,6 @@ namespace ProtoculoSLF
 
         }
 
-        string archivoINI = Directory.GetCurrentDirectory() + @"\config.ini";
         private void LeerConfigSplitter()
         {
             var splitter01 = "";

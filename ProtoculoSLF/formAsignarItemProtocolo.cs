@@ -201,9 +201,9 @@ namespace ProtoculoSLF
                     tbEspMax.Texts = datosDeFicha.Maximo.ToString();
 
                 }
-                if (lueControlA.Nombre.ToLower().Equals("espesor confección"))
+                if (lueControlA.Nombre.ToLower().Equals("espesor"))
                 {
-                    datosDeFicha = Form1.instancia.br.GetFichaLogisticaConfeccionEspesor(Form1.instancia.idCodigoSeleccionado);
+                    datosDeFicha = Form1.instancia.br.GetFichaLogisticaEspesor(Form1.instancia.idCodigoSeleccionado);
                     tbEspMed.Texts = datosDeFicha.Medio.ToString();
                     tbEspMin.Texts = datosDeFicha.Minimo.ToString();
                     tbEspMax.Texts = datosDeFicha.Maximo.ToString();
