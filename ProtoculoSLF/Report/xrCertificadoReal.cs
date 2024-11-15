@@ -20,12 +20,14 @@ namespace ProtoculoSLF.Report
                     AgregarFilaProceso(item);
                 }
                 var datos = Form1.instancia.datosReporte;
+                var disposicion = Form1.instancia.disposicion;
                 xrDatoLote.Text = datos.Lote;
                 xrDatoCliente.Text = datos.Cliente;
                 xrDatoProducto.Text = datos.Producto;
                 xrDatoCantidad.Text = datos.Cantidad.ToString();
                 xrDatoFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
-                xrDatoPallet.Text = datos.Pallet.ToString();
+                xrDatoPallet.Text = disposicion==1 ? datos.Pallet.ToString():"";
+                xrTableCell5.Text = disposicion == 1 ? "PALLET:" : "";
                 xrDatoCodigoCliente.Text = datos.CodigoCliente;
                 
             }

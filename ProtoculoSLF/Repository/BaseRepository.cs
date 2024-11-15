@@ -1403,7 +1403,7 @@ namespace ProtoculoSLF.Repository
                             {
                                 throw new Exception("Error al insertar itemProtocolo");
                             }                         
-                            if (qryUpdate != "NO")
+                            if (qryUpdate != "")
                             {
                                 command.CommandText = qryUpdate;
                                 if (command.ExecuteNonQuery() <= 0)
@@ -1411,7 +1411,7 @@ namespace ProtoculoSLF.Repository
                                     throw new Exception("Error al actualizar SCRAPS");
                                 }
                             }
-                            if (qryInsertProtocoloItems != "NO")
+                            if (qryInsertProtocoloItems != "")
                             {
                                 command.CommandText = qryInsertProtocoloItems;
                                 if (command.ExecuteNonQuery() <= 0)

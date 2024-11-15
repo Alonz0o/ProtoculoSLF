@@ -290,6 +290,7 @@ namespace ProtoculoSLF
         private string SQLUpdateIdProtocolo()
         {
             List<Protocolo> seleccionados = protocolos.FindAll(ex => ex.Seleccionar == true).ToList();
+            if (seleccionados.Count == 0) return "";
             var qry1 = $"UPDATE extrusion SET id_formato_protocolo = {idProtocolo}";
             var qry2 = " WHERE IdCodigo IN (";
             foreach (var s in seleccionados)
@@ -312,8 +313,9 @@ namespace ProtoculoSLF
                     .Where(g => g.Count() == 1)
                     .Select(g => g.First())
                     .ToList();
-                items = itemsDiferentes;
+                items = itemsDiferentes;           
             }
+            if (items.Count == 0) return "";
             string sqlInsertarProtocoloItem = "INSERT INTO formato_protocolo_item(id_protocolo,id_item,orden) VALUES ";
             string sqlInsertarProtocoloItem2 = "";
             foreach (var item in items)

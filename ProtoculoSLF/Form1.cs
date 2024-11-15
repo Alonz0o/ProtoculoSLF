@@ -32,7 +32,7 @@ namespace ProtoculoSLF
         public int idCodigoSeleccionado = 0;
         public bool esPorLote;
         public int idProtocoloSeleccionado = 0;
-        private int disposicion;
+        public int disposicion;
         string archivoINI = Directory.GetCurrentDirectory() + @"\config.ini";
 
         private async Task GetEnsayosTask()
