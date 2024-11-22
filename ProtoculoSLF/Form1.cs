@@ -160,10 +160,12 @@ namespace ProtoculoSLF
                         Protocolo p = gridView.GetRow(rowIndex) as Protocolo;
                         if (p != null)
                         {
+                            datosReporte.Cliente = p.Cliente;
+                            protocoloSeleccionado = p;
                             gvNts.Columns.Clear();
                             if (p.Disposicion == 1) GenerarTablaNtsPorLote();
                             else GenerarTablaNts();
-
+                            
                             idCodigoSeleccionado = p.Id;
                             idProtocoloSeleccionado = p.FormatoProtocolo;
                             disposicion = p.Disposicion;
@@ -191,7 +193,7 @@ namespace ProtoculoSLF
                 }
             };
         }
-
+        Protocolo protocoloSeleccionado = new Protocolo();
         public bool EsCanceladoFormAsignarItemAProtocolo = false;
         private void LimpiarMenuProtocolo()
         {
@@ -458,10 +460,10 @@ namespace ProtoculoSLF
         {
             var data = (NT)e.Data.GetData(typeof(NT));
             idNtSeleccionado = data.NumNT;
-            datosReporte.Cliente = data.Cliente;
-            datosReporte.Lote = data.OP + "/" + data.NumPallet;
+            datosReporte.Lote = disposicion == 1 ? data.OP : data.OP + "/" + data.NumPallet;
             datosReporte.Pallet = data.NumPallet;
             idOrden = Convert.ToInt32(data.OP.Split('/')[0]);
+            var idcodigo = Convert.ToInt32(data.OP.Split('/')[1]);
             gcFormatoItems.Text = "Protocolo N° " + idProtocoloSeleccionado + " | ITEMS";
             lblNtNum.Text = "NT N° " + data.NumNT;
             lblPalletNum.Text = disposicion == 1 ? "Por lote" : "Por pallet: " + data.NumPallet;
@@ -469,7 +471,7 @@ namespace ProtoculoSLF
             if (disposicion == 1) GetEnsayosRealizadosPorLote(data.OP);
             else GetEnsayosRealizados();
         }
-
+        public ProtocoloEnsayo espesorDatos = new ProtocoloEnsayo();
         private void gvNts_MouseMove(object sender, MouseEventArgs e)
         {
             var view = sender as GridView;
@@ -676,8 +678,12 @@ namespace ProtoculoSLF
 
         public void GetEnsayosRealizadosPorLote(string op)
         {
+            var idOrden = Convert.ToInt32(op.Split('/')[0]);
+            var idcodigo = Convert.ToInt32(op.Split('/')[1]);
+
             dvProtocolos.DocumentSource = null;
             protocoloEnsayos = br.GetEnsayosPorLote(op);
+            protocoloEnsayos.Add(br.GetEnsayosEspesor("Espesor", idOrden, idcodigo, protocoloSeleccionado.PesoMtsTeorico));
 
             if (protocoloEnsayos.Count != 0)
             {
@@ -815,6 +821,13 @@ namespace ProtoculoSLF
             }
         }
 
-      
+        private void btnModificarConstantes_Click(object sender, EventArgs e)
+        {
+            formModificarConstantes form = new formModificarConstantes();
+            form.Width = dvProtocolos.Width;
+            Point locationOnScreen = dvProtocolos.PointToScreen(Point.Empty);
+            form.Location = new Point(locationOnScreen.X, dvProtocolos.Height-form.Height);
+            form.Show();
+        }
     }
 }

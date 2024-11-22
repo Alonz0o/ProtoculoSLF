@@ -13,6 +13,7 @@ namespace ProtoculoSLF.Model
         public bool Seleccionar { get; set; }
         public int Disposicion { get; set; }
         public string Cliente { get; set; }
+        public double PesoMtsTeorico { get; set; }
 
         public override string ToString()
         {

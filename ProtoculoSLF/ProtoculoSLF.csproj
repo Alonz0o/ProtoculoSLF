@@ -158,6 +158,12 @@
     <Compile Include="formGraficoEstadistico.Designer.cs">
       <DependentUpon>formGraficoEstadistico.cs</DependentUpon>
     </Compile>
+    <Compile Include="formModificarConstantes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="formModificarConstantes.Designer.cs">
+      <DependentUpon>formModificarConstantes.cs</DependentUpon>
+    </Compile>
     <Compile Include="formNotificacion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -216,6 +222,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="formGraficoEstadistico.resx">
       <DependentUpon>formGraficoEstadistico.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="formModificarConstantes.resx">
+      <DependentUpon>formModificarConstantes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="formNotificacion.resx">
       <DependentUpon>formNotificacion.cs</DependentUpon>
@@ -276,6 +285,15 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\drop_16x16.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\edit_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\printer_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exporttoxls_32x32.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

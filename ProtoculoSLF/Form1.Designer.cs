@@ -82,6 +82,9 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.btnModificarConstantes = new FontAwesome.Sharp.IconButton();
+            this.btn = new FontAwesome.Sharp.IconButton();
+            this.btnImprimir = new FontAwesome.Sharp.IconButton();
             this.splitter2 = new System.Windows.Forms.Splitter();
             this.splitter1 = new System.Windows.Forms.Splitter();
             this.panel10 = new System.Windows.Forms.Panel();
@@ -887,6 +890,9 @@
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.btnModificarConstantes);
+            this.panel7.Controls.Add(this.btn);
+            this.panel7.Controls.Add(this.btnImprimir);
             this.panel7.Controls.Add(this.dvProtocolos);
             this.panel7.Controls.Add(this.tableLayoutPanel1);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -894,6 +900,61 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(701, 792);
             this.panel7.TabIndex = 53;
+            // 
+            // btnModificarConstantes
+            // 
+            this.btnModificarConstantes.BackColor = System.Drawing.Color.Transparent;
+            this.btnModificarConstantes.BackgroundImage = global::ProtoculoSLF.Properties.Resources.edit_32x32;
+            this.btnModificarConstantes.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnModificarConstantes.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnModificarConstantes.FlatAppearance.BorderSize = 0;
+            this.btnModificarConstantes.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnModificarConstantes.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnModificarConstantes.IconColor = System.Drawing.SystemColors.Highlight;
+            this.btnModificarConstantes.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnModificarConstantes.IconSize = 20;
+            this.btnModificarConstantes.Location = new System.Drawing.Point(7, 146);
+            this.btnModificarConstantes.Name = "btnModificarConstantes";
+            this.btnModificarConstantes.Size = new System.Drawing.Size(41, 36);
+            this.btnModificarConstantes.TabIndex = 43;
+            this.btnModificarConstantes.UseVisualStyleBackColor = false;
+            this.btnModificarConstantes.Click += new System.EventHandler(this.btnModificarConstantes_Click);
+            // 
+            // btn
+            // 
+            this.btn.BackColor = System.Drawing.Color.Transparent;
+            this.btn.BackgroundImage = global::ProtoculoSLF.Properties.Resources.exporttoxls_32x32;
+            this.btn.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btn.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btn.FlatAppearance.BorderSize = 0;
+            this.btn.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btn.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btn.IconColor = System.Drawing.SystemColors.Highlight;
+            this.btn.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btn.IconSize = 20;
+            this.btn.Location = new System.Drawing.Point(7, 104);
+            this.btn.Name = "btn";
+            this.btn.Size = new System.Drawing.Size(41, 36);
+            this.btn.TabIndex = 42;
+            this.btn.UseVisualStyleBackColor = false;
+            // 
+            // btnImprimir
+            // 
+            this.btnImprimir.BackColor = System.Drawing.Color.Transparent;
+            this.btnImprimir.BackgroundImage = global::ProtoculoSLF.Properties.Resources.printer_32x32;
+            this.btnImprimir.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnImprimir.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnImprimir.FlatAppearance.BorderSize = 0;
+            this.btnImprimir.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnImprimir.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnImprimir.IconColor = System.Drawing.SystemColors.Highlight;
+            this.btnImprimir.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnImprimir.IconSize = 20;
+            this.btnImprimir.Location = new System.Drawing.Point(6, 62);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(41, 36);
+            this.btnImprimir.TabIndex = 40;
+            this.btnImprimir.UseVisualStyleBackColor = false;
             // 
             // splitter2
             // 
@@ -1444,6 +1505,9 @@
         private DevExpress.XtraBars.BarButtonItem barButtonItem1;
         private DevExpress.XtraBars.BarButtonItem barButtonItem3;
         private DevExpress.XtraBars.PopupMenu pMenuGvProtocolos;
+        private FontAwesome.Sharp.IconButton btnModificarConstantes;
+        private FontAwesome.Sharp.IconButton btn;
+        private FontAwesome.Sharp.IconButton btnImprimir;
     }
 }
 
