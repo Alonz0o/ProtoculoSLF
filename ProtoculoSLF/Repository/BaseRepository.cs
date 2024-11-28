@@ -352,7 +352,7 @@ namespace ProtoculoSLF.Repository
             return nts;
         }
 
-        internal List<ProtocoloEnsayo> GetEnsayosPorLote(string op)
+        internal List<ProtocoloEnsayo> GetEnsayosPorLote(string op,int idProtocolo)
         {
             ProtocoloItem p = new ProtocoloItem();
             List<ProtocoloEnsayo> pes = new List<ProtocoloEnsayo>();
@@ -363,13 +363,15 @@ namespace ProtoculoSLF.Repository
                 conexion.Open();
                 command.Connection = conexion;
 
-                command.CommandText = $@"SELECT fi.nombre,fi.simbolo,fpi.orden,fpie.especificacion,fpie.especificacion_min,fpie.especificacion_max,fpi.id,fi.unidad,fe.valor_ensayo
+                command.CommandText = @"SELECT fi.nombre,fi.simbolo,fpi.orden,fpie.especificacion,fpie.especificacion_min,fpie.especificacion_max,fpi.id,fi.unidad,fe.valor_ensayo
                                         FROM formato_ensayo fe
-                                        JOIN formato_protocolo_item fpi ON fe.id_protocolo_item = fpi.id
+                                        JOIN formato_protocolo_item fpi ON (fe.id_item = fpi.id AND fpi.id_protocolo = @pIdProtocolo)
                                         JOIN formato_protocolo_item_especificacion fpie on fpi.id = fpie.id_formato_protocolo_item                           
                                         JOIN formato_item fi on fpi.id_item = fi.id
                                         WHERE fe.op = @pOp";
                 command.Parameters.Add("@pOp", MySqlDbType.String).Value = op;
+                command.Parameters.Add("@pIdProtocolo", MySqlDbType.Int32).Value = idProtocolo;
+
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())

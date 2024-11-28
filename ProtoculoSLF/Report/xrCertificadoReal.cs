@@ -17,7 +17,7 @@ namespace ProtoculoSLF.Report
             {
                 foreach (var item in Form1.instancia.protocoloEnsayos)
                 {
-                    AgregarFilaProceso(item);
+                    if(item!=null)AgregarFilaProceso(item);
                 }
                 
                 var datos = Form1.instancia.datosReporte;

@@ -682,7 +682,7 @@ namespace ProtoculoSLF
             var idcodigo = Convert.ToInt32(op.Split('/')[1]);
 
             dvProtocolos.DocumentSource = null;
-            protocoloEnsayos = br.GetEnsayosPorLote(op);
+            protocoloEnsayos = br.GetEnsayosPorLote(op,idProtocoloSeleccionado);
             protocoloEnsayos.Add(br.GetEnsayosEspesor("Espesor", idOrden, idcodigo, protocoloSeleccionado.PesoMtsTeorico));
 
             if (protocoloEnsayos.Count != 0)
