@@ -363,11 +363,11 @@ namespace ProtoculoSLF.Repository
                 conexion.Open();
                 command.Connection = conexion;
 
-                command.CommandText = @"SELECT fi.nombre,fi.simbolo,fpi.orden,fpie.especificacion,fpie.especificacion_min,fpie.especificacion_max,fpi.id,fi.unidad,fe.valor_ensayo
+                command.CommandText = @"SELECT fe.id,fi.nombre,fi.simbolo,fpi.orden,fpie.especificacion,fpie.especificacion_min,fpie.especificacion_max,fpi.id,fi.unidad,fe.valor_ensayo
                                         FROM formato_ensayo fe
-                                        JOIN formato_protocolo_item fpi ON (fe.id_item = fpi.id AND fpi.id_protocolo = @pIdProtocolo)
-                                        JOIN formato_protocolo_item_especificacion fpie on fpi.id = fpie.id_formato_protocolo_item                           
+                                        JOIN formato_protocolo_item fpi ON (fe.id_item = fpi.id_item AND fpi.id_protocolo = @pIdProtocolo)
                                         JOIN formato_item fi on fpi.id_item = fi.id
+                                        JOIN formato_protocolo_item_especificacion fpie on fpi.id = fpie.id_formato_protocolo_item                           
                                         WHERE fe.op = @pOp";
                 command.Parameters.Add("@pOp", MySqlDbType.String).Value = op;
                 command.Parameters.Add("@pIdProtocolo", MySqlDbType.Int32).Value = idProtocolo;
@@ -379,7 +379,8 @@ namespace ProtoculoSLF.Repository
                         var valorEnsayo = reader[8] != DBNull.Value ? reader.GetDouble(8) : 0.0;
                         ProtocoloEnsayo pe = new ProtocoloEnsayo
                         {
-                            Nombre = reader[0] != DBNull.Value ? reader.GetString(0) : "",
+                            Id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+                            Nombre = reader.IsDBNull(1) ? "" : reader.GetString(1),
                             Simbolo = reader[1] != DBNull.Value ? reader.GetString(1) : "",
                             Orden = reader[2] != DBNull.Value ? reader.GetInt32(2) : 0,
                             Especificacion = reader[3] != DBNull.Value ? reader.GetDouble(3) : 0.0,
@@ -1392,6 +1393,7 @@ namespace ProtoculoSLF.Repository
                         p.Medida = reader[7] != DBNull.Value ? reader.GetString(7) : "";
                     }
                 }
+
                 if (p.Nombre ==null) return null;
                 command.CommandText = @"SELECT peso_metro,Orden,Codigo
                                         FROM parametros_anchos

@@ -412,7 +412,7 @@ namespace ProtoculoSLF
                         var pi = gridView.GetRow(rowIndex) as ProtocoloEnsayo;
                         if (pi != null)
                         {
-                            formDeleteUpdateItem form = new formDeleteUpdateItem(br.GetEnsayosPorIdProtocoloItem(pi.IdProtocoloItem));
+                            formDeleteUpdateItem form = new formDeleteUpdateItem(br.GetEnsayosPorIdProtocoloItem(pi.id));
                             form.Size = gcEnsayos.Size;
                             Point locationOnScreen = gcEnsayos.PointToScreen(Point.Empty);
                             form.Location = new Point(locationOnScreen.X - gcEnsayos.Size.Width - 4, locationOnScreen.Y);
