@@ -82,6 +82,7 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.btnVerCertificaONo = new FontAwesome.Sharp.IconButton();
             this.btnModificarConstantes = new FontAwesome.Sharp.IconButton();
             this.btn = new FontAwesome.Sharp.IconButton();
             this.btnImprimir = new FontAwesome.Sharp.IconButton();
@@ -286,7 +287,6 @@
             this.btnAgregarEnsayo.Size = new System.Drawing.Size(20, 20);
             this.btnAgregarEnsayo.TabIndex = 34;
             this.btnAgregarEnsayo.UseVisualStyleBackColor = false;
-            this.btnAgregarEnsayo.Visible = false;
             this.btnAgregarEnsayo.Click += new System.EventHandler(this.btnAgregarEnsayo_Click);
             // 
             // gcProtocolos
@@ -890,6 +890,7 @@
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.btnVerCertificaONo);
             this.panel7.Controls.Add(this.btnModificarConstantes);
             this.panel7.Controls.Add(this.btn);
             this.panel7.Controls.Add(this.btnImprimir);
@@ -900,6 +901,25 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(701, 792);
             this.panel7.TabIndex = 53;
+            // 
+            // btnVerCertificaONo
+            // 
+            this.btnVerCertificaONo.BackColor = System.Drawing.Color.Transparent;
+            this.btnVerCertificaONo.BackgroundImage = global::ProtoculoSLF.Properties.Resources.hide_32x32;
+            this.btnVerCertificaONo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnVerCertificaONo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnVerCertificaONo.FlatAppearance.BorderSize = 0;
+            this.btnVerCertificaONo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnVerCertificaONo.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnVerCertificaONo.IconColor = System.Drawing.SystemColors.Highlight;
+            this.btnVerCertificaONo.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnVerCertificaONo.IconSize = 20;
+            this.btnVerCertificaONo.Location = new System.Drawing.Point(7, 188);
+            this.btnVerCertificaONo.Name = "btnVerCertificaONo";
+            this.btnVerCertificaONo.Size = new System.Drawing.Size(41, 36);
+            this.btnVerCertificaONo.TabIndex = 44;
+            this.btnVerCertificaONo.UseVisualStyleBackColor = false;
+            this.btnVerCertificaONo.Click += new System.EventHandler(this.btnVerCertificaONo_Click);
             // 
             // btnModificarConstantes
             // 
@@ -1508,6 +1528,7 @@
         private FontAwesome.Sharp.IconButton btnModificarConstantes;
         private FontAwesome.Sharp.IconButton btn;
         private FontAwesome.Sharp.IconButton btnImprimir;
+        private FontAwesome.Sharp.IconButton btnVerCertificaONo;
     }
 }
 

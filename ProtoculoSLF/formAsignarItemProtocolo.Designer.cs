@@ -51,9 +51,9 @@
             this.tbEspMax = new ScrapKP.AAFControles.AAFTextBox();
             this.tbEspMed = new ScrapKP.AAFControles.AAFTextBox();
             this.tbEspMin = new ScrapKP.AAFControles.AAFTextBox();
-            this.tbSimboloSignificado = new ScrapKP.AAFControles.AAFTextBox();
             this.btnAgregarItem = new ProtoculoSLF.AAFControles.AAFBoton();
             this.btnCancelar = new ProtoculoSLF.AAFControles.AAFBoton();
+            this.tbSimboloSignificado = new ScrapKP.AAFControles.AAFTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.gcAgregar)).BeginInit();
             this.gcAgregar.SuspendLayout();
             this.tlpRealizados.SuspendLayout();
@@ -135,9 +135,9 @@
             this.pnlPendientes.AutoScroll = true;
             this.pnlPendientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
             this.pnlPendientes.Controls.Add(this.groupControl4);
-            this.pnlPendientes.Controls.Add(this.gcSimboloSignificado);
             this.pnlPendientes.Controls.Add(this.tableLayoutPanel5);
             this.pnlPendientes.Controls.Add(this.groupControl5);
+            this.pnlPendientes.Controls.Add(this.gcSimboloSignificado);
             this.pnlPendientes.Controls.Add(this.tlpNoti);
             this.pnlPendientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPendientes.Location = new System.Drawing.Point(13, 0);
@@ -234,7 +234,7 @@
             this.gcSimboloSignificado.Controls.Add(this.tbSimboloSignificado);
             this.gcSimboloSignificado.Dock = System.Windows.Forms.DockStyle.Top;
             this.gcSimboloSignificado.Enabled = false;
-            this.gcSimboloSignificado.Location = new System.Drawing.Point(0, 127);
+            this.gcSimboloSignificado.Location = new System.Drawing.Point(0, 69);
             this.gcSimboloSignificado.Margin = new System.Windows.Forms.Padding(0);
             this.gcSimboloSignificado.Name = "gcSimboloSignificado";
             this.gcSimboloSignificado.Size = new System.Drawing.Size(418, 70);
@@ -266,7 +266,7 @@
             this.groupControl5.AppearanceCaption.Options.UseFont = true;
             this.groupControl5.Controls.Add(this.lueNombreItem);
             this.groupControl5.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupControl5.Location = new System.Drawing.Point(0, 69);
+            this.groupControl5.Location = new System.Drawing.Point(0, 139);
             this.groupControl5.Margin = new System.Windows.Forms.Padding(0);
             this.groupControl5.Name = "groupControl5";
             this.groupControl5.Size = new System.Drawing.Size(418, 58);
@@ -463,29 +463,6 @@
             this.tbEspMin.Texts = "";
             this.tbEspMin.UnderlinedStyle = true;
             // 
-            // tbSimboloSignificado
-            // 
-            this.tbSimboloSignificado.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
-            this.tbSimboloSignificado.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
-            this.tbSimboloSignificado.BackColor = System.Drawing.Color.White;
-            this.tbSimboloSignificado.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.tbSimboloSignificado.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.tbSimboloSignificado.BorderSize = 2;
-            this.tbSimboloSignificado.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbSimboloSignificado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
-            this.tbSimboloSignificado.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.tbSimboloSignificado.Location = new System.Drawing.Point(2, 23);
-            this.tbSimboloSignificado.Margin = new System.Windows.Forms.Padding(4);
-            this.tbSimboloSignificado.Multiline = true;
-            this.tbSimboloSignificado.Name = "tbSimboloSignificado";
-            this.tbSimboloSignificado.Padding = new System.Windows.Forms.Padding(19, 8, 8, 8);
-            this.tbSimboloSignificado.PasswordChar = false;
-            this.tbSimboloSignificado.SelectionStart = 0;
-            this.tbSimboloSignificado.Size = new System.Drawing.Size(414, 45);
-            this.tbSimboloSignificado.TabIndex = 2;
-            this.tbSimboloSignificado.Texts = "";
-            this.tbSimboloSignificado.UnderlinedStyle = true;
-            // 
             // btnAgregarItem
             // 
             this.btnAgregarItem.BackColor = System.Drawing.Color.Transparent;
@@ -527,6 +504,29 @@
             this.btnCancelar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
             this.btnCancelar.UseVisualStyleBackColor = false;
             this.btnCancelar.Click += new System.EventHandler(this.btnCerrarMin_Click);
+            // 
+            // tbSimboloSignificado
+            // 
+            this.tbSimboloSignificado.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
+            this.tbSimboloSignificado.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
+            this.tbSimboloSignificado.BackColor = System.Drawing.Color.White;
+            this.tbSimboloSignificado.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.tbSimboloSignificado.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;
+            this.tbSimboloSignificado.BorderSize = 2;
+            this.tbSimboloSignificado.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbSimboloSignificado.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
+            this.tbSimboloSignificado.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.tbSimboloSignificado.Location = new System.Drawing.Point(2, 23);
+            this.tbSimboloSignificado.Margin = new System.Windows.Forms.Padding(4);
+            this.tbSimboloSignificado.Multiline = true;
+            this.tbSimboloSignificado.Name = "tbSimboloSignificado";
+            this.tbSimboloSignificado.Padding = new System.Windows.Forms.Padding(19, 8, 8, 8);
+            this.tbSimboloSignificado.PasswordChar = false;
+            this.tbSimboloSignificado.SelectionStart = 0;
+            this.tbSimboloSignificado.Size = new System.Drawing.Size(414, 45);
+            this.tbSimboloSignificado.TabIndex = 2;
+            this.tbSimboloSignificado.Texts = "";
+            this.tbSimboloSignificado.UnderlinedStyle = true;
             // 
             // formAsignarItemProtocolo
             // 

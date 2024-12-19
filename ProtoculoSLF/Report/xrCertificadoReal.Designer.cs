@@ -80,6 +80,12 @@
             this.xrDatoSolicitudCliente = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrLabel2 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel1 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLblEstado = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrTableRow5 = new DevExpress.XtraReports.UI.XRTableRow();
+            this.xrTableCell3 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrDatoRemitoN = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTableCell9 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrDatoOCN = new DevExpress.XtraReports.UI.XRTableCell();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTablaEnsayos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
@@ -87,6 +93,8 @@
             // 
             // TopMargin
             // 
+            this.TopMargin.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.xrLblEstado});
             this.TopMargin.Name = "TopMargin";
             // 
             // BottomMargin
@@ -383,15 +391,16 @@
             this.xrTable1.Borders = DevExpress.XtraPrinting.BorderSide.None;
             this.xrTable1.BorderWidth = 0F;
             this.xrTable1.Font = new DevExpress.Drawing.DXFont("Calibri", 10F, ((DevExpress.Drawing.DXFontStyle)((DevExpress.Drawing.DXFontStyle.Bold | DevExpress.Drawing.DXFontStyle.Underline))));
-            this.xrTable1.LocationFloat = new DevExpress.Utils.PointFloat(10.00001F, 126F);
+            this.xrTable1.LocationFloat = new DevExpress.Utils.PointFloat(10.00001F, 55.83334F);
             this.xrTable1.Name = "xrTable1";
             this.xrTable1.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
             this.xrTable1.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
             this.xrTableRow1,
             this.xrTableRow2,
             this.xrTableRow3,
-            this.xrTableRow4});
-            this.xrTable1.SizeF = new System.Drawing.SizeF(629.9999F, 120F);
+            this.xrTableRow4,
+            this.xrTableRow5});
+            this.xrTable1.SizeF = new System.Drawing.SizeF(629.9999F, 150F);
             this.xrTable1.StylePriority.UseBorders = false;
             this.xrTable1.StylePriority.UseBorderWidth = false;
             this.xrTable1.StylePriority.UseFont = false;
@@ -587,7 +596,7 @@
             this.xrLabel2.Borders = DevExpress.XtraPrinting.BorderSide.None;
             this.xrLabel2.BorderWidth = 0F;
             this.xrLabel2.Font = new DevExpress.Drawing.DXFont("Calibri", 22F, DevExpress.Drawing.DXFontStyle.Bold);
-            this.xrLabel2.LocationFloat = new DevExpress.Utils.PointFloat(10.00001F, 71F);
+            this.xrLabel2.LocationFloat = new DevExpress.Utils.PointFloat(10.00001F, 10F);
             this.xrLabel2.Multiline = true;
             this.xrLabel2.Name = "xrLabel2";
             this.xrLabel2.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
@@ -621,6 +630,72 @@
             this.xrLabel1.Text = " Calle 108 Esq. 6- Parque Industrial Sur | CP:D5700LDA San Luis-San Luis-Argentin" +
     "a | Tel:(0266) 4426813/4438640";
             this.xrLabel1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            // 
+            // xrLblEstado
+            // 
+            this.xrLblEstado.Borders = DevExpress.XtraPrinting.BorderSide.None;
+            this.xrLblEstado.BorderWidth = 0F;
+            this.xrLblEstado.Font = new DevExpress.Drawing.DXFont("Calibri", 32F, DevExpress.Drawing.DXFontStyle.Bold);
+            this.xrLblEstado.ForeColor = System.Drawing.Color.Red;
+            this.xrLblEstado.LocationFloat = new DevExpress.Utils.PointFloat(9.999974F, 10.00001F);
+            this.xrLblEstado.Multiline = true;
+            this.xrLblEstado.Name = "xrLblEstado";
+            this.xrLblEstado.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.xrLblEstado.SizeF = new System.Drawing.SizeF(629.9998F, 79.99998F);
+            this.xrLblEstado.StylePriority.UseBorders = false;
+            this.xrLblEstado.StylePriority.UseBorderWidth = false;
+            this.xrLblEstado.StylePriority.UseFont = false;
+            this.xrLblEstado.StylePriority.UseForeColor = false;
+            this.xrLblEstado.StylePriority.UseTextAlignment = false;
+            this.xrLblEstado.Text = "CERTIFICADO ESTADO";
+            this.xrLblEstado.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            this.xrLblEstado.Visible = false;
+            // 
+            // xrTableRow5
+            // 
+            this.xrTableRow5.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
+            this.xrTableCell3,
+            this.xrDatoRemitoN,
+            this.xrTableCell9,
+            this.xrDatoOCN});
+            this.xrTableRow5.Name = "xrTableRow5";
+            this.xrTableRow5.Weight = 1D;
+            // 
+            // xrTableCell3
+            // 
+            this.xrTableCell3.Multiline = true;
+            this.xrTableCell3.Name = "xrTableCell3";
+            this.xrTableCell3.Text = "REMITO N°:";
+            this.xrTableCell3.Weight = 0.5079366063555244D;
+            // 
+            // xrDatoRemitoN
+            // 
+            this.xrDatoRemitoN.Multiline = true;
+            this.xrDatoRemitoN.Name = "xrDatoRemitoN";
+            this.xrDatoRemitoN.Padding = new DevExpress.XtraPrinting.PaddingInfo(10, 2, 0, 0, 100F);
+            this.xrDatoRemitoN.StylePriority.UsePadding = false;
+            this.xrDatoRemitoN.StylePriority.UseTextAlignment = false;
+            this.xrDatoRemitoN.Text = "-";
+            this.xrDatoRemitoN.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            this.xrDatoRemitoN.Weight = 1.4920633936444758D;
+            // 
+            // xrTableCell9
+            // 
+            this.xrTableCell9.Multiline = true;
+            this.xrTableCell9.Name = "xrTableCell9";
+            this.xrTableCell9.Text = "ORDEN DE COMPRA N°:";
+            this.xrTableCell9.Weight = 1.2566137417483842D;
+            // 
+            // xrDatoOCN
+            // 
+            this.xrDatoOCN.Multiline = true;
+            this.xrDatoOCN.Name = "xrDatoOCN";
+            this.xrDatoOCN.Padding = new DevExpress.XtraPrinting.PaddingInfo(10, 2, 0, 0, 100F);
+            this.xrDatoOCN.StylePriority.UsePadding = false;
+            this.xrDatoOCN.StylePriority.UseTextAlignment = false;
+            this.xrDatoOCN.Text = "-";
+            this.xrDatoOCN.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            this.xrDatoOCN.Weight = 0.74338625825161564D;
             // 
             // xrCertificadoReal
             // 
@@ -690,5 +765,11 @@
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell23;
         private DevExpress.XtraReports.UI.XRLine xrLine2;
         private DevExpress.XtraReports.UI.XRLabel xrLabel5;
+        private DevExpress.XtraReports.UI.XRLabel xrLblEstado;
+        private DevExpress.XtraReports.UI.XRTableRow xrTableRow5;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell3;
+        private DevExpress.XtraReports.UI.XRTableCell xrDatoRemitoN;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell9;
+        private DevExpress.XtraReports.UI.XRTableCell xrDatoOCN;
     }
 }

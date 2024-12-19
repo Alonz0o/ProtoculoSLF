@@ -11,5 +11,8 @@ namespace ProtoculoSLF.Model
         public double Minimo { get; set; }
         public double Medio { get; set; }
         public double Maximo { get; set; }
+        public double MinimoLimite { get; set; }
+        public double MedioLimite { get; set; }
+        public double MaximoLimite { get; set; }
     }
 }

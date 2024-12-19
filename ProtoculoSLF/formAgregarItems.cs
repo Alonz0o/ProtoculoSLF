@@ -35,6 +35,7 @@ namespace ProtoculoSLF
                 new Unidad{ Nombre="Milimetro", Descripcion="mm" },
                 new Unidad{ Nombre="Kg/pulgada", Descripcion="kg/in" },
                 new Unidad{ Nombre="Micron", Descripcion="µm" },
+                new Unidad{ Nombre="Porcentaje", Descripcion="%" },
             };
             List<Simbolo> simbolos = new List<Simbolo> { 
                 //new Simbolo{ Caracter ="=",Significado="Igual a" },
@@ -46,6 +47,9 @@ namespace ProtoculoSLF
                 new Simbolo{ Caracter ="±",Significado="Más o menos" },
                 //new Simbolo{ Caracter ="∓",Significado="Menos o más" },
                 new Simbolo{ Caracter ="-",Significado="Entre A y B" },
+                //new Simbolo{ Caracter ="A",Significado="Entre OK, no OK, numerico o guion"},
+                //new Simbolo{ Caracter ="B",Significado="Entre OK y no OK"},
+                //new Simbolo{ Caracter ="C",Significado="Entre numerico y no OK"},
 
             };
             List<string> proceso = new List<string> {
@@ -67,9 +71,9 @@ namespace ProtoculoSLF
         }
         private void cbCaracter_CheckedChanged(object sender, EventArgs e)
         {
-            tableLayoutPanel1.Visible = !cbConstante.Checked;
-            groupControl13.Visible = !cbConstante.Checked;
-            gcSimbolo.Visible = !cbConstante.Checked;
+            tableLayoutPanel1.Visible = !rbConstante.Checked;
+            groupControl13.Visible = !rbConstante.Checked;
+            gcSimbolo.Visible = !rbConstante.Checked;
 
         }
 
@@ -182,7 +186,7 @@ namespace ProtoculoSLF
                             gcAgregarItem.Visible = true;
                             tbNombre.Texts = protocoloItemSeleccionado.Nombre;
                             cbCertificado.Checked = protocoloItemSeleccionado.EsCertificado;
-                            cbConstante.Checked = protocoloItemSeleccionado.EsConstante;
+                            rbConstante.Checked = protocoloItemSeleccionado.EsConstante;
                             lueItemUnidades.ItemIndex = BuscarUnidadIndex(protocoloItemSeleccionado.Medida);
                             lueItemProcesos.ItemIndex = BuscarSectorIndex(protocoloItemSeleccionado.Proceso);
                             lueItemSimbolos.ItemIndex = BuscarSimboloIndex(protocoloItemSeleccionado.Simbolo);
@@ -258,7 +262,7 @@ namespace ProtoculoSLF
             }
             else piAgregar.Nombre = tbNombre.Texts;
 
-            if (!cbConstante.Checked)
+            if (!rbConstante.Checked)
             {
                 var lueSimboloA = lueItemSimbolos.GetSelectedDataRow() as Simbolo;
                 if (lueSimboloA == null)
@@ -302,8 +306,7 @@ namespace ProtoculoSLF
             piAgregar = new ProtocoloItem();
             if (!ValidarFormularioItems()) return;
             piAgregar.EsCertificado = cbCertificado.Checked;
-            if (cbConstante.Checked) piAgregar.Simbolo = "C";
-            piAgregar.EsConstante = cbConstante.Checked;
+            piAgregar.EsConstante = rbConstante.Checked;
             if (Form1.instancia.br.AgregarItem(piAgregar))
             {
                 LimpiarFormularioAgregarItem();
@@ -319,7 +322,7 @@ namespace ProtoculoSLF
             lueItemSimbolos.Text = string.Empty;
             lueItemProcesos.Text = string.Empty;
             cbCertificado.Checked = false;
-            cbConstante.Checked = false;
+            rbConstante.Checked = false;
         }
 
         private void btnConfirmarCambios_Click(object sender, EventArgs e)
@@ -337,8 +340,7 @@ namespace ProtoculoSLF
                 }
 
                 piAgregar.EsCertificado = cbCertificado.Checked;
-                if (cbConstante.Checked) piAgregar.Simbolo = "C";
-                piAgregar.EsConstante = cbConstante.Checked;
+                piAgregar.EsConstante = rbConstante.Checked;
                 piAgregar.Id = protocoloItemSeleccionado.Id;
 
                 if (Form1.instancia.br.UpdateItem("NO", piAgregar))

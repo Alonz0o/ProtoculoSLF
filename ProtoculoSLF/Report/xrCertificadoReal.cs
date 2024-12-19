@@ -30,15 +30,37 @@ namespace ProtoculoSLF.Report
                 xrDatoPallet.Text = disposicion == 1 ? "Lote": datos.Pallet.ToString();
                 xrTableCell5.Text = disposicion == 1 ? "" : "PALLET:";
                 xrDatoCodigoCliente.Text = datos.CodigoCliente;
-                
+                xrDatoRemitoN.Text= datos.Remito.ToString();
+                xrDatoOCN.Text = datos.OrdenDeCompra.ToString();
+                if (xrDatoRemitoN.Text == "0") {
+                    xrLblEstado.Text = "EN CONSTRUCCIÓN";
+                    xrLblEstado.Visible = true;
+                }
             }
         }
         private void AgregarFilaProceso(ProtocoloEnsayo pes)
         {
+            double espMin = 0.0;
+            double espMax = 0.0;
+            double tolerancia = 0.0;
+
+            if (pes.Simbolo != "A") {
+                tolerancia = Convert.ToDouble(pes.ValorEnsayo);
+                espMin = pes.Especificacion - pes.EspecificacionMin;
+                espMax = pes.Especificacion + pes.EspecificacionMax;
+                if (tolerancia >= espMin && tolerancia <= espMax)
+                {
+                    xrLblEstado.Text = "FUERA DE TOLERANCIA";
+                    xrLblEstado.Visible = true;
+                }
+            }
+            
             XRTableRow row = new XRTableRow
             {
                 Dpi = 100F,
-                Weight = 1D
+                Weight = 1D,
+                BackColor = (tolerancia >= espMin && tolerancia <= espMax) ? Color.White : Color.FromArgb(176, 0, 32),
+                ForeColor = (tolerancia >= espMin && tolerancia <= espMax) ? Color.Black : Color.White
             };
 
             XRTableCell cell1 = new XRTableCell
@@ -65,7 +87,8 @@ namespace ProtoculoSLF.Report
                 Text = pes.ValorEnsayo,
                 Dpi = 100F,
                 Weight = 0.94703189036885238D,
-                Font = new DevExpress.Drawing.DXFont("Calibri", 10.75F)
+                Font = new DevExpress.Drawing.DXFont("Calibri", 10.75F),
+              
             };
             row.Cells.Add(cell3);
 

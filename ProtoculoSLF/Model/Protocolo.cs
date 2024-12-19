@@ -14,7 +14,8 @@ namespace ProtoculoSLF.Model
         public int Disposicion { get; set; }
         public string Cliente { get; set; }
         public double PesoMtsTeorico { get; set; }
-
+        public int Remito { get; set; }
+        public int OrdenDeCompra { get; set; }
         public override string ToString()
         {
             return FormatoProtocolo.ToString();

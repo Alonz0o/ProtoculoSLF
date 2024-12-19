@@ -80,8 +80,8 @@ namespace ProtoculoSLF
 
         private void GetEnsayos()
         {
-            protocoloEnsayos = Form1.instancia.br.GetEnsayosPorIdProtocoloItem(protocoloEnsayos.FirstOrDefault().IdProtocoloItem);
-            gcItems.DataSource = protocoloEnsayos;
+            //protocoloEnsayos = Form1.instancia.br.GetEnsayosPorIdProtocoloItem(protocoloEnsayos.FirstOrDefault().IdProtocoloItem);
+            //gcItems.DataSource = protocoloEnsayos;
         }
 
         private void LimpiarFormularioEnsayo()

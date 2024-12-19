@@ -28,8 +28,8 @@ namespace ProtoculoSLF
         private void GetItems()
         {
 
-            items = Form1.instancia.br.GetItemsDelProtocoloNUEVO(Form1.instancia.idProtocoloSeleccionado);
-
+            //items = Form1.instancia.br.GetItemsDelProtocoloNUEVO(Form1.instancia.idProtocoloSeleccionado);
+            items = Form1.instancia.br.GetItems();
             var itemsDiferentes = items
                 .Concat(Form1.instancia.protocoItems)
                 .GroupBy(x => x.Id)
@@ -236,7 +236,14 @@ namespace ProtoculoSLF
                 tableLayoutPanel1.ColumnStyles[1].Width = 0F;
                 tableLayoutPanel1.ColumnStyles[2].Width = 0F;
             }
-
+            if (lueControlA.Simbolo == "A")
+            {
+                gcSimboloSignificado.Text = "  Significado de símbolo (A)";
+                tbSimboloSignificado.Texts = "Se puede especificar tolerancia media, mínima y máxima, acepta valores numericos, ok, no OK y guion(-).";
+                tableLayoutPanel1.ColumnStyles[0].Width = 50F;
+                tableLayoutPanel1.ColumnStyles[1].Width = 50F;
+                tableLayoutPanel1.ColumnStyles[2].Width = 50F;
+            }
 
         }
     }

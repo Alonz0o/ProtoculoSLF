@@ -16,5 +16,10 @@ namespace ProtoculoSLF
         {
             InitializeComponent();
         }
+
+        private void btnCerrarMin_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

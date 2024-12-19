@@ -17,6 +17,7 @@ using ProtoculoSLF.Report;
 using System.IO;
 using IniParser.Model;
 using IniParser;
+using DevExpress.ClipboardSource.SpreadsheetML;
 
 namespace ProtoculoSLF
 {
@@ -149,7 +150,7 @@ namespace ProtoculoSLF
 
             botonVer.ButtonClick += (sender, e) =>
             {
-                idNtSeleccionado = 0;
+                datosReporte.NT = 0;
                 ButtonEdit buttonEdit = sender as ButtonEdit;
                 if (buttonEdit != null && e.Button.Index == 0)
                 {
@@ -161,6 +162,8 @@ namespace ProtoculoSLF
                         if (p != null)
                         {
                             datosReporte.Cliente = p.Cliente;
+                            datosReporte.Remito = p.Remito;
+                            datosReporte.OrdenDeCompra = p.OrdenDeCompra;
                             protocoloSeleccionado = p;
                             gvNts.Columns.Clear();
                             if (p.Disposicion == 1) GenerarTablaNtsPorLote();
@@ -405,6 +408,7 @@ namespace ProtoculoSLF
                 ButtonEdit buttonEdit = sender as ButtonEdit;
                 if (buttonEdit != null && e.Button.Index == 0)
                 {
+   
                     GridView gridView = gvFormatoValores;
                     if (gridView != null)
                     {
@@ -412,7 +416,9 @@ namespace ProtoculoSLF
                         var pi = gridView.GetRow(rowIndex) as ProtocoloEnsayo;
                         if (pi != null)
                         {
-                            formDeleteUpdateItem form = new formDeleteUpdateItem(br.GetEnsayosPorIdProtocoloItem(pi.id));
+                            //if (p.Disposicion == 1) GenerarTablaNtsPorLote();
+                            var op = protocoloSeleccionado.Disposicion == 1 ?datosReporte.Lote : datosReporte.NT.ToString();
+                            formDeleteUpdateItem form = new formDeleteUpdateItem(br.GetEnsayosPorIdProtocoloItem(op, protocoloSeleccionado.FormatoProtocolo,pi.Id));
                             form.Size = gcEnsayos.Size;
                             Point locationOnScreen = gcEnsayos.PointToScreen(Point.Empty);
                             form.Location = new Point(locationOnScreen.X - gcEnsayos.Size.Width - 4, locationOnScreen.Y);
@@ -444,7 +450,7 @@ namespace ProtoculoSLF
                         ProtocoloEnsayo peSeleccionado = gridView.GetRow(rowIndex) as ProtocoloEnsayo;
                         if (peSeleccionado != null)
                         {
-                            formGraficoEstadistico form = new formGraficoEstadistico(br.GetEnsayosPorIdProtocoloItem(peSeleccionado));
+                            formGraficoEstadistico form = new formGraficoEstadistico(br.GetEnsayosPorIdProtocoloItem(peSeleccionado, datosReporte.Lote));
                             form.Size = new Size(panel7.Width, gcEnsayos.Height);
                             Point locationOnScreen = gcEnsayos.PointToScreen(Point.Empty);
                             form.Location = new Point(locationOnScreen.X - panel7.Size.Width + 2, locationOnScreen.Y);
@@ -459,7 +465,7 @@ namespace ProtoculoSLF
         private void dvProtocolos_DragDrop(object sender, DragEventArgs e)
         {
             var data = (NT)e.Data.GetData(typeof(NT));
-            idNtSeleccionado = data.NumNT;
+            datosReporte.NT = data.NumNT;
             datosReporte.Lote = disposicion == 1 ? data.OP : data.OP + "/" + data.NumPallet;
             datosReporte.Pallet = data.NumPallet;
             idOrden = Convert.ToInt32(data.OP.Split('/')[0]);
@@ -468,7 +474,7 @@ namespace ProtoculoSLF
             lblNtNum.Text = "NT N° " + data.NumNT;
             lblPalletNum.Text = disposicion == 1 ? "Por lote" : "Por pallet: " + data.NumPallet;
 
-            if (disposicion == 1) GetEnsayosRealizadosPorLote(data.OP);
+            if (disposicion == 1) GetEnsayosRealizadosPorLote(data.OP,1);
             else GetEnsayosRealizados();
         }
         public ProtocoloEnsayo espesorDatos = new ProtocoloEnsayo();
@@ -486,8 +492,6 @@ namespace ProtoculoSLF
             }
         }
 
-        
-
         private void dvProtocolos_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(typeof(NT))) e.Effect = DragDropEffects.Move;
@@ -496,26 +500,25 @@ namespace ProtoculoSLF
         }
 
         Point posicionNts = new Point();
-        int idNtSeleccionado = 0;
         public bool EsModificadoNtProtocolo = false;
         private void gvNts_RowClick(object sender, RowClickEventArgs e)
         {
-            if (e.Button.IsRight() & gvNts.FocusedRowHandle >= 0)
-            {
-                GridView gridView = gvNts;
-                if (gridView != null)
-                {
-                    int rowIndex = gridView.FocusedRowHandle;
-                    var s = gridView.GetRow(rowIndex) as NT;
-                    if (s != null)
-                    {
-                        idNtSeleccionado = s.Id;
-                        bhiCabeceraNts.Caption = "Acciones para: "+s.NumNT;
-                    }
-                }
-                posicionNts = MousePosition;
-                pMenuGvNts.ShowPopup(MousePosition);
-            }
+            //if (e.Button.IsRight() & gvNts.FocusedRowHandle >= 0)
+            //{
+            //    GridView gridView = gvNts;
+            //    if (gridView != null)
+            //    {
+            //        int rowIndex = gridView.FocusedRowHandle;
+            //        var s = gridView.GetRow(rowIndex) as NT;
+            //        if (s != null)
+            //        {
+            //            idNtSeleccionado = s.Id;
+            //            bhiCabeceraNts.Caption = "Acciones para: "+s.NumNT;
+            //        }
+            //    }
+            //    posicionNts = MousePosition;
+            //    pMenuGvNts.ShowPopup(MousePosition);
+            //}
         }
 
         private void bbiAsignarProtocolo_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -600,7 +603,7 @@ namespace ProtoculoSLF
 
         private void btnAgregarEnsayo_Click(object sender, EventArgs e)
         {
-            if (idCodigoSeleccionado == 0 || idNtSeleccionado==0) return;
+            if (idCodigoSeleccionado == 0 || datosReporte.NT==0) return;
             lueItemEnsayos.Properties.DataSource = br.GetProtocolosItemsEspecificacionPorCodigo(idCodigoSeleccionado);
             gcAgregarEnsayo.Visible = true;
         }
@@ -614,17 +617,20 @@ namespace ProtoculoSLF
         private void btnAgregarEnsayoValor_Click(object sender, EventArgs e)
         {
             if(!ValidarFormularioEnsayo())return;
-            var esCorrecto = cbCorrecto.Checked;
-            double valorEnsayo = 0;
-            if (!string.IsNullOrEmpty(tbValorEnsayo.Texts)) valorEnsayo = Convert.ToDouble(tbValorEnsayo.Texts);
-
             var lueItemA = lueItemEnsayos.GetSelectedDataRow() as ProtocoloItem;
-            if (esCorrecto) valorEnsayo = 0;
+            var esCorrecto = "";
+            double valorEnsayo = 0;
+            if (!string.IsNullOrEmpty(tbValorEnsayo.Texts) && lueItemA.Simbolo != "A") valorEnsayo = Convert.ToDouble(tbValorEnsayo.Texts);
 
-            if (br.InsertEnsayo(idNtSeleccionado, lueItemA.IdProtocoloItem, valorEnsayo, Convert.ToInt32(cbCorrecto.Checked)))
+            if (lueItemA.Simbolo == "A") {
+                valorEnsayo = 0;
+                esCorrecto = tbValorEnsayo.Texts;
+            } 
+
+            if (br.InsertEnsayo(datosReporte.Lote, lueItemA.Id, valorEnsayo, esCorrecto))
             {
                 LimpiarFormularioEnsayo();
-                GetEnsayosRealizados();
+                GetEnsayosRealizadosPorLote(datosReporte.Lote,1);
             }
         }
         private bool ValidarFormularioEnsayo()
@@ -638,7 +644,26 @@ namespace ProtoculoSLF
                 lueItemEnsayos.Focus();
                 return false;
             }
-            if (lueNombreA.Simbolo!="C") {
+            if (lueNombreA.Simbolo == "A")
+            {
+                //VERIFICAR NUMERO MIN
+                if (tbValorEnsayo.Texts == string.Empty)
+                {
+                    formNotificacion noti = new formNotificacion("warning", "Recomendación", "Asignar Ítem", "Debe ingresar numero.");
+                    noti.Show();
+                    tbValorEnsayo.Focus();
+                    return false;
+                }
+                if (tbValorEnsayo.Texts.Contains(".")) tbValorEnsayo.Texts = tbValorEnsayo.Texts.Replace('.', ','); ;
+                if (!Utils.IsSoloSignoA(tbValorEnsayo.Texts))
+                {
+                    formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Deben ser numeros enteros o decimales separados por coma (,).");
+                    noti.Show();
+                    tbValorEnsayo.Focus();
+                    return false;
+                }
+            }
+            else if (lueNombreA.Simbolo!="C") {
                 //VERIFICAR NUMERO MIN
                 if (tbValorEnsayo.Texts == string.Empty)
                 {
@@ -676,13 +701,13 @@ namespace ProtoculoSLF
             gcFormatoValores.DataSource = protocoloEnsayos;
         }
 
-        public void GetEnsayosRealizadosPorLote(string op)
+        public void GetEnsayosRealizadosPorLote(string op, int certifica)
         {
             var idOrden = Convert.ToInt32(op.Split('/')[0]);
             var idcodigo = Convert.ToInt32(op.Split('/')[1]);
 
             dvProtocolos.DocumentSource = null;
-            protocoloEnsayos = br.GetEnsayosPorLote(op,idProtocoloSeleccionado);
+            protocoloEnsayos = br.GetEnsayosPorLote(op,idProtocoloSeleccionado, certifica);
             protocoloEnsayos.Add(br.GetEnsayosEspesor("Espesor", idOrden, idcodigo, protocoloSeleccionado.PesoMtsTeorico));
 
             if (protocoloEnsayos.Count != 0)
@@ -828,6 +853,12 @@ namespace ProtoculoSLF
             Point locationOnScreen = dvProtocolos.PointToScreen(Point.Empty);
             form.Location = new Point(locationOnScreen.X, dvProtocolos.Height-form.Height);
             form.Show();
+        }
+
+        private void btnVerCertificaONo_Click(object sender, EventArgs e)
+        {
+            if (disposicion == 1) GetEnsayosRealizadosPorLote(datosReporte.Lote, 2);
+            else GetEnsayosRealizados();
         }
     }
 }

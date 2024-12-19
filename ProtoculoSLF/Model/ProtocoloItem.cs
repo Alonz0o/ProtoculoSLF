@@ -7,7 +7,6 @@
         public string Medida { get; set; }
         public string Simbolo { get; set; }
         public string Proceso { get; set; }
-
         public int Orden { get; set; }
         public double EspecificacionMin { get; set; }
         public double Especificacion { get; set; }

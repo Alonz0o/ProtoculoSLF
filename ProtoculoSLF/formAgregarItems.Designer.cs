@@ -53,13 +53,14 @@
             this.panel7 = new System.Windows.Forms.Panel();
             this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.cbConstante = new System.Windows.Forms.CheckBox();
             this.cbCertificado = new System.Windows.Forms.CheckBox();
-            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.lueItemProcesos = new DevExpress.XtraEditors.LookUpEdit();
+            this.rbValor = new System.Windows.Forms.RadioButton();
+            this.rbConstante = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAgregarItem = new ProtoculoSLF.AAFControles.AAFBoton();
             this.btnCancelar = new ProtoculoSLF.AAFControles.AAFBoton();
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.lueItemProcesos = new DevExpress.XtraEditors.LookUpEdit();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupControl13 = new DevExpress.XtraEditors.GroupControl();
             this.lueItemUnidades = new DevExpress.XtraEditors.LookUpEdit();
@@ -88,10 +89,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
             this.groupControl3.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
+            this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.lueItemProcesos.Properties)).BeginInit();
-            this.tableLayoutPanel5.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl13)).BeginInit();
             this.groupControl13.SuspendLayout();
@@ -339,7 +340,7 @@
             this.btnConfirmarCambios.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnConfirmarCambios.FlatAppearance.BorderSize = 0;
             this.btnConfirmarCambios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnConfirmarCambios.Font = new System.Drawing.Font("Roboto Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConfirmarCambios.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnConfirmarCambios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnConfirmarCambios.Location = new System.Drawing.Point(3, 3);
             this.btnConfirmarCambios.Name = "btnConfirmarCambios";
@@ -360,7 +361,7 @@
             this.btnCancelarCambios.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCancelarCambios.FlatAppearance.BorderSize = 0;
             this.btnCancelarCambios.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelarCambios.Font = new System.Drawing.Font("Roboto Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelarCambios.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarCambios.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
             this.btnCancelarCambios.Location = new System.Drawing.Point(187, 3);
             this.btnCancelarCambios.Name = "btnCancelarCambios";
@@ -374,11 +375,11 @@
             // 
             this.lblNombreVentana.AutoSize = true;
             this.lblNombreVentana.BackColor = System.Drawing.Color.Transparent;
-            this.lblNombreVentana.Font = new System.Drawing.Font("Roboto Medium", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNombreVentana.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblNombreVentana.ForeColor = System.Drawing.Color.Black;
             this.lblNombreVentana.Location = new System.Drawing.Point(17, 4);
             this.lblNombreVentana.Name = "lblNombreVentana";
-            this.lblNombreVentana.Size = new System.Drawing.Size(133, 15);
+            this.lblNombreVentana.Size = new System.Drawing.Size(136, 16);
             this.lblNombreVentana.TabIndex = 38;
             this.lblNombreVentana.Text = "Confirmar cambios";
             // 
@@ -477,7 +478,7 @@
             this.groupControl3.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl3.Location = new System.Drawing.Point(0, 166);
             this.groupControl3.Name = "groupControl3";
-            this.groupControl3.Size = new System.Drawing.Size(362, 49);
+            this.groupControl3.Size = new System.Drawing.Size(362, 69);
             this.groupControl3.TabIndex = 68;
             this.groupControl3.Text = "  Parametros";
             // 
@@ -488,38 +489,112 @@
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel6.Controls.Add(this.cbConstante, 1, 0);
             this.tableLayoutPanel6.Controls.Add(this.cbCertificado, 0, 0);
+            this.tableLayoutPanel6.Controls.Add(this.rbValor, 0, 1);
+            this.tableLayoutPanel6.Controls.Add(this.rbConstante, 1, 1);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel6.Location = new System.Drawing.Point(2, 23);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 1;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(358, 24);
+            this.tableLayoutPanel6.RowCount = 2;
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(358, 44);
             this.tableLayoutPanel6.TabIndex = 0;
-            // 
-            // cbConstante
-            // 
-            this.cbConstante.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cbConstante.Location = new System.Drawing.Point(122, 3);
-            this.cbConstante.Name = "cbConstante";
-            this.cbConstante.Size = new System.Drawing.Size(113, 18);
-            this.cbConstante.TabIndex = 10;
-            this.cbConstante.Text = "Constante";
-            this.cbConstante.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cbConstante.UseVisualStyleBackColor = true;
-            this.cbConstante.CheckedChanged += new System.EventHandler(this.cbCaracter_CheckedChanged);
             // 
             // cbCertificado
             // 
             this.cbCertificado.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cbCertificado.Location = new System.Drawing.Point(3, 3);
             this.cbCertificado.Name = "cbCertificado";
-            this.cbCertificado.Size = new System.Drawing.Size(113, 18);
+            this.cbCertificado.Size = new System.Drawing.Size(113, 16);
             this.cbCertificado.TabIndex = 9;
             this.cbCertificado.Text = "Certifica";
             this.cbCertificado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.cbCertificado.UseVisualStyleBackColor = true;
+            // 
+            // rbValor
+            // 
+            this.rbValor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rbValor.Location = new System.Drawing.Point(3, 25);
+            this.rbValor.Name = "rbValor";
+            this.rbValor.Size = new System.Drawing.Size(113, 16);
+            this.rbValor.TabIndex = 11;
+            this.rbValor.TabStop = true;
+            this.rbValor.Text = "Valor";
+            this.rbValor.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbValor.UseVisualStyleBackColor = true;
+            // 
+            // rbConstante
+            // 
+            this.rbConstante.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rbConstante.Location = new System.Drawing.Point(122, 25);
+            this.rbConstante.Name = "rbConstante";
+            this.rbConstante.Size = new System.Drawing.Size(113, 16);
+            this.rbConstante.TabIndex = 12;
+            this.rbConstante.TabStop = true;
+            this.rbConstante.Text = "Constante";
+            this.rbConstante.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.rbConstante.UseVisualStyleBackColor = true;
+            this.rbConstante.CheckedChanged += new System.EventHandler(this.cbCaracter_CheckedChanged);
+            // 
+            // tableLayoutPanel5
+            // 
+            this.tableLayoutPanel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.tableLayoutPanel5.ColumnCount = 2;
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel5.Controls.Add(this.btnAgregarItem, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.btnCancelar, 1, 0);
+            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 241);
+            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
+            this.tableLayoutPanel5.RowCount = 1;
+            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(362, 43);
+            this.tableLayoutPanel5.TabIndex = 66;
+            // 
+            // btnAgregarItem
+            // 
+            this.btnAgregarItem.BackColor = System.Drawing.Color.Transparent;
+            this.btnAgregarItem.BackgroundColor = System.Drawing.Color.Transparent;
+            this.btnAgregarItem.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAgregarItem.BorderRadius = 4;
+            this.btnAgregarItem.BorderSize = 3;
+            this.btnAgregarItem.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnAgregarItem.FlatAppearance.BorderSize = 0;
+            this.btnAgregarItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAgregarItem.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAgregarItem.Location = new System.Drawing.Point(3, 3);
+            this.btnAgregarItem.Name = "btnAgregarItem";
+            this.btnAgregarItem.Size = new System.Drawing.Size(175, 37);
+            this.btnAgregarItem.TabIndex = 1;
+            this.btnAgregarItem.Text = "Agregar";
+            this.btnAgregarItem.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
+            this.btnAgregarItem.UseVisualStyleBackColor = false;
+            this.btnAgregarItem.Click += new System.EventHandler(this.btnAgregarItem_Click);
+            // 
+            // btnCancelar
+            // 
+            this.btnCancelar.BackColor = System.Drawing.Color.Transparent;
+            this.btnCancelar.BackgroundColor = System.Drawing.Color.Transparent;
+            this.btnCancelar.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
+            this.btnCancelar.BorderRadius = 4;
+            this.btnCancelar.BorderSize = 3;
+            this.btnCancelar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnCancelar.FlatAppearance.BorderSize = 0;
+            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancelar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
+            this.btnCancelar.Location = new System.Drawing.Point(184, 3);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(175, 37);
+            this.btnCancelar.TabIndex = 0;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
+            this.btnCancelar.UseVisualStyleBackColor = false;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCerrarAgregar_Click);
             // 
             // groupControl1
             // 
@@ -554,65 +629,6 @@
             this.lueItemProcesos.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
             this.lueItemProcesos.Size = new System.Drawing.Size(358, 29);
             this.lueItemProcesos.TabIndex = 63;
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.tableLayoutPanel5.ColumnCount = 2;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel5.Controls.Add(this.btnAgregarItem, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.btnCancelar, 1, 0);
-            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(0, 241);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 1;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(362, 43);
-            this.tableLayoutPanel5.TabIndex = 66;
-            // 
-            // btnAgregarItem
-            // 
-            this.btnAgregarItem.BackColor = System.Drawing.Color.Transparent;
-            this.btnAgregarItem.BackgroundColor = System.Drawing.Color.Transparent;
-            this.btnAgregarItem.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnAgregarItem.BorderRadius = 4;
-            this.btnAgregarItem.BorderSize = 3;
-            this.btnAgregarItem.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnAgregarItem.FlatAppearance.BorderSize = 0;
-            this.btnAgregarItem.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnAgregarItem.Font = new System.Drawing.Font("Roboto Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgregarItem.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnAgregarItem.Location = new System.Drawing.Point(3, 3);
-            this.btnAgregarItem.Name = "btnAgregarItem";
-            this.btnAgregarItem.Size = new System.Drawing.Size(175, 37);
-            this.btnAgregarItem.TabIndex = 1;
-            this.btnAgregarItem.Text = "Agregar";
-            this.btnAgregarItem.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.btnAgregarItem.UseVisualStyleBackColor = false;
-            this.btnAgregarItem.Click += new System.EventHandler(this.btnAgregarItem_Click);
-            // 
-            // btnCancelar
-            // 
-            this.btnCancelar.BackColor = System.Drawing.Color.Transparent;
-            this.btnCancelar.BackgroundColor = System.Drawing.Color.Transparent;
-            this.btnCancelar.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
-            this.btnCancelar.BorderRadius = 4;
-            this.btnCancelar.BorderSize = 3;
-            this.btnCancelar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.btnCancelar.FlatAppearance.BorderSize = 0;
-            this.btnCancelar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancelar.Font = new System.Drawing.Font("Roboto Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancelar.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
-            this.btnCancelar.Location = new System.Drawing.Point(184, 3);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(175, 37);
-            this.btnCancelar.TabIndex = 0;
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
-            this.btnCancelar.UseVisualStyleBackColor = false;
-            this.btnCancelar.Click += new System.EventHandler(this.btnCerrarAgregar_Click);
             // 
             // tableLayoutPanel1
             // 
@@ -789,10 +805,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
             this.groupControl3.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
+            this.tableLayoutPanel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.lueItemProcesos.Properties)).EndInit();
-            this.tableLayoutPanel5.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl13)).EndInit();
             this.groupControl13.ResumeLayout(false);
@@ -833,7 +849,6 @@
         private System.Windows.Forms.Panel panel7;
         private DevExpress.XtraEditors.GroupControl groupControl3;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
-        private System.Windows.Forms.CheckBox cbConstante;
         private System.Windows.Forms.CheckBox cbCertificado;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private AAFControles.AAFBoton btnAgregarItem;
@@ -849,5 +864,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private DevExpress.XtraEditors.LookUpEdit lueItemProcesos;
+        private System.Windows.Forms.RadioButton rbValor;
+        private System.Windows.Forms.RadioButton rbConstante;
     }
 }
