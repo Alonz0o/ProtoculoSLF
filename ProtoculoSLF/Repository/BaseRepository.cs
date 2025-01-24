@@ -370,7 +370,7 @@ namespace ProtoculoSLF.Repository
                 conexion.Open();
                 command.Connection = conexion;
 
-                command.CommandText = @"SELECT fi.id,fi.nombre,fi.simbolo,fpi.orden,fpie.especificacion,fpie.especificacion_min,fpie.especificacion_max,fpi.id,fi.unidad,fe.valor_ensayo,fe.correcto
+                command.CommandText = @"SELECT fi.id,fi.nombre,fi.simbolo,fpi.orden,fpie.especificacion,fpie.especificacion_min,fpie.especificacion_max,fpi.id,fi.unidad,fe.valor_ensayo,fe.correcto,fi.constante
                                         FROM formato_ensayo fe
                                         JOIN formato_protocolo_item fpi ON (fe.id_item = fpi.id_item AND fpi.id_protocolo = @pIdProtocolo)
                                         JOIN formato_item fi on fpi.id_item = fi.id
@@ -386,6 +386,7 @@ namespace ProtoculoSLF.Repository
                     {
                         var valorEnsayo = reader[9] != DBNull.Value ? reader.GetDouble(9) : 0.0;
                         var valorCorrecto = reader[10] != DBNull.Value ? reader.GetString(10) : "";
+                        var esConstante = reader[11] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(11)) : false;
                         ProtocoloEnsayo pe = new ProtocoloEnsayo
                         {
                             Id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
@@ -393,12 +394,12 @@ namespace ProtoculoSLF.Repository
                             Simbolo = reader[2] != DBNull.Value ? reader.GetString(2) : "",
                             Orden = reader[3] != DBNull.Value ? reader.GetInt32(3) : 0,
                             Especificacion = reader[4] != DBNull.Value ? reader.GetDouble(4) : 0.0,
-                            EspecificacionMin = reader[5] != DBNull.Value ? reader.GetDouble(5) : 0.0,
-                            EspecificacionMax = reader[6] != DBNull.Value ? reader.GetDouble(6) : 0.0,
+                            EspecificacionMin = reader[5] != DBNull.Value ? reader.GetDouble(5)*10 : 0.0,
+                            EspecificacionMax = reader[6] != DBNull.Value ? reader.GetDouble(6)*10 : 0.0,
                             IdProtocoloItem = reader[7] != DBNull.Value ? reader.GetInt32(7) : 0,
                             Unidad = reader[8] != DBNull.Value ? reader.GetString(8) : "",
-                            ValorEnsayo = valorCorrecto != "0" ? valorCorrecto: valorEnsayo.ToString(),
-
+                            ValorEnsayo = !esConstante ? valorEnsayo.ToString() :  valorCorrecto,
+                            EsConstante = esConstante,
                         };
                         pes.Add(pe);
                     }
@@ -410,10 +411,11 @@ namespace ProtoculoSLF.Repository
                 {
                     Id = grupo.FirstOrDefault().Id,
                     Nombre = grupo.Key,
-                    ValorEnsayo = grupo.FirstOrDefault().Simbolo == "A" ? grupo.FirstOrDefault().ValorEnsayo : grupo.Where(pr => double.TryParse(pr.ValorEnsayo, out _))
+                    ValorEnsayo = !grupo.FirstOrDefault().EsConstante ? grupo.Where(pr => double.TryParse(pr.ValorEnsayo, out _))
                                                                                        .Select(pr => double.Parse(pr.ValorEnsayo))
                                                                                        .DefaultIfEmpty(0)
-                                                                                       .Average().ToString(),
+                                                                                       .Average().ToString()
+                                                                                       : grupo.FirstOrDefault().ValorEnsayo,
                     Orden = grupo.FirstOrDefault().Orden,
                     EspecificacionMin = grupo.FirstOrDefault().EspecificacionMin,
                     Especificacion = grupo.FirstOrDefault().Especificacion,

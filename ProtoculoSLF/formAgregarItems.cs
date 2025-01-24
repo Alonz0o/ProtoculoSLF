@@ -74,7 +74,7 @@ namespace ProtoculoSLF
             tableLayoutPanel1.Visible = !rbConstante.Checked;
             groupControl13.Visible = !rbConstante.Checked;
             gcSimbolo.Visible = !rbConstante.Checked;
-
+            
         }
 
         private void GenerarTablaItems()
@@ -281,16 +281,17 @@ namespace ProtoculoSLF
                     return false;
                 }
                 else piAgregar.Medida = lueUnidadA.Nombre;                
-                var lueProcesoA = lueItemProcesos.GetSelectedDataRow() as string;
-                if (lueProcesoA == null)
-                {
-                    formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Debe seleccionar proceso.");
-                    noti.Show();
-                    lueItemProcesos.Focus();
-                    return false;
-                }
-                else piAgregar.Proceso = lueProcesoA;
+                
             }
+            var lueProcesoA = lueItemProcesos.GetSelectedDataRow() as string;
+            if (lueProcesoA == null)
+            {
+                formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Debe seleccionar proceso.");
+                noti.Show();
+                lueItemProcesos.Focus();
+                return false;
+            }
+            else piAgregar.Proceso = lueProcesoA;
             return true;
         }
         private void MostrarNotificacion(string mensaje)

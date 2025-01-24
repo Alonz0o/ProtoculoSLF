@@ -44,7 +44,7 @@ namespace ProtoculoSLF.Report
             double espMax = 0.0;
             double tolerancia = 0.0;
 
-            if (pes.Simbolo != "A") {
+            if (!pes.EsConstante) {
                 tolerancia = Convert.ToDouble(pes.ValorEnsayo);
                 espMin = pes.Especificacion - pes.EspecificacionMin;
                 espMax = pes.Especificacion + pes.EspecificacionMax;

@@ -21,5 +21,7 @@ namespace ProtoculoSLF.Model
         public string EsCorrectoSiNo { get; set; }
         public int Orden { get; set; }
         public int IdProtocoloItem { get; set; }
+        public bool EsConstante { get; set; }
+
     }
 }

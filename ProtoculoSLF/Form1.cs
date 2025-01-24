@@ -534,7 +534,6 @@ namespace ProtoculoSLF
                 noti.Show();
             }
         }
-
         private void bbiQuitarProtocolo_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
         {
             if (br.QuitarProtocoloACodigo(idCodigoAModificara))
@@ -810,12 +809,6 @@ namespace ProtoculoSLF
 
             }
         }
-
-        private void btnAsignarCodigo_Click(object sender, EventArgs e)
-        {
-         
-        }
-
 
         private void btnAgregarItem_Click(object sender, EventArgs e)
         {
