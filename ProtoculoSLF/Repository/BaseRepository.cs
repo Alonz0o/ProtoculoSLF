@@ -57,7 +57,7 @@ namespace ProtoculoSLF.Repository
                 conexion.Open();
                 using (var command = conexion.CreateCommand())
                 {
-                    command.CommandText = "SELECT id,id_nt_log,valor_log,correcto_log,accion_creada FROM formato_ensayo_log WHERE accion_creada >= NOW() - INTERVAL 5 SECOND;";
+                    command.CommandText = "SELECT id,id_op,id_nt,accion_creada FROM formato_ensayo_log WHERE accion_creada >= NOW() - INTERVAL 5 SECOND;";
                     return command.ExecuteScalar() != DBNull.Value ? Convert.ToInt32(command.ExecuteScalar()) : 0;
                 }
             }

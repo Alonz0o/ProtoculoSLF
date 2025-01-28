@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ProtoculoSLF
 {
@@ -62,7 +63,6 @@ namespace ProtoculoSLF
             };
             lueItemSimbolos.Properties.DataSource = simbolos;
             lueItemUnidades.Properties.DataSource = unidades;
-            lueItemProcesos.Properties.DataSource = proceso;
         }
         private void GetItems()
         {
@@ -188,7 +188,7 @@ namespace ProtoculoSLF
                             cbCertificado.Checked = protocoloItemSeleccionado.EsCertificado;
                             rbConstante.Checked = protocoloItemSeleccionado.EsConstante;
                             lueItemUnidades.ItemIndex = BuscarUnidadIndex(protocoloItemSeleccionado.Medida);
-                            lueItemProcesos.ItemIndex = BuscarSectorIndex(protocoloItemSeleccionado.Proceso);
+                            //lueItemProcesos.ItemIndex = BuscarSectorIndex(protocoloItemSeleccionado.Proceso);
                             lueItemSimbolos.ItemIndex = BuscarSimboloIndex(protocoloItemSeleccionado.Simbolo);
 
                         }
@@ -206,16 +206,7 @@ namespace ProtoculoSLF
             }
             return 0;
         }
-        private int BuscarSectorIndex(string sector)
-        {
-            var dataSource = lueItemProcesos.Properties.DataSource as List<string>;
-            if (dataSource != null)
-            {
-                var index = dataSource.FindIndex(e => sector == e);
-                return index != -1 ? index : 0;
-            }
-            return 0;
-        }
+ 
         private int BuscarSimboloIndex(string simbolo)
         {
             var dataSource = lueItemSimbolos.Properties.DataSource as List<Simbolo>;
@@ -283,15 +274,13 @@ namespace ProtoculoSLF
                 else piAgregar.Medida = lueUnidadA.Nombre;                
                 
             }
-            var lueProcesoA = lueItemProcesos.GetSelectedDataRow() as string;
-            if (lueProcesoA == null)
-            {
-                formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Debe seleccionar proceso.");
+            if (cbExt.Checked == false && cbImp.Checked == false && cbCon.Checked == false && cbWic.Checked == false) {
+                formNotificacion noti = new formNotificacion("warning", "Recomendación", "Agregar Ítem", "Debe seleccionar al menos un proceso.");
                 noti.Show();
-                lueItemProcesos.Focus();
+                cbImp.Focus();
                 return false;
             }
-            else piAgregar.Proceso = lueProcesoA;
+
             return true;
         }
         private void MostrarNotificacion(string mensaje)
@@ -308,6 +297,15 @@ namespace ProtoculoSLF
             if (!ValidarFormularioItems()) return;
             piAgregar.EsCertificado = cbCertificado.Checked;
             piAgregar.EsConstante = rbConstante.Checked;
+            List<string> procesosSeleccionados = new List<string>();
+
+            if (cbExt.Checked) procesosSeleccionados.Add(cbExt.Text);
+            if (cbImp.Checked) procesosSeleccionados.Add(cbImp.Text);
+            if (cbCon.Checked) procesosSeleccionados.Add(cbCon.Text);
+            if (cbWic.Checked) procesosSeleccionados.Add(cbWic.Text);
+
+            string resultado = string.Join(",", procesosSeleccionados);
+            piAgregar.Proceso = resultado;
             if (Form1.instancia.br.AgregarItem(piAgregar))
             {
                 LimpiarFormularioAgregarItem();
@@ -321,7 +319,7 @@ namespace ProtoculoSLF
             tbNombre.Texts = string.Empty;
             lueItemUnidades.Text = string.Empty;
             lueItemSimbolos.Text = string.Empty;
-            lueItemProcesos.Text = string.Empty;
+            //lueItemProcesos.Text = string.Empty;
             cbCertificado.Checked = false;
             rbConstante.Checked = false;
         }

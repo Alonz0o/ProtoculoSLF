@@ -60,7 +60,6 @@
             this.btnAgregarItem = new ProtoculoSLF.AAFControles.AAFBoton();
             this.btnCancelar = new ProtoculoSLF.AAFControles.AAFBoton();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.lueItemProcesos = new DevExpress.XtraEditors.LookUpEdit();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupControl13 = new DevExpress.XtraEditors.GroupControl();
             this.lueItemUnidades = new DevExpress.XtraEditors.LookUpEdit();
@@ -70,6 +69,11 @@
             this.cbMantener = new System.Windows.Forms.CheckBox();
             this.tbNombre = new ScrapKP.AAFControles.AAFTextBox();
             this.panel11 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.cbExt = new System.Windows.Forms.CheckBox();
+            this.cbImp = new System.Windows.Forms.CheckBox();
+            this.cbCon = new System.Windows.Forms.CheckBox();
+            this.cbWic = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.gcAgregar)).BeginInit();
             this.gcAgregar.SuspendLayout();
             this.tlpRealizados.SuspendLayout();
@@ -92,7 +96,6 @@
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.lueItemProcesos.Properties)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl13)).BeginInit();
             this.groupControl13.SuspendLayout();
@@ -102,6 +105,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.lueItemSimbolos.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
             this.groupControl5.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // gcAgregar
@@ -602,7 +606,7 @@
             this.groupControl1.Appearance.Options.UseBorderColor = true;
             this.groupControl1.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupControl1.AppearanceCaption.Options.UseFont = true;
-            this.groupControl1.Controls.Add(this.lueItemProcesos);
+            this.groupControl1.Controls.Add(this.tableLayoutPanel3);
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl1.Location = new System.Drawing.Point(0, 112);
             this.groupControl1.Margin = new System.Windows.Forms.Padding(0);
@@ -610,25 +614,6 @@
             this.groupControl1.Size = new System.Drawing.Size(362, 54);
             this.groupControl1.TabIndex = 78;
             this.groupControl1.Text = "  Proceso *";
-            // 
-            // lueItemProcesos
-            // 
-            this.lueItemProcesos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lueItemProcesos.EditValue = "";
-            this.lueItemProcesos.Location = new System.Drawing.Point(2, 23);
-            this.lueItemProcesos.Name = "lueItemProcesos";
-            this.lueItemProcesos.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.lueItemProcesos.Properties.Appearance.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lueItemProcesos.Properties.Appearance.Options.UseFont = true;
-            this.lueItemProcesos.Properties.Appearance.Options.UseForeColor = true;
-            this.lueItemProcesos.Properties.AutoHeight = false;
-            this.lueItemProcesos.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lueItemProcesos.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
-            this.lueItemProcesos.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
-            this.lueItemProcesos.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.lueItemProcesos.Size = new System.Drawing.Size(358, 29);
-            this.lueItemProcesos.TabIndex = 63;
             // 
             // tableLayoutPanel1
             // 
@@ -774,6 +759,70 @@
             this.panel11.Size = new System.Drawing.Size(7, 522);
             this.panel11.TabIndex = 1;
             // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.tableLayoutPanel3.ColumnCount = 4;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.Controls.Add(this.cbWic, 3, 0);
+            this.tableLayoutPanel3.Controls.Add(this.cbCon, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.cbImp, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.cbExt, 0, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 23);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(358, 29);
+            this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // cbExt
+            // 
+            this.cbExt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbExt.Location = new System.Drawing.Point(3, 3);
+            this.cbExt.Name = "cbExt";
+            this.cbExt.Size = new System.Drawing.Size(83, 23);
+            this.cbExt.TabIndex = 10;
+            this.cbExt.Text = "Extrusión";
+            this.cbExt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbExt.UseVisualStyleBackColor = true;
+            // 
+            // cbImp
+            // 
+            this.cbImp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbImp.Location = new System.Drawing.Point(92, 3);
+            this.cbImp.Name = "cbImp";
+            this.cbImp.Size = new System.Drawing.Size(83, 23);
+            this.cbImp.TabIndex = 11;
+            this.cbImp.Text = "Impresión";
+            this.cbImp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbImp.UseVisualStyleBackColor = true;
+            // 
+            // cbCon
+            // 
+            this.cbCon.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbCon.Location = new System.Drawing.Point(181, 3);
+            this.cbCon.Name = "cbCon";
+            this.cbCon.Size = new System.Drawing.Size(83, 23);
+            this.cbCon.TabIndex = 12;
+            this.cbCon.Text = "Confección";
+            this.cbCon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbCon.UseVisualStyleBackColor = true;
+            // 
+            // cbWic
+            // 
+            this.cbWic.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbWic.Location = new System.Drawing.Point(270, 3);
+            this.cbWic.Name = "cbWic";
+            this.cbWic.Size = new System.Drawing.Size(85, 23);
+            this.cbWic.TabIndex = 13;
+            this.cbWic.Text = "Wicket";
+            this.cbWic.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbWic.UseVisualStyleBackColor = true;
+            // 
             // formAgregarItems
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -808,7 +857,6 @@
             this.tableLayoutPanel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.lueItemProcesos.Properties)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl13)).EndInit();
             this.groupControl13.ResumeLayout(false);
@@ -818,6 +866,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.lueItemSimbolos.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
             this.groupControl5.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -863,8 +912,12 @@
         private DevExpress.XtraEditors.LookUpEdit lueItemSimbolos;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private DevExpress.XtraEditors.GroupControl groupControl1;
-        private DevExpress.XtraEditors.LookUpEdit lueItemProcesos;
         private System.Windows.Forms.RadioButton rbValor;
         private System.Windows.Forms.RadioButton rbConstante;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
+        private System.Windows.Forms.CheckBox cbWic;
+        private System.Windows.Forms.CheckBox cbCon;
+        private System.Windows.Forms.CheckBox cbImp;
+        private System.Windows.Forms.CheckBox cbExt;
     }
 }
