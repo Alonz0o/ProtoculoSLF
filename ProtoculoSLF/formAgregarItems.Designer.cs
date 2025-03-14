@@ -60,6 +60,11 @@
             this.btnAgregarItem = new ProtoculoSLF.AAFControles.AAFBoton();
             this.btnCancelar = new ProtoculoSLF.AAFControles.AAFBoton();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.cbWic = new System.Windows.Forms.CheckBox();
+            this.cbCon = new System.Windows.Forms.CheckBox();
+            this.cbImp = new System.Windows.Forms.CheckBox();
+            this.cbExt = new System.Windows.Forms.CheckBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupControl13 = new DevExpress.XtraEditors.GroupControl();
             this.lueItemUnidades = new DevExpress.XtraEditors.LookUpEdit();
@@ -69,11 +74,6 @@
             this.cbMantener = new System.Windows.Forms.CheckBox();
             this.tbNombre = new ScrapKP.AAFControles.AAFTextBox();
             this.panel11 = new System.Windows.Forms.Panel();
-            this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.cbExt = new System.Windows.Forms.CheckBox();
-            this.cbImp = new System.Windows.Forms.CheckBox();
-            this.cbCon = new System.Windows.Forms.CheckBox();
-            this.cbWic = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.gcAgregar)).BeginInit();
             this.gcAgregar.SuspendLayout();
             this.tlpRealizados.SuspendLayout();
@@ -96,6 +96,7 @@
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
+            this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl13)).BeginInit();
             this.groupControl13.SuspendLayout();
@@ -105,7 +106,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.lueItemSimbolos.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
             this.groupControl5.SuspendLayout();
-            this.tableLayoutPanel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // gcAgregar
@@ -374,6 +374,7 @@
             this.btnCancelarCambios.Text = "Cancelar";
             this.btnCancelarCambios.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
             this.btnCancelarCambios.UseVisualStyleBackColor = false;
+            this.btnCancelarCambios.Click += new System.EventHandler(this.btnCancelarCambios_Click);
             // 
             // lblNombreVentana
             // 
@@ -615,6 +616,70 @@
             this.groupControl1.TabIndex = 78;
             this.groupControl1.Text = "  Proceso *";
             // 
+            // tableLayoutPanel3
+            // 
+            this.tableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.tableLayoutPanel3.ColumnCount = 4;
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel3.Controls.Add(this.cbWic, 3, 0);
+            this.tableLayoutPanel3.Controls.Add(this.cbCon, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.cbImp, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.cbExt, 0, 0);
+            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 23);
+            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
+            this.tableLayoutPanel3.RowCount = 1;
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(358, 29);
+            this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // cbWic
+            // 
+            this.cbWic.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbWic.Location = new System.Drawing.Point(270, 3);
+            this.cbWic.Name = "cbWic";
+            this.cbWic.Size = new System.Drawing.Size(85, 23);
+            this.cbWic.TabIndex = 13;
+            this.cbWic.Text = "Wicket";
+            this.cbWic.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbWic.UseVisualStyleBackColor = true;
+            // 
+            // cbCon
+            // 
+            this.cbCon.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbCon.Location = new System.Drawing.Point(181, 3);
+            this.cbCon.Name = "cbCon";
+            this.cbCon.Size = new System.Drawing.Size(83, 23);
+            this.cbCon.TabIndex = 12;
+            this.cbCon.Text = "Confección";
+            this.cbCon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbCon.UseVisualStyleBackColor = true;
+            // 
+            // cbImp
+            // 
+            this.cbImp.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbImp.Location = new System.Drawing.Point(92, 3);
+            this.cbImp.Name = "cbImp";
+            this.cbImp.Size = new System.Drawing.Size(83, 23);
+            this.cbImp.TabIndex = 11;
+            this.cbImp.Text = "Impresión";
+            this.cbImp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbImp.UseVisualStyleBackColor = true;
+            // 
+            // cbExt
+            // 
+            this.cbExt.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.cbExt.Location = new System.Drawing.Point(3, 3);
+            this.cbExt.Name = "cbExt";
+            this.cbExt.Size = new System.Drawing.Size(83, 23);
+            this.cbExt.TabIndex = 10;
+            this.cbExt.Text = "Extrusión";
+            this.cbExt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cbExt.UseVisualStyleBackColor = true;
+            // 
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
@@ -759,70 +824,6 @@
             this.panel11.Size = new System.Drawing.Size(7, 522);
             this.panel11.TabIndex = 1;
             // 
-            // tableLayoutPanel3
-            // 
-            this.tableLayoutPanel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.tableLayoutPanel3.ColumnCount = 4;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
-            this.tableLayoutPanel3.Controls.Add(this.cbWic, 3, 0);
-            this.tableLayoutPanel3.Controls.Add(this.cbCon, 2, 0);
-            this.tableLayoutPanel3.Controls.Add(this.cbImp, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.cbExt, 0, 0);
-            this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 23);
-            this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            this.tableLayoutPanel3.RowCount = 1;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(358, 29);
-            this.tableLayoutPanel3.TabIndex = 0;
-            // 
-            // cbExt
-            // 
-            this.cbExt.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cbExt.Location = new System.Drawing.Point(3, 3);
-            this.cbExt.Name = "cbExt";
-            this.cbExt.Size = new System.Drawing.Size(83, 23);
-            this.cbExt.TabIndex = 10;
-            this.cbExt.Text = "Extrusión";
-            this.cbExt.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cbExt.UseVisualStyleBackColor = true;
-            // 
-            // cbImp
-            // 
-            this.cbImp.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cbImp.Location = new System.Drawing.Point(92, 3);
-            this.cbImp.Name = "cbImp";
-            this.cbImp.Size = new System.Drawing.Size(83, 23);
-            this.cbImp.TabIndex = 11;
-            this.cbImp.Text = "Impresión";
-            this.cbImp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cbImp.UseVisualStyleBackColor = true;
-            // 
-            // cbCon
-            // 
-            this.cbCon.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cbCon.Location = new System.Drawing.Point(181, 3);
-            this.cbCon.Name = "cbCon";
-            this.cbCon.Size = new System.Drawing.Size(83, 23);
-            this.cbCon.TabIndex = 12;
-            this.cbCon.Text = "Confección";
-            this.cbCon.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cbCon.UseVisualStyleBackColor = true;
-            // 
-            // cbWic
-            // 
-            this.cbWic.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cbWic.Location = new System.Drawing.Point(270, 3);
-            this.cbWic.Name = "cbWic";
-            this.cbWic.Size = new System.Drawing.Size(85, 23);
-            this.cbWic.TabIndex = 13;
-            this.cbWic.Text = "Wicket";
-            this.cbWic.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.cbWic.UseVisualStyleBackColor = true;
-            // 
             // formAgregarItems
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -857,6 +858,7 @@
             this.tableLayoutPanel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
+            this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl13)).EndInit();
             this.groupControl13.ResumeLayout(false);
@@ -866,7 +868,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.lueItemSimbolos.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
             this.groupControl5.ResumeLayout(false);
-            this.tableLayoutPanel3.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

@@ -93,6 +93,16 @@ namespace ProtoculoSLF.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap clear_16x161 {
+            get {
+                object obj = ResourceManager.GetObject("clear_16x161", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap drop_16x16 {
             get {
                 object obj = ResourceManager.GetObject("drop_16x16", resourceCulture);

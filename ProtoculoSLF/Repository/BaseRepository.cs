@@ -625,7 +625,7 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT iditem FROM formatoprotocoloa_item where controles = @pNombre;";
+                command.CommandText = @"SELECT id FROM formato_item where nombre = @pNombre;";
                 command.Parameters.Add("@pNombre", MySqlDbType.String).Value = nombre;
                 var pp = command.ExecuteScalar();
                 if (pp == null) return true;
@@ -762,6 +762,7 @@ namespace ProtoculoSLF.Repository
                 }
             }
         }
+
         internal bool AgregarItemProtocolo(ProtocoloItem pi, int idCodigo)
         {
             bool res = false;
@@ -830,8 +831,8 @@ namespace ProtoculoSLF.Repository
                         command.Transaction = transaction;
                         try
                         {
-                            command.CommandText = @"DELETE FROM formatoprotocoloa_item WHERE (iditem = @pIdItem);";
-                            command.Parameters.Add("@pIdItem", MySqlDbType.Int32).Value = idItem;
+                            command.CommandText = @"DELETE FROM formato_item WHERE (id = @pId);";
+                            command.Parameters.Add("@pId", MySqlDbType.Int32).Value = idItem;
                             if (command.ExecuteNonQuery() != 1)
                             {
                                 throw new Exception("Error al modificar TX");
@@ -877,19 +878,19 @@ namespace ProtoculoSLF.Repository
                             command.CommandText = @"UPDATE formato_item SET nombre = @pNombre,
                                                                             unidad = @pMedida,
                                                                             usuario = @pUsuario,
-                                                                            certificado = @pEsCertificado,
+                                                                            certifica = @pCertifica,
                                                                             constante = @pConstante,
                                                                             simbolo = @pSimbolo,
-                                                                            proceso = @pProceso                                                                                     
-                                                                            WHERE id = (@pIdItem);";
+                                                                            sector = @pSector                                                                                     
+                                                                            WHERE id = (@pId);";
                             command.Parameters.Add("@pNombre", MySqlDbType.String).Value = pi.Nombre;
                             command.Parameters.Add("@pMedida", MySqlDbType.String).Value = pi.Medida;
                             command.Parameters.Add("@pUsuario", MySqlDbType.String).Value = "ARIEL ALON";
-                            command.Parameters.Add("@pEsCertificado", MySqlDbType.Int32).Value = pi.EsCertificado;
+                            command.Parameters.Add("@pCertifica", MySqlDbType.Int32).Value = pi.EsCertificado;
                             command.Parameters.Add("@pConstante", MySqlDbType.Double).Value = pi.EsConstante;
                             command.Parameters.Add("@pSimbolo", MySqlDbType.String).Value = pi.Simbolo;
-                            command.Parameters.Add("@pProceso", MySqlDbType.Double).Value = pi.Proceso;
-                            command.Parameters.Add("@pIdItem", MySqlDbType.Int32).Value = pi.Id;
+                            command.Parameters.Add("@pSector", MySqlDbType.Double).Value = pi.Proceso;
+                            command.Parameters.Add("@pId", MySqlDbType.Int32).Value = pi.Id;
                             if (command.ExecuteNonQuery() != 1)
                             {
                                 throw new Exception("Error al modificar ITEM");

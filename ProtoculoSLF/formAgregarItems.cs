@@ -13,7 +13,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ProtoculoSLF
 {
@@ -34,24 +33,22 @@ namespace ProtoculoSLF
             List<Unidad> unidades = new List<Unidad> {
                 new Unidad{ Nombre="NA", Descripcion="No asigar" },
                 new Unidad{ Nombre="Milimetro", Descripcion="mm" },
-                new Unidad{ Nombre="Kg/pulgada", Descripcion="kg/in" },
+                new Unidad{ Nombre="Kilogramo", Descripcion="kg" },
+                new Unidad{ Nombre="Gramos", Descripcion="gr" },
                 new Unidad{ Nombre="Micron", Descripcion="µm" },
                 new Unidad{ Nombre="Porcentaje", Descripcion="%" },
+                new Unidad{ Nombre="Pulgada", Descripcion="in" },          
             };
             List<Simbolo> simbolos = new List<Simbolo> { 
-                //new Simbolo{ Caracter ="=",Significado="Igual a" },
-                //new Simbolo{ Caracter ="≠",Significado="Diferente de" },
+                new Simbolo{ Caracter ="=",Significado="Igual a" },
+                new Simbolo{ Caracter ="≠",Significado="Diferente de" },
                 new Simbolo{ Caracter ="<",Significado="Menor que" },
                 new Simbolo{ Caracter =">",Significado="Mayor que" },
-                //new Simbolo{ Caracter ="≤",Significado="Menor o igual a" },
-                //new Simbolo{ Caracter ="≥",Significado="Mayor o igual a" },
+                new Simbolo{ Caracter ="≤",Significado="Menor o igual a" },
+                new Simbolo{ Caracter ="≥",Significado="Mayor o igual a" },
                 new Simbolo{ Caracter ="±",Significado="Más o menos" },
-                //new Simbolo{ Caracter ="∓",Significado="Menos o más" },
+                new Simbolo{ Caracter ="∓",Significado="Menos o más" },
                 new Simbolo{ Caracter ="-",Significado="Entre A y B" },
-                //new Simbolo{ Caracter ="A",Significado="Entre OK, no OK, numerico o guion"},
-                //new Simbolo{ Caracter ="B",Significado="Entre OK y no OK"},
-                //new Simbolo{ Caracter ="C",Significado="Entre numerico y no OK"},
-
             };
             List<string> proceso = new List<string> {
                 "Extrusión",
@@ -59,7 +56,6 @@ namespace ProtoculoSLF
                 "Confección",
                 "Rebobinado",
                 "Wicket"
-
             };
             lueItemSimbolos.Properties.DataSource = simbolos;
             lueItemUnidades.Properties.DataSource = unidades;
@@ -181,6 +177,12 @@ namespace ProtoculoSLF
                             protocoloItemSeleccionado.Id = pi.Id;
                             protocoloItemSeleccionado.Nombre = pi.Nombre;
                             confirmar = "UPDATEITEM";
+                            cbExt.Checked = pi.Proceso.Contains("Extrusión") ? true : false;
+                            cbImp.Checked = pi.Proceso.Contains("Impresión") ? true : false;
+                            cbCon.Checked = pi.Proceso.Contains("Confección") ? true : false;
+                            cbWic.Checked = pi.Proceso.Contains("Wicket") ? true : false;
+                            btnAgregarItem.Text = "Modificar";
+
                             cbMantener.Visible = true;
                             protocoloItemSeleccionado = pi;
                             gcAgregarItem.Visible = true;
@@ -188,7 +190,6 @@ namespace ProtoculoSLF
                             cbCertificado.Checked = protocoloItemSeleccionado.EsCertificado;
                             rbConstante.Checked = protocoloItemSeleccionado.EsConstante;
                             lueItemUnidades.ItemIndex = BuscarUnidadIndex(protocoloItemSeleccionado.Medida);
-                            //lueItemProcesos.ItemIndex = BuscarSectorIndex(protocoloItemSeleccionado.Proceso);
                             lueItemSimbolos.ItemIndex = BuscarSimboloIndex(protocoloItemSeleccionado.Simbolo);
 
                         }
@@ -233,7 +234,7 @@ namespace ProtoculoSLF
         private void btnCerrarAgregar_Click(object sender, EventArgs e)
         {
             gcAgregarItem.Visible = false;
-
+            btnAgregarItem.Text = "Agregar";
         }
 
         private void btnMostrarAgregarItem_Click(object sender, EventArgs e)
@@ -245,7 +246,7 @@ namespace ProtoculoSLF
 
         private bool ValidarFormularioItems()
         {
-            if (!Utils.IsSoloLetrasMultipleEspacios(tbNombre.Texts))
+            if (string.IsNullOrEmpty(tbNombre.Texts))
             {
                 MostrarNotificacion("Debe introducir nombre de control");
                 tbNombre.Focus();
@@ -306,22 +307,42 @@ namespace ProtoculoSLF
 
             string resultado = string.Join(",", procesosSeleccionados);
             piAgregar.Proceso = resultado;
-            if (Form1.instancia.br.AgregarItem(piAgregar))
+
+            if (confirmar == "UPDATEITEM")
             {
-                LimpiarFormularioAgregarItem();
-                formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se agrego correctamente un nuevo item: " + piAgregar.Nombre);
-                GetItems();
-                noti.Show();
+                gcAgregarItem.Visible = false;
+                gcConfirmar.Size = new Size(388, 137);
+                tlpNoti.Visible = true;
+                lblNombreVentana.Text = "Modificar ítem: " + piAgregar.Nombre;
+                lblTitulo.Text = "Esta a punto de modificar un ítem";
+                lblMensaje.Text = "Esto afectara a todos los protocolos relacionados con dicho ítem";
+                gcConfirmar.Visible = true;
+
             }
+            else
+            {
+                if (Form1.instancia.br.AgregarItem(piAgregar))
+                {
+                    LimpiarFormularioAgregarItem();
+                    formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se agrego correctamente un nuevo item: " + piAgregar.Nombre);
+                    GetItems();
+                    noti.Show();
+                }
+            }
+            
         }
         private void LimpiarFormularioAgregarItem()
         {
             tbNombre.Texts = string.Empty;
             lueItemUnidades.Text = string.Empty;
             lueItemSimbolos.Text = string.Empty;
-            //lueItemProcesos.Text = string.Empty;
             cbCertificado.Checked = false;
             rbConstante.Checked = false;
+            cbExt.Checked = false;
+            cbImp.Checked = false;
+            cbCon.Checked = false;
+            cbWic.Checked = false;
+
         }
 
         private void btnConfirmarCambios_Click(object sender, EventArgs e)
@@ -341,6 +362,15 @@ namespace ProtoculoSLF
                 piAgregar.EsCertificado = cbCertificado.Checked;
                 piAgregar.EsConstante = rbConstante.Checked;
                 piAgregar.Id = protocoloItemSeleccionado.Id;
+
+                List<string> procesosSeleccionados = new List<string>();
+                if (cbExt.Checked) procesosSeleccionados.Add(cbExt.Text);
+                if (cbImp.Checked) procesosSeleccionados.Add(cbImp.Text);
+                if (cbCon.Checked) procesosSeleccionados.Add(cbCon.Text);
+                if (cbWic.Checked) procesosSeleccionados.Add(cbWic.Text);
+
+                string resultado = string.Join(",", procesosSeleccionados);
+                piAgregar.Proceso = resultado;
 
                 if (Form1.instancia.br.UpdateItem("NO", piAgregar))
                 {
@@ -363,6 +393,12 @@ namespace ProtoculoSLF
                     GetItems();
                 }
             }
+        }
+
+        private void btnCancelarCambios_Click(object sender, EventArgs e)
+        {
+            gcAgregarItem.Visible = true;
+            gcConfirmar.Visible = false;
         }
     }
 }
