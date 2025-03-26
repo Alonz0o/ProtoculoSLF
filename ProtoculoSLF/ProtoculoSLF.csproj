@@ -172,7 +172,9 @@
     </Compile>
     <Compile Include="Model\Especificacion.cs" />
     <Compile Include="Model\ExtrusionDatos.cs" />
+    <Compile Include="Model\Maquina.cs" />
     <Compile Include="Model\NT.cs" />
+    <Compile Include="Model\OP.cs" />
     <Compile Include="Model\Protocolo.cs" />
     <Compile Include="Model\ProtocoloEnsayo.cs" />
     <Compile Include="Model\ProtocoloItem.cs" />
@@ -197,6 +199,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="formAgregarCodigo.resx">
       <DependentUpon>formAgregarCodigo.cs</DependentUpon>

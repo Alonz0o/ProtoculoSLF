@@ -17,7 +17,6 @@ using ProtoculoSLF.Report;
 using System.IO;
 using IniParser.Model;
 using IniParser;
-using DevExpress.ClipboardSource.SpreadsheetML;
 
 namespace ProtoculoSLF
 {
@@ -55,14 +54,14 @@ namespace ProtoculoSLF
             InitializeComponent();
             GenerarTablaProtocolos();
             GenerarTablaProtocolosItem();
-           
+
             GenerarTablaEnsayos();
             if (!File.Exists(archivoINI)) File.Create(archivoINI).Close();
             LeerConfigSplitter();
             instancia = this;
-            GetProtocolos();
 
             ContextMenuStrip contextMenu = new ContextMenuStrip();
+            lueMaquina.Properties.DataSource = br.GetMaquinas().OrderBy(e => e.Nombre);
 
             // BOTON PROTOCOLO
             ToolStripMenuItem itemAgregarProtocolo = new ToolStripMenuItem("Asistente de protocolo");
@@ -75,11 +74,12 @@ namespace ProtoculoSLF
             contextMenu.Items.Add(itemModificarProtocolo);
 
             btnAgregarProtocolo.ContextMenuStrip = contextMenu;
-            btnAgregarProtocolo.Click += (s, e) => {
+            btnAgregarProtocolo.Click += (s, e) =>
+            {
                 contextMenu.Show(btnAgregarProtocolo, new Point(0, btnAgregarProtocolo.Height));
             };
         }
-       
+
         private void AgregarProtocolo_Click(object sender, EventArgs e)
         {
             formAgregarProtocolo form = new formAgregarProtocolo("agregar");
@@ -138,8 +138,18 @@ namespace ProtoculoSLF
             cVerProtocolo.Width = 16;
             cVerProtocolo.Visible = true;
 
-            gvProtocolos.Columns.AddRange(new GridColumn[] { cId, cIdFormato, cFecha, cNombre, cVerProtocolo });
+            GridColumn cCliente = new GridColumn();
+            cCliente.FieldName = "Cliente";
+            cCliente.Caption = "Cliente";
+            cCliente.Visible = true;
+
+            gvProtocolos.Columns.AddRange(new GridColumn[] { cId, cIdFormato, cFecha, cNombre,cCliente, cVerProtocolo });
             gcProtocolos.DataSource = protocolos.OrderByDescending(e => e.Fecha);
+
+            GridColumnSortInfo[] sortInfo = {
+                new GridColumnSortInfo(gvProtocolos.Columns["Cliente"], ColumnSortOrder.Ascending),
+                new GridColumnSortInfo(gvProtocolos.Columns["Id"], ColumnSortOrder.Ascending)};
+            gvProtocolos.SortInfo.ClearAndAddRange(sortInfo, 1);
 
             RepositoryItemButtonEdit botonVer = new RepositoryItemButtonEdit();
             botonVer.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
@@ -168,13 +178,13 @@ namespace ProtoculoSLF
                             gvNts.Columns.Clear();
                             if (p.Disposicion == 1) GenerarTablaNtsPorLote();
                             else GenerarTablaNts();
-                            
+
                             idCodigoSeleccionado = p.Id;
                             idProtocoloSeleccionado = p.FormatoProtocolo;
                             disposicion = p.Disposicion;
                             GetProtocoloItems();
 
-                            if (p.Disposicion == 1)  GetProtocoloNtsPorPallets();                          
+                            if (p.Disposicion == 1) GetProtocoloNtsPorPallets();
                             else GetProtocoloNts();
 
                             LimpiarMenuProtocolo();
@@ -196,6 +206,7 @@ namespace ProtoculoSLF
                 }
             };
         }
+
         Protocolo protocoloSeleccionado = new Protocolo();
         public bool EsCanceladoFormAsignarItemAProtocolo = false;
         private void LimpiarMenuProtocolo()
@@ -257,6 +268,7 @@ namespace ProtoculoSLF
 
             gvItemsProtocolo.Columns.AddRange(new GridColumn[] { cId, cNombre, cMedida, cCertifica, cEspecificacion, cOrden });
             gcItemsProtocolo.DataSource = protocoItems;
+
         }
         private void GenerarTablaNts()
         {
@@ -292,7 +304,7 @@ namespace ProtoculoSLF
             cCantBobina.Caption = "Cantidad N°";
             cCantBobina.UnboundDataType = typeof(string);
             cCantBobina.Visible = true;
-            cCantBobina.OptionsColumn.AllowEdit = false;       
+            cCantBobina.OptionsColumn.AllowEdit = false;
 
             GridColumn cFecha = new GridColumn();
             cFecha.FieldName = "Creado";
@@ -331,7 +343,7 @@ namespace ProtoculoSLF
             cNT.UnboundDataType = typeof(string);
             cNT.Visible = true;
             cNT.OptionsColumn.AllowEdit = false;
-        
+
             GridColumn cPallet = new GridColumn();
             cPallet.FieldName = "NumPallet";
             cPallet.Caption = "Pallets N°";
@@ -353,10 +365,10 @@ namespace ProtoculoSLF
             //cFecha.Visible = true;
             //cFecha.OptionsColumn.AllowEdit = false;
 
-            gvNts.Columns.AddRange(new GridColumn[] { cId, cOP, cNT, cPallet,cCantBobina });
+            gvNts.Columns.AddRange(new GridColumn[] { cId, cOP, cNT, cPallet, cCantBobina });
             gcNts.DataSource = nts;
 
-           
+
         }
 
         private void GenerarTablaEnsayos()
@@ -394,7 +406,7 @@ namespace ProtoculoSLF
             cAcciones.Visible = true;
 
 
-            gvFormatoValores.Columns.AddRange(new GridColumn[] { cId, cNombre, cValor, cAcciones,cVerGrafico });
+            gvFormatoValores.Columns.AddRange(new GridColumn[] { cId, cNombre, cValor, cAcciones, cVerGrafico });
             gcFormatoValores.DataSource = protocoloEnsayos;
 
             RepositoryItemButtonEdit botonAccion = new RepositoryItemButtonEdit();
@@ -408,7 +420,7 @@ namespace ProtoculoSLF
                 ButtonEdit buttonEdit = sender as ButtonEdit;
                 if (buttonEdit != null && e.Button.Index == 0)
                 {
-   
+
                     GridView gridView = gvFormatoValores;
                     if (gridView != null)
                     {
@@ -417,8 +429,8 @@ namespace ProtoculoSLF
                         if (pi != null)
                         {
                             //if (p.Disposicion == 1) GenerarTablaNtsPorLote();
-                            var op = protocoloSeleccionado.Disposicion == 1 ?datosReporte.Lote : datosReporte.NT.ToString();
-                            formDeleteUpdateItem form = new formDeleteUpdateItem(br.GetEnsayosPorIdProtocoloItem(op, protocoloSeleccionado.FormatoProtocolo,pi.Id));
+                            var op = protocoloSeleccionado.Disposicion == 1 ? datosReporte.Lote : datosReporte.NT.ToString();
+                            formDeleteUpdateItem form = new formDeleteUpdateItem(br.GetEnsayosPorIdProtocoloItem(op, protocoloSeleccionado.FormatoProtocolo, pi.Id));
                             form.Size = gcEnsayos.Size;
                             Point locationOnScreen = gcEnsayos.PointToScreen(Point.Empty);
                             form.Location = new Point(locationOnScreen.X - gcEnsayos.Size.Width - 4, locationOnScreen.Y);
@@ -427,9 +439,9 @@ namespace ProtoculoSLF
                     }
                 }
             };
-        
 
-        RepositoryItemButtonEdit botonVer = new RepositoryItemButtonEdit();
+
+            RepositoryItemButtonEdit botonVer = new RepositoryItemButtonEdit();
             botonVer.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             botonVer.Buttons[0].Kind = DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph;
             botonVer.Buttons[0].Image = Properties.Resources.pie_16x16;
@@ -445,7 +457,7 @@ namespace ProtoculoSLF
                     if (gridView != null)
                     {
                         int rowIndex = gridView.FocusedRowHandle;
-                        
+
 
                         ProtocoloEnsayo peSeleccionado = gridView.GetRow(rowIndex) as ProtocoloEnsayo;
                         if (peSeleccionado != null)
@@ -474,7 +486,7 @@ namespace ProtoculoSLF
             lblNtNum.Text = "NT N° " + data.NumNT;
             lblPalletNum.Text = disposicion == 1 ? "Por lote" : "Por pallet: " + data.NumPallet;
 
-            if (disposicion == 1) GetEnsayosRealizadosPorLote(data.OP,1);
+            if (disposicion == 1) GetEnsayosRealizadosPorLote(data.OP, 1);
             else GetEnsayosRealizados();
         }
         public ProtocoloEnsayo espesorDatos = new ProtocoloEnsayo();
@@ -575,7 +587,7 @@ namespace ProtoculoSLF
         }
         public void GetProtocolos()
         {
-            protocolos = br.GetProtocolos();            
+            protocolos = br.GetProtocolos();
             gcProtocolos.DataSource = protocolos;
         }
         public void GetProtocoloNts()
@@ -588,21 +600,23 @@ namespace ProtoculoSLF
             nts = br.GetNTsPorLote(idCodigoSeleccionado);
             gcNts.DataSource = nts;
         }
-        
-        public void GetProtocoloItems() {
+
+        public void GetProtocoloItems()
+        {
             protocoItems = br.GetProtocolosItemsEspecificacionPorCodigo(idCodigoSeleccionado);
             gcItemsProtocolo.DataSource = protocoItems;
         }
-        public void RefrescarDatosGvItemsProtocolo() {
+        public void RefrescarDatosGvItemsProtocolo()
+        {
             gvItemsProtocolo.RefreshData();
 
         }
 
-     
+
 
         private void btnAgregarEnsayo_Click(object sender, EventArgs e)
         {
-            if (idCodigoSeleccionado == 0 || datosReporte.NT==0) return;
+            if (idCodigoSeleccionado == 0 || datosReporte.NT == 0) return;
             lueItemEnsayos.Properties.DataSource = br.GetProtocolosItemsEspecificacionPorCodigo(idCodigoSeleccionado);
             gcAgregarEnsayo.Visible = true;
         }
@@ -615,21 +629,22 @@ namespace ProtoculoSLF
 
         private void btnAgregarEnsayoValor_Click(object sender, EventArgs e)
         {
-            if(!ValidarFormularioEnsayo())return;
+            if (!ValidarFormularioEnsayo()) return;
             var lueItemA = lueItemEnsayos.GetSelectedDataRow() as ProtocoloItem;
             var esCorrecto = "";
             double valorEnsayo = 0;
             if (!string.IsNullOrEmpty(tbValorEnsayo.Texts) && lueItemA.Simbolo != "A") valorEnsayo = Convert.ToDouble(tbValorEnsayo.Texts);
 
-            if (lueItemA.Simbolo == "A") {
+            if (lueItemA.Simbolo == "A")
+            {
                 valorEnsayo = 0;
                 esCorrecto = tbValorEnsayo.Texts;
-            } 
+            }
 
             if (br.InsertEnsayo(datosReporte.Lote, lueItemA.Id, valorEnsayo, esCorrecto))
             {
                 LimpiarFormularioEnsayo();
-                GetEnsayosRealizadosPorLote(datosReporte.Lote,1);
+                GetEnsayosRealizadosPorLote(datosReporte.Lote, 1);
             }
         }
         private bool ValidarFormularioEnsayo()
@@ -662,7 +677,8 @@ namespace ProtoculoSLF
                     return false;
                 }
             }
-            else if (lueNombreA.Simbolo!="C") {
+            else if (lueNombreA.Simbolo != "C")
+            {
                 //VERIFICAR NUMERO MIN
                 if (tbValorEnsayo.Texts == string.Empty)
                 {
@@ -689,7 +705,7 @@ namespace ProtoculoSLF
             dvProtocolos.DocumentSource = null;
 
             var pp = br.GetItemsDelProtocolo(idProtocoloSeleccionado);
-            if (pp.Contains("Ancho de bolsa")) protocoloEnsayos.AddRange(br.GetEnsayosItemsAnchoBolsa("Ancho de bolsa",idOrden,idCodigoSeleccionado));
+            if (pp.Contains("Ancho de bolsa")) protocoloEnsayos.AddRange(br.GetEnsayosItemsAnchoBolsa("Ancho de bolsa", idOrden, idCodigoSeleccionado));
 
             if (protocoloEnsayos.Count != 0)
             {
@@ -706,7 +722,7 @@ namespace ProtoculoSLF
             var idcodigo = Convert.ToInt32(op.Split('/')[1]);
 
             dvProtocolos.DocumentSource = null;
-            protocoloEnsayos = br.GetEnsayosPorLote(op,idProtocoloSeleccionado, certifica);
+            protocoloEnsayos = br.GetEnsayosPorLote(op, idProtocoloSeleccionado, certifica);
             protocoloEnsayos.Add(br.GetEnsayosEspesor("Espesor", idOrden, idcodigo, protocoloSeleccionado.PesoMtsTeorico));
 
             if (protocoloEnsayos.Count != 0)
@@ -776,16 +792,18 @@ namespace ProtoculoSLF
         {
             var lueNombreA = lueItemEnsayos.GetSelectedDataRow() as ProtocoloItem;
 
-            if (lueNombreA!=null) {
+            if (lueNombreA != null)
+            {
                 if (lueNombreA.Simbolo == "C")
                 {
                     gcValorItem.Visible = false;
                     gcValidarValor.Visible = true;
                 }
-                else {
+                else
+                {
                     gcValorItem.Visible = true;
                     gcValidarValor.Visible = false;
-                }        
+                }
             }
         }
 
@@ -818,7 +836,7 @@ namespace ProtoculoSLF
             form.Show();
         }
 
-        int idCodigoAModificara =0;
+        int idCodigoAModificara = 0;
         private void gvProtocolos_RowClick(object sender, RowClickEventArgs e)
         {
             if (e.Button.IsRight() & gvProtocolos.FocusedRowHandle >= 0)
@@ -844,7 +862,7 @@ namespace ProtoculoSLF
             formModificarConstantes form = new formModificarConstantes();
             form.Width = dvProtocolos.Width;
             Point locationOnScreen = dvProtocolos.PointToScreen(Point.Empty);
-            form.Location = new Point(locationOnScreen.X, dvProtocolos.Height-form.Height);
+            form.Location = new Point(locationOnScreen.X, dvProtocolos.Height - form.Height);
             form.Show();
         }
 
@@ -852,6 +870,41 @@ namespace ProtoculoSLF
         {
             if (disposicion == 1) GetEnsayosRealizadosPorLote(datosReporte.Lote, 2);
             else GetEnsayosRealizados();
+        }
+
+        private void btnAgregarProtocolo_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnConProtocolo_Click(object sender, EventArgs e)
+        {
+            groupControl8.Text = "Códigos en producción con protocolo";
+        }
+
+        private void btnSinProtocolo_Click(object sender, EventArgs e)
+        {
+            groupControl8.Text = "Códigos en producción sin protocolo";
+            GetProtocolos();
+
+        }
+
+        private void lueMaquina_EditValueChanged(object sender, EventArgs e)
+        {
+
+            var ops = br.GetOps(lueMaquina.Text);
+            if (ops.Count == 0)
+            {
+                MessageBox.Show("Esta maquina no tiene ordenes de produccion.");
+                groupControl1.Enabled = false;
+
+            }
+            else
+            {
+                //lueOP.Properties.DataSource = ops;
+                groupControl1.Enabled = true;
+            }
+
         }
     }
 }

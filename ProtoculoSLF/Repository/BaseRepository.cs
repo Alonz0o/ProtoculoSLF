@@ -114,10 +114,13 @@ namespace ProtoculoSLF.Repository
                 conexion.Open();
                 command.Connection = conexion;
                 command.CommandText = @"SELECT e.IdCodigo,e.id_formato_protocolo,e.fecha_modificacion,fp.nombre,e.Numero_Art_Cliente,fp.disposicion,fl.Razon_Social,e.Peso_Mts_Teorico,fp.remito,fp.orden_compra
-                                        FROM extrusion e 
-                                        JOIN formato_protocolo fp ON e.id_formato_protocolo=fp.id
-                                        JOIN ficha_logistica fl ON e.NumeroCliente = fl.Num_Cliente
-                                        WHERE e.id_formato_protocolo IS NOT NULL;";
+                                        FROM produccion_confeccion pc
+                                        LEFT JOIN extrusion e ON pc.codigoorden =  e.idcodigo
+                                        LEFT JOIN formato_protocolo fp ON e.id_formato_protocolo=fp.id
+                                        LEFT JOIN ficha_logistica fl ON e.NumeroCliente = fl.Num_Cliente
+                                        WHERE (MaquinaAlternativa <> 'Terminada') AND (YEAR(fecha_cargado) = YEAR(CURDATE()) AND
+										cantidad_bolsa_conf > cantidad_realizada) AND e.id_formato_protocolo IS NULL
+									    group by codigoorden ORDER BY MaquinaAlternativa, prioridadMaquina;";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -142,6 +145,65 @@ namespace ProtoculoSLF.Repository
 
                return protocolos;
             }
+        }
+        internal List<Maquina> GetMaquinas()
+        {
+            List<Maquina> pis = new List<Maquina>();
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT DISTINCT(MaquinaAlternativa)
+                                        FROM produccion_confeccion;";
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Maquina pi = new Maquina
+                        {
+                            Nombre = reader.IsDBNull(0) ? "" : reader.GetString(0),
+                        };
+                        pis.Add(pi);
+                    }
+                }
+            }
+            return pis;
+        }
+
+        internal List<OP> GetOps(string maquina)
+        {
+            List<OP> pis = new List<OP>();
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT cantidaddeproduccion,numeroOrden,codigoOrden,MaquinaAlternativa,cantidad_realizada,prioridadMaquina,fecha_cargado
+                                        FROM produccion_confeccion
+                                        WHERE (MaquinaAlternativa <> 'Terminada' AND MaquinaAlternativa=@pMaquina) AND (YEAR(fecha_cargado) = YEAR(CURDATE()) AND
+										cantidad_bolsa_conf > cantidad_realizada)
+										ORDER BY prioridadMaquina;";
+                command.Parameters.Add("@pMaquina", MySqlDbType.String).Value = maquina;
+
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        OP pi = new OP
+                        {
+                            CantProduccion = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+                            Orden = reader.IsDBNull(1) ? 0 : reader.GetInt32(1),
+                            Codigo = reader.IsDBNull(2) ? 0 : Convert.ToInt32(reader.GetDouble(2)),
+                            Maquina = reader.IsDBNull(3) ? "" : reader.GetString(3),
+                            Cantidad = reader.IsDBNull(4) ? 0 : Convert.ToInt32(reader.GetDouble(4)),
+                            Prioridad = reader.IsDBNull(5) ? 0 : Convert.ToInt32(reader.GetDouble(5)),
+                        };
+                        pis.Add(pi);
+                    }
+                }
+            }
+            return pis;
         }
 
         internal List<ProtocoloItem> GetItemsDelProtocoloNUEVO(int idProtocolo)
