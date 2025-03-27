@@ -17,6 +17,7 @@ using ProtoculoSLF.Report;
 using System.IO;
 using IniParser.Model;
 using IniParser;
+using DevExpress.XtraExport.Helpers;
 
 namespace ProtoculoSLF
 {
@@ -61,7 +62,7 @@ namespace ProtoculoSLF
             instancia = this;
 
             ContextMenuStrip contextMenu = new ContextMenuStrip();
-            lueMaquina.Properties.DataSource = br.GetMaquinas().OrderBy(e => e.Nombre);
+            //lueMaquina.Properties.DataSource = br.GetMaquinas().OrderBy(e => e.Nombre);
 
             // BOTON PROTOCOLO
             ToolStripMenuItem itemAgregarProtocolo = new ToolStripMenuItem("Asistente de protocolo");
@@ -78,6 +79,8 @@ namespace ProtoculoSLF
             {
                 contextMenu.Show(btnAgregarProtocolo, new Point(0, btnAgregarProtocolo.Height));
             };
+
+          
         }
 
         private void AgregarProtocolo_Click(object sender, EventArgs e)
@@ -142,6 +145,9 @@ namespace ProtoculoSLF
             cCliente.FieldName = "Cliente";
             cCliente.Caption = "Cliente";
             cCliente.Visible = true;
+
+            gvProtocolos.OptionsSelection.MultiSelect = true;
+            gvProtocolos.OptionsSelection.MultiSelectMode = GridMultiSelectMode.CheckBoxRowSelect;
 
             gvProtocolos.Columns.AddRange(new GridColumn[] { cId, cIdFormato, cFecha, cNombre,cCliente, cVerProtocolo });
             gcProtocolos.DataSource = protocolos.OrderByDescending(e => e.Fecha);
@@ -889,22 +895,5 @@ namespace ProtoculoSLF
 
         }
 
-        private void lueMaquina_EditValueChanged(object sender, EventArgs e)
-        {
-
-            var ops = br.GetOps(lueMaquina.Text);
-            if (ops.Count == 0)
-            {
-                MessageBox.Show("Esta maquina no tiene ordenes de produccion.");
-                groupControl1.Enabled = false;
-
-            }
-            else
-            {
-                //lueOP.Properties.DataSource = ops;
-                groupControl1.Enabled = true;
-            }
-
-        }
     }
 }

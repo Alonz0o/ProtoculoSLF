@@ -62,6 +62,9 @@
             this.barDockControlRight = new DevExpress.XtraBars.BarDockControl();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.groupControl8 = new DevExpress.XtraEditors.GroupControl();
+            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnSinProtocolo = new FontAwesome.Sharp.IconButton();
+            this.btnConProtocolo = new FontAwesome.Sharp.IconButton();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.gcFormatoItems = new DevExpress.XtraEditors.GroupControl();
@@ -115,9 +118,6 @@
             this.barHeaderItem1 = new DevExpress.XtraBars.BarHeaderItem();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
-            this.lueMaquina = new DevExpress.XtraEditors.LookUpEdit();
-            this.btnConProtocolo = new FontAwesome.Sharp.IconButton();
-            this.btnSinProtocolo = new FontAwesome.Sharp.IconButton();
             ((System.ComponentModel.ISupportInitialize)(this.gcItemsProtocolo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvItemsProtocolo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcFormatoValores)).BeginInit();
@@ -144,6 +144,7 @@
             this.splitContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl8)).BeginInit();
             this.groupControl8.SuspendLayout();
+            this.tableLayoutPanel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -179,7 +180,6 @@
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pMenuGvProtocolos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bmProtocolos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lueMaquina.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAsignarItem
@@ -296,10 +296,10 @@
             // gcProtocolos
             // 
             this.gcProtocolos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gcProtocolos.Location = new System.Drawing.Point(2, 56);
+            this.gcProtocolos.Location = new System.Drawing.Point(2, 52);
             this.gcProtocolos.MainView = this.gvProtocolos;
             this.gcProtocolos.Name = "gcProtocolos";
-            this.gcProtocolos.Size = new System.Drawing.Size(178, 340);
+            this.gcProtocolos.Size = new System.Drawing.Size(178, 344);
             this.gcProtocolos.TabIndex = 0;
             this.gcProtocolos.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvProtocolos});
@@ -566,10 +566,8 @@
             this.groupControl8.AppearanceCaption.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.groupControl8.AppearanceCaption.Options.UseFont = true;
             this.groupControl8.AppearanceCaption.Options.UseForeColor = true;
-            this.groupControl8.Controls.Add(this.btnSinProtocolo);
-            this.groupControl8.Controls.Add(this.btnConProtocolo);
             this.groupControl8.Controls.Add(this.gcProtocolos);
-            this.groupControl8.Controls.Add(this.lueMaquina);
+            this.groupControl8.Controls.Add(this.tableLayoutPanel7);
             this.groupControl8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupControl8.Location = new System.Drawing.Point(0, 0);
             this.groupControl8.Margin = new System.Windows.Forms.Padding(0);
@@ -577,6 +575,70 @@
             this.groupControl8.Size = new System.Drawing.Size(182, 398);
             this.groupControl8.TabIndex = 63;
             this.groupControl8.Text = "Protocolos";
+            // 
+            // tableLayoutPanel7
+            // 
+            this.tableLayoutPanel7.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.tableLayoutPanel7.ColumnCount = 5;
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+            this.tableLayoutPanel7.Controls.Add(this.btnSinProtocolo, 3, 0);
+            this.tableLayoutPanel7.Controls.Add(this.btnConProtocolo, 4, 0);
+            this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(2, 23);
+            this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
+            this.tableLayoutPanel7.RowCount = 1;
+            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel7.Size = new System.Drawing.Size(178, 29);
+            this.tableLayoutPanel7.TabIndex = 68;
+            // 
+            // btnSinProtocolo
+            // 
+            this.btnSinProtocolo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.btnSinProtocolo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnSinProtocolo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnSinProtocolo.FlatAppearance.BorderSize = 0;
+            this.btnSinProtocolo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnSinProtocolo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSinProtocolo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(14)))), ((int)(((byte)(69)))));
+            this.btnSinProtocolo.IconChar = FontAwesome.Sharp.IconChar.Clipboard;
+            this.btnSinProtocolo.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(14)))), ((int)(((byte)(69)))));
+            this.btnSinProtocolo.IconFont = FontAwesome.Sharp.IconFont.Solid;
+            this.btnSinProtocolo.IconSize = 25;
+            this.btnSinProtocolo.Location = new System.Drawing.Point(105, 0);
+            this.btnSinProtocolo.Margin = new System.Windows.Forms.Padding(0);
+            this.btnSinProtocolo.Name = "btnSinProtocolo";
+            this.btnSinProtocolo.Size = new System.Drawing.Size(35, 29);
+            this.btnSinProtocolo.TabIndex = 67;
+            this.btnSinProtocolo.UseCompatibleTextRendering = true;
+            this.btnSinProtocolo.UseVisualStyleBackColor = false;
+            this.btnSinProtocolo.Click += new System.EventHandler(this.btnSinProtocolo_Click);
+            // 
+            // btnConProtocolo
+            // 
+            this.btnConProtocolo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.btnConProtocolo.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnConProtocolo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnConProtocolo.FlatAppearance.BorderSize = 0;
+            this.btnConProtocolo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnConProtocolo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnConProtocolo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(14)))), ((int)(((byte)(69)))));
+            this.btnConProtocolo.IconChar = FontAwesome.Sharp.IconChar.ClipboardCheck;
+            this.btnConProtocolo.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(14)))), ((int)(((byte)(69)))));
+            this.btnConProtocolo.IconFont = FontAwesome.Sharp.IconFont.Solid;
+            this.btnConProtocolo.IconSize = 25;
+            this.btnConProtocolo.Location = new System.Drawing.Point(140, 0);
+            this.btnConProtocolo.Margin = new System.Windows.Forms.Padding(0);
+            this.btnConProtocolo.Name = "btnConProtocolo";
+            this.btnConProtocolo.Size = new System.Drawing.Size(38, 29);
+            this.btnConProtocolo.TabIndex = 66;
+            this.btnConProtocolo.UseCompatibleTextRendering = true;
+            this.btnConProtocolo.UseVisualStyleBackColor = false;
+            this.btnConProtocolo.Click += new System.EventHandler(this.btnConProtocolo_Click);
             // 
             // groupControl1
             // 
@@ -1365,74 +1427,6 @@
             this.barButtonItem3.Name = "barButtonItem3";
             this.barButtonItem3.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
-            // lueMaquina
-            // 
-            this.lueMaquina.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lueMaquina.EditValue = "";
-            this.lueMaquina.Location = new System.Drawing.Point(2, 23);
-            this.lueMaquina.Name = "lueMaquina";
-            this.lueMaquina.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.lueMaquina.Properties.Appearance.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lueMaquina.Properties.Appearance.Options.UseFont = true;
-            this.lueMaquina.Properties.Appearance.Options.UseForeColor = true;
-            this.lueMaquina.Properties.AutoHeight = false;
-            this.lueMaquina.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lueMaquina.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Nombre", "Nombre"),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Medida", "Medida"),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("EsCertificadoSiNo", "Certifica")});
-            this.lueMaquina.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
-            this.lueMaquina.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
-            this.lueMaquina.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.lueMaquina.Size = new System.Drawing.Size(178, 33);
-            this.lueMaquina.TabIndex = 65;
-            this.lueMaquina.EditValueChanged += new System.EventHandler(this.lueMaquina_EditValueChanged);
-            // 
-            // btnConProtocolo
-            // 
-            this.btnConProtocolo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnConProtocolo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.btnConProtocolo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnConProtocolo.FlatAppearance.BorderSize = 0;
-            this.btnConProtocolo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnConProtocolo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnConProtocolo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(14)))), ((int)(((byte)(69)))));
-            this.btnConProtocolo.IconChar = FontAwesome.Sharp.IconChar.ClipboardCheck;
-            this.btnConProtocolo.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(14)))), ((int)(((byte)(69)))));
-            this.btnConProtocolo.IconFont = FontAwesome.Sharp.IconFont.Solid;
-            this.btnConProtocolo.IconSize = 25;
-            this.btnConProtocolo.Location = new System.Drawing.Point(137, 27);
-            this.btnConProtocolo.Margin = new System.Windows.Forms.Padding(0);
-            this.btnConProtocolo.Name = "btnConProtocolo";
-            this.btnConProtocolo.Size = new System.Drawing.Size(25, 25);
-            this.btnConProtocolo.TabIndex = 66;
-            this.btnConProtocolo.UseCompatibleTextRendering = true;
-            this.btnConProtocolo.UseVisualStyleBackColor = false;
-            this.btnConProtocolo.Click += new System.EventHandler(this.btnConProtocolo_Click);
-            // 
-            // btnSinProtocolo
-            // 
-            this.btnSinProtocolo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSinProtocolo.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.btnSinProtocolo.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnSinProtocolo.FlatAppearance.BorderSize = 0;
-            this.btnSinProtocolo.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.btnSinProtocolo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSinProtocolo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(14)))), ((int)(((byte)(69)))));
-            this.btnSinProtocolo.IconChar = FontAwesome.Sharp.IconChar.Clipboard;
-            this.btnSinProtocolo.IconColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(14)))), ((int)(((byte)(69)))));
-            this.btnSinProtocolo.IconFont = FontAwesome.Sharp.IconFont.Solid;
-            this.btnSinProtocolo.IconSize = 25;
-            this.btnSinProtocolo.Location = new System.Drawing.Point(111, 27);
-            this.btnSinProtocolo.Margin = new System.Windows.Forms.Padding(0);
-            this.btnSinProtocolo.Name = "btnSinProtocolo";
-            this.btnSinProtocolo.Size = new System.Drawing.Size(25, 25);
-            this.btnSinProtocolo.TabIndex = 67;
-            this.btnSinProtocolo.UseCompatibleTextRendering = true;
-            this.btnSinProtocolo.UseVisualStyleBackColor = false;
-            this.btnSinProtocolo.Click += new System.EventHandler(this.btnSinProtocolo_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1478,6 +1472,7 @@
             this.splitContainer3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl8)).EndInit();
             this.groupControl8.ResumeLayout(false);
+            this.tableLayoutPanel7.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -1513,7 +1508,6 @@
             this.panel9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pMenuGvProtocolos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bmProtocolos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lueMaquina.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1606,9 +1600,9 @@
         private FontAwesome.Sharp.IconButton btn;
         private FontAwesome.Sharp.IconButton btnImprimir;
         private FontAwesome.Sharp.IconButton btnVerCertificaONo;
-        private DevExpress.XtraEditors.LookUpEdit lueMaquina;
         private FontAwesome.Sharp.IconButton btnConProtocolo;
         private FontAwesome.Sharp.IconButton btnSinProtocolo;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
     }
 }
 
