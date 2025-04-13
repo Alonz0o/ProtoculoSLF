@@ -34,8 +34,6 @@
             this.gvItemsProtocolo = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.gcFormatoValores = new DevExpress.XtraGrid.GridControl();
             this.gvFormatoValores = new DevExpress.XtraGrid.Views.Grid.GridView();
-            this.cbCorrecto = new System.Windows.Forms.CheckBox();
-            this.lueItemEnsayos = new DevExpress.XtraEditors.LookUpEdit();
             this.btnAgregarEnsayo = new FontAwesome.Sharp.IconButton();
             this.gcProtocolos = new DevExpress.XtraGrid.GridControl();
             this.gvProtocolos = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -55,6 +53,7 @@
             this.bhiCabeceraNts = new DevExpress.XtraBars.BarHeaderItem();
             this.bbiAsignarProtocolo = new DevExpress.XtraBars.BarButtonItem();
             this.bbiQuitarProtocolo = new DevExpress.XtraBars.BarButtonItem();
+            this.barButtonItem2 = new DevExpress.XtraBars.BarButtonItem();
             this.bmNts = new DevExpress.XtraBars.BarManager(this.components);
             this.barDockControlTop = new DevExpress.XtraBars.BarDockControl();
             this.barDockControlBottom = new DevExpress.XtraBars.BarDockControl();
@@ -73,18 +72,14 @@
             this.btnCerrarMin = new FontAwesome.Sharp.IconButton();
             this.tlpRealizados = new System.Windows.Forms.TableLayoutPanel();
             this.pnlPendientes = new System.Windows.Forms.Panel();
-            this.gcValidarValor = new DevExpress.XtraEditors.GroupControl();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAgregarEnsayoValor = new ProtoculoSLF.AAFControles.AAFBoton();
             this.btnCancelarEnsayo = new ProtoculoSLF.AAFControles.AAFBoton();
-            this.gcValorItem = new DevExpress.XtraEditors.GroupControl();
-            this.tbValorEnsayo = new ScrapKP.AAFControles.AAFTextBox();
-            this.gcMaterial = new DevExpress.XtraEditors.GroupControl();
             this.panel11 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.btnGenerarPDF = new FontAwesome.Sharp.IconButton();
             this.btnVerCertificaONo = new FontAwesome.Sharp.IconButton();
             this.btnModificarConstantes = new FontAwesome.Sharp.IconButton();
             this.btn = new FontAwesome.Sharp.IconButton();
@@ -118,11 +113,12 @@
             this.barHeaderItem1 = new DevExpress.XtraBars.BarHeaderItem();
             this.barButtonItem1 = new DevExpress.XtraBars.BarButtonItem();
             this.barButtonItem3 = new DevExpress.XtraBars.BarButtonItem();
+            this.gcItemsValor = new DevExpress.XtraGrid.GridControl();
+            this.gvItemsValor = new DevExpress.XtraGrid.Views.Grid.GridView();
             ((System.ComponentModel.ISupportInitialize)(this.gcItemsProtocolo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvItemsProtocolo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcFormatoValores)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvFormatoValores)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lueItemEnsayos.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcProtocolos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvProtocolos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcNts)).BeginInit();
@@ -159,14 +155,7 @@
             this.gcAgregarEnsayo.SuspendLayout();
             this.tlpRealizados.SuspendLayout();
             this.pnlPendientes.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gcValidarValor)).BeginInit();
-            this.gcValidarValor.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gcValorItem)).BeginInit();
-            this.gcValorItem.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.gcMaterial)).BeginInit();
-            this.gcMaterial.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel7.SuspendLayout();
@@ -180,6 +169,8 @@
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pMenuGvProtocolos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bmProtocolos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcItemsValor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvItemsValor)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAsignarItem
@@ -240,38 +231,6 @@
             this.gvFormatoValores.Name = "gvFormatoValores";
             this.gvFormatoValores.OptionsFind.AlwaysVisible = true;
             this.gvFormatoValores.OptionsView.ShowGroupPanel = false;
-            // 
-            // cbCorrecto
-            // 
-            this.cbCorrecto.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.cbCorrecto.Location = new System.Drawing.Point(3, 3);
-            this.cbCorrecto.Name = "cbCorrecto";
-            this.cbCorrecto.Size = new System.Drawing.Size(67, 18);
-            this.cbCorrecto.TabIndex = 9;
-            this.cbCorrecto.Text = "Correcto";
-            this.cbCorrecto.UseVisualStyleBackColor = true;
-            // 
-            // lueItemEnsayos
-            // 
-            this.lueItemEnsayos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lueItemEnsayos.EditValue = "";
-            this.lueItemEnsayos.Location = new System.Drawing.Point(2, 23);
-            this.lueItemEnsayos.Name = "lueItemEnsayos";
-            this.lueItemEnsayos.Properties.Appearance.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
-            this.lueItemEnsayos.Properties.Appearance.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.lueItemEnsayos.Properties.Appearance.Options.UseFont = true;
-            this.lueItemEnsayos.Properties.Appearance.Options.UseForeColor = true;
-            this.lueItemEnsayos.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
-            this.lueItemEnsayos.Properties.Columns.AddRange(new DevExpress.XtraEditors.Controls.LookUpColumnInfo[] {
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Nombre", "Nombre"),
-            new DevExpress.XtraEditors.Controls.LookUpColumnInfo("Especificación", "EspecificacionDato")});
-            this.lueItemEnsayos.Properties.Padding = new System.Windows.Forms.Padding(8, 0, 0, 0);
-            this.lueItemEnsayos.Properties.PopupFilterMode = DevExpress.XtraEditors.PopupFilterMode.Contains;
-            this.lueItemEnsayos.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
-            this.lueItemEnsayos.Size = new System.Drawing.Size(221, 22);
-            this.lueItemEnsayos.TabIndex = 62;
-            this.lueItemEnsayos.EditValueChanged += new System.EventHandler(this.lueItemEnsayos_EditValueChanged);
             // 
             // btnAgregarEnsayo
             // 
@@ -470,7 +429,8 @@
             this.pMenuGvNts.LinksPersistInfo.AddRange(new DevExpress.XtraBars.LinkPersistInfo[] {
             new DevExpress.XtraBars.LinkPersistInfo(this.bhiCabeceraNts),
             new DevExpress.XtraBars.LinkPersistInfo(this.bbiAsignarProtocolo),
-            new DevExpress.XtraBars.LinkPersistInfo(this.bbiQuitarProtocolo)});
+            new DevExpress.XtraBars.LinkPersistInfo(this.bbiQuitarProtocolo),
+            new DevExpress.XtraBars.LinkPersistInfo(this.barButtonItem2)});
             this.pMenuGvNts.Manager = this.bmNts;
             this.pMenuGvNts.Name = "pMenuGvNts";
             // 
@@ -494,6 +454,12 @@
             this.bbiQuitarProtocolo.Name = "bbiQuitarProtocolo";
             this.bbiQuitarProtocolo.ItemClick += new DevExpress.XtraBars.ItemClickEventHandler(this.bbiQuitarProtocolo_ItemClick);
             // 
+            // barButtonItem2
+            // 
+            this.barButtonItem2.Caption = "Asignar protocolo a seleccionados";
+            this.barButtonItem2.Id = 3;
+            this.barButtonItem2.Name = "barButtonItem2";
+            // 
             // bmNts
             // 
             this.bmNts.DockControls.Add(this.barDockControlTop);
@@ -504,8 +470,9 @@
             this.bmNts.Items.AddRange(new DevExpress.XtraBars.BarItem[] {
             this.bhiCabeceraNts,
             this.bbiAsignarProtocolo,
-            this.bbiQuitarProtocolo});
-            this.bmNts.MaxItemId = 3;
+            this.bbiQuitarProtocolo,
+            this.barButtonItem2});
+            this.bmNts.MaxItemId = 4;
             // 
             // barDockControlTop
             // 
@@ -764,46 +731,13 @@
             // 
             this.pnlPendientes.AutoScroll = true;
             this.pnlPendientes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.pnlPendientes.Controls.Add(this.gcValidarValor);
+            this.pnlPendientes.Controls.Add(this.gcItemsValor);
             this.pnlPendientes.Controls.Add(this.tableLayoutPanel4);
-            this.pnlPendientes.Controls.Add(this.gcValorItem);
-            this.pnlPendientes.Controls.Add(this.gcMaterial);
             this.pnlPendientes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlPendientes.Location = new System.Drawing.Point(16, 3);
             this.pnlPendientes.Name = "pnlPendientes";
             this.pnlPendientes.Size = new System.Drawing.Size(242, 151);
             this.pnlPendientes.TabIndex = 0;
-            // 
-            // gcValidarValor
-            // 
-            this.gcValidarValor.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.gcValidarValor.Appearance.Options.UseBorderColor = true;
-            this.gcValidarValor.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gcValidarValor.AppearanceCaption.Options.UseFont = true;
-            this.gcValidarValor.Controls.Add(this.tableLayoutPanel6);
-            this.gcValidarValor.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gcValidarValor.Location = new System.Drawing.Point(0, 107);
-            this.gcValidarValor.Name = "gcValidarValor";
-            this.gcValidarValor.Size = new System.Drawing.Size(225, 49);
-            this.gcValidarValor.TabIndex = 68;
-            this.gcValidarValor.Text = "  Tipo";
-            this.gcValidarValor.Visible = false;
-            // 
-            // tableLayoutPanel6
-            // 
-            this.tableLayoutPanel6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.tableLayoutPanel6.ColumnCount = 3;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel6.Controls.Add(this.cbCorrecto, 0, 0);
-            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(2, 23);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 1;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(221, 24);
-            this.tableLayoutPanel6.TabIndex = 0;
             // 
             // tableLayoutPanel4
             // 
@@ -815,11 +749,11 @@
             this.tableLayoutPanel4.Controls.Add(this.btnAgregarEnsayoValor, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.btnCancelarEnsayo, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 156);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 108);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 1;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(225, 43);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(242, 43);
             this.tableLayoutPanel4.TabIndex = 66;
             // 
             // btnAgregarEnsayoValor
@@ -836,7 +770,7 @@
             this.btnAgregarEnsayoValor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnAgregarEnsayoValor.Location = new System.Drawing.Point(3, 3);
             this.btnAgregarEnsayoValor.Name = "btnAgregarEnsayoValor";
-            this.btnAgregarEnsayoValor.Size = new System.Drawing.Size(106, 37);
+            this.btnAgregarEnsayoValor.Size = new System.Drawing.Size(115, 37);
             this.btnAgregarEnsayoValor.TabIndex = 1;
             this.btnAgregarEnsayoValor.Text = "Agregar";
             this.btnAgregarEnsayoValor.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
@@ -855,67 +789,14 @@
             this.btnCancelarEnsayo.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancelarEnsayo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelarEnsayo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
-            this.btnCancelarEnsayo.Location = new System.Drawing.Point(115, 3);
+            this.btnCancelarEnsayo.Location = new System.Drawing.Point(124, 3);
             this.btnCancelarEnsayo.Name = "btnCancelarEnsayo";
-            this.btnCancelarEnsayo.Size = new System.Drawing.Size(107, 37);
+            this.btnCancelarEnsayo.Size = new System.Drawing.Size(115, 37);
             this.btnCancelarEnsayo.TabIndex = 0;
             this.btnCancelarEnsayo.Text = "Cancelar";
             this.btnCancelarEnsayo.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(187)))), ((int)(((byte)(45)))), ((int)(((byte)(59)))));
             this.btnCancelarEnsayo.UseVisualStyleBackColor = false;
             this.btnCancelarEnsayo.Click += new System.EventHandler(this.btnCancelarEnsayo_Click);
-            // 
-            // gcValorItem
-            // 
-            this.gcValorItem.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.gcValorItem.Appearance.Options.UseBorderColor = true;
-            this.gcValorItem.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gcValorItem.AppearanceCaption.Options.UseFont = true;
-            this.gcValorItem.Controls.Add(this.tbValorEnsayo);
-            this.gcValorItem.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gcValorItem.Location = new System.Drawing.Point(0, 49);
-            this.gcValorItem.Margin = new System.Windows.Forms.Padding(0);
-            this.gcValorItem.Name = "gcValorItem";
-            this.gcValorItem.Size = new System.Drawing.Size(225, 58);
-            this.gcValorItem.TabIndex = 71;
-            this.gcValorItem.Text = "  Valor*";
-            this.gcValorItem.Visible = false;
-            // 
-            // tbValorEnsayo
-            // 
-            this.tbValorEnsayo.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.None;
-            this.tbValorEnsayo.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.None;
-            this.tbValorEnsayo.BackColor = System.Drawing.Color.White;
-            this.tbValorEnsayo.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
-            this.tbValorEnsayo.BorderFocusColor = System.Drawing.SystemColors.InactiveCaptionText;
-            this.tbValorEnsayo.BorderSize = 2;
-            this.tbValorEnsayo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbValorEnsayo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.25F);
-            this.tbValorEnsayo.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.tbValorEnsayo.Location = new System.Drawing.Point(2, 23);
-            this.tbValorEnsayo.Margin = new System.Windows.Forms.Padding(4);
-            this.tbValorEnsayo.Multiline = false;
-            this.tbValorEnsayo.Name = "tbValorEnsayo";
-            this.tbValorEnsayo.Padding = new System.Windows.Forms.Padding(19, 8, 8, 8);
-            this.tbValorEnsayo.PasswordChar = false;
-            this.tbValorEnsayo.SelectionStart = 0;
-            this.tbValorEnsayo.Size = new System.Drawing.Size(221, 33);
-            this.tbValorEnsayo.TabIndex = 1;
-            this.tbValorEnsayo.Texts = "";
-            this.tbValorEnsayo.UnderlinedStyle = true;
-            // 
-            // gcMaterial
-            // 
-            this.gcMaterial.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.gcMaterial.Appearance.Options.UseBorderColor = true;
-            this.gcMaterial.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gcMaterial.AppearanceCaption.Options.UseFont = true;
-            this.gcMaterial.Controls.Add(this.lueItemEnsayos);
-            this.gcMaterial.Dock = System.Windows.Forms.DockStyle.Top;
-            this.gcMaterial.Location = new System.Drawing.Point(0, 0);
-            this.gcMaterial.Name = "gcMaterial";
-            this.gcMaterial.Size = new System.Drawing.Size(225, 49);
-            this.gcMaterial.TabIndex = 70;
-            this.gcMaterial.Text = "  Control*";
             // 
             // panel11
             // 
@@ -959,6 +840,7 @@
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.btnGenerarPDF);
             this.panel7.Controls.Add(this.btnVerCertificaONo);
             this.panel7.Controls.Add(this.btnModificarConstantes);
             this.panel7.Controls.Add(this.btn);
@@ -970,6 +852,25 @@
             this.panel7.Name = "panel7";
             this.panel7.Size = new System.Drawing.Size(701, 792);
             this.panel7.TabIndex = 53;
+            // 
+            // btnGenerarPDF
+            // 
+            this.btnGenerarPDF.BackColor = System.Drawing.Color.Transparent;
+            this.btnGenerarPDF.BackgroundImage = global::ProtoculoSLF.Properties.Resources.sendpdf_32x32;
+            this.btnGenerarPDF.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.btnGenerarPDF.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnGenerarPDF.FlatAppearance.BorderSize = 0;
+            this.btnGenerarPDF.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.btnGenerarPDF.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnGenerarPDF.IconColor = System.Drawing.SystemColors.Highlight;
+            this.btnGenerarPDF.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnGenerarPDF.IconSize = 20;
+            this.btnGenerarPDF.Location = new System.Drawing.Point(7, 230);
+            this.btnGenerarPDF.Name = "btnGenerarPDF";
+            this.btnGenerarPDF.Size = new System.Drawing.Size(41, 36);
+            this.btnGenerarPDF.TabIndex = 45;
+            this.btnGenerarPDF.UseVisualStyleBackColor = false;
+            this.btnGenerarPDF.Click += new System.EventHandler(this.btnGenerarPDF_Click);
             // 
             // btnVerCertificaONo
             // 
@@ -1286,7 +1187,6 @@
             this.btnAgregarProtocolo.Text = "Protocolos";
             this.btnAgregarProtocolo.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(63)))), ((int)(((byte)(81)))), ((int)(((byte)(181)))));
             this.btnAgregarProtocolo.UseVisualStyleBackColor = false;
-            this.btnAgregarProtocolo.Click += new System.EventHandler(this.btnAgregarProtocolo_Click);
             // 
             // panel9
             // 
@@ -1427,6 +1327,24 @@
             this.barButtonItem3.Name = "barButtonItem3";
             this.barButtonItem3.Visibility = DevExpress.XtraBars.BarItemVisibility.Never;
             // 
+            // gcItemsValor
+            // 
+            this.gcItemsValor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.gcItemsValor.Location = new System.Drawing.Point(0, 0);
+            this.gcItemsValor.MainView = this.gvItemsValor;
+            this.gcItemsValor.Name = "gcItemsValor";
+            this.gcItemsValor.Size = new System.Drawing.Size(242, 108);
+            this.gcItemsValor.TabIndex = 96;
+            this.gcItemsValor.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gvItemsValor});
+            // 
+            // gvItemsValor
+            // 
+            this.gvItemsValor.GridControl = this.gcItemsValor;
+            this.gvItemsValor.Name = "gvItemsValor";
+            this.gvItemsValor.OptionsView.ShowGroupPanel = false;
+            this.gvItemsValor.ValidatingEditor += new DevExpress.XtraEditors.Controls.BaseContainerValidateEditorEventHandler(this.gvItemsValor_ValidatingEditor);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1450,7 +1368,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gvItemsProtocolo)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcFormatoValores)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvFormatoValores)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.lueItemEnsayos.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcProtocolos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvProtocolos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gcNts)).EndInit();
@@ -1487,14 +1404,7 @@
             this.gcAgregarEnsayo.ResumeLayout(false);
             this.tlpRealizados.ResumeLayout(false);
             this.pnlPendientes.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gcValidarValor)).EndInit();
-            this.gcValidarValor.ResumeLayout(false);
-            this.tableLayoutPanel6.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gcValorItem)).EndInit();
-            this.gcValorItem.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.gcMaterial)).EndInit();
-            this.gcMaterial.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel7.ResumeLayout(false);
@@ -1508,6 +1418,8 @@
             this.panel9.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pMenuGvProtocolos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bmProtocolos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gcItemsValor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gvItemsValor)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1539,8 +1451,6 @@
         private FontAwesome.Sharp.IconButton btnAsignarItem;
         private System.Windows.Forms.Label lblNtNum;
         private FontAwesome.Sharp.IconButton btnAgregarEnsayo;
-        private System.Windows.Forms.CheckBox cbCorrecto;
-        private DevExpress.XtraEditors.LookUpEdit lueItemEnsayos;
         private System.Windows.Forms.SplitContainer splitContainer3;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private DevExpress.XtraEditors.GroupControl gcFiltroTipo;
@@ -1575,14 +1485,9 @@
         private System.Windows.Forms.TableLayoutPanel tlpRealizados;
         private System.Windows.Forms.Panel pnlPendientes;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
-        private DevExpress.XtraEditors.GroupControl gcValidarValor;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
-        private DevExpress.XtraEditors.GroupControl gcMaterial;
         private AAFControles.AAFBoton btnAgregarEnsayoValor;
         private AAFControles.AAFBoton btnCancelarEnsayo;
         private System.Windows.Forms.Panel panel11;
-        private DevExpress.XtraEditors.GroupControl gcValorItem;
-        private ScrapKP.AAFControles.AAFTextBox tbValorEnsayo;
         private FontAwesome.Sharp.IconButton iconButton1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private AAFControles.AAFBoton btnAgregarProtocolo;
@@ -1603,6 +1508,10 @@
         private FontAwesome.Sharp.IconButton btnConProtocolo;
         private FontAwesome.Sharp.IconButton btnSinProtocolo;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
+        private DevExpress.XtraBars.BarButtonItem barButtonItem2;
+        private FontAwesome.Sharp.IconButton btnGenerarPDF;
+        private DevExpress.XtraGrid.GridControl gcItemsValor;
+        private DevExpress.XtraGrid.Views.Grid.GridView gvItemsValor;
     }
 }
 

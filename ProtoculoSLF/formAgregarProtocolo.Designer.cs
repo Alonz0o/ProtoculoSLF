@@ -35,9 +35,20 @@
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.gcCodigos = new DevExpress.XtraGrid.GridControl();
             this.gvCodigos = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.lblTotalSeleccionado = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.btnCheckAllRemito = new FontAwesome.Sharp.IconButton();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
+            this.rbAmbos = new System.Windows.Forms.RadioButton();
+            this.rbProduccion = new System.Windows.Forms.RadioButton();
+            this.rbAuditor = new System.Windows.Forms.RadioButton();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.btnAgregarProtocolo = new ProtoculoSLF.AAFControles.AAFBoton();
             this.btnCancelar = new ProtoculoSLF.AAFControles.AAFBoton();
@@ -79,10 +90,13 @@
             this.groupControl1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
-            this.groupControl5.SuspendLayout();
+            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gcCodigos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCodigos)).BeginInit();
+            this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.tableLayoutPanel9.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.tableLayoutPanel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl9)).BeginInit();
             this.groupControl9.SuspendLayout();
@@ -222,39 +236,36 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33334F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel2.Controls.Add(this.groupControl5, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel1, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.panel2, 1, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel2.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 279F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(886, 279);
             this.tableLayoutPanel2.TabIndex = 81;
             // 
-            // groupControl5
+            // panel1
             // 
-            this.groupControl5.Appearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
-            this.groupControl5.Appearance.Options.UseBorderColor = true;
-            this.groupControl5.AppearanceCaption.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupControl5.AppearanceCaption.Options.UseFont = true;
-            this.groupControl5.Controls.Add(this.gcCodigos);
-            this.groupControl5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupControl5.Location = new System.Drawing.Point(0, 0);
-            this.groupControl5.Margin = new System.Windows.Forms.Padding(0);
-            this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(442, 279);
-            this.groupControl5.TabIndex = 83;
-            this.groupControl5.Text = "  Codigos existentes en SIS";
+            this.panel1.Controls.Add(this.gcCodigos);
+            this.panel1.Controls.Add(this.panel3);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(3, 3);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(436, 273);
+            this.panel1.TabIndex = 84;
             // 
             // gcCodigos
             // 
             this.gcCodigos.AllowDrop = true;
             this.gcCodigos.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gcCodigos.Location = new System.Drawing.Point(2, 23);
+            this.gcCodigos.Location = new System.Drawing.Point(0, 27);
             this.gcCodigos.MainView = this.gvCodigos;
             this.gcCodigos.Name = "gcCodigos";
-            this.gcCodigos.Size = new System.Drawing.Size(438, 254);
+            this.gcCodigos.Size = new System.Drawing.Size(436, 246);
             this.gcCodigos.TabIndex = 13;
             this.gcCodigos.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gvCodigos});
@@ -265,6 +276,145 @@
             this.gvCodigos.Name = "gvCodigos";
             this.gvCodigos.OptionsFind.AlwaysVisible = true;
             this.gvCodigos.OptionsView.ShowGroupPanel = false;
+            this.gvCodigos.CellValueChanging += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gvCodigos_CellValueChanging);
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.panel3.Controls.Add(this.lblTotalSeleccionado);
+            this.panel3.Controls.Add(this.label1);
+            this.panel3.Controls.Add(this.btnCheckAllRemito);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Padding = new System.Windows.Forms.Padding(5);
+            this.panel3.Size = new System.Drawing.Size(436, 27);
+            this.panel3.TabIndex = 14;
+            // 
+            // lblTotalSeleccionado
+            // 
+            this.lblTotalSeleccionado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblTotalSeleccionado.Location = new System.Drawing.Point(371, 7);
+            this.lblTotalSeleccionado.Name = "lblTotalSeleccionado";
+            this.lblTotalSeleccionado.Size = new System.Drawing.Size(39, 13);
+            this.lblTotalSeleccionado.TabIndex = 80;
+            this.lblTotalSeleccionado.Text = "0";
+            this.lblTotalSeleccionado.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.label1.Location = new System.Drawing.Point(5, 5);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(182, 17);
+            this.label1.TabIndex = 79;
+            this.label1.Text = "  Codigos existentes en SIS";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // btnCheckAllRemito
+            // 
+            this.btnCheckAllRemito.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnCheckAllRemito.BackgroundImage = global::ProtoculoSLF.Properties.Resources.checkbox2_32x32;
+            this.btnCheckAllRemito.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.btnCheckAllRemito.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnCheckAllRemito.FlatAppearance.BorderSize = 0;
+            this.btnCheckAllRemito.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCheckAllRemito.IconChar = FontAwesome.Sharp.IconChar.None;
+            this.btnCheckAllRemito.IconColor = System.Drawing.SystemColors.Highlight;
+            this.btnCheckAllRemito.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnCheckAllRemito.Location = new System.Drawing.Point(409, 1);
+            this.btnCheckAllRemito.Name = "btnCheckAllRemito";
+            this.btnCheckAllRemito.Size = new System.Drawing.Size(25, 25);
+            this.btnCheckAllRemito.TabIndex = 78;
+            this.btnCheckAllRemito.UseVisualStyleBackColor = false;
+            this.btnCheckAllRemito.Click += new System.EventHandler(this.btnCheckAllRemito_Click_1);
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.tableLayoutPanel9);
+            this.panel2.Controls.Add(this.panel4);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(445, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(438, 273);
+            this.panel2.TabIndex = 85;
+            // 
+            // tableLayoutPanel9
+            // 
+            this.tableLayoutPanel9.ColumnCount = 3;
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel9.Controls.Add(this.rbAmbos, 2, 0);
+            this.tableLayoutPanel9.Controls.Add(this.rbProduccion, 1, 0);
+            this.tableLayoutPanel9.Controls.Add(this.rbAuditor, 0, 0);
+            this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Top;
+            this.tableLayoutPanel9.Location = new System.Drawing.Point(0, 27);
+            this.tableLayoutPanel9.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
+            this.tableLayoutPanel9.RowCount = 1;
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(438, 29);
+            this.tableLayoutPanel9.TabIndex = 86;
+            // 
+            // rbAmbos
+            // 
+            this.rbAmbos.AutoSize = true;
+            this.rbAmbos.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rbAmbos.Location = new System.Drawing.Point(295, 3);
+            this.rbAmbos.Name = "rbAmbos";
+            this.rbAmbos.Size = new System.Drawing.Size(140, 23);
+            this.rbAmbos.TabIndex = 2;
+            this.rbAmbos.TabStop = true;
+            this.rbAmbos.Text = "Ambos";
+            this.rbAmbos.UseVisualStyleBackColor = false;
+            // 
+            // rbProduccion
+            // 
+            this.rbProduccion.AutoSize = true;
+            this.rbProduccion.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rbProduccion.Location = new System.Drawing.Point(149, 3);
+            this.rbProduccion.Name = "rbProduccion";
+            this.rbProduccion.Size = new System.Drawing.Size(140, 23);
+            this.rbProduccion.TabIndex = 1;
+            this.rbProduccion.TabStop = true;
+            this.rbProduccion.Text = "Produccion";
+            this.rbProduccion.UseVisualStyleBackColor = false;
+            // 
+            // rbAuditor
+            // 
+            this.rbAuditor.AutoSize = true;
+            this.rbAuditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rbAuditor.Location = new System.Drawing.Point(3, 3);
+            this.rbAuditor.Name = "rbAuditor";
+            this.rbAuditor.Size = new System.Drawing.Size(140, 23);
+            this.rbAuditor.TabIndex = 0;
+            this.rbAuditor.TabStop = true;
+            this.rbAuditor.Text = "Auditor";
+            this.rbAuditor.UseVisualStyleBackColor = false;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(227)))), ((int)(((byte)(242)))), ((int)(((byte)(253)))));
+            this.panel4.Controls.Add(this.label3);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel4.Location = new System.Drawing.Point(0, 0);
+            this.panel4.Name = "panel4";
+            this.panel4.Padding = new System.Windows.Forms.Padding(5);
+            this.panel4.Size = new System.Drawing.Size(438, 27);
+            this.panel4.TabIndex = 87;
+            // 
+            // label3
+            // 
+            this.label3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold);
+            this.label3.Location = new System.Drawing.Point(5, 5);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(182, 17);
+            this.label3.TabIndex = 79;
+            this.label3.Text = "  Datos entrantes";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // tableLayoutPanel5
             // 
@@ -813,10 +963,14 @@
             this.groupControl1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
-            this.groupControl5.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gcCodigos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gvCodigos)).EndInit();
+            this.panel3.ResumeLayout(false);
+            this.panel2.ResumeLayout(false);
+            this.tableLayoutPanel9.ResumeLayout(false);
+            this.tableLayoutPanel9.PerformLayout();
+            this.panel4.ResumeLayout(false);
             this.tableLayoutPanel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl9)).EndInit();
             this.groupControl9.ResumeLayout(false);
@@ -891,11 +1045,22 @@
         private DevExpress.XtraEditors.GroupControl groupControl1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private DevExpress.XtraEditors.GroupControl groupControl5;
         private DevExpress.XtraGrid.GridControl gcCodigos;
         private DevExpress.XtraGrid.Views.Grid.GridView gvCodigos;
         private DevExpress.XtraEditors.GroupControl groupControl2;
         private ScrapKP.AAFControles.AAFTextBox tbDescripcionProtocolo;
         private DevExpress.XtraEditors.LookUpEdit lueProtocolos;
+        private System.Windows.Forms.Panel panel3;
+        private FontAwesome.Sharp.IconButton btnCheckAllRemito;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label lblTotalSeleccionado;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
+        private System.Windows.Forms.RadioButton rbAmbos;
+        private System.Windows.Forms.RadioButton rbProduccion;
+        private System.Windows.Forms.RadioButton rbAuditor;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label3;
     }
 }

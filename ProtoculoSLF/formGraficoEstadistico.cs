@@ -23,34 +23,41 @@ namespace ProtoculoSLF
         }
         private void CrearGrafico()
         {
-            var menoresEspecificacion = (from a in pes 
-                                         where Convert.ToInt32(a.ValorEnsayo) < a.Especificacion
-                                         select new  {
-                                            valorMenor = Convert.ToDouble(a.ValorEnsayo)
+            double espMin = 0.0;
+            double espMax = 0.0;
+
+            espMin = pes.FirstOrDefault().Especificacion - pes.FirstOrDefault().EspecificacionMin;
+            espMax = pes.FirstOrDefault().Especificacion + pes.FirstOrDefault().EspecificacionMax;
+
+            var menoresEspecificacion = (from a in pes
+                                         where Convert.ToInt32(a.ValorEnsayo) < espMin
+                                         select new
+                                         {
+                                             valorMenor = Convert.ToDouble(a.ValorEnsayo)
                                          }).ToList();
             var igualesEspecificacion = (from a in pes
-                                         where Convert.ToInt32(a.ValorEnsayo) == a.Especificacion
+                                         where Convert.ToInt32(a.ValorEnsayo) >= espMin && Convert.ToInt32(a.ValorEnsayo) <= espMax
                                          select new
                                          {
                                              valorMedio = Convert.ToDouble(a.ValorEnsayo)
                                          }).ToList();
             var mayoresEspecificacion = (from a in pes
-                                         where Convert.ToInt32(a.ValorEnsayo) > a.Especificacion
+                                         where Convert.ToInt32(a.ValorEnsayo) > espMax
                                          select new
                                          {
                                              valorMayor = Convert.ToDouble(a.ValorEnsayo)
                                          }).ToList();
 
             Title titulo = new Title();
-            titulo.Text = pes[0].Nombre+" | ensayos realizados: " + pes.Count ;
+            titulo.Text = pes[0].Nombre + " | ensayos realizados: " + pes.Count;
             Chart chart = new Chart
             {
                 Dock = DockStyle.Fill
             };
             chart.Titles.Add(titulo);
             ChartArea chartArea = new ChartArea();
-            chartArea.AxisY.Minimum = pes[0].Especificacion - 20 ;
-            chartArea.AxisY.Maximum = pes[0].Especificacion + 20;
+            chartArea.AxisY.Minimum = espMin - 20;
+            chartArea.AxisY.Maximum = espMax + 20;
             chartArea.AxisX.Enabled = AxisEnabled.False;
             chartArea.AxisX.MajorGrid.Enabled = false;
             chartArea.AxisY.MajorGrid.LineDashStyle = ChartDashStyle.Dash;
@@ -83,7 +90,7 @@ namespace ProtoculoSLF
                 BorderWidth = 2,
                 MarkerStyle = MarkerStyle.Circle,
                 Name = "Medio",
-                IsValueShownAsLabel = true 
+                IsValueShownAsLabel = true
             };
 
             Series lineaMinimo = new Series

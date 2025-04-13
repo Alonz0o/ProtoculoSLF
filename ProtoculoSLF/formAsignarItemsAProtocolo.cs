@@ -198,14 +198,14 @@ namespace ProtoculoSLF
 
         private void btnAgregarItemAProtocolo_Click(object sender, EventArgs e)
         {
-            int ultimaPosicion = Form1.instancia.br.GetUltimaPosicionProtocoloItem(Form1.instancia.idProtocoloSeleccionado) + 1;
+            int ultimaPosicion = Form1.instancia.br.GetUltimaPosicionProtocoloItem(Form1.instancia.protocoloSeleccionado.Id) + 1;
 
             string sqlInsertarProtocoloItem = "INSERT INTO formato_protocolo_item(id_protocolo,id_item,orden) VALUES ";
             string sqlInsertarProtocoloItem2 = "";
 
             foreach (var item in protocoItems)
             {
-                sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{Form1.instancia.idProtocoloSeleccionado}','{item.Id}','{ultimaPosicion}'),";
+                sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{Form1.instancia.protocoloSeleccionado.Id}','{item.Id}','{ultimaPosicion}'),";
                 ultimaPosicion++;
             }
 
@@ -213,8 +213,8 @@ namespace ProtoculoSLF
             sqlInsertarProtocoloItem = sqlInsertarProtocoloItem + sqlInsertarProtocoloItem2;
             if (Form1.instancia.br.InsertAProtocoloItem(sqlInsertarProtocoloItem))
             {
-                Form1.instancia.GetProtocoloItems();
-                formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se agregaron los ítem seleccionados al protocolo: " + Form1.instancia.idProtocoloSeleccionado);
+                //Form1.instancia.GetProtocoloItems();
+                formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se agregaron los ítem seleccionados al protocolo: " + Form1.instancia.protocoloSeleccionado.Id);
                 noti.Show();
                 Close();
             }

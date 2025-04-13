@@ -16,6 +16,9 @@ namespace ProtoculoSLF.Model
         public double PesoMtsTeorico { get; set; }
         public int Remito { get; set; }
         public int OrdenDeCompra { get; set; }
+        public int Datos { get; set; }
+        public string DescripcionRemito { get; set; }
+
         public override string ToString()
         {
             return FormatoProtocolo.ToString();

@@ -83,6 +83,26 @@ namespace ProtoculoSLF.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap changelabel_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("changelabel_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap checkbox2_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("checkbox2_32x32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap clear_16x16 {
             get {
                 object obj = ResourceManager.GetObject("clear_16x16", resourceCulture);
@@ -153,6 +173,16 @@ namespace ProtoculoSLF.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Logo_Sanlufilm_Negro {
+            get {
+                object obj = ResourceManager.GetObject("Logo_Sanlufilm_Negro", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap pie_16x16 {
             get {
                 object obj = ResourceManager.GetObject("pie_16x16", resourceCulture);
@@ -176,6 +206,16 @@ namespace ProtoculoSLF.Properties {
         internal static System.Drawing.Bitmap properties_16x16 {
             get {
                 object obj = ResourceManager.GetObject("properties_16x16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap sendpdf_32x32 {
+            get {
+                object obj = ResourceManager.GetObject("sendpdf_32x32", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -15,11 +15,14 @@ namespace ProtoculoSLF.Model
         public int Cantidad { get; set; }
         public DateTime Fecha { get; set; }
         public int Pallet { get; set; }
+        public int OrdenCliente { get; set; }
         public string CodigoCliente { get; set; }
         public string SolicitudCliente { get; set; }
         public int Remito { get; set; }
         public int OrdenDeCompra { get; set; }
-
+        public int IdOrden { get; set; }
+        public int IdCodigo { get; set; }
+        public int IdOP { get; set; }
 
     }
 }

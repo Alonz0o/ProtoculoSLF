@@ -22,7 +22,7 @@ namespace ProtoculoSLF
         {
             GetItems();
             lueNombreItem.Properties.DataSource = items;
-            lblTitulo.Text = "Ítem especificado para: " + Form1.instancia.idCodigoSeleccionado;
+            lblTitulo.Text = "Ítem especificado para: " + Form1.instancia.protocoloSeleccionado.Id;
         }
 
         private void GetItems()
@@ -46,15 +46,15 @@ namespace ProtoculoSLF
             itemAgregar.Nombre = lueNombreItem.Text;
             var lueControlA = lueNombreItem.GetSelectedDataRow() as ProtocoloItem;
             itemAgregar.Id = lueControlA.Id;
-            itemAgregar.IdProtocolo = Form1.instancia.idProtocoloSeleccionado;
+            itemAgregar.IdProtocolo = Form1.instancia.protocoloSeleccionado.Id;
             itemAgregar.IdProtocoloItem = lueControlA.IdProtocoloItem;
 
-            if (Form1.instancia.br.AgregarItemProtocolo(itemAgregar,Form1.instancia.idCodigoSeleccionado))
+            if (Form1.instancia.br.AgregarItemProtocolo(itemAgregar,Form1.instancia.protocoloSeleccionado.Id))
             {
                 LimpiarFormularioAgregarItem();
                 formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se agrego correctamente un nuevo item: " + itemAgregar.Nombre);
                 noti.Show();
-                Form1.instancia.GetProtocoloItems();
+                //Form1.instancia.GetProtocoloItems();
             }
 
         }
@@ -186,7 +186,7 @@ namespace ProtoculoSLF
 
                 if (lueControlA.Nombre.ToLower().Contains("ancho") && lueControlA.Nombre.ToLower().Contains("bolsa"))
                 {
-                    datosDeFicha = Form1.instancia.br.GetFichaLogisticaConfeccionAncho(Form1.instancia.idCodigoSeleccionado);
+                    datosDeFicha = Form1.instancia.br.GetFichaLogisticaConfeccionAncho(Form1.instancia.protocoloSeleccionado.Id);
                     tbEspMed.Texts = datosDeFicha.Medio.ToString();
                     tbEspMin.Texts = datosDeFicha.Minimo.ToString();
                     tbEspMax.Texts = datosDeFicha.Maximo.ToString();
@@ -195,7 +195,7 @@ namespace ProtoculoSLF
 
                 if (lueControlA.Nombre.ToLower().Contains("largo") && lueControlA.Nombre.ToLower().Contains("bolsa"))
                 {
-                    datosDeFicha = Form1.instancia.br.GetFichaLogisticaConfeccionLargo(Form1.instancia.idCodigoSeleccionado);
+                    datosDeFicha = Form1.instancia.br.GetFichaLogisticaConfeccionLargo(Form1.instancia.protocoloSeleccionado.Id);
                     tbEspMed.Texts = datosDeFicha.Medio.ToString();
                     tbEspMin.Texts = datosDeFicha.Minimo.ToString();
                     tbEspMax.Texts = datosDeFicha.Maximo.ToString();
@@ -203,7 +203,7 @@ namespace ProtoculoSLF
                 }
                 if (lueControlA.Nombre.ToLower().Equals("espesor"))
                 {
-                    datosDeFicha = Form1.instancia.br.GetFichaLogisticaEspesor(Form1.instancia.idCodigoSeleccionado);
+                    datosDeFicha = Form1.instancia.br.GetFichaLogisticaEspesor(Form1.instancia.protocoloSeleccionado.Id);
                     tbEspMed.Texts = datosDeFicha.Medio.ToString();
                     tbEspMin.Texts = datosDeFicha.Minimo.ToString();
                     tbEspMax.Texts = datosDeFicha.Maximo.ToString();

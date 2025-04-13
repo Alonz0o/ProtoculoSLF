@@ -8,6 +8,7 @@ namespace ProtoculoSLF.Model
 {
     internal class Especificacion
     {
+        public int IdProtocoloItem { get; set; }
         public double Minimo { get; set; }
         public double Medio { get; set; }
         public double Maximo { get; set; }

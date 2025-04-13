@@ -63,7 +63,7 @@ namespace ProtoculoSLF.Repository
             }
         }
 
-        internal bool InsertEnsayo(string idNtOLote, int idItem, double valor, string correcto)
+        internal bool InsertEnsayo(int idNtOLote, int idItem, double valor, string correcto)
         {
             bool res = false;
             using (var conexion = new MySqlConnection(connectionString))
@@ -103,7 +103,7 @@ namespace ProtoculoSLF.Repository
             return res;
         }
 
-        internal List<Protocolo> GetProtocolos()
+        internal List<Protocolo> GetCodigosSinProtocolos()
         {
             List<Protocolo> protocolos = new List<Protocolo>();
             List<ProtocoloItem> pis = new List<ProtocoloItem>();
@@ -113,7 +113,7 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT e.IdCodigo,e.id_formato_protocolo,e.fecha_modificacion,fp.nombre,e.Numero_Art_Cliente,fp.disposicion,fl.Razon_Social,e.Peso_Mts_Teorico,fp.remito,fp.orden_compra
+                command.CommandText = @"SELECT e.IdCodigo,e.id_formato_protocolo,e.fecha_modificacion,fp.nombre,e.Numero_Art_Cliente,fp.disposicion,fl.Razon_Social,e.Peso_Mts_Teorico,fp.remito,fp.orden_compra,fp.datos,e.descripcion_remito,e.descripcion
                                         FROM produccion_confeccion pc
                                         LEFT JOIN extrusion e ON pc.codigoorden =  e.idcodigo
                                         LEFT JOIN formato_protocolo fp ON e.id_formato_protocolo=fp.id
@@ -137,7 +137,9 @@ namespace ProtoculoSLF.Repository
                             PesoMtsTeorico = reader[7] != DBNull.Value ? reader.GetDouble(7) : 0.0,
                             Remito = reader[8] != DBNull.Value ? reader.GetInt32(8) : 0,
                             OrdenDeCompra = reader[9] != DBNull.Value ? reader.GetInt32(9) : 0,
-
+                            Datos = reader[10] != DBNull.Value ? reader.GetInt32(10) : 0,
+                            DescripcionRemito = reader[11] != DBNull.Value ? reader.GetString(11) : "",
+                            Descripcion = reader[12] != DBNull.Value ? reader.GetString(12) : "",
                         };
                         protocolos.Add(p);
                     }
@@ -146,6 +148,52 @@ namespace ProtoculoSLF.Repository
                return protocolos;
             }
         }
+
+        internal List<Protocolo> GetCodigosConProtocolos()
+        {
+            List<Protocolo> protocolos = new List<Protocolo>();
+            List<ProtocoloItem> pis = new List<ProtocoloItem>();
+
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT e.IdCodigo,e.id_formato_protocolo,e.fecha_modificacion,fp.nombre,e.Numero_Art_Cliente,fp.disposicion,fl.Razon_Social,e.Peso_Mts_Teorico,fp.remito,fp.orden_compra,fp.datos,e.descripcion_remito,e.descripcion
+                                        FROM produccion_confeccion pc
+                                        LEFT JOIN extrusion e ON pc.codigoorden =  e.idcodigo
+                                        LEFT JOIN formato_protocolo fp ON e.id_formato_protocolo=fp.id
+                                        LEFT JOIN ficha_logistica fl ON e.NumeroCliente = fl.Num_Cliente
+                                        WHERE e.id_formato_protocolo IS NOT NULL
+									    group by codigoorden ORDER BY MaquinaAlternativa, prioridadMaquina;";
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Protocolo p = new Protocolo
+                        {
+                            Id = reader[0] != DBNull.Value ? Convert.ToInt32(reader.GetDouble(0)) : 0,
+                            FormatoProtocolo = reader[1] != DBNull.Value ? reader.GetInt32(1) : 0,
+                            Fecha = reader[2] != DBNull.Value ? reader.GetDateTime(2) : new DateTime(1993, 1, 20),
+                            Nombre = reader[3] != DBNull.Value ? reader.GetString(3) : "",
+                            CodigoCliente = reader[4] != DBNull.Value ? reader.GetString(4) : "",
+                            Disposicion = reader.IsDBNull(5) ? 0 : reader.GetInt32(5),
+                            Cliente = reader[6] != DBNull.Value ? reader.GetString(6) : "",
+                            PesoMtsTeorico = reader[7] != DBNull.Value ? reader.GetDouble(7) : 0.0,
+                            Remito = reader[8] != DBNull.Value ? reader.GetInt32(8) : 0,
+                            OrdenDeCompra = reader[9] != DBNull.Value ? reader.GetInt32(9) : 0,
+                            Datos = reader[10] != DBNull.Value ? reader.GetInt32(10) : 0,
+                            DescripcionRemito = reader[11] != DBNull.Value ? reader.GetString(11) : "",
+                            Descripcion = reader[12] != DBNull.Value ? reader.GetString(12) : "",
+                        };
+                        protocolos.Add(p);
+                    }
+                }
+
+                return protocolos;
+            }
+        }
+
         internal List<Maquina> GetMaquinas()
         {
             List<Maquina> pis = new List<Maquina>();
@@ -163,41 +211,6 @@ namespace ProtoculoSLF.Repository
                         Maquina pi = new Maquina
                         {
                             Nombre = reader.IsDBNull(0) ? "" : reader.GetString(0),
-                        };
-                        pis.Add(pi);
-                    }
-                }
-            }
-            return pis;
-        }
-
-        internal List<OP> GetOps(string maquina)
-        {
-            List<OP> pis = new List<OP>();
-            using (var conexion = new MySqlConnection(connectionString))
-            using (var command = new MySqlCommand())
-            {
-                conexion.Open();
-                command.Connection = conexion;
-                command.CommandText = @"SELECT cantidaddeproduccion,numeroOrden,codigoOrden,MaquinaAlternativa,cantidad_realizada,prioridadMaquina,fecha_cargado
-                                        FROM produccion_confeccion
-                                        WHERE (MaquinaAlternativa <> 'Terminada' AND MaquinaAlternativa=@pMaquina) AND (YEAR(fecha_cargado) = YEAR(CURDATE()) AND
-										cantidad_bolsa_conf > cantidad_realizada)
-										ORDER BY prioridadMaquina;";
-                command.Parameters.Add("@pMaquina", MySqlDbType.String).Value = maquina;
-
-                using (var reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        OP pi = new OP
-                        {
-                            CantProduccion = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
-                            Orden = reader.IsDBNull(1) ? 0 : reader.GetInt32(1),
-                            Codigo = reader.IsDBNull(2) ? 0 : Convert.ToInt32(reader.GetDouble(2)),
-                            Maquina = reader.IsDBNull(3) ? "" : reader.GetString(3),
-                            Cantidad = reader.IsDBNull(4) ? 0 : Convert.ToInt32(reader.GetDouble(4)),
-                            Prioridad = reader.IsDBNull(5) ? 0 : Convert.ToInt32(reader.GetDouble(5)),
                         };
                         pis.Add(pi);
                     }
@@ -320,6 +333,71 @@ namespace ProtoculoSLF.Repository
             return pis;
 
         }
+
+        internal bool InsertEnsayoLoteAuditor(List<ItemValor> valores, ProtocoloItem pi)
+        {
+            bool res = false;
+            using (var conexion = new MySqlConnection(connectionString))
+            {
+                conexion.Open();
+                using (var transaction = conexion.BeginTransaction())
+                {
+                    using (var command = conexion.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        try
+                        {
+                            command.CommandText = @"INSERT INTO formato_ensayo_auditor (creado,turno,id_op,id_nt,legajo,paquete_numero) 
+                                                                        VALUES (@pCreado,@pTurno,@pIdOp,@pIdNt,@pLegajo,@pPaqueteNum); SELECT LAST_INSERT_ID();";
+                            command.Parameters.Add("@pCreado", MySqlDbType.Newdate).Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+                            command.Parameters.Add("@pTurno", MySqlDbType.String).Value = pi.Turno;
+                            command.Parameters.Add("@pIdOp", MySqlDbType.String).Value = pi.OP;
+                            command.Parameters.Add("@pIdNt", MySqlDbType.Int32).Value = 0;
+                            command.Parameters.Add("@pLegajo", MySqlDbType.Int32).Value = pi.Legajo;
+                            command.Parameters.Add("@pPaqueteNum", MySqlDbType.Int32).Value = pi.PaqueteNum;
+
+                            var ultimoID = Convert.ToInt32(command.ExecuteScalar());
+
+                            if (ultimoID <= 0)
+                            {
+                                throw new Exception("Error al insertar ensayo");
+                            }
+                            command.CommandText = QryInsertarEnsayoAuditor(valores, ultimoID);
+
+                            if (command.ExecuteNonQuery() <= 0)
+                            {
+                                throw new Exception("Error al insertar ensayo");
+                            }
+
+                            transaction.Commit();
+                            res = true;
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            res = false;
+                        }
+                    }
+                }
+            }
+            return res;
+        }
+
+        internal string QryInsertarEnsayoAuditor(List<ItemValor> valores, int idEnsayo)
+        {
+            string sqlInsertarProtocoloItem = "INSERT INTO formato_item_valor_auditor (id_item,valor,valor_constante,id_bobina_madre,id_ensayo) VALUES ";
+            string sqlInsertarProtocoloItem2 = "";
+
+            foreach (ItemValor item in valores)
+            {
+                sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{item.IdItem}','{item.Valor}','{item.ValorConstante}','{item.IdBobinaMadre}','{idEnsayo}'),";
+            }
+            sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2.TrimEnd(',') + ";";
+            sqlInsertarProtocoloItem = sqlInsertarProtocoloItem + sqlInsertarProtocoloItem2;
+
+            return sqlInsertarProtocoloItem;
+        }
+
         internal List<ProtocoloItem> GetProtocolosItems(int idProtocolo)
         {
             List<ProtocoloItem> pis = new List<ProtocoloItem>();
@@ -354,7 +432,37 @@ namespace ProtoculoSLF.Repository
             return pis;
 
         }
-        
+
+        internal List<NT> GetNTsDeProduccion(object idCodigo)
+        {
+            List<NT> nts = new List<NT>();
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"SELECT cantidaddeproduccion,numeroOrden,fecha_cargado,MaquinaAlternativa
+                                        FROM produccion_confeccion
+                                        WHERE codigoorden=@pIdCodigo ORDER BY fecha_cargado desc;";
+                command.Parameters.Add("@pIdCodigo", MySqlDbType.Int32).Value = idCodigo;
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        NT n = new NT
+                        {
+                            Id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+                            Orden = reader.IsDBNull(1) ? "" : reader.GetInt32(1).ToString(),
+                            Creado = reader.IsDBNull(2) ? new DateTime(1993, 01, 20) : reader.GetDateTime(2),
+                            Cliente = reader.IsDBNull(3) ? "" : reader.GetString(3),
+                        };
+                        nts.Add(n);
+                    }
+                }
+            }
+            return nts;
+        }
+
         internal List<NT> GetNTs(object idCodigo)
         {
             List<NT> nts = new List<NT>();
@@ -369,11 +477,12 @@ namespace ProtoculoSLF.Repository
                 {
                     while (reader.Read())
                     {
+                        var orden = reader.IsDBNull(2) ? "" : reader.GetString(2).Split('/')[0];
                         NT n = new NT
                         {
                             Id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
                             NumNT = reader.IsDBNull(1) ? 0 : reader.GetInt32(1),
-                            OP = reader.IsDBNull(2) ? "" : reader.GetString(2),
+                            Orden = orden,
                             Cliente = reader.IsDBNull(3) ? "" : reader.GetString(3),
                             NumPallet = reader.IsDBNull(4) ? 0 : reader.GetInt32(4),
                             Creado = reader.IsDBNull(5) ? new DateTime(1993, 01, 20) : reader.GetDateTime(5),
@@ -405,9 +514,10 @@ namespace ProtoculoSLF.Repository
                 {
                     while (reader.Read())
                     {
+                        var orden = reader.IsDBNull(0) ? "" : reader.GetString(0).Split('/')[0];
                         NT n = new NT
                         {
-                            OP = reader.IsDBNull(0) ? "" : reader.GetString(0),
+                            Orden = orden,
                             NumNT = reader.IsDBNull(1) ? 0 : reader.GetInt32(1),
                             NumPallet = reader.IsDBNull(2) ? 0 : reader.GetInt32(2),
                             CantidadBobinas = reader.IsDBNull(3) ? 0 : reader.GetInt32(3),
@@ -419,26 +529,27 @@ namespace ProtoculoSLF.Repository
             return nts;
         }
 
-        internal List<ProtocoloEnsayo> GetEnsayosPorLote(string op,int idProtocolo,int certifica)
+        internal List<ProtocoloEnsayo> GetEnsayosPorLote(int op,int idCodigo, int idProtocolo, int certifica, int datos)
         {
             var sqlCertifica = "";
-            sqlCertifica = certifica == 1 ? " AND fi.certifica=@pCertifica": " AND fi.certifica <= @pCertifica";
+            sqlCertifica = certifica == 1 ? " AND fi.certifica=@pCertifica" : " AND fi.certifica <= @pCertifica";
+            var datosEntrantes = datos == 1 ? "DATOS1" : datos == 2 ? "DATOS2" : datos == 3 ? "DATOS3" : "DATOS0";
             ProtocoloItem p = new ProtocoloItem();
             List<ProtocoloEnsayo> pes = new List<ProtocoloEnsayo>();
             using (var conexion = new MySqlConnection(connectionString))
             using (var command = new MySqlCommand())
             {
-
                 conexion.Open();
                 command.Connection = conexion;
-
-                command.CommandText = @"SELECT fi.id,fi.nombre,fi.simbolo,fpi.orden,fpie.especificacion,fpie.especificacion_min,fpie.especificacion_max,fpi.id,fi.unidad,fe.valor_ensayo,fe.correcto,fi.constante
-                                        FROM formato_ensayo fe
-                                        JOIN formato_protocolo_item fpi ON (fe.id_item = fpi.id_item AND fpi.id_protocolo = @pIdProtocolo)
-                                        JOIN formato_item fi on fpi.id_item = fi.id
-                                        JOIN formato_protocolo_item_especificacion fpie on fpi.id = fpie.id_formato_protocolo_item
-                                        WHERE fe.op = @pOp"+ sqlCertifica;
+                command.CommandText = @"SELECT fi.id,fi.nombre,fi.simbolo,fpi.orden,fpie.especificacion,fpie.especificacion_min,fpie.especificacion_max,fi.unidad,fiv.valor,fiv.valor_constante
+                                        FROM formato_item_valor fiv
+                                        JOIN formato_item fi ON fiv.id_item = fi.id
+                                        JOIN formato_ensayo fe ON fiv.id_ensayo = fe.id
+                                        JOIN formato_protocolo_item fpi ON (fiv.id_item = fpi.id_item AND id_protocolo = @pIdProtocolo)
+                                        JOIN formato_protocolo_item_especificacion fpie ON fpi.id = fpie.id_formato_protocolo_item
+                                        WHERE fe.id_op =@pOp AND fpie.id_codigo=@pIdCodigo" + sqlCertifica + ";";
                 command.Parameters.Add("@pOp", MySqlDbType.String).Value = op;
+                command.Parameters.Add("@pIdCodigo", MySqlDbType.String).Value = idCodigo;
                 command.Parameters.Add("@pIdProtocolo", MySqlDbType.Int32).Value = idProtocolo;
                 command.Parameters.Add("@pCertifica", MySqlDbType.Int32).Value = certifica;
 
@@ -446,9 +557,9 @@ namespace ProtoculoSLF.Repository
                 {
                     while (reader.Read())
                     {
-                        var valorEnsayo = reader[9] != DBNull.Value ? reader.GetDouble(9) : 0.0;
-                        var valorCorrecto = reader[10] != DBNull.Value ? reader.GetString(10) : "";
-                        var esConstante = reader[11] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(11)) : false;
+                        var valorEnsayo = reader[8] != DBNull.Value ? reader.GetDouble(8) : 0.0;
+                        var valorCorrecto = reader[9] != DBNull.Value ? reader.GetString(9) : "";
+                        //var esConstante = reader[10] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(10)) : false;
                         ProtocoloEnsayo pe = new ProtocoloEnsayo
                         {
                             Id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
@@ -456,12 +567,11 @@ namespace ProtoculoSLF.Repository
                             Simbolo = reader[2] != DBNull.Value ? reader.GetString(2) : "",
                             Orden = reader[3] != DBNull.Value ? reader.GetInt32(3) : 0,
                             Especificacion = reader[4] != DBNull.Value ? reader.GetDouble(4) : 0.0,
-                            EspecificacionMin = reader[5] != DBNull.Value ? reader.GetDouble(5)*10 : 0.0,
-                            EspecificacionMax = reader[6] != DBNull.Value ? reader.GetDouble(6)*10 : 0.0,
-                            IdProtocoloItem = reader[7] != DBNull.Value ? reader.GetInt32(7) : 0,
-                            Unidad = reader[8] != DBNull.Value ? reader.GetString(8) : "",
-                            ValorEnsayo = !esConstante ? valorEnsayo.ToString() :  valorCorrecto,
-                            EsConstante = esConstante,
+                            EspecificacionMin = reader[5] != DBNull.Value ? reader.GetDouble(5) : 0.0,
+                            EspecificacionMax = reader[6] != DBNull.Value ? reader.GetDouble(6) : 0.0,
+                            Unidad = reader[7] != DBNull.Value ? reader.GetString(7) : "",
+                            ValorEnsayo = valorCorrecto == "0" ? valorEnsayo.ToString() : valorCorrecto,
+                            //EsConstante = esConstante,
                         };
                         pes.Add(pe);
                     }
@@ -473,7 +583,7 @@ namespace ProtoculoSLF.Repository
                 {
                     Id = grupo.FirstOrDefault().Id,
                     Nombre = grupo.Key,
-                    ValorEnsayo = !grupo.FirstOrDefault().EsConstante ? grupo.Where(pr => double.TryParse(pr.ValorEnsayo, out _))
+                    ValorEnsayo = grupo.FirstOrDefault().ValorEnsayo!="0" ? grupo.Where(pr => double.TryParse(pr.ValorEnsayo, out _))
                                                                                        .Select(pr => double.Parse(pr.ValorEnsayo))
                                                                                        .DefaultIfEmpty(0)
                                                                                        .Average().ToString()
@@ -486,7 +596,61 @@ namespace ProtoculoSLF.Repository
                     Simbolo = grupo.FirstOrDefault().Simbolo,
                     Unidad = grupo.FirstOrDefault().Unidad,
                 }).ToList();
-            var pp ="";
+        }
+
+        internal List<ProtocoloEnsayo> GetEnsayosVacios(int idCodigo)
+        {
+            List<ProtocoloEnsayo> pes = new List<ProtocoloEnsayo>();
+            using (var conexion = new MySqlConnection(connectionString))
+            using (var command = new MySqlCommand())
+            {
+                conexion.Open();
+                command.Connection = conexion;
+                command.CommandText = @"select fi.id,fi.nombre,fi.simbolo,fpi.orden,fpie.especificacion,fpie.especificacion_min,fpie.especificacion_max,fi.unidad
+                                        FROM formato_protocolo_item fpi 
+                                        JOIN formato_item fi ON fpi.id_item = fi.id 
+                                        JOIN formato_protocolo_item_especificacion fpie ON fpi.id = fpie.id_formato_protocolo_item
+                                        WHERE fpi.id IN (3,4,5) AND fpie.id_codigo = @pIdCodigo;";
+                command.Parameters.Add("@pIdCodigo", MySqlDbType.String).Value = idCodigo;
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        ProtocoloEnsayo pe = new ProtocoloEnsayo
+                        {
+                            Id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+                            Nombre = reader.IsDBNull(1) ? "" : reader.GetString(1),
+                            Simbolo = reader[2] != DBNull.Value ? reader.GetString(2) : "",
+                            Orden = reader[3] != DBNull.Value ? reader.GetInt32(3) : 0,
+                            Especificacion = reader[4] != DBNull.Value ? reader.GetDouble(4) : 0.0,
+                            EspecificacionMin = reader[5] != DBNull.Value ? reader.GetDouble(5) : 0.0,
+                            EspecificacionMax = reader[6] != DBNull.Value ? reader.GetDouble(6) : 0.0,
+                            Unidad = reader[7] != DBNull.Value ? reader.GetString(7) : "",
+                            ValorEnsayo = "0" ,
+                        };
+                        pes.Add(pe);
+                    }
+                }
+            }
+
+            return pes.GroupBy(i => i.Nombre)
+                .Select(grupo => new ProtocoloEnsayo
+                {
+                    Id = grupo.FirstOrDefault().Id,
+                    Nombre = grupo.Key,
+                    ValorEnsayo = grupo.FirstOrDefault().ValorEnsayo != "0" ? grupo.Where(pr => double.TryParse(pr.ValorEnsayo, out _))
+                                                                                       .Select(pr => double.Parse(pr.ValorEnsayo))
+                                                                                       .DefaultIfEmpty(0)
+                                                                                       .Average().ToString()
+                                                                                       : grupo.FirstOrDefault().ValorEnsayo,
+                    Orden = grupo.FirstOrDefault().Orden,
+                    EspecificacionMin = grupo.FirstOrDefault().EspecificacionMin,
+                    Especificacion = grupo.FirstOrDefault().Especificacion,
+                    EspecificacionMax = grupo.FirstOrDefault().EspecificacionMax,
+                    IdProtocoloItem = grupo.FirstOrDefault().IdProtocoloItem,
+                    Simbolo = grupo.FirstOrDefault().Simbolo,
+                    Unidad = grupo.FirstOrDefault().Unidad,
+                }).ToList();
         }
 
         internal List<ProtocoloEnsayo> GetEnsayosItemsAnchoBolsa(string nombreItem, int orden, int codigo)
@@ -567,7 +731,7 @@ namespace ProtoculoSLF.Repository
                 }).ToList();
         }
 
-        internal List<ProtocoloEnsayo> GetEnsayosPorIdProtocoloItem(string Op_Nt,int idProtocolo,int idItem)
+        internal List<ProtocoloEnsayo> GetEnsayosPorIdProtocoloItem(int Op_Nt,int idProtocolo,int idItem)
         {
             List<ProtocoloEnsayo> pes = new List<ProtocoloEnsayo>();
             using (var conexion = new MySqlConnection(connectionString))
@@ -575,12 +739,10 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fe.id,fi.nombre,fe.valor_ensayo,fe.correcto,fi.simbolo,fpi.orden,fpie.especificacion_min,fpie.especificacion,fpie.especificacion_max,fpi.id,fi.unidad
-                                        FROM formato_ensayo fe
-                                        JOIN formato_item fi ON fe.id_item = fi.id
-                                        JOIN formato_protocolo_item fpi ON (fpi.id_protocolo = @pIdProtocolo AND fpi.id_item = @pIdItem)
-                                        JOIN formato_protocolo_item_especificacion fpie ON fpi.id = fpie.id_formato_protocolo_item
-                                        WHERE fe.op = @pOP AND fe.id_item = @pIdItem;";
+                command.CommandText = @"SELECT fiv.id,fiv.valor,fiv.valor_constante
+                                        FROM formato_item_valor fiv
+                                        JOIN formato_ensayo fe ON fiv.id_ensayo = fe.id
+                                        WHERE fe.id_op =@pOP AND fiv.id_item= @pIdItem";
                 command.Parameters.Add("@pOP", MySqlDbType.String).Value = Op_Nt;
                 command.Parameters.Add("@pIdProtocolo", MySqlDbType.Int32).Value = idProtocolo;
                 command.Parameters.Add("@pIdItem", MySqlDbType.Int32).Value = idItem;
@@ -589,22 +751,19 @@ namespace ProtoculoSLF.Repository
                 {
                     while (reader.Read())
                     {
-                        var valorEnsayo = reader[2] != DBNull.Value ? reader.GetDouble(2) : 0.0;
-                        var esCorrecto = reader[3] != DBNull.Value ? Convert.ToBoolean(reader.GetInt32(3)) : false;
-                        var simbolo = reader[4] != DBNull.Value ? reader.GetString(4) : "";
+                        var valorEnsayo = reader[1] != DBNull.Value ? reader.GetDouble(1) : 0.0;
+                        var valorCorrecto = reader[2] != DBNull.Value ? reader.GetString(2) : "";
                         ProtocoloEnsayo pe = new ProtocoloEnsayo
                         {
-                            Id = reader[0] != DBNull.Value ? reader.GetInt32(0) : 0,
-                            Nombre = reader[1] != DBNull.Value ? reader.GetString(1) : "",
-                            Simbolo = simbolo,
-                            ValorEnsayo = simbolo == "N" ? (esCorrecto ? "OK" : "NO") : valorEnsayo.ToString(),
-                            EsCorrectoSiNo = esCorrecto ? "SI" : "NO",
-                            Orden = reader[5] != DBNull.Value ? reader.GetInt32(5) : 0,
-                            EspecificacionMin = reader[6] != DBNull.Value ? reader.GetDouble(6) : 0.0,
-                            Especificacion = reader[7] != DBNull.Value ? reader.GetDouble(7) : 0.0,
-                            EspecificacionMax = reader[8] != DBNull.Value ? reader.GetDouble(8) : 0.0,
-                            IdProtocoloItem = reader[9] != DBNull.Value ? reader.GetInt32(9) : 0,
-                            Unidad = reader[10] != DBNull.Value ? reader.GetString(10) : "",
+                            Id = reader.IsDBNull(0) ? 0 : reader.GetInt32(0),
+                            //Nombre = reader.IsDBNull(1) ? "" : reader.GetString(1),
+                            //Simbolo = reader[2] != DBNull.Value ? reader.GetString(2) : "",
+                            //Orden = reader[3] != DBNull.Value ? reader.GetInt32(3) : 0,
+                            //Especificacion = reader[4] != DBNull.Value ? reader.GetDouble(4) : 0.0,
+                            //EspecificacionMin = reader[5] != DBNull.Value ? reader.GetDouble(5) : 0.0,
+                            //EspecificacionMax = reader[6] != DBNull.Value ? reader.GetDouble(6) : 0.0,
+                            //Unidad = reader[7] != DBNull.Value ? reader.GetString(7) : "",
+                            ValorEnsayo = valorCorrecto == "0" ||string.IsNullOrEmpty(valorCorrecto) ? valorEnsayo.ToString() : valorCorrecto,
                         };
                         pes.Add(pe);
                     }
@@ -623,7 +782,7 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT id,nombre,observacion,disposicion,creacion
+                command.CommandText = @"SELECT id,nombre,observacion,disposicion,creacion,datos
                                         FROM formato_protocolo;";
                 using (var reader = command.ExecuteReader())
                 {
@@ -636,7 +795,7 @@ namespace ProtoculoSLF.Repository
                             Descripcion = reader[2] != DBNull.Value ? reader.GetString(2) : "",
                             Disposicion = reader[3] != DBNull.Value ? reader.GetInt32(3) : 0,
                             Fecha = reader[4] != DBNull.Value ? reader.GetDateTime(4) : new DateTime(1993, 1, 20),
-
+                            Datos = reader[5] != DBNull.Value ? reader.GetInt32(5) :0,
                         };
                         ps.Add(p);
                     }
@@ -644,40 +803,6 @@ namespace ProtoculoSLF.Repository
 
                 return ps;
             }
-        }
-        internal bool ModificarNtIdProtocolo(int idNt, int idNtProtocolo)
-        {
-            bool res = false;
-            using (var conexion = new MySqlConnection(connectionString))
-            {
-                conexion.Open();
-                using (var transaction = conexion.BeginTransaction())
-                {
-                    using (var command = conexion.CreateCommand())
-                    {
-                        command.Transaction = transaction;
-                        try
-                        {
-                            command.CommandText = @"UPDATE nt SET id_protocolo=@pIdProtocolo
-                                                    WHERE id = @pID";
-                            command.Parameters.Add("@pId", MySqlDbType.Int32).Value = idNt;
-                            command.Parameters.Add("@pIdProtocolo", MySqlDbType.Int32).Value = idNtProtocolo;
-                            if (command.ExecuteNonQuery() != 1)
-                            {
-                                throw new Exception("Error al updatear protocolo");
-                            }
-                            transaction.Commit();
-                            res = true;
-                        }
-                        catch (Exception)
-                        {
-                            transaction.Rollback();
-                            res = false;
-                        }
-                    }
-                }
-            }
-            return res;
         }
 
         internal bool GetNombreItemDuplicado(string nombre)
@@ -710,8 +835,56 @@ namespace ProtoculoSLF.Repository
                 }
             }
         }
+        internal int GetIdProcotoco(int idCodigo)
+        {
+            using (var conexion = new MySqlConnection(connectionString))
+            {
+                conexion.Open();
+                using (var command = conexion.CreateCommand())
+                {
+                    command.CommandText = @"SELECT id_formato_protocolo FROM extrusion WHERE idcodigo = @pIdCodigo";
+                    command.Parameters.Add("@pIdCodigo", MySqlDbType.Int32).Value = idCodigo;
+                    return command.ExecuteScalar() != DBNull.Value ? (int)command.ExecuteScalar() : 0;
+                }
+            }
+        }
 
-        internal List<ProtocoloEnsayo> GetEnsayosPorIdProtocoloItem(ProtocoloEnsayo peSeleccionado,string lote)
+        internal int GetDisposicion(int idProtocolo)
+        {    
+            using (var conexion = new MySqlConnection(connectionString))
+            {
+                conexion.Open();
+                using (var command = conexion.CreateCommand())
+                {
+                    command.CommandText = @"SELECT disposicion
+                                            FROM formato_protocolo
+                                            WHERE id = @pIdProtocolo;";
+                    command.Parameters.Add("@pIdProtocolo", MySqlDbType.Int32).Value = idProtocolo;
+                    
+                    var pee = command.ExecuteScalar() != DBNull.Value ? (int)command.ExecuteScalar() : 0;
+                    return command.ExecuteScalar() != DBNull.Value ? (int)command.ExecuteScalar() : 0;
+                }
+            }
+        }
+
+        internal string GetOrderCompra (int idorden,int idcodigo)
+        {
+            using (var conexion = new MySqlConnection(connectionString))
+            {
+                conexion.Open();
+                using (var command = conexion.CreateCommand())
+                {
+                    command.CommandText = @"SELECT tempo_producciones.O_C
+                                            FROM tempo_producciones
+                                            WHERE (tempo_producciones.Orden=@pIdOrden AND tempo_producciones.Codigo=@pIdCodigo);";
+                    command.Parameters.Add("@pIdOrden", MySqlDbType.Int32).Value = idorden;
+                    command.Parameters.Add("@pIdCodigo", MySqlDbType.Int32).Value = idcodigo;
+                    return Convert.ToString(command.ExecuteScalar() ?? "0");
+                }
+            }
+        }
+
+        internal List<ProtocoloEnsayo> GetEnsayosPorIdProtocoloItem(ProtocoloEnsayo peSeleccionado,int lote)
         {
             List<ProtocoloEnsayo> pes = new List<ProtocoloEnsayo>();
 
@@ -720,7 +893,10 @@ namespace ProtoculoSLF.Repository
             {
                 conexion.Open();
                 command.Connection = conexion;
-                command.CommandText = @"SELECT fe.valor_ensayo FROM formato_ensayo fe WHERE fe.id_item=@pIdItem AND op=@pOP;";
+                command.CommandText = @"SELECT fiv.valor
+                                        FROM formato_item_valor fiv 
+                                        JOIN formato_ensayo fe ON fiv.id_ensayo = fe.id
+                                        WHERE fiv.id_item=@pIdItem AND fe.id_op=@pOP;;";
                 command.Parameters.Add("@pIdItem", MySqlDbType.Int32).Value = peSeleccionado.Id;
                 command.Parameters.Add("@pOP", MySqlDbType.Int32).Value = lote;
 
@@ -733,6 +909,8 @@ namespace ProtoculoSLF.Repository
                             Nombre = peSeleccionado.Nombre,
                             ValorEnsayo = reader.IsDBNull(0) ? "" : reader.GetDouble(0).ToString(),
                             Especificacion = peSeleccionado.Especificacion,
+                            EspecificacionMax = peSeleccionado.EspecificacionMax,
+                            EspecificacionMin = peSeleccionado.EspecificacionMin,
                         };
                         pes.Add(pe);
                     }
@@ -784,6 +962,71 @@ namespace ProtoculoSLF.Repository
 
             return res;
         }
+
+        internal bool AsignarProtocoloEstandarBolsaId(int idCodigo, int idProtocolo)
+        {
+            bool res = false;
+            using (var conexion = new MySqlConnection(connectionString))
+            {
+                conexion.Open();
+                using (var transaction = conexion.BeginTransaction())
+                {
+                    using (var command = conexion.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        try
+                        {
+                            command.CommandText = @"UPDATE extrusion SET id_formato_protocolo = @pIdProtocolo WHERE idcodigo = (@pId);";
+                            command.Parameters.Add("@pIdProtocolo", MySqlDbType.Int32).Value = idProtocolo;
+                            command.Parameters.Add("@pId", MySqlDbType.Int32).Value = idCodigo;
+                            if (command.ExecuteNonQuery() != 1) throw new Exception("Error al modificar EXTRUSION");                            
+                            transaction.Commit();
+                            res = true;
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            res = false;
+                        }
+                    }
+                }
+            }
+            return res;
+        }
+
+        internal bool AsignarProtocoloEstandarBolsa(string sqlInsertEspecificaciones)
+        {
+            bool res = false;
+            using (var conexion = new MySqlConnection(connectionString))
+            {
+                conexion.Open();
+                using (var transaction = conexion.BeginTransaction())
+                {
+                    using (var command = conexion.CreateCommand())
+                    {
+                        command.Transaction = transaction;
+                        try
+                        {
+                            command.CommandText = sqlInsertEspecificaciones;
+                            if (command.ExecuteNonQuery() <= 0)
+                            {
+                                throw new Exception("Error al actualizar SCRAPS");
+                            }
+
+                            transaction.Commit();
+                            res = true;
+                        }
+                        catch (Exception)
+                        {
+                            transaction.Rollback();
+                            res = false;
+                        }
+                    }
+                }
+            }
+            return res;
+        }
+
         internal int AgregarItemFOREACHBORRAR(ProtocoloItem pi)
         {
             using (var conexion = new MySqlConnection(connectionString))
@@ -1027,11 +1270,12 @@ namespace ProtoculoSLF.Repository
                         command.Transaction = transaction;
                         try
                         {
-                            command.CommandText = @"UPDATE formatoprotocoloa_ensayo SET valor_ensayo = @pValor,
-                                                                                        correcto = @pCorrecto                                                                                      
-                                                                                        WHERE id = (@pIdEnsayo);";
+                            command.CommandText = @"UPDATE formato_item_valor SET valor = @pValor,
+                                                                                  valor_constante = @pValorConstante                                                                                      
+                                                                                  WHERE id = (@pIdEnsayo);";
                             command.Parameters.Add("@pValor", MySqlDbType.Double).Value = pi.ValorEnsayo;
-                            command.Parameters.Add("@pCorrecto", MySqlDbType.Int32).Value = pi.Correcto;
+                            //VARIFICAR EL VALOR CONSTANTE, si es valor o OK o no OK para mas tarde.
+                            command.Parameters.Add("@pValorConstante", MySqlDbType.String).Value = "0";
                             command.Parameters.Add("@pIdEnsayo", MySqlDbType.Int32).Value = pi.Id;
 
                             if (command.ExecuteNonQuery() != 1)
@@ -1442,7 +1686,7 @@ namespace ProtoculoSLF.Repository
                 return ps;
             }
         }
-        internal ProtocoloEnsayo GetEnsayosEspesor(string nombreItem, int orden, int codigo,double pesoMtsTeorico)
+        internal ProtocoloEnsayo GetEnsayosEspesor(int orden, int codigo,int idOP,double pesoMtsTeorico)
         {
             ProtocoloItem p = new ProtocoloItem();
             List<ProtocoloEnsayo> pes = new List<ProtocoloEnsayo>();
@@ -1456,9 +1700,9 @@ namespace ProtoculoSLF.Repository
                                         FROM formato_protocolo_item fpi
                                         JOIN formato_protocolo_item_especificacion fpie on fpi.id = fpie.id_formato_protocolo_item
                                         JOIN formato_item fi on fpi.id_item = fi.id
-                                        WHERE fpie.id_codigo = @pIdCodigo and fi.nombre = @pNombreItem";
+                                        WHERE fpie.id_codigo=@pIdCodigo AND fi.id = @pIdItem;";
                 command.Parameters.Add("@pIdCodigo", MySqlDbType.Int32).Value = codigo;
-                command.Parameters.Add("@pNombreItem", MySqlDbType.String).Value = nombreItem;
+                command.Parameters.Add("@pIdItem", MySqlDbType.String).Value = 8;
                 using (var reader = command.ExecuteReader())
                 {
                     if (reader.Read())
@@ -1478,7 +1722,7 @@ namespace ProtoculoSLF.Repository
                 if (p.Nombre ==null) return null;
                 command.CommandText = @"SELECT peso_metro,Orden,Codigo
                                         FROM parametros_anchos
-                                        WHERE orden=@pIdOrden and Codigo=@pIdCodigo and orden <> -1;";
+                                        WHERE orden=@pIdOrden AND Codigo=@pIdCodigo;";
                 command.Parameters.Add("@pIdOrden", MySqlDbType.Int32).Value = orden;
 
                 using (var reader = command.ExecuteReader())
@@ -1505,7 +1749,7 @@ namespace ProtoculoSLF.Repository
             var espesor = pes.GroupBy(i => i.Nombre)
                 .Select(grupo => new ProtocoloEnsayo
                 {
-                    Id = grupo.FirstOrDefault().Id,
+                    Id = 8,
                     Nombre = grupo.Key,
                     ValorEnsayo = grupo.FirstOrDefault().Simbolo == "N" ? grupo.FirstOrDefault().ValorEnsayo : grupo.Where(pr => double.TryParse(pr.ValorEnsayo, out _))
                                                                                        .Select(pr => double.Parse(pr.ValorEnsayo))
@@ -1519,11 +1763,16 @@ namespace ProtoculoSLF.Repository
                     Simbolo = grupo.FirstOrDefault().Simbolo,
                     Unidad = grupo.FirstOrDefault().Unidad,
                 }).ToList();
-
             var ensayoEspesor = espesor.FirstOrDefault(e => e.Nombre == "Espesor");
-            ensayoEspesor.Valor = Math.Round(Convert.ToDouble(ensayoEspesor.ValorEnsayo) * ensayoEspesor.Especificacion / pesoMtsTeorico,2);
-            ensayoEspesor.ValorEnsayo = ensayoEspesor.Valor.ToString();
-            return ensayoEspesor;
+
+            if (ensayoEspesor != null)
+            {
+                ensayoEspesor.Valor = Math.Round(Convert.ToDouble(ensayoEspesor.ValorEnsayo) * ensayoEspesor.Especificacion / pesoMtsTeorico, 2);
+                ensayoEspesor.ValorEnsayo = ensayoEspesor.Valor.ToString();
+                return ensayoEspesor;
+            }
+            else return null;
+            
         }
 
         internal bool InsertAProtocolo(Protocolo protocoloACrear, string qryUpdate, string qryInsertProtocoloItems,string accion)
@@ -1545,12 +1794,13 @@ namespace ProtoculoSLF.Repository
                                                                                      estado = @pEstado,
                                                                                      observacion = @pObservacion,
                                                                                      usuario = @pUsuario,
-                                                                                     disposicion = @pDisposicion
+                                                                                     disposicion = @pDisposicion,
+                                                                                     datos = @pDatos
                                                                                      WHERE id = (@pIdProtocolo); SELECT LAST_INSERT_ID();";
                             }
                             else {
-                                command.CommandText = @"INSERT INTO formato_protocolo (nombre,estado,observacion,usuario,disposicion) 
-                                                                           VALUES (@pNombre,@pEstado,@pObservacion,@pUsuario,@pDisposicion); SELECT LAST_INSERT_ID();";
+                                command.CommandText = @"INSERT INTO formato_protocolo (nombre,estado,observacion,usuario,disposicion,datos) 
+                                                                           VALUES (@pNombre,@pEstado,@pObservacion,@pUsuario,@pDisposicion,@pDatos); SELECT LAST_INSERT_ID();";
                                
                             }
                             command.Parameters.Add("@pNombre", MySqlDbType.String).Value = protocoloACrear.Nombre;
@@ -1558,6 +1808,7 @@ namespace ProtoculoSLF.Repository
                             command.Parameters.Add("@pUsuario", MySqlDbType.String).Value = "ADMIN";
                             command.Parameters.Add("@pObservacion", MySqlDbType.String).Value = protocoloACrear.Descripcion;
                             command.Parameters.Add("@pDisposicion", MySqlDbType.Int32).Value = protocoloACrear.Disposicion;
+                            command.Parameters.Add("@pDatos", MySqlDbType.Int32).Value = protocoloACrear.Datos;
                             command.Parameters.Add("@pIdProtocolo", MySqlDbType.Int32).Value = protocoloACrear.FormatoProtocolo;
 
                             if (command.ExecuteNonQuery() != 1)
@@ -1617,7 +1868,7 @@ namespace ProtoculoSLF.Repository
                         
                     }              
                 }
-
+                esp.IdProtocoloItem = 3;
                 return esp;
             }
         }
@@ -1644,7 +1895,7 @@ namespace ProtoculoSLF.Repository
                     }
 
                 }
-
+                esp.IdProtocoloItem = 4;
                 return esp;
             }
         }
@@ -1666,13 +1917,13 @@ namespace ProtoculoSLF.Repository
                 {
                     if (reader.Read())
                     {
-                        esp.Medio = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0) * 10;
+                        esp.Medio = reader.IsDBNull(0) ? 0.0 : reader.GetDouble(0);
                         esp.Minimo = reader.IsDBNull(1) ? 0.0 : reader.GetDouble(1);
                         esp.Maximo = reader.IsDBNull(2) ? 0.0 : reader.GetDouble(2);
                     }
 
                 }
-
+                esp.IdProtocoloItem = 5;
                 return esp;
             }
         }

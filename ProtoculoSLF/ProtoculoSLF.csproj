@@ -172,9 +172,9 @@
     </Compile>
     <Compile Include="Model\Especificacion.cs" />
     <Compile Include="Model\ExtrusionDatos.cs" />
+    <Compile Include="Model\ItemValor.cs" />
     <Compile Include="Model\Maquina.cs" />
     <Compile Include="Model\NT.cs" />
-    <Compile Include="Model\OP.cs" />
     <Compile Include="Model\Protocolo.cs" />
     <Compile Include="Model\ProtocoloEnsayo.cs" />
     <Compile Include="Model\ProtocoloItem.cs" />
@@ -306,6 +306,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\clear_16x161.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\changelabel_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\checkbox2_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\sendpdf_32x32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo_Sanlufilm_Negro.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

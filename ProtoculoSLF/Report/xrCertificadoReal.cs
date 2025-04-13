@@ -15,29 +15,33 @@ namespace ProtoculoSLF.Report
             InitializeComponent();
             if (Form1.instancia.protocoloEnsayos.Count != 0)
             {
+                xrTablaEnsayos.BeginInit();
                 foreach (var item in Form1.instancia.protocoloEnsayos)
                 {
                     if(item!=null)AgregarFilaProceso(item);
                 }
-                
+                 xrTablaEnsayos.EndInit();
                 var datos = Form1.instancia.datosReporte;
-                var disposicion = Form1.instancia.disposicion;
-                xrDatoLote.Text = datos.Lote;
+                var disposicion = Form1.instancia.protocoloSeleccionado.Disposicion;
+                var pp = Form1.instancia.br.GetOrderCompra(Convert.ToInt32(datos.Lote), Form1.instancia.protocoloSeleccionado.Id);
+                
+                xrDatoLote.Text = datos.Lote+"/"+ Form1.instancia.protocoloSeleccionado.Id;
                 xrDatoCliente.Text = datos.Cliente;
-                xrDatoProducto.Text = datos.Producto;
+                xrDatoProducto.Text = Form1.instancia.protocoloSeleccionado.Descripcion;
                 xrDatoCantidad.Text = datos.Cantidad.ToString();
                 xrDatoFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
                 xrDatoPallet.Text = disposicion == 1 ? "Lote": datos.Pallet.ToString();
                 xrTableCell5.Text = disposicion == 1 ? "" : "PALLET:";
                 xrDatoCodigoCliente.Text = datos.CodigoCliente;
                 xrDatoRemitoN.Text= datos.Remito.ToString();
-                xrDatoOCN.Text = datos.OrdenDeCompra.ToString();
-                if (xrDatoRemitoN.Text == "0") {
+                xrDatoOCN.Text = pp.ToString();
+                if (fueraTolen) {
                     xrLblEstado.Text = "EN CONSTRUCCIÓN";
                     xrLblEstado.Visible = true;
                 }
             }
         }
+        bool fueraTolen = false;
         private void AgregarFilaProceso(ProtocoloEnsayo pes)
         {
             double espMin = 0.0;
@@ -50,11 +54,12 @@ namespace ProtoculoSLF.Report
                 espMax = pes.Especificacion + pes.EspecificacionMax;
                 if (tolerancia >= espMin && tolerancia <= espMax)
                 {
-                    xrLblEstado.Text = "FUERA DE TOLERANCIA";
-                    xrLblEstado.Visible = true;
+
                 }
+                else fueraTolen = true;
             }
-            
+         
+
             XRTableRow row = new XRTableRow
             {
                 Dpi = 100F,
@@ -65,7 +70,7 @@ namespace ProtoculoSLF.Report
 
             XRTableCell cell1 = new XRTableCell
             {
-                Text = pes.Nombre,
+                Text = pes.Nombre.ToUpper(),
                 Dpi = 100F,
                 Weight = 1.4969318327356558D,
                 Font = new DevExpress.Drawing.DXFont("Calibri", 10.75F)
@@ -84,7 +89,7 @@ namespace ProtoculoSLF.Report
 
             XRTableCell cell3 = new XRTableCell
             {
-                Text = pes.ValorEnsayo,
+                Text = Math.Round(Convert.ToDouble(pes.ValorEnsayo),2).ToString(),
                 Dpi = 100F,
                 Weight = 0.94703189036885238D,
                 Font = new DevExpress.Drawing.DXFont("Calibri", 10.75F),
@@ -100,6 +105,13 @@ namespace ProtoculoSLF.Report
                 Font = new DevExpress.Drawing.DXFont("Calibri", 10.75F)
             };
             row.Cells.Add(cell4);
+            if (Form1.instancia.protocoloEnsayos.LastOrDefault() == pes) {
+                row.Borders = DevExpress.XtraPrinting.BorderSide.Bottom;
+            }
+            if (Form1.instancia.protocoloEnsayos.FirstOrDefault() == pes)
+            {
+                row.Borders = DevExpress.XtraPrinting.BorderSide.Top;
+            }
             xrTablaEnsayos.Rows.Add(row);
         }
     }

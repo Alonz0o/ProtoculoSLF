@@ -14,11 +14,11 @@ namespace ProtoculoSLF
 {
     public partial class formAsignarProtocolo : Form
     {
-        int idNt = 0;
+        int idCodigo = 0;
         public formAsignarProtocolo(int idNt)
         {
             InitializeComponent();
-            this.idNt = idNt;
+            this.idCodigo = idNt;
             Deactivate += (s, e) => Close();
 
         }
@@ -41,10 +41,10 @@ namespace ProtoculoSLF
 
             if (!string.IsNullOrEmpty(lueProtocoloA.Id.ToString()))
             {
-                if (Form1.instancia.br.ModificarNtIdProtocolo(idNt, lueProtocoloA.FormatoProtocolo))
+                if (Form1.instancia.br.AsignarProtocoloEstandarBolsaId(idCodigo, lueProtocoloA.FormatoProtocolo))
                 {
                     Form1.instancia.EsModificadoNtProtocolo = true;
-                    Form1.instancia.nts.FirstOrDefault(n => n.Id == idNt).IdProtocolo = lueProtocoloA.FormatoProtocolo;
+                    Form1.instancia.protocolos.FirstOrDefault(n => n.Id == idCodigo).FormatoProtocolo = lueProtocoloA.FormatoProtocolo;
                     Close();
                 }
             }

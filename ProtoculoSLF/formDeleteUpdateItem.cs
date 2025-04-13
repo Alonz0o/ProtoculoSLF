@@ -15,14 +15,18 @@ namespace ProtoculoSLF
     public partial class formDeleteUpdateItem : Form
     {
         List<ProtocoloEnsayo> protocoloEnsayos = new List<ProtocoloEnsayo>();
-        int idItemSeleccionado = 0;
-        string nombreItemSeleccionado = "",confirmar="";
+        ProtocoloEnsayo pi = new ProtocoloEnsayo();
+
+        string confirmar="";
         ProtocoloEnsayo ensayoItemSeleccionado = new ProtocoloEnsayo();
-        public formDeleteUpdateItem(List<ProtocoloEnsayo> protocoloEnsayo)
+        public formDeleteUpdateItem(List<ProtocoloEnsayo> protocoloEnsayo,ProtocoloEnsayo pi)
         {
+
             InitializeComponent();
             this.protocoloEnsayos = protocoloEnsayo;
-            lueEnsayoNombre.Properties.DataSource = Form1.instancia.br.GetProtocolosItems(Form1.instancia.idProtocoloSeleccionado);
+            this.pi = pi;
+            gcBMEnsayo.Text = "  Ensayos de Ítem: " + pi.Nombre;
+            lueEnsayoNombre.Properties.DataSource = Form1.instancia.br.GetProtocolosItemsEspecificacionPorCodigo(Form1.instancia.protocoloSeleccionado.Id);
             //Deactivate += (s, e) => Close();
             GenerarTablaItems();
         }
@@ -55,7 +59,7 @@ namespace ProtoculoSLF
 
                 if (Form1.instancia.br.UpdateEnsayo(pi))
                 {
-                    formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se modifico correctamente el ensayo: " + nombreItemSeleccionado);
+                    formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se modifico correctamente el ensayo: " + ensayoItemSeleccionado.Nombre);
                     noti.Show();
                     gcConfirmar.Visible = false;
                     GetEnsayos();
@@ -67,21 +71,21 @@ namespace ProtoculoSLF
             if (confirmar == "DELETEITEM")
             {
 
-                if (Form1.instancia.br.DeleteEnsayo(idItemSeleccionado))
+                if (Form1.instancia.br.DeleteEnsayo(ensayoItemSeleccionado.Id))
                 {
-                    formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se borro correctamente el ensayo: " + nombreItemSeleccionado);
+                    formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se borro correctamente el ensayo: " + ensayoItemSeleccionado.Nombre);
                     noti.Show();
                     gcConfirmar.Visible = false;
+                    Form1.instancia.GetEnsayosRealizadosPorLote(1, 3);
                     GetEnsayos();
-                    Form1.instancia.GetEnsayosRealizados();
                 }
             }
         }
 
         private void GetEnsayos()
         {
-            //protocoloEnsayos = Form1.instancia.br.GetEnsayosPorIdProtocoloItem(protocoloEnsayos.FirstOrDefault().IdProtocoloItem);
-            //gcItems.DataSource = protocoloEnsayos;
+            protocoloEnsayos = Form1.instancia.protocoloEnsayos;
+            gcItems.DataSource = protocoloEnsayos;
         }
 
         private void LimpiarFormularioEnsayo()
@@ -98,7 +102,7 @@ namespace ProtoculoSLF
                 gcAgregarItem.Visible = false;
                 gcConfirmar.Size = new Size(388, 137);
                 tlpNoti.Visible = true;
-                lblNombreVentana.Text = "Modificar ítem: " + nombreItemSeleccionado;
+                lblNombreVentana.Text = "Modificar ítem: " + ensayoItemSeleccionado.Nombre;
                 lblTitulo.Text = "Esta a punto de modificar un ítem";
                 lblMensaje.Text = "Esto afectara a todos los protocolos relacionados con dicho ítem";
                 gcConfirmar.Visible = true;
@@ -154,13 +158,6 @@ namespace ProtoculoSLF
             cId.UnboundDataType = typeof(int);
             cId.OptionsColumn.AllowEdit = false;
 
-            GridColumn cNombre = new GridColumn();
-            cNombre.FieldName = "Nombre";
-            cNombre.Caption = "Nombre";
-            cNombre.UnboundDataType = typeof(string);
-            cNombre.Visible = true;
-            cNombre.OptionsColumn.AllowEdit = false;
-
             GridColumn cValor = new GridColumn();
             cValor.FieldName = "ValorEnsayo";
             cValor.Caption = "Valor";
@@ -180,7 +177,7 @@ namespace ProtoculoSLF
             cModificar.Width = 16;
             cModificar.Visible = true;
 
-            gvItems.Columns.AddRange(new GridColumn[] { cId, cNombre, cValor, cBorrar, cModificar });
+            gvItems.Columns.AddRange(new GridColumn[] { cId, cValor, cBorrar, cModificar });
             gcItems.DataSource = protocoloEnsayos;
 
             RepositoryItemButtonEdit botonBorrar = new RepositoryItemButtonEdit();
@@ -202,13 +199,13 @@ namespace ProtoculoSLF
                         var pi = gridView.GetRow(rowIndex) as ProtocoloEnsayo;
                         if (pi != null)
                         {
-                            idItemSeleccionado = pi.Id;
-                            nombreItemSeleccionado = pi.Nombre;
+                            ensayoItemSeleccionado.Id = pi.Id;
+                            ensayoItemSeleccionado.Nombre = pi.Nombre;
                             confirmar = "DELETEITEM";
                             gcConfirmar.Visible = true;
                             gcConfirmar.Size = new Size(388, 137);
                             tlpNoti.Visible = true;
-                            lblNombreVentana.Text = "Borrar ensayo: " + nombreItemSeleccionado;
+                            lblNombreVentana.Text = "Borrar ensayo: " + ensayoItemSeleccionado.Nombre;
                             lblTitulo.Text = "Esta a punto de borrar un ensayo";
                             lblMensaje.Text = "Esto afectara al resultado de todos los protocolos relacionados con dicho ensayo";
                         }
@@ -232,15 +229,14 @@ namespace ProtoculoSLF
                     if (gridView != null)
                     {
                         int rowIndex = gridView.FocusedRowHandle;
-                        var pi = gridView.GetRow(rowIndex) as ProtocoloEnsayo;
-                        if (pi != null)
+                        var pe = gridView.GetRow(rowIndex) as ProtocoloEnsayo;
+                        if (pe != null)
                         {
-                            idItemSeleccionado = pi.Id;
-                            nombreItemSeleccionado = pi.Nombre;
+                            ensayoItemSeleccionado = pe;
+                            ensayoItemSeleccionado.Nombre = pi.Nombre;
                             confirmar = "UPDATEITEM";
                             //MODIFICAR ITEM FORM
                             //VER SACAR SI ES POSIBLE
-                            ensayoItemSeleccionado = pi;
                             gcAgregarItem.Visible = true;
                             tbValorEnsayo.Texts = ensayoItemSeleccionado.ValorEnsayo;
                             lueEnsayoNombre.ItemIndex = BuscarNombreIndex(ensayoItemSeleccionado.Nombre);
