@@ -22,6 +22,7 @@ using DevExpress.XtraPrinting.Preview;
 using DevExpress.XtraReports.UI;
 using System.Diagnostics;
 using MySqlConnector;
+using DevExpress.XtraGrid;
 
 namespace ProtoculoSLF
 {
@@ -38,6 +39,7 @@ namespace ProtoculoSLF
         public bool esPorLote;
         string archivoINI = Directory.GetCurrentDirectory() + @"\config.ini";
         private List<ProtocoloItem> items = new List<ProtocoloItem>();
+        public bool EsCanceladoFormAsignarItemAProtocolo = false, EsConProtocolo = false;
 
         private async Task GetEnsayosTask()
         {
@@ -154,6 +156,13 @@ namespace ProtoculoSLF
             cId.OptionsColumn.AllowEdit = false;
             cId.Visible = true;
 
+            GridColumn cUltimoProceso = new GridColumn();
+            cUltimoProceso.FieldName = "UltimoProcesoNombre";
+            cUltimoProceso.Caption = "Proceso";
+            cUltimoProceso.UnboundDataType = typeof(string);
+            cUltimoProceso.OptionsColumn.AllowEdit = false;
+            cUltimoProceso.Visible = true;
+
             GridColumn cIdFormato = new GridColumn();
             cIdFormato.FieldName = "FormatoProtocolo";
             cIdFormato.Caption = "Protocolo N°";
@@ -186,13 +195,15 @@ namespace ProtoculoSLF
             cVerProtocolo.Width = 16;
             cVerProtocolo.Visible = true;
 
-            gvProtocolos.Columns.AddRange(new GridColumn[] { cId, cIdFormato, cFecha, cNombre, cCliente, cVerProtocolo });
+            gvProtocolos.Columns.AddRange(new GridColumn[] { cId, cUltimoProceso,cIdFormato, cFecha, cNombre, cCliente, cVerProtocolo });
             gcProtocolos.DataSource = protocolos.OrderByDescending(e => e.Fecha);
 
-            GridColumnSortInfo[] sortInfo = {
-                new GridColumnSortInfo(gvProtocolos.Columns["Cliente"], ColumnSortOrder.Ascending),
-                new GridColumnSortInfo(gvProtocolos.Columns["Id"], ColumnSortOrder.Ascending)};
-            gvProtocolos.SortInfo.ClearAndAddRange(sortInfo, 1);
+            cCliente.GroupIndex = 0;
+            cUltimoProceso.GroupIndex = 1;
+            cFecha.SortOrder = ColumnSortOrder.Descending;
+
+            gvProtocolos.OptionsView.ShowGroupPanel = false;
+            gvProtocolos.OptionsBehavior.AutoExpandAllGroups = true;
 
             RepositoryItemButtonEdit botonVer = new RepositoryItemButtonEdit();
             botonVer.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
@@ -214,12 +225,12 @@ namespace ProtoculoSLF
                         Protocolo p = gridView.GetRow(rowIndex) as Protocolo;
                         if (p != null)
                         {
+                            LimpiarTodo();
                             datosReporte.IdCodigo = p.Id;
                             protocoloSeleccionado = p;
                             datosReporte.Cliente = protocoloSeleccionado.Cliente;
                             datosReporte.Remito = protocoloSeleccionado.Remito;
                             datosReporte.OrdenDeCompra = protocoloSeleccionado.OrdenDeCompra;
-                            gvNts.Columns.Clear();
 
                             if (protocoloSeleccionado.FormatoProtocolo == 0)
                             {
@@ -242,13 +253,21 @@ namespace ProtoculoSLF
                                 MessageBox.Show(protocoloSeleccionado.DescripcionRemito.ToLower());
                             }
 
-                            if (protocoloSeleccionado.Disposicion == 1) { 
+                            if (protocoloSeleccionado.Disposicion == 1)
+                            {
+                                groupControl1.Text = "  Lotes del codigo: " + protocoloSeleccionado.Id;
                                 GenerarTablaNtsPorLote();
                                 GetProtocoloNtsPorLote();
                             }
-                            else GenerarTablaNts();
+                            else {
+                                groupControl1.Text = "  Nt´s del codigo: " + protocoloSeleccionado.Id;
+                                GenerarTablaNtsPorPallet();
+                                GetProtocoloNtsPorPallet();
+                            }
 
-                            LimpiarMenuProtocolo();
+                            gvNts.OptionsView.ShowGroupPanel = false;
+                            gvNts.OptionsBehavior.AutoExpandAllGroups = true;
+
                             protocoloEnsayos.Clear();
                             gvNts.RefreshData();
                             gvFormatoValores.RefreshData();
@@ -268,8 +287,20 @@ namespace ProtoculoSLF
                 }
             };
         }
+        private void LimpiarTodo()
+        {
+            //DEJO los 2 por que las columnas se crearan mediante la disposición, borro colunas y datos
+            gcNts.DataSource = null;
+            gvNts.Columns.Clear();
+            gcItemsProtocolo.DataSource = null;
+            gcFormatoValores.DataSource = null;
 
-        public bool EsCanceladoFormAsignarItemAProtocolo = false,EsConProtocolo=false;
+            lblCliente.Text = string.Empty;
+            lblNtNum.Text = string.Empty;
+            lblProtocoloId.Text = string.Empty;
+            lblPalletNum.Text = string.Empty;
+            gcFormatoItems.Text = "Protocolo ITEMS";
+        }
         private void LimpiarMenuProtocolo()
         {
             lblCliente.Text = string.Empty;
@@ -331,7 +362,7 @@ namespace ProtoculoSLF
             gcItemsProtocolo.DataSource = protocoItems;
 
         }
-        private void GenerarTablaNts()
+        private void GenerarTablaNtsPorPallet()
         {
             GridColumn cId = new GridColumn();
             cId.FieldName = "Id";
@@ -346,12 +377,12 @@ namespace ProtoculoSLF
             cNT.Visible = true;
             cNT.OptionsColumn.AllowEdit = false;
 
-            GridColumn cOP = new GridColumn();
-            cOP.FieldName = "Orden";
-            cOP.Caption = "Orden";
-            cOP.UnboundDataType = typeof(string);
-            cOP.Visible = true;
-            cOP.OptionsColumn.AllowEdit = false;
+            GridColumn cIdOrden = new GridColumn();
+            cIdOrden.FieldName = "Orden";
+            cIdOrden.Caption = "Orden";
+            cIdOrden.UnboundDataType = typeof(string);
+            cIdOrden.Visible = true;
+            cIdOrden.OptionsColumn.AllowEdit = false;
 
             GridColumn cPallet = new GridColumn();
             cPallet.FieldName = "NumPallet";
@@ -362,7 +393,11 @@ namespace ProtoculoSLF
 
             GridColumn cCantBobina = new GridColumn();
             cCantBobina.FieldName = "CantidadBobinas";
-            cCantBobina.Caption = "Cantidad N°";
+            cCantBobina.Caption = protocoloSeleccionado.UltimoProceso == 1 ? "Bobinas N°" :
+                                  protocoloSeleccionado.UltimoProceso == 2 ? "Bobinas N°" :
+                                  protocoloSeleccionado.UltimoProceso == 3 ? "Bultos N°" :
+                                  protocoloSeleccionado.UltimoProceso == 4 ? "Bobinas N°" :
+                                  protocoloSeleccionado.UltimoProceso == 5 ? "Cajas N°" : "Otros";
             cCantBobina.UnboundDataType = typeof(string);
             cCantBobina.Visible = true;
             cCantBobina.OptionsColumn.AllowEdit = false;
@@ -374,10 +409,11 @@ namespace ProtoculoSLF
             cFecha.Visible = true;
             cFecha.OptionsColumn.AllowEdit = false;
 
-            gvNts.Columns.AddRange(new GridColumn[] { cId, cNT, cOP, cPallet, cCantBobina, cFecha });
-            gcNts.DataSource = nts;
+            gvNts.Columns.AddRange(new GridColumn[] { cId, cNT, cIdOrden, cPallet, cCantBobina, cFecha });
 
-      
+            cIdOrden.GroupIndex = 0;
+            cIdOrden.SortOrder = ColumnSortOrder.Descending;
+            cPallet.SortOrder = ColumnSortOrder.Ascending;
         }
 
         private void GenerarTablaNtsPorLote()
@@ -388,12 +424,12 @@ namespace ProtoculoSLF
             cId.UnboundDataType = typeof(int);
             cId.OptionsColumn.AllowEdit = false;
 
-            GridColumn cOP = new GridColumn();
-            cOP.FieldName = "Orden";
-            cOP.Caption = "Orden";
-            cOP.UnboundDataType = typeof(string);
-            cOP.Visible = true;
-            cOP.OptionsColumn.AllowEdit = false;
+            GridColumn cIdOrden = new GridColumn();
+            cIdOrden.FieldName = "Orden";
+            cIdOrden.Caption = "Orden";
+            cIdOrden.UnboundDataType = typeof(string);
+            cIdOrden.Visible = true;
+            cIdOrden.OptionsColumn.AllowEdit = false;
 
             GridColumn cNT = new GridColumn();
             cNT.FieldName = "NumNT";
@@ -409,22 +445,27 @@ namespace ProtoculoSLF
             cPallet.Visible = true;
             cPallet.OptionsColumn.AllowEdit = false;
 
+            GridColumn cFecha = new GridColumn();
+            cFecha.FieldName = "Creado";
+            cFecha.Caption = "Creado";
+            cFecha.UnboundDataType = typeof(DateTime);
+            cFecha.Visible = true;
+            cFecha.OptionsColumn.AllowEdit = false;
+
             GridColumn cCantBobina = new GridColumn();
             cCantBobina.FieldName = "CantidadBobinas";
-            cCantBobina.Caption = "Cantidad N°";
+            cCantBobina.Caption = protocoloSeleccionado.UltimoProceso == 1 ? "Bobinas N°" :
+                                  protocoloSeleccionado.UltimoProceso == 2 ? "Bobinas N°" :
+                                  protocoloSeleccionado.UltimoProceso == 3 ? "Bultos N°" :
+                                  protocoloSeleccionado.UltimoProceso == 4 ? "Bobinas N°" :
+                                  protocoloSeleccionado.UltimoProceso == 5 ? "Cajas N°" : "Otros";
             cCantBobina.UnboundDataType = typeof(string);
             cCantBobina.Visible = true;
             cCantBobina.OptionsColumn.AllowEdit = false;
 
-            //GridColumn cFecha = new GridColumn();
-            //cFecha.FieldName = "Creado";
-            //cFecha.Caption = "Creado";
-            //cFecha.UnboundDataType = typeof(DateTime);
-            //cFecha.Visible = true;
-            //cFecha.OptionsColumn.AllowEdit = false;
+            gvNts.Columns.AddRange(new GridColumn[] { cId, cIdOrden, cNT, cPallet, cCantBobina, cFecha });
 
-            gvNts.Columns.AddRange(new GridColumn[] { cId, cOP, cNT, cPallet, cCantBobina });
-            gcNts.DataSource = nts;
+            cFecha.SortOrder = ColumnSortOrder.Descending;
 
 
         }
@@ -532,38 +573,45 @@ namespace ProtoculoSLF
             };
 
         }
-        int idOrden = 0;
         NT ntSeleccionado = new NT();
         private void dvProtocolos_DragDrop(object sender, DragEventArgs e)
         {
             ntSeleccionado = (NT)e.Data.GetData(typeof(NT));
-            idOrden = Convert.ToInt32(ntSeleccionado.Orden);
-            datosReporte.IdOrden = idOrden;
+            datosReporte.IdOrden = ntSeleccionado.Orden;
             datosReporte.NT = ntSeleccionado.NumNT;
-            datosReporte.Lote = protocoloSeleccionado.Disposicion == 1 ? ntSeleccionado.Orden : ntSeleccionado.Orden + "/" + ntSeleccionado.NumPallet;
             datosReporte.Pallet = ntSeleccionado.NumPallet;
             datosReporte.IdOP = ntSeleccionado.Id;
             var idcodigo = Convert.ToInt32(protocoloSeleccionado.Id);
             gcFormatoItems.Text = "Protocolo N° " + protocoloSeleccionado.FormatoProtocolo + " | ITEMS";
-            lblNtNum.Text = "NT N° " + ntSeleccionado.NumNT;
-            lblPalletNum.Text = protocoloSeleccionado.Disposicion == 1 ? "Por lote" : "Por pallet: " + ntSeleccionado.NumPallet;
-            if (!EsConProtocolo)
+
+            if (protocoloSeleccionado.Disposicion == 1)
             {
-                List<Especificacion> datosDeFicha = new List<Especificacion>
+                datosReporte.Lote = ntSeleccionado.OP + "/" + ntSeleccionado.NumPallet;
+                lblNtNum.Text = "Cantidad NT" + ntSeleccionado.NumNT;
+                if (!EsConProtocolo)
+                {
+                    List<Especificacion> datosDeFicha = new List<Especificacion>
                                     {
                                         br.GetFichaLogisticaConfeccionAncho(protocoloSeleccionado.Id),
                                         br.GetFichaLogisticaConfeccionLargo(protocoloSeleccionado.Id),
                                         br.GetFichaLogisticaEspesor(protocoloSeleccionado.Id)
                                     };
 
-                if (br.AsignarProtocoloEstandarBolsa(SQLInsertProtocoloItemEspecificacion(datosReporte.IdCodigo, datosDeFicha)))
-                {
-                    EsConProtocolo = true;
+                    if (br.AsignarProtocoloEstandarBolsa(SQLInsertProtocoloItemEspecificacion(datosReporte.IdCodigo, datosDeFicha)))
+                    {
+                        EsConProtocolo = true;
+                    }
                 }
+                GetProtocoloItemsEspecificados(datosReporte.IdCodigo, "especificacion");
+                GetEnsayosRealizadosPorLote(1, protocoloSeleccionado.Datos);
             }
-            GetProtocoloItemsEspecificados(datosReporte.IdCodigo,"especificacion");
+            else {
+                datosReporte.Lote = ntSeleccionado.OP;
+                lblNtNum.Text = ntSeleccionado.NumNT.ToString();
+                GetProtocoloItemsEspecificados(datosReporte.IdCodigo, "especificacion");
+                GetEnsayosRealizadosPorPallets(1, protocoloSeleccionado.Datos);
+            }
 
-            if (protocoloSeleccionado.Disposicion == 1) GetEnsayosRealizadosPorLote(1, protocoloSeleccionado.Datos);
             //else GetEnsayosRealizados();
         }
         public ProtocoloEnsayo espesorDatos = new ProtocoloEnsayo();
@@ -675,7 +723,13 @@ namespace ProtoculoSLF
         public void GetProtocoloNtsPorLote()
         {
             nts.Clear();
-            nts = br.GetNTsDeProduccion(protocoloSeleccionado.Id);
+            nts = br.GetNTsPorLote(protocoloSeleccionado.Id);
+            gcNts.DataSource = nts;
+        }
+        public void GetProtocoloNtsPorPallet()
+        {
+            nts.Clear();
+            nts = br.GetNTsPorPallet(protocoloSeleccionado.Id);
             gcNts.DataSource = nts;
         }
 
@@ -691,12 +745,6 @@ namespace ProtoculoSLF
             sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2.TrimEnd(',') + ";";
             sqlInsertarProtocoloItem = sqlInsertarProtocoloItem + sqlInsertarProtocoloItem2;
             return sqlInsertarProtocoloItem;
-        }
-
-        public void GetProtocoloNtsPorPallets()
-        {
-            nts = br.GetNTsPorLote(protocoloSeleccionado.Id);
-            gcNts.DataSource = nts;
         }
 
         public void GetProtocoloItemsEspecificados(int idCodigo,string gridControlNombre)
@@ -838,18 +886,18 @@ namespace ProtoculoSLF
 
         public void GetEnsayosRealizados()
         {
-            dvProtocolos.DocumentSource = null;
+            //dvProtocolos.DocumentSource = null;
 
-            var pp = br.GetItemsDelProtocolo(protocoloSeleccionado.FormatoProtocolo);
-            if (pp.Contains("Ancho de bolsa")) protocoloEnsayos.AddRange(br.GetEnsayosItemsAnchoBolsa("Ancho de bolsa", idOrden, protocoloSeleccionado.Id));
+            //var pp = br.GetItemsDelProtocolo(protocoloSeleccionado.FormatoProtocolo);
+            //if (pp.Contains("Ancho de bolsa")) protocoloEnsayos.AddRange(br.GetEnsayosItemsAnchoBolsa("Ancho de bolsa", idOrden, protocoloSeleccionado.Id));
 
-            if (protocoloEnsayos.Count != 0)
-            {
-                xrCertificadoReal protocolo = new xrCertificadoReal();
-                dvProtocolos.DocumentSource = protocolo;
-                dvProtocolos.InitiateDocumentCreation();
-            }
-            gcFormatoValores.DataSource = protocoloEnsayos;
+            //if (protocoloEnsayos.Count != 0)
+            //{
+            //    xrCertificadoReal protocolo = new xrCertificadoReal();
+            //    dvProtocolos.DocumentSource = protocolo;
+            //    dvProtocolos.InitiateDocumentCreation();
+            //}
+            //gcFormatoValores.DataSource = protocoloEnsayos;
         }
 
         public void GetEnsayosRealizadosPorLote(int certifica, int datos)
@@ -869,6 +917,18 @@ namespace ProtoculoSLF
                     protocoloEnsayos.Add(item);
                 }
             }
+
+            xrCertificadoReal protocolo = new xrCertificadoReal();
+            dvProtocolos.DocumentSource = protocolo;
+            dvProtocolos.InitiateDocumentCreation();
+            gcFormatoValores.DataSource = protocoloEnsayos;
+
+        }
+
+        public void GetEnsayosRealizadosPorPallets(int certifica, int datos)
+        {
+            dvProtocolos.DocumentSource = null;
+            protocoloEnsayos = br.GetEnsayosVaciosREEMPLAZAR(datosReporte.IdCodigo,protocoloSeleccionado.FormatoProtocolo);
 
             xrCertificadoReal protocolo = new xrCertificadoReal();
             dvProtocolos.DocumentSource = protocolo;

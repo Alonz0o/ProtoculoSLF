@@ -10,7 +10,9 @@ namespace ProtoculoSLF.Model
     {
         public int Id { get; set; }
         public int NumNT { get; set; }
-        public string Orden { get; set; }
+        public int Orden { get; set; }
+        public int Codigo { get; set; }
+        public string OP { get; set; }
         public string Cliente { get; set; }
         public int NumPallet { get; set; }
         public int CantidadBobinas { get; set; }

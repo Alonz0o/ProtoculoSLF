@@ -34,6 +34,7 @@
             this.BottomMargin = new DevExpress.XtraReports.UI.BottomMarginBand();
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
             this.xrPanel1 = new DevExpress.XtraReports.UI.XRPanel();
+            this.xrPictureBox1 = new DevExpress.XtraReports.UI.XRPictureBox();
             this.xrLabel6 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel5 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel4 = new DevExpress.XtraReports.UI.XRLabel();
@@ -66,8 +67,6 @@
             this.xrTableRow2 = new DevExpress.XtraReports.UI.XRTableRow();
             this.xrTableCell4 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrDatoCliente = new DevExpress.XtraReports.UI.XRTableCell();
-            this.xrTableCell5 = new DevExpress.XtraReports.UI.XRTableCell();
-            this.xrDatoPallet = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableRow3 = new DevExpress.XtraReports.UI.XRTableRow();
             this.xrTableCell7 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrDatoProducto = new DevExpress.XtraReports.UI.XRTableCell();
@@ -84,7 +83,8 @@
             this.xrTableCell9 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrDatoOCN = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrLabel2 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrPictureBox1 = new DevExpress.XtraReports.UI.XRPictureBox();
+            this.xrTableCell5 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrDatoPallet = new DevExpress.XtraReports.UI.XRTableCell();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTablaEnsayos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
@@ -149,6 +149,17 @@
             this.xrPanel1.SizeF = new System.Drawing.SizeF(650F, 900F);
             this.xrPanel1.StylePriority.UseBorders = false;
             this.xrPanel1.StylePriority.UseBorderWidth = false;
+            // 
+            // xrPictureBox1
+            // 
+            this.xrPictureBox1.Borders = DevExpress.XtraPrinting.BorderSide.None;
+            this.xrPictureBox1.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource(global::ProtoculoSLF.Properties.Resources.Logo_Sanlufilm_Negro, true);
+            this.xrPictureBox1.LocationFloat = new DevExpress.Utils.PointFloat(10F, 20F);
+            this.xrPictureBox1.Name = "xrPictureBox1";
+            this.xrPictureBox1.SizeF = new System.Drawing.SizeF(220F, 30F);
+            this.xrPictureBox1.Sizing = DevExpress.XtraPrinting.ImageSizeMode.StretchImage;
+            this.xrPictureBox1.StylePriority.UseBorders = false;
+            this.xrPictureBox1.StylePriority.UseBorderWidth = false;
             // 
             // xrLabel6
             // 
@@ -494,26 +505,6 @@
             this.xrDatoCliente.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
             this.xrDatoCliente.Weight = 1.4920633936444758D;
             // 
-            // xrTableCell5
-            // 
-            this.xrTableCell5.Multiline = true;
-            this.xrTableCell5.Name = "xrTableCell5";
-            this.xrTableCell5.Text = "PALLET:";
-            this.xrTableCell5.Visible = false;
-            this.xrTableCell5.Weight = 1.2566137417483842D;
-            // 
-            // xrDatoPallet
-            // 
-            this.xrDatoPallet.Multiline = true;
-            this.xrDatoPallet.Name = "xrDatoPallet";
-            this.xrDatoPallet.Padding = new DevExpress.XtraPrinting.PaddingInfo(10, 2, 0, 0, 100F);
-            this.xrDatoPallet.StylePriority.UsePadding = false;
-            this.xrDatoPallet.StylePriority.UseTextAlignment = false;
-            this.xrDatoPallet.Text = "-";
-            this.xrDatoPallet.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
-            this.xrDatoPallet.Visible = false;
-            this.xrDatoPallet.Weight = 0.74338625825161564D;
-            // 
             // xrTableRow3
             // 
             this.xrTableRow3.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
@@ -673,16 +664,25 @@
             this.xrLabel2.Text = "CERTIFICADO DE ANÁLISIS";
             this.xrLabel2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             // 
-            // xrPictureBox1
+            // xrTableCell5
             // 
-            this.xrPictureBox1.Borders = DevExpress.XtraPrinting.BorderSide.None;
-            this.xrPictureBox1.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource(global::ProtoculoSLF.Properties.Resources.Logo_Sanlufilm_Negro, true);
-            this.xrPictureBox1.LocationFloat = new DevExpress.Utils.PointFloat(10F, 20F);
-            this.xrPictureBox1.Name = "xrPictureBox1";
-            this.xrPictureBox1.SizeF = new System.Drawing.SizeF(220F, 30F);
-            this.xrPictureBox1.Sizing = DevExpress.XtraPrinting.ImageSizeMode.StretchImage;
-            this.xrPictureBox1.StylePriority.UseBorders = false;
-            this.xrPictureBox1.StylePriority.UseBorderWidth = false;
+            this.xrTableCell5.Multiline = true;
+            this.xrTableCell5.Name = "xrTableCell5";
+            this.xrTableCell5.Text = "PALLET:";
+            this.xrTableCell5.Visible = false;
+            this.xrTableCell5.Weight = 1.2566137417483842D;
+            // 
+            // xrDatoPallet
+            // 
+            this.xrDatoPallet.Multiline = true;
+            this.xrDatoPallet.Name = "xrDatoPallet";
+            this.xrDatoPallet.Padding = new DevExpress.XtraPrinting.PaddingInfo(10, 2, 0, 0, 100F);
+            this.xrDatoPallet.StylePriority.UsePadding = false;
+            this.xrDatoPallet.StylePriority.UseTextAlignment = false;
+            this.xrDatoPallet.Text = "-";
+            this.xrDatoPallet.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleLeft;
+            this.xrDatoPallet.Visible = false;
+            this.xrDatoPallet.Weight = 0.74338625825161564D;
             // 
             // xrCertificadoReal
             // 
@@ -713,8 +713,6 @@
         private DevExpress.XtraReports.UI.XRLabel xrLabel2;
         private DevExpress.XtraReports.UI.XRTableRow xrTableRow2;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell4;
-        private DevExpress.XtraReports.UI.XRTableCell xrTableCell5;
-        private DevExpress.XtraReports.UI.XRTableCell xrDatoPallet;
         private DevExpress.XtraReports.UI.XRTableRow xrTableRow3;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell7;
         private DevExpress.XtraReports.UI.XRTableCell xrTableCell8;
@@ -757,5 +755,7 @@
         private DevExpress.XtraReports.UI.XRTableCell xrDatoOCN;
         private DevExpress.XtraReports.UI.XRLabel xrLabel6;
         private DevExpress.XtraReports.UI.XRPictureBox xrPictureBox1;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell5;
+        private DevExpress.XtraReports.UI.XRTableCell xrDatoPallet;
     }
 }

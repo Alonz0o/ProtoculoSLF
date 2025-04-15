@@ -23,18 +23,24 @@ namespace ProtoculoSLF.Report
                  xrTablaEnsayos.EndInit();
                 var datos = Form1.instancia.datosReporte;
                 var disposicion = Form1.instancia.protocoloSeleccionado.Disposicion;
-                var pp = Form1.instancia.br.GetOrderCompra(Convert.ToInt32(datos.Lote), Form1.instancia.protocoloSeleccionado.Id);
-                
-                xrDatoLote.Text = datos.Lote+"/"+ Form1.instancia.protocoloSeleccionado.Id;
+                //var pp = Form1.instancia.br.GetOrderCompra(Convert.ToInt32(datos.Lote), Form1.instancia.protocoloSeleccionado.Id);
+                if (disposicion == 1)
+                {
+
+                }
+                else {
+                    xrTableCell5.Visible = true;
+                    xrDatoPallet.Visible = true;
+                    xrDatoPallet.Text = datos.Pallet.ToString();
+                }
+                xrDatoLote.Text = datos.Lote;
                 xrDatoCliente.Text = datos.Cliente;
                 xrDatoProducto.Text = Form1.instancia.protocoloSeleccionado.Descripcion;
                 xrDatoCantidad.Text = datos.Cantidad.ToString();
                 xrDatoFecha.Text = DateTime.Now.ToString("dd/MM/yyyy");
-                xrDatoPallet.Text = disposicion == 1 ? "Lote": datos.Pallet.ToString();
-                xrTableCell5.Text = disposicion == 1 ? "" : "PALLET:";
                 xrDatoCodigoCliente.Text = datos.CodigoCliente;
                 xrDatoRemitoN.Text= datos.Remito.ToString();
-                xrDatoOCN.Text = pp.ToString();
+                //xrDatoOCN.Text = pp.ToString();
                 if (fueraTolen) {
                     xrLblEstado.Text = "EN CONSTRUCCIÓN";
                     xrLblEstado.Visible = true;

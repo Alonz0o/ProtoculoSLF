@@ -18,6 +18,8 @@ namespace ProtoculoSLF.Model
         public int OrdenDeCompra { get; set; }
         public int Datos { get; set; }
         public string DescripcionRemito { get; set; }
+        public int UltimoProceso { get; set; }
+        public string UltimoProcesoNombre { get; set; }
 
         public override string ToString()
         {
