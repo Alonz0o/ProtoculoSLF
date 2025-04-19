@@ -17,12 +17,8 @@ using ProtoculoSLF.Report;
 using System.IO;
 using IniParser.Model;
 using IniParser;
-using DevExpress.XtraExport.Helpers;
-using DevExpress.XtraPrinting.Preview;
 using DevExpress.XtraReports.UI;
 using System.Diagnostics;
-using MySqlConnector;
-using DevExpress.XtraGrid;
 
 namespace ProtoculoSLF
 {
@@ -38,6 +34,8 @@ namespace ProtoculoSLF
         public static Form1 instancia;
         public bool esPorLote;
         string archivoINI = Directory.GetCurrentDirectory() + @"\config.ini";
+        string protocoloINI = "";
+
         private List<ProtocoloItem> items = new List<ProtocoloItem>();
         public bool EsCanceladoFormAsignarItemAProtocolo = false, EsConProtocolo = false;
 
@@ -64,6 +62,7 @@ namespace ProtoculoSLF
             GenerarTablaEnsayos();
 
             if (!File.Exists(archivoINI)) File.Create(archivoINI).Close();
+
             LeerConfigSplitter();
             instancia = this;
 
@@ -967,6 +966,28 @@ namespace ProtoculoSLF
             data[seccion]["FinRecorrido"] = splitter.SplitPosition.ToString();
             parser.WriteFile(archivoINI, data);
         }
+        private void GuardarParamsProtocolo()
+        {
+            var parser = new FileIniDataParser();
+            IniData data = parser.ReadFile(protocoloINI);
+            data["PROTOCOLO"]["LOTE"] = datosReporte.Lote;
+            data["PROTOCOLO"]["FECHA"] = "17/04/2025";
+            data["PROTOCOLO"]["CLIENTE"] = datosReporte.Cliente;
+            data["PROTOCOLO"]["PRODUCTO"] = datosReporte.Producto;
+            data["PROTOCOLO"]["CODIGOCLIENTE"] =datosReporte.CodigoCliente;
+            data["PROTOCOLO"]["SOLUCITUDCLIENTE"] = "0";
+            var controlNum = 0;
+            foreach (var item in protocoloEnsayos)
+            {
+                data["CONTROL:" + controlNum]["NOMBRE"] = item.Nombre;
+                data["CONTROL:" + controlNum]["ESPECIFICACION"] = item.Especificacion + "";
+                data["CONTROL:" + controlNum]["SIMBOLO"] = item.Simbolo;
+                data["CONTROL:" + controlNum]["RESULTADO"] = item.Valor.ToString();
+                data["CONTROL:" + controlNum]["UNIDAD"] = item.Unidad;
+                controlNum++;
+            }
+            parser.WriteFile(protocoloINI, data);
+        }
 
         private void splitter1_MouseUp(object sender, MouseEventArgs e)
         {
@@ -1156,11 +1177,18 @@ namespace ProtoculoSLF
 
         private void btnGenerarPDF_Click(object sender, EventArgs e)
         {
-            string rutaGuardado = @"D:\Fuente_Sis\Calidad\Protocolos_PDF\"+ protocoloSeleccionado.Id +".pdf"; 
+          
             // Obtener el reporte del DocumentViewer
             XtraReport reporte = dvProtocolos.DocumentSource as XtraReport;
             if (reporte != null)
             {
+                var op = datosReporte.IdOrden + "-" + datosReporte.IdCodigo;
+                var path = @"D:\Fuente_Sis\Calidad\Protocolos_PDF\" + op;
+                protocoloINI = path + @"\params.ini";
+                string rutaGuardado = path + @"\" + protocoloSeleccionado.Id + ".pdf";
+                Directory.CreateDirectory(path);
+                if (!File.Exists(protocoloINI)) File.Create(protocoloINI).Close();
+                GuardarParamsProtocolo();
                 reporte.ExportToPdf(rutaGuardado);
                 abrir(@"D:\Fuente_Sis\Calidad\Protocolos_PDF\");
             }

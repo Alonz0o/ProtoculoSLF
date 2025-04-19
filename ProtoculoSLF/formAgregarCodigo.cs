@@ -173,7 +173,7 @@ namespace ProtoculoSLF
             tbNombreProtocolo.Texts = protocoloSeleccionado.Descripcion;
             tbNumeroProtocolo.Texts = protocoloSeleccionado.FormatoProtocolo + "";
             groupControl7.Text = "Ítems de protocolo: (" + protocoloSeleccionado.FormatoProtocolo+")";
-            protocoItems = Form1.instancia.br.GetProtocolosItems(protocoloSeleccionado.FormatoProtocolo);
+            //protocoItems = Form1.instancia.br.GetProtocolosItems(protocoloSeleccionado.FormatoProtocolo);
             gcItemsAsignados.DataSource = protocoItems;
         }
 

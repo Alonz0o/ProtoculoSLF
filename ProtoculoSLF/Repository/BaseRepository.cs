@@ -5,6 +5,7 @@ using System.Linq;
 using System.Configuration;
 using MySqlConnector;
 using ProtoculoSLF.Model;
+using System.ComponentModel;
 
 namespace ProtoculoSLF.Repository
 {
@@ -404,9 +405,9 @@ namespace ProtoculoSLF.Repository
             return sqlInsertarProtocoloItem;
         }
 
-        internal List<ProtocoloItem> GetProtocolosItems(int idProtocolo)
+        internal BindingList<ProtocoloItem> GetProtocolosItems(int idProtocolo)
         {
-            List<ProtocoloItem> pis = new List<ProtocoloItem>();
+            BindingList<ProtocoloItem> pis = new BindingList<ProtocoloItem>();
             using (var conexion = new MySqlConnection(connectionString))
             using (var command = new MySqlCommand())
             {
@@ -1881,7 +1882,7 @@ namespace ProtoculoSLF.Repository
             
         }
 
-        internal bool InsertAProtocolo(Protocolo protocoloACrear, string qryUpdate, string qryInsertProtocoloItems,string accion)
+        internal bool InsertAProtocolo(Protocolo protocoloACrear, string qryUpdate, string qryInsert, string qryDelete, string accion)
         {
             bool res = false;
             using (var conexion = new MySqlConnection(connectionString))
@@ -1926,15 +1927,23 @@ namespace ProtoculoSLF.Repository
                                 command.CommandText = qryUpdate;
                                 if (command.ExecuteNonQuery() <= 0)
                                 {
-                                    throw new Exception("Error al actualizar SCRAPS");
+                                    throw new Exception("Error al ACTUALIZAR FORMATO_PROTOCOLO");
                                 }
                             }
-                            if (qryInsertProtocoloItems != "")
+                            if (qryDelete != "")
                             {
-                                command.CommandText = qryInsertProtocoloItems;
+                                command.CommandText = qryDelete;
                                 if (command.ExecuteNonQuery() <= 0)
                                 {
-                                    throw new Exception("Error al actualizar SCRAPS");
+                                    throw new Exception("Error al BORRAR ITEMS_PROTOCOLO");
+                                }
+                            }
+                            if (qryInsert != "")
+                            {
+                                command.CommandText = qryInsert;
+                                if (command.ExecuteNonQuery() <= 0)
+                                {
+                                    throw new Exception("Error al INSERTAR ITEMS_PROTOCOLO");
                                 }
                             }
                             transaction.Commit();

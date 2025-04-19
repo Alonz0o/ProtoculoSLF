@@ -1,6 +1,7 @@
 ﻿using DevExpress.Data;
 using DevExpress.XtraEditors;
 using DevExpress.XtraEditors.Repository;
+using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Grid;
 using ProtoculoSLF.Model;
@@ -22,8 +23,12 @@ namespace ProtoculoSLF
     {
         public List<Protocolo> protocolos = new List<Protocolo>();
         private List<ProtocoloItem> itemsTodos = new List<ProtocoloItem>();
-        private List<ProtocoloItem> itemsAsignados = new List<ProtocoloItem>();
-
+        private BindingList<ProtocoloItem> itemsAsignados = new BindingList<ProtocoloItem>();
+        Protocolo protocoloACrear = new Protocolo();
+        int idProtocolo = 0;
+        List<ProtocoloItem> protocoItems = new List<ProtocoloItem>();
+        bool esCheckTx = false;
+        int cuentaCodigos = 0;
         string accion = "";
 
         public formAgregarProtocolo(string accion)
@@ -54,13 +59,6 @@ namespace ProtoculoSLF
         }
         private void formAgregarProtocolo_Load(object sender, EventArgs e)
         {
-            //if (accion == "modificar")
-            //{
-            //}
-            //else
-            //{
-                
-            //}
             GetCodigosSinProtocolo();
             GetItemsTodos();
         }
@@ -125,7 +123,7 @@ namespace ProtoculoSLF
             cBorrar.Visible = true;
 
             gvItemsAsignados.Columns.AddRange(new GridColumn[] { cNombre, cMedida, cCertifica, cSimbolo, cOrden, cBorrar });
-            gcItemsAsignados.DataSource = protocoItems;
+            gcItemsAsignados.DataSource = itemsAsignados;
 
             RepositoryItemButtonEdit botonBorrar = new RepositoryItemButtonEdit();
             botonBorrar.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
@@ -146,19 +144,12 @@ namespace ProtoculoSLF
                         var pi = gridView.GetRow(rowIndex) as ProtocoloItem;
                         if (pi != null)
                         {
-                            if (accion == "modificar")
+                            var persona = itemsAsignados.FirstOrDefault(p => p.Id == pi.Id);
+                            if (persona != null)
                             {
-                                itemsAsignados.Remove(pi);
-                                gridView.RefreshData();
-                                contadorOrden--;
-                            }
-                            else
-                            {
-                                protocoItems.Remove(pi);
-                                gridView.RefreshData();
-                                contadorOrden--;
-                            }
-                           
+                                itemsAsignados.Remove(persona);
+                                ActualizarPosiciones();
+                            }                         
                         }
                     }
                 }
@@ -246,37 +237,47 @@ namespace ProtoculoSLF
 
         private void btnAgregarProtocolo_Click(object sender, EventArgs e)
         {
+            string sqlInsert = "", sqlDelete = "", sqlUpdate = "";
+
             if (accion == "modificar")
             {
                 if (!ValidarFormularioItems()) return;
-                var sqlUpdate = SQLUpdateIdProtocolo();
-                var sqlInsert = SQLInsertProtocoloItem();
-                if (Form1.instancia.br.InsertAProtocolo(protocoloACrear, sqlUpdate, sqlInsert, "modificar"))
+                var borrarDuplicados = Form1.instancia.br.GetProtocolosItems(idProtocolo);
+                bool sonIguales = itemsAsignados.Select(c => c.Id).SequenceEqual(borrarDuplicados.Select(c => c.Id));
+                if (!sonIguales)
+                {
+                    if (borrarDuplicados.Count !=0) sqlDelete = $"DELETE FROM formato_protocolo_item WHERE id_protocolo = {protocoloACrear.FormatoProtocolo};";
+                    sqlInsert = SQLInsertProtocoloItem();
+                }
+          
+                sqlUpdate = SQLUpdateIdProtocolo();
+                if (Form1.instancia.br.InsertAProtocolo(protocoloACrear, sqlUpdate, sqlInsert, sqlDelete, "modificar"))
                 {
                     Form1.instancia.GetCodigosConProtocolo();
                     formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se modifico correctamente el protocolo: " + protocoloACrear.FormatoProtocolo);
                     noti.Show();
                     Close();
+                    itemsAsignados.Clear();
                 }
                 else MessageBox.Show("ERROR");
             }
             else
             {
                 if (!ValidarFormularioItems()) return;
-                var sqlUpdate = SQLUpdateIdProtocolo();
-                var sqlInsert = SQLInsertProtocoloItem();
-                if (Form1.instancia.br.InsertAProtocolo(protocoloACrear, sqlUpdate, sqlInsert,"agregar"))
+                sqlUpdate = SQLUpdateIdProtocolo();
+                sqlInsert = SQLInsertProtocoloItem();
+                if (Form1.instancia.br.InsertAProtocolo(protocoloACrear, sqlUpdate, sqlInsert, sqlDelete, "agregar"))
                 {
                     Form1.instancia.GetCodigosConProtocolo();
                     formNotificacion noti = new formNotificacion("success", "Información", "Acción realizada", "Se genero correctamente el protocolo: " + protocoloACrear.FormatoProtocolo);
                     noti.Show();
                     Close();
+                    itemsAsignados.Clear();
                 }
                 else MessageBox.Show("ERROR");
             }
 
         }
-        int idProtocolo = 0;
         private string SQLUpdateIdProtocolo()
         {
             List<Protocolo> seleccionados = protocolos.FindAll(ex => ex.Seleccionar == true).ToList();
@@ -294,21 +295,10 @@ namespace ProtoculoSLF
         }
         private string SQLInsertProtocoloItem()
         {
-            var borrarDuplicados = Form1.instancia.br.GetProtocolosItems(idProtocolo);
-            var items = tbNumeroProtocolo.Visible == true ? protocoItems : itemsAsignados;
-            if (borrarDuplicados.Count != 0) {
-                var itemsDiferentes = items
-                    .Concat(borrarDuplicados)
-                    .GroupBy(x => x.Id)
-                    .Where(g => g.Count() == 1)
-                    .Select(g => g.First())
-                    .ToList();
-                items = itemsDiferentes;           
-            }
-            if (items.Count == 0) return "";
+            if (itemsAsignados.Count == 0) return "";
             string sqlInsertarProtocoloItem = "INSERT INTO formato_protocolo_item(id_protocolo,id_item,orden) VALUES ";
             string sqlInsertarProtocoloItem2 = "";
-            foreach (var item in items)
+            foreach (var item in itemsAsignados)
             {
                 sqlInsertarProtocoloItem2 = sqlInsertarProtocoloItem2 + $"('{idProtocolo}','{item.Id}','{item.Orden}'),";
             }
@@ -317,9 +307,6 @@ namespace ProtoculoSLF
             return sqlInsertarProtocoloItem;
         }
 
-       
-
-        Protocolo protocoloACrear = new Protocolo();
         private bool ValidarFormularioItems()
         {
             if (accion == "modificar")
@@ -358,33 +345,27 @@ namespace ProtoculoSLF
         {
             Close();
         }
-        List<ProtocoloItem> protocoItems = new List<ProtocoloItem>();
-        int contadorOrden = 1;
-
+ 
+    
+        private void ActualizarPosiciones()
+        {
+            for (int i = 0; i < itemsAsignados.Count; i++)
+            {
+                itemsAsignados[i].Orden = i + 1;
+            }
+            //gcTodosItems.RefreshDataSource();  // Esto forza al grid a refrescar la vista.
+        }
         private void gcItemsAsignados_DragDrop(object sender, DragEventArgs e)
         {
-            if (accion == "modificar")
+            var data = (ProtocoloItem)e.Data.GetData(typeof(ProtocoloItem));
+            if (data != null && !itemsAsignados.Contains(data))
             {
-                var data = (ProtocoloItem)e.Data.GetData(typeof(ProtocoloItem));
-                data.Orden = contadorOrden;
                 itemsAsignados.Add(data);
-                gvItemsAsignados.RefreshData();
-                contadorOrden++;
             }
-            else
-            {
-                var data = (ProtocoloItem)e.Data.GetData(typeof(ProtocoloItem));
-                data.Orden = contadorOrden;
-                protocoItems.Add(data);
-                gvItemsAsignados.RefreshData();
-                contadorOrden++;
-            }
-
-           
+            ActualizarPosiciones();
         }
         private void gcItemsAsignados_DragEnter(object sender, DragEventArgs e)
         {
-
             if (e.Data.GetDataPresent(typeof(ProtocoloItem))) e.Effect = DragDropEffects.Move;
             else e.Effect = DragDropEffects.None;
         }
@@ -414,15 +395,10 @@ namespace ProtoculoSLF
                 if (lueProtocoloA.Disposicion == 1) rbPorLote.Checked = true;
                 else rbPorPallet.Checked = true;
                 GetItemsDelProtocolo(lueProtocoloA.FormatoProtocolo);
-                contadorOrden = gvItemsAsignados.RowCount+1;
                 idProtocolo = lueProtocoloA.FormatoProtocolo;
             }
         }
-        bool esCheckTx = false;
-        int cuentaCodigos = 0;
-
-
-
+   
         private void btnCheckAllRemito_Click_1(object sender, EventArgs e)
         {
             lblTotalSeleccionado.Text = "";
